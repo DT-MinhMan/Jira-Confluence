@@ -1,0 +1,36 @@
+when:
+  - event: [push, pull_request, manual]
+
+steps:
+  test-and-build:
+    image: node:20-alpine
+    commands:
+      - corepack enable && corepack prepare pnpm@latest --activate
+      - pnpm install --frozen-lockfile
+      - pnpm run lint
+      - pnpm dlx tsc --noEmit
+      - pnpm run test
+      - VITE_API_URL=https://api-sdlc-platform.automationland.vn pnpm run build
+
+  deploy-to-vps:
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: vps_host
+      username:
+        from_secret: vps_user
+      password:
+        from_secret: vps_password
+      command_timeout: 30m
+      script:
+        - set -e
+        - cd /home/sdlc
+        - eval $(ssh-agent -s)
+        - ssh-add ~/.ssh/id_rsa || true
+        - docker compose build --no-cache frontend-admin
+        - docker compose up -d frontend-admin
+        - docker image prune -f
+        - docker ps
+    when:
+      - event: [push, manual]
+        branch: production

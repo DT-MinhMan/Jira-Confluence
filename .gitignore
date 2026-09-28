@@ -1,0 +1,70 @@
+# Dependencies & Builds
+node_modules/
+dist/
+build/
+.next/
+*.tsbuildinfo
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Private keys, certificates & credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*.pkcs12
+credentials.json
+service-account*.json
+firebase*.json
+*.keystore
+*.jks
+*.postman_environment.json
+postman_environment*.json
+
+# Databases, dumps & backups
+*.dump
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.backup
+dump/
+
+# Uploads & User generated files
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS & Desktop files
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# AI, IDE & Planning tools
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.claude/
+.agents/
+.agent/
+.planning/
+superpowers/
+.codegraph/
