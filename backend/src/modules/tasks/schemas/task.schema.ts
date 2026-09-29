@@ -1,0 +1,156 @@
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { TaskCover } from '../../task-covers/interfaces/task-cover.interface';
+import { TaskCoverSchema } from '../../task-covers/schemas/task-cover.schema';
+import {
+  TASK_KEY_PATTERN,
+  TASK_PRIORITIES,
+  TASK_TYPES,
+} from '../constants/task-status.constants';
+
+export type TaskDocument = Task & Document;
+
+@Schema({ timestamps: true })
+export class Task {
+  @Prop({ type: Types.ObjectId, ref: 'Workspace', required: true, index: true })
+  workspaceId!: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'Sprint', index: true })
+  sprintId?: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'Board', index: true })
+  boardId?: Types.ObjectId;
+
+  @Prop({ type: String, trim: true, maxlength: 100, index: true })
+  columnId?: string;
+
+  @Prop({
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 100,
+    index: true,
+    default: 'todo',
+  })
+  status!: string;
+
+  @Prop({ type: String, trim: true, index: true })
+  rank?: string;
+
+  @Prop({ type: Number, default: 1, min: 1 })
+  version!: number;
+
+  @Prop({ type: TaskCoverSchema })
+  cover?: TaskCover;
+  @Prop({
+    type: String,
+    required: true,
+    trim: true,
+    uppercase: true,
+    match: TASK_KEY_PATTERN,
+  })
+  key!: string;
+
+  @Prop({
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 1,
+    maxlength: 255,
+  })
+  title!: string;
+
+  @Prop({ type: String, trim: true, maxlength: 5000 })
+  description?: string;
+
+  @Prop({ type: [String], default: [], index: true })
+  searchTokens!: string[];
+
+  @Prop({ type: String, default: '', select: false })
+  searchText!: string;
+
+  @Prop({ type: String, enum: TASK_TYPES, required: true })
+  type!: string;
+
+  @Prop({ type: String, enum: TASK_PRIORITIES, required: true })
+  priority!: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', index: true })
+  assigneeId?: Types.ObjectId;
+
+  @Prop({ type: [Types.ObjectId], ref: 'Label', default: [], index: true })
+  labelIds!: Types.ObjectId[];
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true, index: true })
+  reporterId!: Types.ObjectId;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Page' }], default: [], index: true })
+  linkedPageIds!: Types.ObjectId[];
+
+  @Prop({ type: Number, min: 0, max: 100 })
+  storyPoints?: number;
+
+  /** Tổng số giờ đã log (cộng dồn từ tất cả WorkLog entries của task này) */
+  @Prop({ type: Number, min: 0, default: 0 })
+  timeLogged!: number;
+
+  /** Thời gian ước lượng còn lại (giờ). FE gửi lên dạng số thực. */
+  @Prop({ type: Number, min: 0 })
+  timeEstimated?: number;
+
+  @Prop({ type: Date })
+  startDate?: Date;
+
+  @Prop({ type: Date })
+  dueDate?: Date;
+
+  @Prop({ type: Types.ObjectId, ref: 'Task', index: true })
+  epicId?: Types.ObjectId;
+
+  @Prop({ type: Boolean, default: false, index: true })
+  isArchived!: boolean;
+
+  @Prop({ type: Date })
+  archivedAt?: Date;
+
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  archivedBy?: Types.ObjectId;
+
+  @Prop({ type: Boolean, default: false, index: true })
+  isDeleted!: boolean;
+
+  @Prop({ type: Date })
+  deletedAt?: Date;
+
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  deletedBy?: Types.ObjectId;
+
+  readonly _id!: Types.ObjectId;
+  readonly createdAt!: Date;
+  readonly updatedAt!: Date;
+}
+
+export const TaskSchema = SchemaFactory.createForClass(Task);
+
+TaskSchema.index({ workspaceId: 1, key: 1 }, { unique: true });
+TaskSchema.index({ workspaceId: 1, searchTokens: 1 });
+TaskSchema.index({ workspaceId: 1, searchText: 1 });
+TaskSchema.index({ workspaceId: 1, columnId: 1, updatedAt: -1 });
+TaskSchema.index({ workspaceId: 1, status: 1, updatedAt: -1 });
+TaskSchema.index({ workspaceId: 1, sprintId: 1, columnId: 1 });
+TaskSchema.index({ workspaceId: 1, sprintId: 1, columnId: 1, rank: 1 });
+TaskSchema.index({ workspaceId: 1, assigneeId: 1, updatedAt: -1 });
+TaskSchema.index({ workspaceId: 1, type: 1, priority: 1 });
+TaskSchema.index({ workspaceId: 1, labelIds: 1, updatedAt: -1 });
+TaskSchema.index({
+  workspaceId: 1,
+  isArchived: 1,
+  isDeleted: 1,
+  updatedAt: -1,
+});
+TaskSchema.index({ workspaceId: 1, status: 1, isDeleted: 1 });
+TaskSchema.index({ workspaceId: 1, assigneeId: 1, isDeleted: 1 });
+TaskSchema.index({ workspaceId: 1, startDate: 1, dueDate: 1 });
+TaskSchema.index({ workspaceId: 1, epicId: 1 });
+TaskSchema.index({ workspaceId: 1, version: 1 });
+TaskSchema.index({ title: 'text', description: 'text' });

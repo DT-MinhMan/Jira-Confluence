@@ -1,0 +1,105 @@
+# compiled output
+/dist
+/node_modules
+/build
+/uploads/*
+!/uploads/.gitkeep
+/.next
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS & Desktop files
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Tests & Coverage
+/coverage
+/.nyc_output
+test/k6*
+*.k6.js
+k6*.js
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Private keys, certificates & credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*.pkcs12
+credentials.json
+service-account*.json
+firebase*.json
+*.keystore
+*.jks
+*.postman_environment.json
+postman_environment*.json
+
+# Databases, dumps & backups
+*.dump
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.backup
+
+# temp directory
+.temp
+.tmp
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# AI & Planning tools
+.claude
+.agents
+.agent
+.planning
+.claude/settings.local.json
+docs/superpowers/
+superpowers
+
+# Local API & indexing notes
+/md/
+.plaining/
+.headroom/
+node_modules/headroom-ai/
+.codegraph/
