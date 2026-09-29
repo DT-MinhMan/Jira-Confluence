@@ -62,9 +62,32 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.cursor/
+.cursorrules
+.windsurf/
+.windsurfrules
 .claude/
 .agents/
 .agent/
 .planning/
 superpowers/
 .codegraph/
+.gemini/
+.antigravity/
+
+# AI Agent Context & Documentation (Exclude all markdown except README)
+*.md
+**/*.md
+!README.md
+!readme.md
+!README.MD
+!**/README.md
+!**/readme.md
+!**/README.MD
+
+# Testing & Coverage
+coverage/
+.nyc_output/
+*.lcov
+.cache/
+.turbo/

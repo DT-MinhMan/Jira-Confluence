@@ -10,16 +10,16 @@ import { useTranslation } from '../../../i18n/useTranslation';
 import type { User, Workspace } from '../../../types';
 
 const SAMPLE_AVATARS = [
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-1.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-2.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-3.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-4.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-5.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-6.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-7.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-8.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-9.png",
-  "https://res.cloudinary.com/sdlcplatform/image/upload/sdlc-platform/sample%20avater%20workspace/viewavatar-10.png",
+  "/icons/workspace.png",
+  "/icons/desk.png",
+  "/icons/workstation.png",
+  "/icons/coworking.png",
+  "/icons/table.png",
+  "/icons/checklist.png",
+  "/icons/folders.png",
+  "/icons/arrangement.png",
+  "/icons/coffee.png",
+  "/icons/math.png",
 ];
 
 export default function WorkspaceEditPage() {
@@ -73,7 +73,8 @@ export default function WorkspaceEditPage() {
         : owner;
       setOwnerId((ownerStr as string) || '');
       setTemplate(workspace.template || 'kanban');
-      setAvatar(workspace.avatar || SAMPLE_AVATARS[0]);
+      const isLegacy = workspace.avatar && workspace.avatar.includes('cloudinary.com');
+      setAvatar(isLegacy || !workspace.avatar ? SAMPLE_AVATARS[0] : workspace.avatar);
     }
   }, [workspace]);
 
