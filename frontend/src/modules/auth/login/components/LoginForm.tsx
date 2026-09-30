@@ -10,7 +10,7 @@ import { AuthErrorCode } from '../../shared/types/auth.types';
 import { validateEmail } from '../../shared/utils/emailValidation';
 import { extractApiErrorCode } from '@/shared/utils/apiError';
 import toast from 'react-hot-toast';
-import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import logoIcon from '../../../../../app/icon.png';
 
@@ -275,9 +275,8 @@ function LoginFormInner() {
               type="button"
               disabled={isLoading}
               onClick={handleDemoLogin}
-              className="w-full py-2.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-[6px] font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-50"
+              className="w-full py-2.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-[6px] font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
             >
-              <Sparkles className="w-4 h-4 text-emerald-200 group-hover:rotate-12 transition-transform" />
               <span>1-Click Demo Login (Recruiter / Guest)</span>
             </button>
           </form>

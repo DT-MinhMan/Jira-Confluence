@@ -9,43 +9,20 @@ import {
   LayoutDashboard,
   Loader2,
   LogOut,
-  Monitor,
-  Moon,
   Repeat,
   Settings,
   Shield,
-  Sun,
   User,
   X,
   Zap,
 } from "lucide-react";
 import { useAuth } from "@/modules/auth/shared/hooks/useAuth";
-import { useTheme } from "@/shared/hooks/useTheme";
 import NotificationPanel from "@/modules/notifications/components/NotificationPanel";
 import { notificationService } from "@/modules/notifications/services/notification.service";
 import { useNotificationRealtime } from "@/lib/realtime/hooks/use-notification-realtime";
 import { ADMIN_URL, IS_SUPER_ADMIN } from "@/lib/admin-url";
 import { useAccountSwitcherStore } from "@/stores/account-switcher.store";
 import AccountSwitcher from "@/shared/components/layout/account-switcher/AccountSwitcher";
-
-function ThemeToggleButton() {
-  const { theme, setTheme } = useTheme();
-
-  const next = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
-  const Icon = theme === "light" ? Sun : theme === "dark" ? Moon : Monitor;
-  const label = theme === "light" ? "Switch to dark" : theme === "dark" ? "Switch to system" : "Switch to light";
-
-  return (
-    <button
-      type="button"
-      onClick={() => setTheme(next)}
-      aria-label={label}
-      className="rounded-lg p-2 text-[#64748b] dark:text-gray-300 transition hover:bg-[#DBEAFE] dark:hover:bg-white/10 hover:text-[#111111] dark:hover:text-white"
-    >
-      <Icon className="h-5 w-5" />
-    </button>
-  );
-}
 
 export function NavAuthActions() {
   const { isAuthenticated, isLoading, user, logout } = useAuth();
@@ -96,7 +73,6 @@ export function NavAuthActions() {
   if (isAuthenticated) {
     return (
       <div className="relative flex items-center gap-2" ref={dropdownRef}>
-        <ThemeToggleButton />
         <button
           type="button"
           onClick={() => setShowNotifications((open) => !open)}
@@ -152,11 +128,10 @@ export function NavAuthActions() {
                 title="Chuyển account"
                 aria-label="Chuyển account"
                 aria-expanded={showSwitcher}
-                className={`relative grid h-7 w-7 shrink-0 place-items-center rounded-md transition ${
-                  showSwitcher
+                className={`relative grid h-7 w-7 shrink-0 place-items-center rounded-md transition ${showSwitcher
                     ? "bg-[#EFF6FF] text-[#2563EB] dark:bg-indigo-500/15 dark:text-indigo-300"
                     : "text-[#2563EB] hover:bg-[#EFF6FF] dark:text-indigo-300 dark:hover:bg-indigo-500/10"
-                }`}
+                  }`}
               >
                 {showSwitcher ? <X className="h-3.5 w-3.5" /> : <Repeat className="h-4 w-4" />}
                 {accountsCount > 0 && !showSwitcher && (
@@ -244,7 +219,6 @@ export function NavAuthActions() {
 
   return (
     <div className="flex items-center gap-3">
-      <ThemeToggleButton />
       <Link
         href="/login"
         className="hidden rounded-lg px-3 py-2 text-sm font-medium text-[#64748b] dark:text-gray-300 transition hover:text-[#2563EB] dark:hover:text-indigo-300 sm:inline-flex"
@@ -296,7 +270,7 @@ export function HeroAuthActions() {
         href="/login"
         className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] dark:border-gray-700 bg-white dark:bg-gray-900 px-6 py-3 text-sm font-semibold text-[#444444] dark:text-gray-100 transition hover:border-[#2563EB] dark:hover:border-indigo-500 hover:text-[#2563EB] dark:hover:text-indigo-200 sm:w-auto"
       >
-        View Demo Workspace <Zap className="h-4 w-4" />
+        View Demo Workspace
       </Link>
     </>
   );

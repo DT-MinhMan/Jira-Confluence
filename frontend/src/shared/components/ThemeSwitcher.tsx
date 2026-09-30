@@ -41,8 +41,12 @@ export default function ThemeSwitcher() {
         {options.map((option) => (
           <button
             key={option.id}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onClick={() => setTheme(option.id as any)}
+            onClick={() => {
+              setTheme(option.id as any);
+              if (typeof window !== "undefined") {
+                window.dispatchEvent(new Event("app-theme-change"));
+              }
+            }}
             className={`flex flex-col items-center justify-center p-4 rounded-[8px] border-2 transition-all duration-200 ${
               theme === option.id
                 ? "border-[#2563EB] bg-[#EFF6FF] dark:bg-[rgba(37,99,235,0.12)] text-[#2563EB] dark:text-[#3B82F6]"

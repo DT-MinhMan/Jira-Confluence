@@ -32,9 +32,21 @@ export const useTheme = () => {
       if (theme === "system") applyTheme("system");
     };
 
-    systemMedia.addEventListener("change", listener);
+    const handleThemeSync = () => {
+      const saved = (localStorage.getItem("app-theme") as Theme) || "system";
+      setTheme(saved);
+      applyTheme(saved);
+    };
 
-    return () => systemMedia.removeEventListener("change", listener);
+    systemMedia.addEventListener("change", listener);
+    window.addEventListener("storage", handleThemeSync);
+    window.addEventListener("app-theme-change", handleThemeSync);
+
+    return () => {
+      systemMedia.removeEventListener("change", listener);
+      window.removeEventListener("storage", handleThemeSync);
+      window.removeEventListener("app-theme-change", handleThemeSync);
+    };
   }, [theme]);
 
   return { theme, setTheme };
