@@ -39,6 +39,7 @@ export class Invite {
   invitedBy!: Types.ObjectId;
 
   @Prop({
+    type: String,
     required: true,
     enum: Object.values(SPACE_ROLES),
     default: SPACE_ROLES.MEMBER,
@@ -49,6 +50,7 @@ export class Invite {
   token!: string;
 
   @Prop({
+    type: String,
     required: true,
     enum: Object.values(INVITE_TYPES),
     default: INVITE_TYPES.EMAIL,
@@ -56,6 +58,7 @@ export class Invite {
   type!: InviteTypeValue;
 
   @Prop({
+    type: String,
     required: true,
     enum: Object.values(INVITE_STATUS),
     default: INVITE_STATUS.PENDING,

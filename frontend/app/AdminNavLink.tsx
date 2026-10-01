@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Shield } from "lucide-react";
@@ -15,11 +16,11 @@ export default function AdminNavLink() {
       href={ADMIN_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-lg border border-[#2563EB]/30 dark:border-indigo-500/30 bg-[#2563EB]/[0.07] dark:bg-indigo-500/10 px-3 py-1.5 text-sm font-medium text-[#2563EB] dark:text-indigo-300 transition hover:bg-[#2563EB]/15 dark:hover:bg-indigo-500/20 hover:border-[#2563EB]/50 dark:hover:border-indigo-500/50"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-[#5F2CFF]/30 bg-[#5F2CFF]/10 px-3 py-1.5 text-sm font-medium text-[#DFF6FF] transition hover:bg-[#5F2CFF]/20 hover:border-[#5F2CFF]/60"
     >
-      <Shield className="h-4 w-4" />
+      <Shield className="h-4 w-4 text-[#5F2CFF]" />
       Trang quản trị
-      <span className="text-[10px] leading-none">↗</span>
+      <span className="text-[10px] leading-none text-slate-400">↗</span>
     </a>
   );
 }

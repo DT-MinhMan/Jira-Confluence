@@ -1066,3 +1066,32 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 .dark .chat-m__suggestions__item--focused {
   background: rgba(255, 255, 255, 0.06);
 }
+
+/* ── Landing Page Specific Animations ── */
+@layer utilities {
+  @keyframes landing-float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes landing-float-delayed {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-landing-float {
+    animation: landing-float 4s ease-in-out infinite;
+  }
+
+  .animate-landing-float-delayed {
+    animation: landing-float-delayed 4.5s ease-in-out 1s infinite;
+  }
+}
