@@ -154,7 +154,7 @@ export function useWorkspacePage(workspaceKey: string, tab: string[] | undefined
   const activeSprint = sprints.find((s) => s.status === "active") ?? null;
 
   const openTaskDetail = useCallback((issue: Issue) => {
-    if (!issue.key) { toast.error("Task key not found"); return; }
+    if (!issue.key) { toast.error("Không tìm thấy mã nhiệm vụ"); return; }
     setSelectedIssue(issue);
     setSelectedTaskKey(issue.key);
     const detailUrl = getTaskDetailUrl(activeTab, issue.key);
@@ -194,9 +194,23 @@ export function useWorkspacePage(workspaceKey: string, tab: string[] | undefined
   }, [activeTab, listViewMode, setListGridDrawerOpen, setSelectedIssue]);
 
   const detailUrl = activeIssueDetail?.key ? getTaskDetailUrl(activeTab, activeIssueDetail.key) : undefined;
+
+  const TAB_TITLE_MAP: Record<string, string> = {
+    board: "Bảng",
+    backlog: "Backlog",
+    list: "Danh sách",
+    calendar: "Lịch",
+    archive: "Lưu trữ",
+    pages: "Tài liệu",
+    members: "Thành viên",
+    reports: "Báo cáo",
+    timeline: "Mốc thời gian",
+    settings: "Cài đặt",
+  };
+  const tabName = TAB_TITLE_MAP[activeTab] || (activeTab.charAt(0).toUpperCase() + activeTab.slice(1));
   const pageTitle = workspace?.name
-    ? `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} - ${workspace.name}`
-    : activeTab.charAt(0).toUpperCase() + activeTab.slice(1);
+    ? `${tabName} - ${workspace.name}`
+    : tabName;
 
   return {
     workspace, setWorkspace, loading, handleWorkspaceUpdated, workspaceId,

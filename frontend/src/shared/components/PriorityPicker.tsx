@@ -7,6 +7,14 @@ import { Check, ChevronDown } from "lucide-react";
 export const PRIORITIES = ["Highest", "High", "Medium", "Low", "Lowest"] as const;
 export type Priority = (typeof PRIORITIES)[number];
 
+export const PRIORITY_LABELS_VI: Record<string, string> = {
+  Highest: "Khẩn cấp",
+  High: "Cao",
+  Medium: "Trung bình",
+  Low: "Thấp",
+  Lowest: "Rất thấp",
+};
+
 export const PRIORITY_DOT: Record<string, string> = {
   Highest: "bg-[#7F1D1D]",
   High:    "bg-[#9F2F2D]",
@@ -85,7 +93,7 @@ export default function PriorityPicker({
     setOpen((p) => !p);
   };
 
-  const label = value ?? "Priority";
+  const label = (value && PRIORITY_LABELS_VI[value]) ? PRIORITY_LABELS_VI[value] : (value ?? "Độ ưu tiên");
   const dotColor = value ? (PRIORITY_DOT[value] ?? "bg-[#ABABAB]") : "bg-[#ABABAB] dark:bg-[#6B6B6B]";
 
   const triggerCls =
@@ -129,7 +137,7 @@ export default function PriorityPicker({
                 }`}
               >
                 <span className={`w-2 h-2 rounded-full shrink-0 ${PRIORITY_DOT[p]}`} />
-                <span className="flex-1">{p}</span>
+                <span className="flex-1">{PRIORITY_LABELS_VI[p] || p}</span>
                 {isSelected && <Check className="w-3.5 h-3.5 ml-auto shrink-0" />}
               </button>
             );

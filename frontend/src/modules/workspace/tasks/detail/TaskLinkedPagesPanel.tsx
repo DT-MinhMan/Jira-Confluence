@@ -103,7 +103,7 @@ export default function TaskLinkedPagesPanel({
           : res.data?.data || [];
         setAvailablePages(list);
       } catch {
-        toast.error("Could not load workspace documents");
+        toast.error("Không thể tải tài liệu không gian làm việc");
       } finally {
         setLoadingAvailable(false);
       }
@@ -119,9 +119,9 @@ export default function TaskLinkedPagesPanel({
       const updated = await taskService.linkPage(workspaceId, taskId, pageId);
       setLinkedPages(updated);
       setShowSearch(false);
-      toast.success(`Linked to document "${page.title}"`);
+      toast.success(`Đã liên kết với tài liệu "${page.title}"`);
     } catch {
-      toast.error("Failed to link document");
+      toast.error("Không thể liên kết tài liệu");
     } finally {
       setLinkingId(null);
     }
@@ -132,9 +132,9 @@ export default function TaskLinkedPagesPanel({
     try {
       const updated = await taskService.unlinkPage(workspaceId, taskId, pageId);
       setLinkedPages(updated);
-      toast.success("Document unlinked");
+      toast.success("Đã hủy liên kết tài liệu");
     } catch {
-      toast.error("Failed to unlink document");
+      toast.error("Không thể hủy liên kết tài liệu");
     } finally {
       setUnlinkingId(null);
     }
@@ -155,7 +155,7 @@ export default function TaskLinkedPagesPanel({
         <div className="flex items-center gap-2">
           <BookOpen className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
           <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-            Linked Documents ({linkedPages.length})
+            Tài liệu liên kết ({linkedPages.length})
           </h3>
         </div>
 
@@ -167,7 +167,7 @@ export default function TaskLinkedPagesPanel({
               className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-[#2563EB] dark:text-[#3B82F6] bg-[#EFF6FF] dark:bg-[rgba(37,99,235,0.15)] hover:bg-[#DBEAFE] dark:hover:bg-[rgba(37,99,235,0.25)] rounded-[6px] transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
-              Link Document
+              Liên kết tài liệu
             </button>
 
             {showSearch && (
@@ -180,7 +180,7 @@ export default function TaskLinkedPagesPanel({
                   <input
                     type="text"
                     autoFocus
-                    placeholder="Search documents..."
+                    placeholder="Tìm kiếm tài liệu..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-8 pr-3 py-1.5 text-xs bg-[#F7F6F3] dark:bg-[#1E1E1E] rounded-[6px] border border-transparent focus:border-[#2563EB] outline-none text-[#111111] dark:text-[#E8E8E7]"
@@ -190,11 +190,11 @@ export default function TaskLinkedPagesPanel({
                 <div className="max-h-48 overflow-y-auto divide-y divide-[#EAEAEA] dark:divide-white/[0.06]">
                   {loadingAvailable ? (
                     <div className="flex items-center justify-center py-4 text-xs text-[#9B9A97] gap-2">
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" /> Loading...
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang tải...
                     </div>
                   ) : filteredAvailable.length === 0 ? (
                     <div className="py-4 text-center text-xs text-[#9B9A97]">
-                      {searchQuery ? "No matching documents found" : "No other documents available"}
+                      {searchQuery ? "Không tìm thấy tài liệu phù hợp" : "Không có tài liệu nào khác"}
                     </div>
                   ) : (
                     filteredAvailable.map((page) => {
@@ -210,7 +210,7 @@ export default function TaskLinkedPagesPanel({
                           <div className="flex items-center gap-2 min-w-0 pr-2">
                             <FileText className="w-3.5 h-3.5 text-[#787774] flex-shrink-0" />
                             <span className="text-xs text-[#111111] dark:text-[#E8E8E7] truncate font-medium">
-                              {page.title || "Untitled"}
+                              {page.title || "Không có tiêu đề"}
                             </span>
                           </div>
                           {linkingId === pageId ? (
@@ -231,11 +231,11 @@ export default function TaskLinkedPagesPanel({
 
       {loading ? (
         <div className="flex items-center gap-2 text-xs text-[#9B9A97] py-2">
-          <Loader2 className="w-3.5 h-3.5 animate-spin" /> Loading linked documents...
+          <Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang tải tài liệu liên kết...
         </div>
       ) : linkedPages.length === 0 ? (
         <div className="rounded-[6px] border border-dashed border-[#EAEAEA] dark:border-white/[0.08] p-3 text-center text-xs text-[#787774] dark:text-[#9B9A97]">
-          No documents linked yet. Connect PRDs, specs, or wiki pages to this task.
+          Chưa có tài liệu nào được liên kết. Kết nối tài liệu, đặc tả hoặc trang wiki với nhiệm vụ này.
         </div>
       ) : (
         <div className="space-y-1.5">
@@ -267,7 +267,7 @@ export default function TaskLinkedPagesPanel({
                     type="button"
                     onClick={() => handleUnlinkPage(page.id)}
                     disabled={unlinkingId === page.id}
-                    title="Unlink document"
+                    title="Hủy liên kết tài liệu"
                     className="p-1 rounded-[4px] text-[#9B9A97] hover:text-[#EF4444] hover:bg-white dark:hover:bg-[#2E2E2E] transition-colors"
                   >
                     {unlinkingId === page.id ? (

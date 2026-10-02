@@ -23,7 +23,7 @@ const ForgotPassword = () => {
 
     try {
       await requestPasswordReset(email);
-      toast.success('If the email is valid, a password reset OTP has been sent.');
+      toast.success('Nếu email hợp lệ, mã OTP đặt lại mật khẩu đã được gửi.');
       router.push(`/reset-password?email=${encodeURIComponent(email)}`);
     } catch {
       // Error handled by hook
@@ -34,7 +34,7 @@ const ForgotPassword = () => {
     <div className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden">
       <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover z-0">
         <source src="/videos/mixkit-clouds-and-blue-sky-background-2408-full-hd.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        Trình duyệt của bạn không hỗ trợ phát video.
       </video>
 
       <div className="absolute top-0 left-0 w-full h-full bg-slate-900/10 z-10" />
@@ -47,9 +47,9 @@ const ForgotPassword = () => {
                 <Zap className="w-7 h-7 text-white" />
               </div>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-950 tracking-tight">Forgot password</h1>
+            <h1 className="text-2xl font-bold text-gray-950 tracking-tight">Quên mật khẩu</h1>
             <p className="text-gray-600 text-[0.8125rem] mt-1.5 font-semibold">
-              Enter your email to receive a password reset OTP
+              Nhập email của bạn để nhận mã OTP đặt lại mật khẩu
             </p>
           </div>
 
@@ -85,17 +85,17 @@ const ForgotPassword = () => {
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Processing...
+                  Đang xử lý...
                 </>
               ) : (
-                'Send OTP'
+                'Gửi mã OTP'
               )}
             </button>
           </form>
 
           <p className="text-center text-[0.8125rem] text-gray-600 mt-6 font-medium">
             <Link href="/login" className="text-[#2563EB] font-bold hover:text-[#1D4ED8] transition-colors">
-              Back to sign in
+              Quay lại đăng nhập
             </Link>
           </p>
         </div>

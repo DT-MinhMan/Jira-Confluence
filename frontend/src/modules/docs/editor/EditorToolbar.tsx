@@ -48,10 +48,10 @@ const FONT_FAMILIES = [DEFAULT_FONT_FAMILY, "Times New Roman", "Courier New", "I
 const DEFAULT_FONT_SIZE = "16px";
 const FONT_SIZES = ["12px", "14px", DEFAULT_FONT_SIZE, "18px", "20px", "24px", "32px"];
 const BLOCK_TYPES = [
-  { value: "p", label: "Normal text", fontSize: "0.75rem", fontWeight: 400 },
-  { value: "h1", label: "Heading 1", fontSize: "1rem", fontWeight: 700 },
-  { value: "h2", label: "Heading 2", fontSize: "0.875rem", fontWeight: 700 },
-  { value: "h3", label: "Heading 3", fontSize: "0.8125rem", fontWeight: 700 },
+  { value: "p", label: "Văn bản thường", fontSize: "0.75rem", fontWeight: 400 },
+  { value: "h1", label: "Tiêu đề 1", fontSize: "1rem", fontWeight: 700 },
+  { value: "h2", label: "Tiêu đề 2", fontSize: "0.875rem", fontWeight: 700 },
+  { value: "h3", label: "Tiêu đề 3", fontSize: "0.8125rem", fontWeight: 700 },
 ] as const;
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
@@ -267,11 +267,11 @@ export default function EditorToolbar({
 
   const uploadLocalImage = async (file: File) => {
     if (file.size > MAX_IMAGE_SIZE) {
-      toast.error("Max image size not over 5MB");
+      toast.error("Kích thước ảnh tối đa không quá 5MB");
       return;
     }
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      toast.error("Invalid image format");
+      toast.error("Định dạng ảnh không hợp lệ");
       return;
     }
     try {
@@ -284,13 +284,13 @@ export default function EditorToolbar({
         pageTitle
       );
       const imageUrl = toImageUrl(result.imageUrl || result.url || "");
-      if (!imageUrl) { toast.error("Failed to get image URL after upload"); return; }
+      if (!imageUrl) { toast.error("Không lấy được URL ảnh sau khi tải lên"); return; }
       runWithUndoBoundary(() => {
         editor.chain().focus().setImage({ src: imageUrl, alt: file.name }).run();
       });
-      toast.success("Image inserted successfully");
+      toast.success("Đã chèn ảnh thành công");
     } catch {
-      toast.error("Failed to upload image");
+      toast.error("Tải ảnh lên thất bại");
     }
   };
 
@@ -334,7 +334,7 @@ export default function EditorToolbar({
               className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1.5 text-[0.6875rem] font-semibold text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 transition-colors"
             >
               <ExternalLink className="h-3.5 w-3.5" />
-              Open
+              Mở
             </button>
             <button
               type="button"
@@ -342,7 +342,7 @@ export default function EditorToolbar({
               className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1.5 text-[0.6875rem] font-semibold text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 transition-colors"
             >
               <Pencil className="h-3.5 w-3.5" />
-              Edit
+              Chỉnh sửa
             </button>
             <button
               type="button"
@@ -354,7 +354,7 @@ export default function EditorToolbar({
               className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1.5 text-[0.6875rem] font-semibold text-[#9F2F2D] hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)] transition-colors"
             >
               <Unlink className="h-3.5 w-3.5" />
-              Remove
+              Gỡ bỏ
             </button>
           </div>
         </BubbleMenu>
@@ -385,7 +385,7 @@ export default function EditorToolbar({
             });
           }}
         >
-          <option value="">Font</option>
+          <option value="">Phông chữ</option>
           {FONT_FAMILIES.map((font) => (
             <option key={font} value={font} className={optionCls} style={{ fontFamily: font }}>{font}</option>
           ))}
@@ -439,40 +439,40 @@ export default function EditorToolbar({
           ))}
         </select>
 
-        <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={toolbarState.bold} title="Bold">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={toolbarState.bold} title="In đậm">
           <Bold className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} isActive={toolbarState.italic} title="Italic">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} isActive={toolbarState.italic} title="In nghiêng">
           <Italic className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => toggleInlineMarkSkippingSpaces(editor, "underline")} isActive={toolbarState.underline} title="Underline">
+        <ToolbarButton onClick={() => toggleInlineMarkSkippingSpaces(editor, "underline")} isActive={toolbarState.underline} title="Gạch chân">
           <Underline className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => toggleInlineMarkSkippingSpaces(editor, "strike")} isActive={toolbarState.strike} title="Strikethrough">
+        <ToolbarButton onClick={() => toggleInlineMarkSkippingSpaces(editor, "strike")} isActive={toolbarState.strike} title="Gạch ngang">
           <Strikethrough className="h-4 w-4" />
         </ToolbarButton>
 
         <div className="h-4 w-px bg-[#EAEAEA] dark:bg-white/8" />
 
-        <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={toolbarState.bulletList} title="Bullet list">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={toolbarState.bulletList} title="Danh sách dấu đầu dòng">
           <List className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={toolbarState.orderedList} title="Numbered list">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={toolbarState.orderedList} title="Danh sách đánh số">
           <ListOrdered className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleTaskList().run()} isActive={toolbarState.taskList} title="Checklist">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleTaskList().run()} isActive={toolbarState.taskList} title="Danh sách công việc">
           <ListTodo className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} isActive={toolbarState.blockquote} title="Blockquote">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} isActive={toolbarState.blockquote} title="Trích dẫn">
           <Quote className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().indent().run()} title="Increase indent">
+        <ToolbarButton onClick={() => editor.chain().focus().indent().run()} title="Tăng thụt lề">
           <Indent className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().outdent().run()} title="Decrease indent">
+        <ToolbarButton onClick={() => editor.chain().focus().outdent().run()} title="Giảm thụt lề">
           <Outdent className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()} title="Clear formatting">
+        <ToolbarButton onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()} title="Xóa định dạng">
           <RemoveFormatting className="h-4 w-4" />
         </ToolbarButton>
 
@@ -480,16 +480,16 @@ export default function EditorToolbar({
 
         <div className="h-4 w-px bg-[#EAEAEA] dark:bg-white/8" />
 
-        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("left").run()} isActive={toolbarState.textAlign === "left"} title="Align left">
+        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("left").run()} isActive={toolbarState.textAlign === "left"} title="Căn trái">
           <AlignLeft className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("center").run()} isActive={toolbarState.textAlign === "center"} title="Align center">
+        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("center").run()} isActive={toolbarState.textAlign === "center"} title="Căn giữa">
           <AlignCenter className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("right").run()} isActive={toolbarState.textAlign === "right"} title="Align right">
+        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("right").run()} isActive={toolbarState.textAlign === "right"} title="Căn phải">
           <AlignRight className="h-4 w-4" />
         </ToolbarButton>
-        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("justify").run()} isActive={toolbarState.textAlign === "justify"} title="Justify">
+        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign("justify").run()} isActive={toolbarState.textAlign === "justify"} title="Căn đều hai bên">
           <AlignJustify className="h-4 w-4" />
         </ToolbarButton>
 
@@ -507,7 +507,7 @@ export default function EditorToolbar({
           }}
           defaultValue="default"
         >
-          <option value="default" className={optionCls}>Line height</option>
+          <option value="default" className={optionCls}>Giãn dòng</option>
           <option value="1" className={optionCls}>1.0</option>
           <option value="1.15" className={optionCls}>1.15</option>
           <option value="1.5" className={optionCls}>1.5</option>
@@ -522,7 +522,7 @@ export default function EditorToolbar({
             event.preventDefault();
             openLinkPopover();
           }}
-          title="Set up or edit link"
+          title="Thiết lập hoặc sửa liên kết"
           className={`p-2 rounded-[6px] transition-all flex items-center justify-center ${
             toolbarState.link || linkPopoverOpen
               ? "bg-[#DBEAFE] text-[#1D4ED8] shadow-[inset_0_0_0_1px_rgba(37,99,235,0.10)] dark:bg-[rgba(59,130,246,0.22)] dark:text-[#BFDBFE] dark:shadow-[inset_0_0_0_1px_rgba(147,197,253,0.18)] font-bold"
@@ -543,16 +543,16 @@ export default function EditorToolbar({
           onClick={() =>
             editor.chain().focus().extendMarkRange("link").unsetLink().run()
           }
-          title="Remove link"
+          title="Gỡ liên kết"
         >
           <Unlink className="h-4 w-4" />
         </ToolbarButton>
 
-        <ToolbarButton onClick={insertImage} title="Insert image" useUndoBoundary={false}>
+        <ToolbarButton onClick={insertImage} title="Chèn hình ảnh" useUndoBoundary={false}>
           <ImageIcon className="h-4 w-4" />
         </ToolbarButton>
 
-        <ToolbarButton onClick={() => editor.chain().focus().toggleTaskList().run()} isActive={toolbarState.taskList} title="Checklist">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleTaskList().run()} isActive={toolbarState.taskList} title="Danh sách công việc">
           <ListTodo className="h-4 w-4" />
         </ToolbarButton>
 
@@ -562,7 +562,7 @@ export default function EditorToolbar({
             event.preventDefault();
             toggleTablePicker();
           }}
-          title="Insert table"
+          title="Chèn bảng"
           className={`
           p-2 rounded-lg transition-all flex items-center justify-center
           ${
@@ -586,43 +586,43 @@ export default function EditorToolbar({
           <>
             <ToolbarButton
               onClick={() => editor.chain().focus().addRowBefore().run()}
-              title="Add row above"
+              title="Thêm hàng phía trên"
             >
               <ArrowUp className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().addRowAfter().run()}
-              title="Add row below"
+              title="Thêm hàng phía dưới"
             >
               <ArrowDown className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().addColumnBefore().run()}
-              title="Add column to the left"
+              title="Thêm cột bên trái"
             >
               <ArrowLeft className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().addColumnAfter().run()}
-              title="Add column to the right"
+              title="Thêm cột bên phải"
             >
               <ArrowRight className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().deleteRow().run()}
-              title="Delete row"
+              title="Xóa hàng"
             >
               <Trash2 className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().deleteColumn().run()}
-              title="Delete column"
+              title="Xóa cột"
             >
               <Trash2 className="h-4 w-4" />
             </ToolbarButton>
             <ToolbarButton
               onClick={() => editor.chain().focus().deleteTable().run()}
-              title="Delete table"
+              title="Xóa bảng"
             >
               <Trash2 className="h-4 w-4 text-red-500" />
             </ToolbarButton>
@@ -631,14 +631,14 @@ export default function EditorToolbar({
 
         <div className="flex items-center gap-1">
           {onToggleFindReplace && (
-            <ToolbarButton onClick={onToggleFindReplace} title="Find & Replace" useUndoBoundary={false}>
+            <ToolbarButton onClick={onToggleFindReplace} title="Tìm kiếm & Thay thế" useUndoBoundary={false}>
               <Search className="h-4 w-4" />
             </ToolbarButton>
           )}
-          <ToolbarButton onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Undo" useUndoBoundary={false}>
+          <ToolbarButton onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Hoàn tác" useUndoBoundary={false}>
             <Undo className="h-4 w-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} title="Redo" useUndoBoundary={false}>
+          <ToolbarButton onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} title="Làm lại" useUndoBoundary={false}>
             <Redo className="h-4 w-4" />
           </ToolbarButton>
         </div>

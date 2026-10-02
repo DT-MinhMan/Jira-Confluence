@@ -164,7 +164,7 @@ export default function DataGridListView({
 
   const handleBulkDelete = async () => {
     if (!onBulkDelete) return;
-    if (confirm(`Are you sure you want to delete ${selectedCount} items?`)) {
+    if (confirm(`Bạn có chắc chắn muốn xóa ${selectedCount} nhiệm vụ đã chọn?`)) {
       const ids = getSelectedTaskIds();
       setRowSelection({});
       await onBulkDelete(ids);
@@ -201,13 +201,13 @@ export default function DataGridListView({
     } as ColumnDef<any>] : []),
     {
       accessorKey: 'key',
-      header: 'Key',
+      header: 'Mã',
       size: 110,
       cell: info => <span className="text-[#787774] dark:text-[#9B9A97] font-mono text-xs">{info.getValue() as string}</span>,
     },
     {
       accessorKey: 'title',
-      header: 'Work',
+      header: 'Nhiệm vụ',
       size: 300,
       cell: info => {
         const issue = info.row.original;
@@ -244,14 +244,14 @@ export default function DataGridListView({
                 setEditingCell({ rowId: issue.id, col: 'title' });
                 setEditValue(issue.title || '');
               }}
-              title={canEditTask ? "Click to edit" : "Open detail"}
+              title={canEditTask ? "Nhấp để chỉnh sửa" : "Xem chi tiết"}
             >
               {info.getValue() as string}
             </span>
             <button
               className="opacity-0 group-hover/title:opacity-100 ml-auto shrink-0 text-[#ABABAB] hover:text-[#787774] dark:hover:text-[#9B9A97] transition-opacity"
               onClick={e => { e.stopPropagation(); void (onClickTask && onClickTask(issue)); }}
-              title="Open detail"
+              title="Xem chi tiết"
             >
               <MoreHorizontal className="w-3.5 h-3.5" />
             </button>
@@ -261,7 +261,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'type',
-      header: 'Type',
+      header: 'Loại',
       size: 120,
       cell: info => {
         const issue = info.row.original;
@@ -281,7 +281,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'status',
-      header: 'Status',
+      header: 'Trạng thái',
       size: 150,
       cell: info => {
         const issue = info.row.original;
@@ -302,7 +302,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'priority',
-      header: 'Priority',
+      header: 'Độ ưu tiên',
       size: 120,
       cell: info => {
         const issue = info.row.original;
@@ -321,7 +321,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'assigneeId',
-      header: 'Assignee',
+      header: 'Người thực hiện',
       size: 160,
       cell: info => {
         const issue = info.row.original;
@@ -336,7 +336,7 @@ export default function DataGridListView({
                 onUpdateIssue?.(issue.id, {
                   assigneeId: uid,
                   assignee: uid ?? 'U',
-                  assigneeDisplayName: uid ? selectedUser?.name ?? uid : 'Unassigned',
+                  assigneeDisplayName: uid ? selectedUser?.name ?? uid : 'Chưa giao',
                   assigneeAvatar: uid ? selectedUser?.avatar : undefined,
                 });
               }}
@@ -350,7 +350,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'storyPoints',
-      header: 'Story Points',
+      header: 'Điểm ước lượng',
       size: 100,
       cell: info => {
         const issue = info.row.original;
@@ -383,7 +383,7 @@ export default function DataGridListView({
               setEditValue(String(pts ?? 0));
             }}
             className={`w-6 h-6 flex items-center justify-center bg-[#F7F6F3] dark:bg-[#2A2A2A] rounded-[6px] text-xs font-bold text-[#787774] dark:text-[#9B9A97] transition-colors ${canEditTask ? "cursor-pointer hover:bg-[#EFF6FF] dark:hover:bg-[rgba(37,99,235,0.12)]" : ""}`}
-            title={canEditTask ? "Click to edit" : undefined}
+            title={canEditTask ? "Nhấp để chỉnh sửa" : undefined}
           >
             {pts || '-'}
           </span>
@@ -392,7 +392,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'startDate',
-      header: 'Start Date',
+      header: 'Ngày bắt đầu',
       size: 140,
       cell: info => {
         const issue = info.row.original;
@@ -413,7 +413,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'dueDate',
-      header: 'Due Date',
+      header: 'Ngày đến hạn',
       size: 140,
       cell: info => {
         const issue = info.row.original;
@@ -435,7 +435,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'updatedAt',
-      header: 'Updated',
+      header: 'Cập nhật',
       size: 130,
       cell: info => {
         const v = info.getValue() as string | undefined;
@@ -444,7 +444,7 @@ export default function DataGridListView({
     },
     {
       accessorKey: 'labels',
-      header: 'Labels',
+      header: 'Nhãn',
       size: 200,
       cell: info => {
         const issue = info.row.original;
@@ -485,7 +485,7 @@ export default function DataGridListView({
         <button
           className="p-1.5 text-[#ABABAB] hover:text-[#787774] dark:hover:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] transition-colors opacity-0 group-hover:opacity-100"
           onClick={e => { e.stopPropagation(); void (onClickTask && onClickTask(row.original)); }}
-          title="Open"
+          title="Xem chi tiết"
         >
           <MoreHorizontal className="w-4 h-4" />
         </button>
@@ -564,7 +564,7 @@ export default function DataGridListView({
             {table.getRowModel().rows.length === 0 && (
               <tr>
                 <td colSpan={table.getVisibleLeafColumns().length} className="px-3 py-8 text-center text-sm text-[#787774] dark:text-[#9B9A97]">
-                  No issues found.
+                  Không tìm thấy nhiệm vụ nào.
                 </td>
               </tr>
             )}
@@ -579,7 +579,7 @@ export default function DataGridListView({
             onClick={() => setIsCreating(true)}
             className="px-4 py-1 border border-[#EAEAEA] dark:border-white/10 rounded-[6px] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F9F9F8] dark:hover:bg-white/5 text-sm font-medium transition-colors flex items-center gap-2 "
           >
-            + Create
+            + Tạo nhiệm vụ
           </button>
         ) : !hideCreate ? (
           <div className="flex items-center border border-[#2563EB] rounded-[6px] px-2 py-1 flex-1 max-w-[min(100%,var(--app-narrow-content))]  bg-white dark:bg-[#252525] gap-1">
@@ -588,7 +588,7 @@ export default function DataGridListView({
               value={taskTitle}
               onChange={e => setTaskTitle(e.target.value)}
               onKeyDown={handleKeyDownInlineCreate}
-              placeholder="What needs to be done?"
+              placeholder="Bạn cần làm gì tiếp theo?"
               className="flex-1 outline-none py-1 px-2 text-sm bg-transparent text-[#111111] dark:text-[#E8E8E7] placeholder-[#ABABAB]"
             />
             <div className="flex items-center gap-0.5 shrink-0">
@@ -606,7 +606,7 @@ export default function DataGridListView({
                 <CustomDatePicker
                   value={newTaskDate}
                   onChange={nextValue => setNewTaskDate(nextValue ?? '')}
-                  placeholder="Due date"
+                  placeholder="Ngày đến hạn"
                   inputClassName="h-8 border-transparent bg-transparent dark:bg-transparent text-sm"
                   popoverPlacement="top-end"
                   ariaLabel="New task due date"
@@ -626,7 +626,7 @@ export default function DataGridListView({
                 onClick={handleSubmitInlineCreate}
                 className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-medium px-3 py-1.5 rounded-[6px] flex items-center gap-1 transition-colors  ml-1"
               >
-                Create
+                Tạo
                 <span className="text-[0.625rem] opacity-80 border border-[#93C5FD] rounded-[2px] px-[2px] py-[1px] leading-none bg-[#3B82F6]/30">↵</span>
               </button>
             </div>
@@ -634,12 +634,12 @@ export default function DataGridListView({
         ) : <div />}
 
         <div className="flex items-center gap-4 text-[#787774] dark:text-[#9B9A97] text-sm ml-4">
-          <span className="font-medium">{table.getRowModel().rows.length} of {totalCount ?? issues.length}</span>
+          <span className="font-medium">{table.getRowModel().rows.length} / {totalCount ?? issues.length}</span>
           <button
             onClick={() => onRefresh && !isRefreshing ? onRefresh() : null}
             disabled={isRefreshing}
             className={`p-1.5 rounded-[6px] hover:bg-[#F7F6F3] dark:hover:bg-white/5 text-[#787774] dark:text-[#9B9A97] transition-colors border border-transparent hover:border-[#EAEAEA] dark:hover:border-white/8 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
-            title="Refresh Data"
+            title="Làm mới dữ liệu"
           >
             <RefreshCcw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-[#2563EB]' : ''}`} />
           </button>

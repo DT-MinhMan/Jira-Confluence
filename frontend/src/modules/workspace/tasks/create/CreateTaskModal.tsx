@@ -50,7 +50,7 @@ export default function CreateTaskModal({
         <div className="flex items-center justify-between p-5 border-b border-[#EAEAEA] dark:border-white/[0.06]">
           <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7] flex items-center gap-2">
             <FileText className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
-            Create new task
+            Tạo nhiệm vụ mới
           </h3>
           <button
             onClick={() => setShowCreateIssue(false)}
@@ -66,7 +66,7 @@ export default function CreateTaskModal({
         >
           <div>
             <label className={labelCls}>
-              Work item title <span className="text-[#9F2F2D]">*</span>
+              Tiêu đề nhiệm vụ <span className="text-[#9F2F2D]">*</span>
             </label>
             <input
               type="text"
@@ -75,13 +75,13 @@ export default function CreateTaskModal({
               value={newIssueForm.title}
               onChange={(e) => setNewIssueForm({ ...newIssueForm, title: e.target.value })}
               className={inputCls}
-              placeholder="Example: Fix display issue on mobile..."
+              placeholder="Ví dụ: Sửa lỗi hiển thị trên thiết bị di động..."
             />
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className={labelCls}>Task type</label>
+              <label className={labelCls}>Loại nhiệm vụ</label>
               <div className="mt-1">
                 <TypePicker
                   value={newIssueForm.type ?? "Task"}
@@ -95,7 +95,7 @@ export default function CreateTaskModal({
             </div>
 
             <div>
-              <label className={labelCls}>Priority</label>
+              <label className={labelCls}>Độ ưu tiên</label>
               <div className="mt-1">
                 <PriorityPicker
                   value={newIssueForm.priority ?? "Medium"}
@@ -110,7 +110,7 @@ export default function CreateTaskModal({
           </div>
 
           <div>
-            <label className={labelCls}>Initial status</label>
+            <label className={labelCls}>Trạng thái ban đầu</label>
             <StatusPicker
               value={newIssueForm.status}
               columnId={newIssueForm.columnId}
@@ -121,7 +121,7 @@ export default function CreateTaskModal({
           </div>
 
           <div>
-            <label className={labelCls}>Assignee</label>
+            <label className={labelCls}>Người thực hiện</label>
             <div className="mt-1 border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] bg-white dark:bg-[#252525] px-2 py-[5px]">
               <AssigneePicker
                 users={assigneeUsers}
@@ -139,13 +139,13 @@ export default function CreateTaskModal({
               onClick={() => setShowCreateIssue(false)}
               className="px-4 py-2 border border-[#EAEAEA] dark:border-white/[0.08] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors"
             >
-              Cancel
+              Hủy
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors"
             >
-              Create now
+              Tạo ngay
             </button>
           </div>
         </form>

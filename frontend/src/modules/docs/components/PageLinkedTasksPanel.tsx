@@ -45,6 +45,22 @@ const getPriorityBadge = (priority: string) => {
   return "text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800";
 };
 
+const STATUS_LABELS: Record<string, string> = {
+  "To Do": "Cần làm",
+  "In Progress": "Đang thực hiện",
+  "Done": "Đã xong",
+  Todo: "Cần làm",
+};
+
+const PRIORITY_LABELS: Record<string, string> = {
+  Urgent: "Khẩn cấp",
+  Highest: "Rất cao",
+  High: "Cao",
+  Medium: "Trung bình",
+  Low: "Thấp",
+  Lowest: "Rất thấp",
+};
+
 export default function PageLinkedTasksPanel({
   pageId,
   workspaceKey,
@@ -75,7 +91,7 @@ export default function PageLinkedTasksPanel({
   if (loading) {
     return (
       <div className="flex items-center gap-2 text-xs text-gray-400 py-4">
-        <Loader2 className="w-3.5 h-3.5 animate-spin" /> Checking linked Jira tasks...
+        <Loader2 className="w-3.5 h-3.5 animate-spin" /> Đang kiểm tra nhiệm vụ được liên kết...
       </div>
     );
   }
@@ -89,10 +105,10 @@ export default function PageLinkedTasksPanel({
       <div className="flex items-center gap-2 mb-4">
         <CheckSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
         <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-          Referenced Jira Tasks ({tasks.length})
+          Nhiệm vụ được liên kết ({tasks.length})
         </h3>
         <span className="text-xs text-gray-500 dark:text-gray-400">
-          Tasks linking to this specification
+          Các nhiệm vụ liên kết với tài liệu này
         </span>
       </div>
 
@@ -113,7 +129,7 @@ export default function PageLinkedTasksPanel({
                     task.status || task.columnId || ""
                   )}`}
                 >
-                  {task.status || task.columnId || "Todo"}
+                  {STATUS_LABELS[task.status] || STATUS_LABELS[task.columnId || ""] || task.status || task.columnId || "Cần làm"}
                 </span>
                 {task.priority && (
                   <span
@@ -121,7 +137,7 @@ export default function PageLinkedTasksPanel({
                       task.priority
                     )}`}
                   >
-                    {task.priority}
+                    {PRIORITY_LABELS[task.priority] || task.priority}
                   </span>
                 )}
               </div>

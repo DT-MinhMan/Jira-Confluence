@@ -162,7 +162,7 @@ export default function AssigneePicker({
       className="max-h-52 overflow-y-auto bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[8px]"
     >
       <div className="px-3 py-2 text-[0.6875rem] font-semibold text-[#787774] dark:text-[#9B9A97] border-b border-[#EAEAEA] dark:border-white/[0.08] uppercase tracking-wide">
-        Assign to
+        Giao cho
       </div>
       <button
         onClick={() => { onChange(null); setOpen(false); }}
@@ -175,7 +175,7 @@ export default function AssigneePicker({
         <div className="w-5 h-5 rounded-full border-2 border-dashed border-[#EAEAEA] dark:border-white/[0.15] flex items-center justify-center shrink-0">
           <X className="w-2.5 h-2.5" />
         </div>
-        Unassigned
+        Chưa giao
         {!value && <Check className="w-3.5 h-3.5 ml-auto text-[#2563EB] dark:text-[#3B82F6] shrink-0" />}
       </button>
 
@@ -215,7 +215,7 @@ export default function AssigneePicker({
         disabled={disabled}
         onClick={openMenu}
         className={`flex items-center gap-1.5 px-1 py-0.5 rounded hover:bg-[#F7F6F3] dark:hover:bg-white/[0.05] transition-colors disabled:pointer-events-none disabled:opacity-50${!avatarSm ? " w-full" : " max-w-full"}`}
-        title={displayName ?? "Unassigned"}
+        title={displayName ?? "Chưa giao"}
       >
         {displayName ? (
           <div className={`${avatarSize} rounded-full overflow-hidden flex items-center justify-center ${textSize} font-bold shrink-0 ${avatar ? "" : "bg-[#2563EB] text-white"}`}>
@@ -240,7 +240,7 @@ export default function AssigneePicker({
                 : "text-[#ABABAB] dark:text-[#6B6B6B] italic"
             }`}
           >
-            {displayName ?? "Unassigned"}
+            {displayName ?? "Chưa giao"}
           </span>
         )}
       </button>

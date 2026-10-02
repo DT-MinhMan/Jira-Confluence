@@ -79,7 +79,7 @@ export function NavAuthActions() {
           type="button"
           onClick={() => setShowNotifications((open) => !open)}
           className="relative rounded-lg p-2 text-slate-300 transition hover:bg-white/10 hover:text-white"
-          aria-label="Open notifications"
+          aria-label="Mở thông báo"
         >
           <Bell className="h-5 w-5" />
           {unreadNotificationCount > 0 && (
@@ -120,15 +120,15 @@ export function NavAuthActions() {
             <div className="flex items-start gap-2 border-b border-white/[0.06] px-4 py-2">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-white">
-                  {user?.fullName ?? "User"}
+                  {user?.fullName ?? "Người dùng"}
                 </p>
                 <p className="truncate text-xs text-slate-400">{user?.email}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowSwitcher((v) => !v)}
-                title="Chuyển account"
-                aria-label="Chuyển account"
+                title="Chuyển tài khoản"
+                aria-label="Chuyển tài khoản"
                 aria-expanded={showSwitcher}
                 className={`relative grid h-7 w-7 shrink-0 place-items-center rounded-md transition ${showSwitcher
                     ? "bg-[#5F2CFF]/20 text-[#DFF6FF]"
@@ -161,7 +161,7 @@ export function NavAuthActions() {
               onClick={() => setDropdownOpen(false)}
             >
               <LayoutDashboard className="h-4 w-4 text-[#5F2CFF]" />
-              Dashboard
+              Bảng điều khiển
             </Link>
 
             <Link
@@ -170,7 +170,7 @@ export function NavAuthActions() {
               onClick={() => setDropdownOpen(false)}
             >
               <User className="h-4 w-4 text-slate-400" />
-              Profile
+              Hồ sơ cá nhân
             </Link>
 
             <Link
@@ -179,7 +179,7 @@ export function NavAuthActions() {
               onClick={() => setDropdownOpen(false)}
             >
               <Settings className="h-4 w-4 text-slate-400" />
-              Settings
+              Cài đặt
             </Link>
 
             {IS_SUPER_ADMIN(user?.role) && (
@@ -210,7 +210,7 @@ export function NavAuthActions() {
                 className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-rose-400 transition hover:bg-rose-500/10"
               >
                 <LogOut className="h-4 w-4" />
-                Log out
+                Đăng xuất
               </button>
             </div>
           </div>
@@ -225,13 +225,13 @@ export function NavAuthActions() {
         href="/login"
         className="hidden rounded-lg px-3.5 py-2 text-sm font-semibold text-slate-300 transition hover:text-[#DFF6FF] hover:bg-white/5 sm:inline-flex"
       >
-        Login
+        Đăng nhập
       </Link>
       <Link
         href="/register"
         className="inline-flex items-center gap-2 rounded-lg bg-[#5F2CFF] px-4 py-2 text-sm font-bold text-white shadow-lg shadow-[#5F2CFF]/25 transition hover:bg-[#4A1FD4] hover:shadow-[#5F2CFF]/40 active:scale-95"
       >
-        Get Started <ArrowRight className="h-4 w-4" />
+        Bắt đầu ngay <ArrowRight className="h-4 w-4" />
       </Link>
     </div>
   );
@@ -244,7 +244,7 @@ export function HeroAuthActions() {
     return (
       <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#151F32] px-6 py-3.5 text-sm font-semibold text-slate-300 shadow-md">
         <Loader2 className="h-4 w-4 animate-spin text-[#5F2CFF]" />
-        Checking workspace
+        Đang kiểm tra không gian làm việc...
       </div>
     );
   }
@@ -255,7 +255,7 @@ export function HeroAuthActions() {
         href="/dashboard"
         className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#5F2CFF] px-7 py-3.5 text-sm font-bold text-white shadow-xl shadow-[#5F2CFF]/30 transition duration-200 hover:bg-[#4A1FD4] hover:shadow-[#5F2CFF]/50 hover:-translate-y-0.5 active:translate-y-0 sm:w-auto"
       >
-        Go to Dashboard <LayoutDashboard className="h-4 w-4" />
+        Vào Bảng điều khiển <LayoutDashboard className="h-4 w-4" />
       </Link>
     );
   }
@@ -266,13 +266,13 @@ export function HeroAuthActions() {
         href="/register"
         className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#5F2CFF] px-7 py-3.5 text-sm font-bold text-white shadow-xl shadow-[#5F2CFF]/30 transition duration-200 hover:bg-[#4A1FD4] hover:shadow-[#5F2CFF]/50 hover:-translate-y-0.5 active:translate-y-0 sm:w-auto"
       >
-        Get Started Free <ArrowRight className="h-4 w-4" />
+        Bắt đầu miễn phí <ArrowRight className="h-4 w-4" />
       </Link>
       <Link
         href="/login"
         className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-7 py-3.5 text-sm font-semibold text-slate-200 backdrop-blur-md transition duration-200 hover:border-[#5F2CFF]/60 hover:bg-white/[0.08] hover:text-[#DFF6FF] hover:-translate-y-0.5 active:translate-y-0 sm:w-auto"
       >
-        View Demo Workspace
+        Xem thử không gian làm việc
       </Link>
     </>
   );
@@ -318,14 +318,14 @@ export function HeroEasySignUpForm() {
           className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-[#5F2CFF] px-7 py-4 text-base font-bold text-white shadow-xl shadow-[#5F2CFF]/35 transition-all duration-200 hover:bg-[#4E21D9] hover:shadow-[#5F2CFF]/50 hover:-translate-y-0.5 active:translate-y-0"
         >
           <LayoutDashboard className="h-5 w-5" />
-          Vào Dashboard làm việc
+          Vào Bảng điều khiển làm việc
           <ArrowRight className="h-4 w-4" />
         </Link>
         <a
           href="#workspace-demo"
           className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/[0.04] px-6 py-4 text-sm font-semibold text-slate-200 backdrop-blur-md transition-all duration-200 hover:border-[#5F2CFF]/50 hover:bg-white/[0.08] hover:text-[#DFF6FF]"
         >
-          Xem Board Preview
+          Xem trước bảng Kanban
         </a>
       </div>
     );

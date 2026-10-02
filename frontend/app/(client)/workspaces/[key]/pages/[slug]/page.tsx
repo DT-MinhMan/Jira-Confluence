@@ -17,10 +17,10 @@ export default function PageViewPage() {
   const router = useRouter();
   const selectDocument = useDocsStore((state) => state.selectDocument);
 
-  usePageTitle(page?.title || "Page");
+  usePageTitle(page?.title || "Trang");
 
   if (isLoading) return <LoadingSpinner />;
-  if (!page) return <div className="app-main text-center text-gray-500">Page not found</div>;
+  if (!page) return <div className="app-main text-center text-gray-500">Không tìm thấy trang</div>;
 
   return (
     <div className="flex-1 overflow-y-auto">
@@ -44,7 +44,7 @@ export default function PageViewPage() {
           }}
           className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-medium text-sm cursor-pointer"
         >
-          <Edit3 className="w-4 h-4" /> Edit
+          <Edit3 className="w-4 h-4" /> Chỉnh sửa
         </button>
       </div>
 
@@ -57,12 +57,12 @@ export default function PageViewPage() {
               <div className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold">
                 {page.lastEditedBy.fullName?.charAt(0) || "?"}
               </div>
-              <span>{page.lastEditedBy.fullName || "Unknown"}</span>
+              <span>{page.lastEditedBy.fullName || "Không rõ"}</span>
             </div>
           )}
           <div className="flex items-center gap-1.5">
             <Clock className="w-4 h-4" />
-            <span>{new Date(page.updatedAt).toLocaleDateString("en-US")}</span>
+            <span>{new Date(page.updatedAt).toLocaleDateString("vi-VN")}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Eye className="w-4 h-4" />
@@ -83,7 +83,7 @@ export default function PageViewPage() {
         <div
           className="prose prose-gray max-w-none"
           dangerouslySetInnerHTML={{
-            __html: page.content || '<p class="text-gray-400 italic">No content yet. Click Edit to add content.</p>',
+            __html: page.content || '<p class="text-gray-400 italic">Chưa có nội dung. Nhấn Chỉnh sửa để thêm nội dung.</p>',
           }}
         />
 

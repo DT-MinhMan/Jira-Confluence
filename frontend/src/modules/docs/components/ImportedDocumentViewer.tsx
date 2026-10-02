@@ -75,7 +75,7 @@ export default function ImportedDocumentViewer({ doc, showBackButton = true }: P
               className="inline-flex items-center gap-2 rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] px-3 py-2 text-xs font-semibold text-[#787774] dark:text-[#9B9A97] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-white/5"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              Back
+              Quay lại
             </button>
           )}
           {isOnline && isOwner && (
@@ -83,7 +83,7 @@ export default function ImportedDocumentViewer({ doc, showBackButton = true }: P
             onClick={() => setOpenEditor(true)}
             className="rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-3 py-2 text-xs font-semibold text-white hover:bg-[#1D4ED8]"
           >
-            Edit
+            Chỉnh sửa
           </button>
           )}
         </div>
@@ -91,13 +91,13 @@ export default function ImportedDocumentViewer({ doc, showBackButton = true }: P
       <div className="flex-1 bg-[#F9F9F8] dark:bg-[#252525] p-4 overflow-auto">
         {isPreviewLoading ? (
           <div className="h-full min-h-[31.25rem] flex items-center justify-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-            Loading preview...
+            Đang tải bản xem trước...
           </div>
         ) : previewError ? (
           <div className="h-full min-h-[31.25rem] flex items-center justify-center">
             <div className="text-center">
-              <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-2">Could not load preview.</p>
-              <a href={downloadUrl} className="text-[0.8125rem] text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8]">Download to view</a>
+              <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-2">Không thể tải bản xem trước.</p>
+              <a href={downloadUrl} className="text-[0.8125rem] text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8]">Tải xuống để xem</a>
             </div>
           </div>
         ) : isImage && objectUrl ? (
@@ -109,8 +109,8 @@ export default function ImportedDocumentViewer({ doc, showBackButton = true }: P
         ) : (
           <div className="h-full flex items-center justify-center">
             <div className="text-center">
-              <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-2">This format is not supported for direct preview.</p>
-              <a href={downloadUrl} className="text-[0.8125rem] text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8]">Download to view</a>
+              <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-2">Định dạng này không được hỗ trợ xem trước trực tiếp.</p>
+              <a href={downloadUrl} className="text-[0.8125rem] text-[#2563EB] dark:text-[#3B82F6] hover:text-[#1D4ED8]">Tải xuống để xem</a>
             </div>
           </div>
         )}

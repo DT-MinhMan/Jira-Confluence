@@ -13,7 +13,7 @@ import { resolveWorkspaceFromRouteKey } from "@/modules/workspace/shared/service
 import { queryKeys } from "@/shared/constants/queryKeys";
 
 export default function CreateWorkspacePage({ params }: { params: Promise<{ key: string }> }) {
-  usePageTitle("New Page");
+  usePageTitle("Tạo trang mới");
   const { key } = use(params);
   const router = useRouter();
   const [form, setForm] = useState({
@@ -31,7 +31,7 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
   const workspaceId = workspaceQuery.data?._id ?? "";
 
   useEffect(() => {
-    if (workspaceQuery.error) toast.error("Workspace not found");
+    if (workspaceQuery.error) toast.error("Không tìm thấy không gian làm việc");
   }, [workspaceQuery.error]);
 
   const createPageMutation = useMutation({
@@ -49,11 +49,11 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
       return res.data?.data ?? res.data;
     },
     onSuccess: (created) => {
-      toast.success("Page created in workspace");
+      toast.success("Đã tạo trang trong không gian làm việc");
       router.push(`/workspaces/${key}/pages/${created.slug}`);
     },
     onError: () => {
-      toast.error("Could not create page");
+      toast.error("Không thể tạo trang");
     },
   });
 
@@ -92,9 +92,9 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
           <ArrowLeft className="h-5 w-5 text-gray-500 dark:text-gray-400" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create Workspace Page</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Tạo trang không gian làm việc</h1>
           <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
-            Create a page that belongs to this workspace.
+            Tạo một trang tài liệu thuộc về không gian làm việc này.
           </p>
         </div>
       </div>
@@ -105,28 +105,28 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
       >
         <div className="workspace-panel space-y-5">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Page title *</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Tiêu đề trang *</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => setForm((curr) => ({ ...curr, title: e.target.value }))}
               required
-              placeholder="Enter page title"
+              placeholder="Nhập tiêu đề trang"
               className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Content</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Nội dung</label>
             <textarea
               value={form.content}
               onChange={(e) => setForm((curr) => ({ ...curr, content: e.target.value }))}
               rows={12}
-              placeholder="Write your workspace page content..."
+              placeholder="Nhập nội dung trang tài liệu..."
               className="w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-2.5 font-mono text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Labels</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Nhãn</label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -138,7 +138,7 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
                     addLabel();
                   }
                 }}
-                placeholder="Type a label and press Enter"
+                placeholder="Nhập nhãn và nhấn Enter"
                 className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
               />
               <button
@@ -172,7 +172,7 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
             href={`/workspaces/${key}/pages`}
             className="rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
           >
-            Cancel
+            Hủy
           </Link>
           <button
             type="submit"
@@ -180,10 +180,10 @@ export default function CreateWorkspacePage({ params }: { params: Promise<{ key:
             className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
           >
             {loading ? (
-              "Creating..."
+              "Đang tạo..."
             ) : (
               <>
-                <Save className="h-4 w-4" /> Create Page
+                <Save className="h-4 w-4" /> Tạo trang
               </>
             )}
           </button>

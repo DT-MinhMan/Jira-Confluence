@@ -188,7 +188,7 @@ export default function DocsTreeItem({
           <button
             onClick={handleAddChild}
             className="p-1 text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#2563EB] dark:hover:text-[#3B82F6] hover:bg-[#F9F9F8] dark:hover:bg-[#252525] rounded-[4px] transition-colors"
-            title="Add sub-page"
+            title="Thêm trang con"
           >
             <Plus className="w-3.5 h-3.5" />
           </button>
@@ -227,14 +227,14 @@ export default function DocsTreeItem({
                   className="w-full text-left px-3 py-2 text-xs font-medium text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 flex items-center gap-2.5 transition-colors"
                 >
                   <Edit2 className="w-3.5 h-3.5 text-[#ABABAB] dark:text-[#6B6B6B]" />{" "}
-                  Rename
+                  Đổi tên
                 </button>
                 <div className="my-1 border-t border-[#EAEAEA] dark:border-white/[0.06]" />
                 <button
                   onClick={handleOpenDeleteDialog}
                   className="w-full text-left px-3 py-2 text-xs font-medium text-[#9F2F2D] hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)] flex items-center gap-2.5 transition-colors"
                 >
-                  <Trash className="w-3.5 h-3.5" /> Delete
+                  <Trash className="w-3.5 h-3.5" /> Xóa
                 </button>
               </motion.div>
             )}
@@ -279,14 +279,14 @@ export default function DocsTreeItem({
               </div>
               <div className="min-w-0">
                 <h2 id="delete-page-title" className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Delete document?
+                  Xóa tài liệu?
                 </h2>
                 <p className="mt-1 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                  This will permanently delete{" "}
+                  Thao tác này sẽ xóa vĩnh viễn{" "}
                   <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                    {deleteTarget.title || "Untitled Document"}
+                    {deleteTarget.title || "Tài liệu chưa đặt tên"}
                   </span>
-                  {" "}and all sub-pages. This action cannot be undone.
+                  {" "}cùng tất cả các trang con. Hành động này không thể hoàn tác.
                 </p>
               </div>
             </div>
@@ -298,7 +298,7 @@ export default function DocsTreeItem({
                 onClick={closeDeleteDialog}
                 className="rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] px-4 py-2 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="button"
@@ -306,7 +306,7 @@ export default function DocsTreeItem({
                 onClick={handleDelete}
                 className="rounded-[6px] bg-[#9F2F2D] px-4 py-2 text-[0.8125rem] font-medium text-white hover:bg-[#8F2927] dark:hover:bg-[#F87171]/80 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
               >
-                {deleting ? "Deleting..." : "Delete"}
+                {deleting ? "Đang xóa..." : "Xóa"}
               </button>
             </div>
           </div>

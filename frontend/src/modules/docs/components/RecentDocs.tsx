@@ -17,7 +17,7 @@ export default function RecentDocs({ workspaceId }: { workspaceId: string }) {
   return (
     <div className="mb-6 px-2">
       <h3 className="px-3 flex items-center gap-1.5 text-[0.625rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-widest mb-3">
-        Recent
+        Gần đây
       </h3>
       <ul className="space-y-1">
         {recentDocs.map(doc => (

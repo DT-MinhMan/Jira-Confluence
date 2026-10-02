@@ -74,9 +74,8 @@ export default function TaskDetailMainContent({
           <div className="flex items-center">
             <AlertTriangle className="h-5 w-5 text-[#956400] dark:text-[#F59E0B] mr-2" />
             <span className="text-[#956400] dark:text-[#F59E0B] text-sm font-medium">
-              This task was archived by {issue.archivedByUser?.fullName || "Unknown"} on{" "}
-              {issue.archivedAt ? new Date(issue.archivedAt).toLocaleDateString() : "Unknown Date"}. It is currently
-              read-only.
+              Nhiệm vụ này đã được lưu trữ bởi {issue.archivedByUser?.fullName || "Người dùng"} vào{" "}
+              {issue.archivedAt ? new Date(issue.archivedAt).toLocaleDateString("vi-VN") : "Không rõ ngày"}. Hiện tại ở chế độ chỉ đọc.
             </span>
           </div>
           <button
@@ -86,7 +85,7 @@ export default function TaskDetailMainContent({
             className="flex items-center px-3 py-1.5 bg-[#FBF3DB] hover:bg-[#F7F6F3] dark:bg-[rgba(149,100,0,0.12)] dark:hover:bg-[#2E2E2E] text-[#956400] dark:text-[#F59E0B] text-sm font-semibold rounded-[6px] transition-colors"
           >
             <ArchiveRestore className="w-4 h-4 mr-1.5" />
-            Restore
+            Khôi phục
           </button>
         </div>
       )}
@@ -126,7 +125,7 @@ export default function TaskDetailMainContent({
 
       {/* Description */}
       <div className="order-4 space-y-2">
-        <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Description</h3>
+        <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Mô tả</h3>
         <TaskDescription initialContent={issue.description || ""} onSave={onSaveDescription} />
       </div>
 
@@ -153,9 +152,9 @@ export default function TaskDetailMainContent({
       {/* Activity */}
       <div className="order-7 space-y-4 pt-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Activity</h3>
+          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Hoạt động</h3>
           <div className="flex items-center gap-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-            <span>Show:</span>
+            <span>Hiển thị:</span>
             <button
               onClick={() => setActiveTab("comments")}
               className={`px-3 py-1 rounded-[4px] font-medium transition-colors ${
@@ -164,7 +163,7 @@ export default function TaskDetailMainContent({
                   : "hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
               }`}
             >
-              Comments
+              Bình luận
             </button>
             <button
               onClick={() => setActiveTab("history")}
@@ -174,7 +173,7 @@ export default function TaskDetailMainContent({
                   : "hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
               }`}
             >
-              History
+              Lịch sử
             </button>
             <button
               onClick={() => setActiveTab("work_log")}
@@ -184,7 +183,7 @@ export default function TaskDetailMainContent({
                   : "hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
               }`}
             >
-              Work log
+              Nhật ký công việc
             </button>
           </div>
         </div>

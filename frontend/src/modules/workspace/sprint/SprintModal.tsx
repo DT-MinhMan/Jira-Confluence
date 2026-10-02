@@ -104,12 +104,12 @@ export default function SprintModal({ isOpen, onClose, onSave, initialData, spri
     e.preventDefault();
 
     if ((formData.startDate && !formData.endDate) || (!formData.startDate && formData.endDate)) {
-      toast.error("Enter both start and end dates, or leave both empty");
+      toast.error("Vui lòng nhập cả ngày bắt đầu và ngày kết thúc, hoặc để trống cả hai");
       return;
     }
 
     if (formData.startDate && formData.endDate && new Date(formData.endDate) <= new Date(formData.startDate)) {
-      toast.error("The end date must be after the start date");
+      toast.error("Ngày kết thúc phải sau ngày bắt đầu");
       return;
     }
 
@@ -141,7 +141,7 @@ export default function SprintModal({ isOpen, onClose, onSave, initialData, spri
       >
         <div className="flex items-center justify-between p-5 border-b border-[#EAEAEA] dark:border-white/[0.06]">
           <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-            {initialData ? 'Edit Sprint' : 'Create Sprint'}
+            {initialData ? 'Chỉnh sửa Sprint' : 'Tạo Sprint'}
           </h3>
           <button onClick={onClose} className="text-[#ABABAB] hover:text-[#111111] dark:hover:text-[#E8E8E7] p-1.5 hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors">
             <X className="w-4 h-4" />
@@ -150,13 +150,13 @@ export default function SprintModal({ isOpen, onClose, onSave, initialData, spri
         {initialData?.status === 'active' && (
           <div className="px-5 pt-4 pb-0">
             <p className="text-[0.6875rem] text-[#956400] dark:text-[#F59E0B] bg-[#FBF3DB] dark:bg-[rgba(149,100,0,0.15)] border border-[#F0D88A] dark:border-[rgba(245,158,11,0.2)] rounded-[6px] px-3 py-2">
-              Running sprints can only have their name and goal edited.
+              Sprint đang hoạt động chỉ có thể chỉnh sửa tên và mục tiêu.
             </p>
           </div>
         )}
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className={labelCls}>Sprint name <span className="text-[#9F2F2D]">*</span></label>
+            <label className={labelCls}>Tên Sprint <span className="text-[#9F2F2D]">*</span></label>
             <input
               type="text"
               required
@@ -166,53 +166,53 @@ export default function SprintModal({ isOpen, onClose, onSave, initialData, spri
             />
           </div>
           <div>
-            <label className={labelCls}>Duration</label>
+            <label className={labelCls}>Thời lượng</label>
             <select value={formData.duration} onChange={handleDurationChange} className={inputCls}>
-              <option value="1 week">1 week</option>
-              <option value="2 weeks">2 weeks</option>
-              <option value="3 weeks">3 weeks</option>
-              <option value="4 weeks">4 weeks</option>
-              <option value="custom">Custom</option>
+              <option value="1 week">1 tuần</option>
+              <option value="2 weeks">2 tuần</option>
+              <option value="3 weeks">3 tuần</option>
+              <option value="4 weeks">4 tuần</option>
+              <option value="custom">Tùy chỉnh</option>
             </select>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className={labelCls}>Start date</label>
+              <label className={labelCls}>Ngày bắt đầu</label>
               <CustomDatePicker
                 value={formData.startDate || null}
                 onChange={handleStartDateChange}
                 disabled={isRestricted}
                 placeholder="DD/MM/YYYY"
-                ariaLabel="Sprint start date"
+                ariaLabel="Ngày bắt đầu sprint"
               />
             </div>
             <div>
-              <label className={labelCls}>End date</label>
+              <label className={labelCls}>Ngày kết thúc</label>
               <CustomDatePicker
                 value={formData.endDate || null}
                 onChange={(val) => setFormData({ ...formData, endDate: val || '', duration: 'custom' })}
                 disabled={isRestricted}
                 placeholder="DD/MM/YYYY"
-                ariaLabel="Sprint end date"
+                ariaLabel="Ngày kết thúc sprint"
               />
             </div>
           </div>
           <div>
-            <label className={labelCls}>Sprint goal</label>
+            <label className={labelCls}>Mục tiêu Sprint</label>
             <textarea
               value={formData.goal}
               onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
               rows={3}
               className={`${inputCls} resize-none`}
-              placeholder="Example: Complete payment feature..."
+              placeholder="Ví dụ: Hoàn thành tính năng thanh toán..."
             />
           </div>
           <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <button type="button" onClick={onClose} className="px-4 py-2 border border-[#EAEAEA] dark:border-white/[0.08] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors">
-              Cancel
+              Hủy
             </button>
             <button type="submit" className="px-4 py-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors">
-              {initialData ? 'Update' : 'Create Sprint'}
+              {initialData ? 'Cập nhật' : 'Tạo Sprint'}
             </button>
           </div>
         </form>

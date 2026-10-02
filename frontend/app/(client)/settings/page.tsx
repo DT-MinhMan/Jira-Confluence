@@ -9,7 +9,7 @@ import ThemeSwitcher from "@/shared/components/ThemeSwitcher";
 import FontSizeControl from "@/shared/components/FontSizeControl";
 
 export default function SettingsPage() {
-  usePageTitle("Settings");
+  usePageTitle("Cài đặt");
   const { user, logout } = useAuth();
   const [profile, setProfile] = useState({
     fullName: user?.fullName || "",
@@ -23,10 +23,10 @@ export default function SettingsPage() {
     setMessage("");
     try {
       await api.put("/users/profile", profile);
-      setMessage("Profile updated successfully!");
+      setMessage("Cập nhật hồ sơ thành công!");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      setMessage(e.response?.data?.message || "Failed to update");
+      setMessage(e.response?.data?.message || "Cập nhật thất bại");
     } finally {
       setSaving(false);
     }
@@ -38,12 +38,12 @@ export default function SettingsPage() {
     <div className="flex-1 overflow-y-auto">
       <div className="app-page-narrow py-8 pb-12 px-4">
         <h1 className="mb-6 text-2xl font-semibold text-[#111111] dark:text-[#E8E8E7]">
-          Settings
+          Cài đặt
         </h1>
 
       {message && (
         <div
-          className={`mb-4 rounded-[6px] border p-4 text-sm ${message.includes("success")
+          className={`mb-4 rounded-[6px] border p-4 text-sm ${message.includes("thành công") || message.includes("success")
               ? "border-[#C3DFC1] bg-[#EDF3EC] text-[#346538] dark:border-[rgba(52,101,56,0.18)] dark:bg-[rgba(52,101,56,0.12)] dark:text-[#6DB374]"
               : "border-[#F5C6C7] bg-[#FDEBEC] text-[#9F2F2D] dark:border-[rgba(159,47,45,0.18)] dark:bg-[rgba(159,47,45,0.12)] dark:text-[#F87171]"
             }`}
@@ -55,7 +55,7 @@ export default function SettingsPage() {
       <div className="workspace-panel mb-6 rounded-[8px] border border-[#EAEAEA] bg-white dark:border-white/[0.06] dark:bg-[#252525]">
         <h2 className="mb-4 flex items-center gap-2 font-semibold text-[#111111] dark:text-[#E8E8E7]">
           <User className="h-5 w-5 text-[#2563EB] dark:text-[#3B82F6]" />
-          Profile
+          Hồ sơ cá nhân
         </h2>
         <div className="space-y-4">
           <div className="flex items-center gap-4">
@@ -63,13 +63,13 @@ export default function SettingsPage() {
               {initial}
             </div>
             <div>
-              <p className="font-medium text-[#111111] dark:text-[#E8E8E7]">{user?.fullName || "User"}</p>
+              <p className="font-medium text-[#111111] dark:text-[#E8E8E7]">{user?.fullName || "Người dùng"}</p>
               <p className="text-sm text-[#787774] dark:text-[#9B9A97]">{user?.email}</p>
             </div>
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#787774] dark:text-[#9B9A97]">Full Name</label>
+            <label className="mb-2 block text-sm font-medium text-[#787774] dark:text-[#9B9A97]">Họ và tên</label>
             <input
               type="text"
               value={profile.fullName}
@@ -86,7 +86,7 @@ export default function SettingsPage() {
               className="w-full cursor-not-allowed rounded-[6px] border border-[#EAEAEA] bg-[#F9F9F8] px-4 py-2.5 text-[#ABABAB] dark:border-white/[0.06] dark:bg-[#2A2A2A] dark:text-[#6B6B6B]"
               disabled
             />
-            <p className="mt-1 text-xs text-[#ABABAB] dark:text-[#6B6B6B]">Email cannot be changed</p>
+            <p className="mt-1 text-xs text-[#ABABAB] dark:text-[#6B6B6B]">Không thể thay đổi email</p>
           </div>
 
           <div className="flex justify-end">
@@ -95,7 +95,7 @@ export default function SettingsPage() {
               disabled={saving}
               className="rounded-[6px] bg-[#2563EB] px-6 py-2.5 font-medium text-white transition-colors hover:bg-[#1D4ED8] disabled:opacity-50 dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
             >
-              {saving ? "Saving..." : "Save Profile"}
+              {saving ? "Đang lưu..." : "Lưu hồ sơ"}
             </button>
           </div>
         </div>
@@ -104,12 +104,12 @@ export default function SettingsPage() {
       <div className="workspace-panel mb-6 rounded-[8px] border border-[#EAEAEA] bg-white dark:border-white/[0.06] dark:bg-[#252525]">
         <h2 className="mb-4 flex items-center gap-2 font-semibold text-[#111111] dark:text-[#E8E8E7]">
           <Shield className="h-5 w-5 text-[#2563EB] dark:text-[#3B82F6]" />
-          Password
+          Mật khẩu
         </h2>
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {user?.ssoProvider === 'google' || (user as any)?.googleId ? (
           <div className="rounded-[6px] bg-[#F9F9F8] p-4 text-sm text-[#787774] dark:bg-[#2A2A2A] dark:text-[#9B9A97]">
-            Your account is linked with Google. Password management is handled directly through your Google account.
+            Tài khoản của bạn được liên kết với Google. Việc quản lý mật khẩu được xử lý trực tiếp qua tài khoản Google của bạn.
           </div>
         ) : (
           <button className="flex w-full items-center justify-between rounded-[6px] bg-[#F9F9F8] p-4 transition-colors hover:bg-[#F7F6F3] dark:bg-[#2A2A2A] dark:hover:bg-white/5">
@@ -117,10 +117,10 @@ export default function SettingsPage() {
               <Key className="h-5 w-5 text-[#ABABAB] dark:text-[#6B6B6B]" />
               <div className="text-left">
                 <p className="text-sm font-medium text-[#111111] dark:text-[#E8E8E7]">
-                  Change Password
+                  Đổi mật khẩu
                 </p>
                 <p className="text-xs text-[#787774] dark:text-[#9B9A97]">
-                  Update your account password
+                  Cập nhật mật khẩu tài khoản của bạn
                 </p>
               </div>
             </div>
@@ -132,7 +132,7 @@ export default function SettingsPage() {
       <div className="workspace-panel mb-6 rounded-[8px] border border-[#EAEAEA] bg-white dark:border-white/[0.06] dark:bg-[#252525]">
         <h2 className="mb-4 flex items-center gap-2 font-semibold text-[#111111] dark:text-[#E8E8E7]">
           <LogOut className="h-5 w-5 text-[#9F2F2D] dark:text-[#F87171]" />
-          Account
+          Tài khoản
         </h2>
         <button
           onClick={logout}
@@ -140,8 +140,8 @@ export default function SettingsPage() {
         >
           <LogOut className="h-5 w-5" />
           <div className="text-left">
-            <p className="text-sm font-medium">Log out</p>
-            <p className="text-xs opacity-75">Sign out of the current account</p>
+            <p className="text-sm font-medium">Đăng xuất</p>
+            <p className="text-xs opacity-75">Đăng xuất khỏi tài khoản hiện tại</p>
           </div>
         </button>
       </div>

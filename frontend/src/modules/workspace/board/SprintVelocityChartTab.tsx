@@ -89,7 +89,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
             <div className="flex justify-between gap-6">
               <span className="text-[#5E6C84] dark:text-[#9B9A97] inline-flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#818CF8]" />
-                Commitment:
+                Cam kết:
               </span>
               <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">
                 {showStoryPoints ? sprintData.committedStoryPoints : sprintData.committedTasksCount} {unit}
@@ -98,7 +98,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
             <div className="flex justify-between gap-6">
               <span className="text-[#5E6C84] dark:text-[#9B9A97] inline-flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#34D399]" />
-                Completion:
+                Hoàn thành:
               </span>
               <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">
                 {showStoryPoints ? sprintData.completedStoryPoints : sprintData.completedTasksCount} {unit}
@@ -108,7 +108,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
           {showStoryPoints && sprintData.hasLowStoryPointsCoverage && (
             <p className="text-[0.75rem] text-[#DE350B] dark:text-[#FF8F73] flex items-center gap-1 mt-1 bg-[#FFEBE6] dark:bg-[#421F1C] p-1.5 rounded-[4px]">
               <AlertTriangle className="w-3.5 h-3.5" />
-              Low SP coverage
+              Độ phủ điểm ước lượng thấp
             </p>
           )}
         </div>
@@ -122,9 +122,9 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
       {/* Title Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAEAEA] dark:border-white/[0.06] pb-4">
         <div>
-          <h2 className="text-xl font-bold text-[#111111] dark:text-[#E8E8E7]">Sprint Velocity</h2>
+          <h2 className="text-xl font-bold text-[#111111] dark:text-[#E8E8E7]">Tốc độ Sprint</h2>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mt-1">
-            Analyze the story points or tasks committed and completed across past sprints.
+            Phân tích điểm ước lượng hoặc số lượng nhiệm vụ đã cam kết và hoàn thành qua các sprint trước.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -138,7 +138,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
                   : "text-[#5E6C84] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
               }`}
             >
-              Story Points
+              Điểm ước lượng (SP)
             </button>
             <button
               onClick={() => setMetric("tasks")}
@@ -148,7 +148,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
                   : "text-[#5E6C84] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
               }`}
             >
-              Task Count
+              Số lượng nhiệm vụ
             </button>
           </div>
 
@@ -158,7 +158,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
             className="inline-flex items-center gap-1.5 border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] px-3.5 py-2 rounded-[6px] text-[0.8125rem] font-semibold hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors shadow-sm disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-            Reload
+            Tải lại
           </button>
         </div>
       </div>
@@ -174,14 +174,14 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
       {isLoading ? (
         <div className="flex items-center justify-center py-32 gap-2 text-[#787774] dark:text-[#9B9A97] text-[0.8125rem]">
           <RefreshCw className="w-5 h-5 animate-spin text-[#2563EB]" />
-          Loading report data...
+          Đang tải dữ liệu báo cáo...
         </div>
       ) : data.length === 0 ? (
         <div className="py-24 text-center text-[#787774] dark:text-[#9B9A97] text-[0.8125rem] border border-dashed border-[#EAEAEA] dark:border-white/5 rounded-[8px]">
           <div className="flex flex-col items-center justify-center gap-2">
             <TrendingUp className="w-8 h-8 text-[#EAEAEA] dark:text-white/10" />
-            <p className="font-semibold text-[#111111] dark:text-[#E8E8E7]">No completed sprints</p>
-            <p className="text-[0.75rem]">Once you start and complete sprints in this workspace, velocity charts will appear here.</p>
+            <p className="font-semibold text-[#111111] dark:text-[#E8E8E7]">Chưa có sprint nào hoàn thành</p>
+            <p className="text-[0.75rem]">Sau khi bạn bắt đầu và hoàn thành các sprint trong không gian làm việc này, biểu đồ tốc độ sẽ hiển thị tại đây.</p>
           </div>
         </div>
       ) : (
@@ -190,18 +190,18 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="p-4 border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] bg-white dark:bg-[#1A1A1A] shadow-sm">
               <span className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97] block">
-                AVERAGE VELOCITY
+                TỐC ĐỘ TRUNG BÌNH
               </span>
               <span className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7] mt-1 block">
-                {averageVelocity.toFixed(1)} {showStoryPoints ? "SP" : "tasks"}
+                {averageVelocity.toFixed(1)} {showStoryPoints ? "SP" : "nhiệm vụ"}
               </span>
             </div>
             <div className="p-4 border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] bg-white dark:bg-[#1A1A1A] shadow-sm">
               <span className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97] block">
-                COMPLETED SPRINTS
+                SPRINT ĐÃ HOÀN THÀNH
               </span>
               <span className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7] mt-1 block">
-                {data.length} sprints
+                {data.length} sprint
               </span>
             </div>
           </div>
@@ -247,7 +247,7 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
                     stroke="#EF4444"
                     strokeDasharray="4 4"
                     label={{
-                      value: `Avg: ${averageVelocity.toFixed(1)}`,
+                      value: `TB: ${averageVelocity.toFixed(1)}`,
                       position: "top",
                       fill: "#EF4444",
                       fontSize: 11,
@@ -255,14 +255,14 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
                     }}
                   />
                   <Bar
-                    name="Commitment"
+                    name="Cam kết"
                     dataKey={showStoryPoints ? "committedStoryPoints" : "committedTasksCount"}
                     fill="#818CF8"
                     radius={[4, 4, 0, 0]}
                     maxBarSize={45}
                   />
                   <Bar
-                    name="Completion"
+                    name="Hoàn thành"
                     dataKey={showStoryPoints ? "completedStoryPoints" : "completedTasksCount"}
                     fill="#34D399"
                     radius={[4, 4, 0, 0]}
@@ -278,9 +278,9 @@ export default function SprintVelocityChartTab({ workspaceId }: SprintVelocityCh
             <div className="p-4 border border-[#DE350B]/20 bg-[#FFEBE6] dark:bg-[#421F1C]/30 text-[#DE350B] dark:text-[#FF8F73] rounded-[8px] text-[0.8125rem] flex gap-3 items-start shadow-sm">
               <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold">Story Points Coverage Warning</p>
+                <p className="font-bold">Cảnh báo độ phủ điểm ước lượng</p>
                 <p className="mt-1 opacity-90 text-[0.75rem] leading-relaxed">
-                  Some completed sprints have more than 50% of tasks without Story Points values set. The total Story Points measurements for these sprints may be inaccurate. We suggest switching to <strong>&quot;Task Count&quot;</strong> to analyze sprint completion velocity more accurately.
+                  Một số sprint đã hoàn thành có hơn 50% nhiệm vụ chưa được gắn điểm ước lượng. Tổng điểm ước lượng của các sprint này có thể chưa chính xác. Bạn nên chuyển sang <strong>&quot;Số lượng nhiệm vụ&quot;</strong> để phân tích tốc độ hoàn thành sprint chính xác hơn.
                 </p>
               </div>
             </div>

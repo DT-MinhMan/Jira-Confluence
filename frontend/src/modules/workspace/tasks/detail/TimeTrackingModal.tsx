@@ -315,11 +315,11 @@ export default function TimeTrackingModal({
         });
       }
 
-      toast.success(editWorkLog ? `Updated work log for Task ${issue.key}` : `Logged time to Task ${issue.key}`);
+      toast.success(editWorkLog ? `Đã cập nhật nhật ký thời gian cho nhiệm vụ ${issue.key}` : `Đã ghi nhận thời gian cho nhiệm vụ ${issue.key}`);
       onClose();
     } catch (error) {
       console.error("Failed to log work:", error);
-      toast.error("Failed to log work");
+      toast.error("Không thể ghi nhận thời gian");
     }
   };
 
@@ -356,7 +356,7 @@ export default function TimeTrackingModal({
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 pb-2">
-          <h2 className="text-[1.125rem] font-semibold text-[#172B4D] dark:text-[#F4F5F7]">Time tracking</h2>
+          <h2 className="text-[1.125rem] font-semibold text-[#172B4D] dark:text-[#F4F5F7]">Theo dõi thời gian</h2>
           <button 
             onClick={onClose} 
             className="p-1.5 hover:bg-[#F4F5F7] dark:hover:bg-white/5 rounded-[4px] text-[#5E6C84] dark:text-[#9B9A97] transition-colors"
@@ -375,7 +375,7 @@ export default function TimeTrackingModal({
               />
             </div>
             <div className="text-[0.8125rem] text-[#5E6C84] dark:text-[#9B9A97] mt-1 font-medium">
-              {formatTime(displayLogged)} logged
+              Đã ghi nhận {formatTime(displayLogged)}
             </div>
           </div>
         )}
@@ -385,12 +385,12 @@ export default function TimeTrackingModal({
           {/* Spent and Remaining inputs */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Time spent</label>
+              <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Thời gian đã dành</label>
               <input
                 type="text"
                 value={timeSpent}
                 onChange={(e) => setTimeSpent(e.target.value)}
-                placeholder="e.g. 4h"
+                placeholder="vd: 4h"
                 className="w-full px-3 py-1.5 border-2 border-[#DFE1E6] dark:border-[#2A2A2A] focus:border-[#4C9AFF] dark:focus:border-[#3B82F6] bg-white dark:bg-[#252525] rounded-[3px] text-[0.875rem] outline-none transition-colors"
                 autoFocus
               />
@@ -398,14 +398,14 @@ export default function TimeTrackingModal({
 
             <div className="space-y-1.5">
               <div className="flex items-center gap-1">
-                <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Time remaining</label>
-                <span title="If time remaining isn't what you expect, manually update it here." className="cursor-pointer"><Info className="w-3.5 h-3.5 text-[#5E6C84] dark:text-[#9B9A97]" /></span>
+                <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Thời gian còn lại</label>
+                <span title="Nếu thời gian còn lại không đúng dự tính, hãy tự cập nhật tại đây." className="cursor-pointer"><Info className="w-3.5 h-3.5 text-[#5E6C84] dark:text-[#9B9A97]" /></span>
               </div>
               <input
                 type="text"
                 value={timeRemaining}
                 onChange={(e) => setTimeRemaining(e.target.value)}
-                placeholder="e.g. 2h"
+                placeholder="vd: 2h"
                 className="w-full px-3 py-1.5 border-2 border-[#DFE1E6] dark:border-[#2A2A2A] focus:border-[#4C9AFF] dark:focus:border-[#3B82F6] bg-white dark:bg-[#252525] rounded-[3px] text-[0.875rem] outline-none transition-colors"
               />
             </div>
@@ -413,9 +413,9 @@ export default function TimeTrackingModal({
 
           {/* Help Format */}
           <div className="text-[0.8125rem] text-[#5E6C84] dark:text-[#9B9A97] space-y-1">
-            <p>Use the format: e.g., 4 or 4h</p>
+            <p>Định dạng: ví dụ 4 hoặc 4h</p>
             <ul className="list-disc pl-4 space-y-0.5 text-[0.75rem]">
-              <li>h = hours (e.g. 1.5h or 2)</li>
+              <li>h = giờ (ví dụ 1.5h hoặc 2)</li>
             </ul>
           </div>
 
@@ -424,7 +424,7 @@ export default function TimeTrackingModal({
               {/* Date Started */}
               <div className="space-y-1.5">
                 <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">
-                  Date started <span className="text-[#DE350B]">*</span>
+                  Thời điểm bắt đầu <span className="text-[#DE350B]">*</span>
                 </label>
                 <div className="flex items-center gap-2 w-full px-3 py-1.5 border-2 border-[#DFE1E6] dark:border-[#2A2A2A] bg-white dark:bg-[#252525] rounded-[3px]">
                   <Calendar className="w-4 h-4 text-[#5E6C84] dark:text-[#9B9A97]" />
@@ -457,37 +457,37 @@ export default function TimeTrackingModal({
 
               {/* Work Description with Toolbar */}
               <div className="space-y-1.5">
-                <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Work description</label>
+                <label className="block text-[0.8125rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Mô tả công việc</label>
                 <div className="relative border-2 border-[#DFE1E6] dark:border-[#2A2A2A] rounded-[3px] overflow-hidden">
                   {/* Toolbar */}
                   <div className="flex items-center gap-1.5 px-2 py-1 bg-[#F4F5F7] dark:bg-[#2A2A2A] border-b border-[#DFE1E6] dark:border-[#2A2A2A]">
-                    <button type="button" onClick={handleAiClick} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="AI Assistant">
+                    <button type="button" onClick={handleAiClick} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Trợ lý AI">
                       <Sparkles className="w-3.5 h-3.5" />
                     </button>
                     <button type="button" onClick={handleAiClick} tabIndex={-1} className="p-0.5 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]">
                       <ChevronDown className="w-3 h-3" />
                     </button>
                     <span className="text-[#DFE1E6] dark:text-[#2A2A2A]">|</span>
-                    <button type="button" onClick={handleTtClick} tabIndex={-1} className="px-1 py-0.5 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]" title="Format text (bold)">
+                    <button type="button" onClick={handleTtClick} tabIndex={-1} className="px-1 py-0.5 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]" title="Định dạng in đậm">
                       Tt
                     </button>
-                    <button type="button" onClick={handleInsertClick} tabIndex={-1} className="px-1 py-0.5 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[0.75rem] font-bold text-[#5E6C84] dark:text-[#9B9A97]" title="Insert item">
+                    <button type="button" onClick={handleInsertClick} tabIndex={-1} className="px-1 py-0.5 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[0.75rem] font-bold text-[#5E6C84] dark:text-[#9B9A97]" title="Thêm mục">
                       +
                     </button>
-                    <button type="button" onClick={handleLinkClick} tabIndex={-1} className={`p-1 rounded transition-colors ${isLinkPopupOpen ? "bg-[#DEEBFF] text-[#0747A6] dark:bg-[#0747A6]/30 dark:text-[#4C9AFF]" : "text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5"}`} title="Insert link">
+                    <button type="button" onClick={handleLinkClick} tabIndex={-1} className={`p-1 rounded transition-colors ${isLinkPopupOpen ? "bg-[#DEEBFF] text-[#0747A6] dark:bg-[#0747A6]/30 dark:text-[#4C9AFF]" : "text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5"}`} title="Chèn liên kết">
                       <Link className="w-3.5 h-3.5" />
                     </button>
-                    <button type="button" onClick={handleUploadClick} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Upload file">
+                    <button type="button" onClick={handleUploadClick} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Tải tệp lên">
                       <Paperclip className="w-3.5 h-3.5" />
                     </button>
                     <span className="text-[#DFE1E6] dark:text-[#2A2A2A]">|</span>
-                    <button type="button" onClick={handleUndo} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Undo">
+                    <button type="button" onClick={handleUndo} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Hoàn tác">
                       <Undo className="w-3.5 h-3.5" />
                     </button>
-                    <button type="button" onClick={handleRedo} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Redo">
+                    <button type="button" onClick={handleRedo} tabIndex={-1} className="p-1 hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded text-[#5E6C84] dark:text-[#9B9A97]" title="Làm lại">
                       <Redo className="w-3.5 h-3.5" />
                     </button>
-                    <button type="button" onClick={handleHistoryClick} tabIndex={-1} className={`p-1 rounded transition-colors ${isHistoryPopupOpen ? "bg-[#DEEBFF] text-[#0747A6] dark:bg-[#0747A6]/30 dark:text-[#4C9AFF]" : "text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5"}`} title="History logs">
+                    <button type="button" onClick={handleHistoryClick} tabIndex={-1} className={`p-1 rounded transition-colors ${isHistoryPopupOpen ? "bg-[#DEEBFF] text-[#0747A6] dark:bg-[#0747A6]/30 dark:text-[#4C9AFF]" : "text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5"}`} title="Lịch sử chỉnh sửa">
                       <History className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -498,7 +498,7 @@ export default function TimeTrackingModal({
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     onBlur={handleDescriptionBlur}
-                    placeholder="Type /ai to Ask Rovo or @ to mention and notify someone."
+                    placeholder="Nhập mô tả công việc đã hoàn thành..."
                     className="w-full p-3 bg-white dark:bg-[#252525] text-[#172B4D] dark:text-[#E8E8E7] text-[0.875rem] min-h-[90px] outline-none resize-y text-left"
                   />
 
@@ -506,7 +506,7 @@ export default function TimeTrackingModal({
                   {isLinkPopupOpen && (
                     <div className="absolute left-2 top-8 z-50 w-72 p-3 bg-white dark:bg-[#202020] rounded-[4px] border border-[#DFE1E6] dark:border-white/10 shadow-lg text-[0.8125rem] text-[#172B4D] dark:text-[#E8E8E7] space-y-3">
                       <div className="space-y-1">
-                        <label className="block font-medium text-[#5E6C84] dark:text-[#9B9A97]">Paste or search for link</label>
+                        <label className="block font-medium text-[#5E6C84] dark:text-[#9B9A97]">Dán hoặc tìm kiếm liên kết</label>
                         <input
                           type="text"
                           value={linkUrl}
@@ -517,12 +517,12 @@ export default function TimeTrackingModal({
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="block font-medium text-[#5E6C84] dark:text-[#9B9A97]">Display text (optional)</label>
+                        <label className="block font-medium text-[#5E6C84] dark:text-[#9B9A97]">Văn bản hiển thị (tùy chọn)</label>
                         <input
                           type="text"
                           value={linkText}
                           onChange={(e) => setLinkText(e.target.value)}
-                          placeholder="Text to display"
+                          placeholder="Văn bản hiển thị"
                           className="w-full px-2.5 py-1.5 border border-[#DFE1E6] dark:border-[#444] bg-white dark:bg-[#1E1E1E] rounded-[3px] outline-none"
                         />
                       </div>
@@ -533,7 +533,7 @@ export default function TimeTrackingModal({
                           disabled={!linkUrl}
                           className="px-3 py-1 bg-[#0052CC] hover:bg-[#0065FF] text-white rounded-[3px] font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Insert
+                          Chèn
                         </button>
                         <button
                           type="button"
@@ -544,7 +544,7 @@ export default function TimeTrackingModal({
                           }}
                           className="px-3 py-1 text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded-[3px] font-medium transition-colors"
                         >
-                          Cancel
+                          Hủy
                         </button>
                       </div>
                     </div>
@@ -553,7 +553,7 @@ export default function TimeTrackingModal({
                   {/* History Popup Overlay */}
                   {isHistoryPopupOpen && (
                     <div className="absolute right-2 top-8 z-50 w-64 p-3 bg-white dark:bg-[#202020] rounded-[4px] border border-[#DFE1E6] dark:border-white/10 shadow-lg text-[0.8125rem] text-[#172B4D] dark:text-[#E8E8E7]">
-                      <h4 className="font-semibold mb-2 text-[#5E6C84] dark:text-[#9B9A97]">Revisions History</h4>
+                      <h4 className="font-semibold mb-2 text-[#5E6C84] dark:text-[#9B9A97]">Lịch sử chỉnh sửa</h4>
                       <div className="max-h-40 overflow-y-auto space-y-1 custom-scrollbar">
                         {historyStack.map((item, idx) => (
                           <button
@@ -564,7 +564,7 @@ export default function TimeTrackingModal({
                               idx === historyIndex ? "bg-[#EBECF0]/60 dark:bg-white/10 font-semibold text-[#0052CC] dark:text-[#3B82F6]" : ""
                             }`}
                           >
-                            {idx === 0 ? "Initial Draft" : `Rev ${idx}: ${item.replace(/\n/g, " ") || "[empty]"}`}
+                            {idx === 0 ? "Bản nháp đầu tiên" : `Lần ${idx}: ${item.replace(/\n/g, " ") || "[trống]"}`}
                           </button>
                         ))}
                       </div>
@@ -574,7 +574,7 @@ export default function TimeTrackingModal({
                           onClick={() => setIsHistoryPopupOpen(false)}
                           className="px-2.5 py-1 text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded-[3px] font-medium transition-colors"
                         >
-                          Close
+                          Đóng
                         </button>
                       </div>
                     </div>
@@ -592,21 +592,21 @@ export default function TimeTrackingModal({
               disabled
               className="px-4 py-2 bg-[#F4F5F7] dark:bg-[#2D2D2D] text-[#A5ADBA] dark:text-white/20 rounded-[3px] text-[0.875rem] font-medium cursor-not-allowed border border-[#DFE1E6] dark:border-transparent"
             >
-              Save
+              Lưu
             </button>
           ) : (
             <button
               onClick={handleSave}
               className="px-4 py-2 bg-[#0052CC] hover:bg-[#0065FF] text-white rounded-[3px] text-[0.875rem] font-medium transition-colors"
             >
-              Save
+              Lưu
             </button>
           )}
           <button
             onClick={onClose}
             className="px-4 py-2 text-[#5E6C84] dark:text-[#9B9A97] hover:bg-[#EBECF0] dark:hover:bg-white/5 rounded-[3px] text-[0.875rem] font-medium transition-colors"
           >
-            Cancel
+            Hủy
           </button>
         </div>
       </div>

@@ -124,16 +124,16 @@ export default function WorkspacePage(props: WorkspacePageProps) {
   if (tasksError) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const status = (tasksError as any).response?.status;
-    let errorMessage = "An error occurred while loading board data";
-    if (status === 401) errorMessage = "Your session has expired. Please sign in again.";
-    if (status === 403) errorMessage = "You do not have permission to access this workspace.";
-    if (status === 404) errorMessage = "Workspace does not exist.";
-    if (status === 400) errorMessage = "Invalid filters.";
+    let errorMessage = "Đã xảy ra lỗi khi tải dữ liệu bảng công việc";
+    if (status === 401) errorMessage = "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.";
+    if (status === 403) errorMessage = "Bạn không có quyền truy cập không gian làm việc này.";
+    if (status === 404) errorMessage = "Không gian làm việc không tồn tại.";
+    if (status === 400) errorMessage = "Bộ lọc không hợp lệ.";
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-red-500 mb-4">{errorMessage}</p>
         <button onClick={() => window.location.reload()} className="text-indigo-600 hover:text-indigo-800">
-          Reload page
+          Tải lại trang
         </button>
       </div>
     );
@@ -142,9 +142,9 @@ export default function WorkspacePage(props: WorkspacePageProps) {
   if (!workspace) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <p className="text-gray-500 mb-4">Workspace not found</p>
+        <p className="text-gray-500 mb-4">Không tìm thấy không gian làm việc</p>
         <Link href="/workspaces" className="text-indigo-600 hover:text-indigo-800">
-          Back to workspace list
+          Quay lại danh sách không gian làm việc
         </Link>
       </div>
     );

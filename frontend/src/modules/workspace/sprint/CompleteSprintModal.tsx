@@ -51,7 +51,7 @@ export default function CompleteSprintModal({
   useEffect(() => {
     if (!previewQuery.isError) return;
     console.error(previewQuery.error);
-    toast.error('Could not load sprint preview');
+    toast.error('Không thể tải thông tin sprint');
     onClose();
   }, [onClose, previewQuery.error, previewQuery.isError]);
 
@@ -77,7 +77,7 @@ export default function CompleteSprintModal({
       >
         <div className="flex items-center justify-between p-5 border-b border-[#EAEAEA] dark:border-white/[0.06]">
           <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-            Complete Sprint: {sprint.name}
+            Hoàn thành Sprint: {sprint.name}
           </h3>
           <button
             onClick={onClose}
@@ -90,7 +90,7 @@ export default function CompleteSprintModal({
         {previewQuery.isLoading ? (
           <div className="p-12 flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-6 h-6 text-[#2563EB] animate-spin" />
-            <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Loading sprint preview...</p>
+            <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Đang tải thông tin sprint...</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="p-5 space-y-4">
@@ -98,15 +98,15 @@ export default function CompleteSprintModal({
               <>
                 <div className="bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] p-4 space-y-2.5">
                   <div className="flex items-center justify-between text-[0.8125rem]">
-                    <span className="text-[#787774] dark:text-[#9B9A97]">Total tasks:</span>
+                    <span className="text-[#787774] dark:text-[#9B9A97]">Tổng số nhiệm vụ:</span>
                     <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{preview.totalTasks}</span>
                   </div>
                   <div className="flex items-center justify-between text-[0.8125rem]">
-                    <span className="text-[#346538] dark:text-[#4ADE80] font-medium">Completed (Done):</span>
+                    <span className="text-[#346538] dark:text-[#4ADE80] font-medium">Đã hoàn thành:</span>
                     <span className="font-bold text-[#346538] dark:text-[#4ADE80]">{preview.completedTasks}</span>
                   </div>
                   <div className="flex items-center justify-between text-[0.8125rem]">
-                    <span className="text-[#956400] dark:text-[#FBB040] font-medium">Incomplete:</span>
+                    <span className="text-[#956400] dark:text-[#FBB040] font-medium">Chưa hoàn thành:</span>
                     <span className="font-bold text-[#956400] dark:text-[#FBB040]">{preview.incompleteTasks}</span>
                   </div>
                 </div>
@@ -116,12 +116,12 @@ export default function CompleteSprintModal({
                     <div className="flex gap-2 text-[#956400] dark:text-[#FBB040]">
                       <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                       <p className="text-[0.8125rem]">
-                        There are {preview.incompleteTasks} incomplete tasks. Choose where to move them:
+                        Có {preview.incompleteTasks} nhiệm vụ chưa hoàn thành. Hãy chọn nơi chuyển chúng đến:
                       </p>
                     </div>
                     <div>
                       <label className="block text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] mb-1.5">
-                        Move incomplete tasks to
+                        Chuyển nhiệm vụ chưa hoàn thành đến
                       </label>
                       <select
                         value={moveToSprintId}
@@ -131,7 +131,7 @@ export default function CompleteSprintModal({
                         <option value="">Backlog</option>
                         {planningSprints.map((ps) => (
                           <option key={ps._id} value={ps._id}>
-                            {ps.name} (Planning)
+                            {ps.name} (Kế hoạch)
                           </option>
                         ))}
                       </select>
@@ -145,9 +145,9 @@ export default function CompleteSprintModal({
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-[0.8125rem] font-semibold text-[#346538] dark:text-[#4ADE80]">All tasks complete</h4>
+                      <h4 className="text-[0.8125rem] font-semibold text-[#346538] dark:text-[#4ADE80]">Tất cả nhiệm vụ đã hoàn thành</h4>
                       <p className="text-[0.6875rem] text-[#346538]/80 dark:text-[#4ADE80]/70 mt-0.5">
-                        All tasks in this sprint are done.
+                        Tất cả nhiệm vụ trong sprint này đã được hoàn thành.
                       </p>
                     </div>
                   </div>
@@ -159,13 +159,13 @@ export default function CompleteSprintModal({
                     onClick={onClose}
                     className="px-4 py-2 border border-[#EAEAEA] dark:border-white/[0.08] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors"
                   >
-                    Cancel
+                    Hủy
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors"
                   >
-                    Complete sprint
+                    Hoàn thành sprint
                   </button>
                 </div>
               </>

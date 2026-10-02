@@ -65,7 +65,7 @@ export default function AttachmentPreviewLightbox({
     if (error || !objectUrl) {
       return (
         <div className="flex h-full items-center justify-center px-6 text-center text-[0.8125rem] text-white/60">
-          {error || "Preview is not available."}
+          {error || "Không có bản xem trước."}
         </div>
       );
     }
@@ -103,7 +103,7 @@ export default function AttachmentPreviewLightbox({
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold">{activeAttachment.originalName}</p>
           <p className="text-xs text-[#9B9A97]">
-            {activeIndex + 1} of {attachments.length}
+            {activeIndex + 1} / {attachments.length}
           </p>
         </div>
         <div className="flex items-center gap-1">
@@ -111,7 +111,7 @@ export default function AttachmentPreviewLightbox({
             type="button"
             onClick={() => onDownload(activeAttachment)}
             className="rounded-[6px] p-2 text-[#9B9A97] transition-colors hover:bg-white/10 hover:text-white"
-            aria-label="Download attachment"
+            aria-label="Tải xuống tệp đính kèm"
           >
             <Download className="h-4 w-4" />
           </button>
@@ -119,7 +119,7 @@ export default function AttachmentPreviewLightbox({
             type="button"
             onClick={onClose}
             className="rounded-[6px] p-2 text-[#9B9A97] transition-colors hover:bg-white/10 hover:text-white"
-            aria-label="Close preview"
+            aria-label="Đóng xem trước"
           >
             <X className="h-5 w-5" />
           </button>
@@ -133,7 +133,7 @@ export default function AttachmentPreviewLightbox({
             type="button"
             onClick={() => onSelect(attachments[activeIndex - 1])}
             className="absolute left-3 top-1/2 -translate-y-1/2 rounded-[8px] bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-            aria-label="Previous attachment"
+            aria-label="Tệp đính kèm trước"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -143,7 +143,7 @@ export default function AttachmentPreviewLightbox({
             type="button"
             onClick={() => onSelect(attachments[activeIndex + 1])}
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-[8px] bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-            aria-label="Next attachment"
+            aria-label="Tệp đính kèm sau"
           >
             <ChevronRight className="h-6 w-6" />
           </button>

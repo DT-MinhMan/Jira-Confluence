@@ -122,7 +122,7 @@ export default function TaskDetailList({
                 className="flex items-center gap-1 text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7] transition-colors shrink-0"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span>Back</span>
+                <span>Quay lại</span>
               </button>
               <span className="text-[#ABABAB] dark:text-[#6B6B6B] shrink-0">/</span>
             </>
@@ -165,7 +165,7 @@ export default function TaskDetailList({
                     }}
                     className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
                   >
-                    <Clock className="h-4 w-4 text-[#787774] dark:text-[#9B9A97]" /> Log work
+                    <Clock className="h-4 w-4 text-[#787774] dark:text-[#9B9A97]" /> Ghi nhận thời gian
                   </button>
                   <button
                     onClick={() => {
@@ -175,7 +175,7 @@ export default function TaskDetailList({
                     disabled={!onArchiveIssue || issue.isArchived}
                     className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] disabled:opacity-50 border-t border-[#EAEAEA] dark:border-white/[0.06]"
                   >
-                    <Archive className="h-4 w-4" /> Archive
+                    <Archive className="h-4 w-4" /> Lưu trữ
                   </button>
                 </div>
               )}
@@ -249,7 +249,7 @@ export default function TaskDetailList({
                 ) : (
                   <ChevronRight className="w-4 h-4" />
                 )}
-                <span>Details</span>
+                <span>Chi tiết</span>
               </div>
               <Settings className="w-3.5 h-3.5 text-[#ABABAB] dark:text-[#6B6B6B]" />
             </button>
@@ -271,8 +271,8 @@ export default function TaskDetailList({
 
           {/* Meta */}
           <div className="border-t border-[#EAEAEA] dark:border-white/[0.06] pt-4 text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] space-y-1">
-            <p>Created {formatDateTime(issue.createdAt)}</p>
-            <p>Updated {formatDateTime(issue.updatedAt)}</p>
+            <p>Đã tạo: {formatDateTime(issue.createdAt)}</p>
+            <p>Đã cập nhật: {formatDateTime(issue.updatedAt)}</p>
           </div>
         </div>
       </div>

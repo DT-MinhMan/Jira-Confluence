@@ -37,7 +37,7 @@ export function DashboardTaskModal({
       <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/40 p-4 md:p-8 animate-in fade-in duration-200">
         <div className="flex flex-col items-center justify-center bg-white dark:bg-[#202020] rounded-[10px] p-8 shadow-xl">
           <Loader2 className="h-8 w-8 animate-spin text-[#2563EB] dark:text-[#3B82F6] mb-4" />
-          <p className="text-[#111111] dark:text-[#E8E8E7] font-medium">Loading task...</p>
+          <p className="text-[#111111] dark:text-[#E8E8E7] font-medium">Đang tải nhiệm vụ...</p>
         </div>
       </div>
     );

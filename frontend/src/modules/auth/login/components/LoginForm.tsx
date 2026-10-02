@@ -112,7 +112,7 @@ function LoginFormInner() {
   useEffect(() => {
     const error = searchParams.get('error');
     if (error === 'google_auth_failed') {
-      toast.error('Google sign-in failed. Please try again.');
+      toast.error('Đăng nhập bằng Google thất bại. Vui lòng thử lại.');
     }
   }, [searchParams]);
 
@@ -143,7 +143,7 @@ function LoginFormInner() {
     try {
       await login({ email, password });
       clearStoredLoginRetry();
-      toast.success('Welcome back!');
+      toast.success('Chào mừng bạn quay trở lại!');
     } catch (error) {
       const retryDetails = extractLoginRetryDetails(error);
       if (retryDetails) {
@@ -154,7 +154,7 @@ function LoginFormInner() {
         clearStoredLoginRetry();
       }
       if (CREDENTIAL_ERROR_CODES.has(extractApiErrorCode(error, ''))) {
-        setCredentialError('Email or password is incorrect.');
+        setCredentialError('Email hoặc mật khẩu không chính xác.');
       }
       // Non-credential error toasts are handled in useAuth.login.
     }
@@ -169,10 +169,10 @@ function LoginFormInner() {
     try {
       await login({ email: 'demo@altask.dev', password: 'Demo@123456' });
       clearStoredLoginRetry();
-      toast.success('Signed in as Alex Nguyen (Demo Account)!');
+      toast.success('Đã đăng nhập tài khoản Alex Nguyen (Tài khoản thử nghiệm)!');
     } catch (error) {
       if (CREDENTIAL_ERROR_CODES.has(extractApiErrorCode(error, ''))) {
-        setCredentialError('Demo account credentials not initialized. Run pnpm run seed:portfolio.');
+        setCredentialError('Tài khoản thử nghiệm chưa được khởi tạo.');
       }
     }
   };
@@ -182,7 +182,7 @@ function LoginFormInner() {
     <div className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden">
       <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover z-0">
         <source src="/videos/mixkit-clouds-and-blue-sky-background-2408-full-hd.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        Trình duyệt của bạn không hỗ trợ phát video.
       </video>
 
       <div className="absolute top-0 left-0 w-full h-full bg-slate-900/10 z-10" />
@@ -195,8 +195,8 @@ function LoginFormInner() {
                 <Image src={logoIcon} width={48} height={48} alt="Logo" className="w-12 h-12 object-contain" />
               </div>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-950 tracking-tight">Welcome back</h1>
-            <p className="text-gray-600 text-[0.8125rem] mt-1.5 font-semibold">Sign in to your TaskFlow account</p>
+            <h1 className="text-2xl font-bold text-gray-950 tracking-tight">Chào mừng trở lại</h1>
+            <p className="text-gray-600 text-[0.8125rem] mt-1.5 font-semibold">Đăng nhập vào tài khoản TaskFlow của bạn</p>
           </div>
 
           <button onClick={initiateGoogleLogin} type="button" tabIndex={5}
@@ -207,12 +207,12 @@ function LoginFormInner() {
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
             </svg>
-            Continue with Google
+            Tiếp tục với Google
           </button>
 
           <div className="relative my-6 flex items-center">
             <div className="flex-grow border-t border-gray-300/40" />
-            <span className="flex-shrink mx-4 text-gray-500 text-xs font-semibold">or continue with email</span>
+            <span className="flex-shrink mx-4 text-gray-500 text-xs font-semibold">hoặc tiếp tục với email</span>
             <div className="flex-grow border-t border-gray-300/40" />
           </div>
 
@@ -232,12 +232,12 @@ function LoginFormInner() {
             </div>
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-[0.8125rem] font-semibold text-gray-800">Password</label>
-                <Link href="/forgot-password" tabIndex={4} className="text-xs text-[#2563EB] hover:text-[#1D4ED8] font-semibold">Forgot password?</Link>
+                <label className="block text-[0.8125rem] font-semibold text-gray-800">Mật khẩu</label>
+                <Link href="/forgot-password" tabIndex={4} className="text-xs text-[#2563EB] hover:text-[#1D4ED8] font-semibold">Quên mật khẩu?</Link>
               </div>
               <div className="relative">
                 <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => { setPassword(e.target.value); setCredentialError(null); }} required
-                  placeholder="Enter your password"
+                  placeholder="Nhập mật khẩu của bạn"
                   aria-invalid={Boolean(credentialError)}
                   aria-describedby={credentialError ? 'login-credential-error' : undefined}
                   tabIndex={2}
@@ -256,18 +256,18 @@ function LoginFormInner() {
 
             {isCoolingDown && (
               <div className="flex items-start gap-2 rounded-[6px] border border-[#D97706] bg-[#FFFBEB] px-3 py-2 text-[0.8125rem] font-semibold text-[#78350F] shadow-sm">
-                <span>Please wait {retrySeconds}s before trying again.</span>
+                <span>Vui lòng đợi {retrySeconds}s trước khi thử lại.</span>
               </div>
             )}
 
             <button type="submit" disabled={isLoading || isCoolingDown} tabIndex={3}
               className="w-full py-3 bg-[#2563EB] text-white rounded-[6px] font-bold hover:bg-[#1D4ED8] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-              {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" />Signing in...</> : isCoolingDown ? `Try again in ${retrySeconds}s` : 'Sign in'}
+              {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" />Đang đăng nhập...</> : isCoolingDown ? `Thử lại sau ${retrySeconds}s` : 'Đăng nhập'}
             </button>
 
             <div className="relative my-3 flex items-center">
               <div className="flex-grow border-t border-gray-300/40" />
-              <span className="flex-shrink mx-3 text-gray-500 text-xs font-semibold">or explore instantly</span>
+              <span className="flex-shrink mx-3 text-gray-500 text-xs font-semibold">hoặc trải nghiệm ngay</span>
               <div className="flex-grow border-t border-gray-300/40" />
             </div>
 
@@ -277,13 +277,13 @@ function LoginFormInner() {
               onClick={handleDemoLogin}
               className="w-full py-2.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-[6px] font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
             >
-              <span>1-Click Demo Login (Recruiter / Guest)</span>
+              <span>Đăng nhập nhanh 1 chạm (Khách / Tuyển dụng)</span>
             </button>
           </form>
 
           <p className="text-center text-[0.8125rem] text-gray-600 mt-6 font-medium">
-            Do not have an account?{' '}
-            <Link href="/register" tabIndex={6} className="text-[#2563EB] font-bold hover:text-[#1D4ED8] transition-colors">Sign up</Link>
+            Chưa có tài khoản?{' '}
+            <Link href="/register" tabIndex={6} className="text-[#2563EB] font-bold hover:text-[#1D4ED8] transition-colors">Đăng ký ngay</Link>
           </p>
         </div>
       </div>

@@ -94,18 +94,54 @@ export default function BoardFilters({
     filters.backlog ||
     filters.archived;
 
-  const tabs = ["Status", "Assignee", "Task type", "Priority"];
+const STATUS_LABELS_VI: Record<string, string> = {
+  "To Do": "Cần làm",
+  "In Progress": "Đang thực hiện",
+  "Testing": "Đang kiểm thử",
+  "Done": "Hoàn thành",
+};
+
+const TYPE_LABELS_VI: Record<string, string> = {
+  Task: "Nhiệm vụ",
+  Bug: "Lỗi",
+  Story: "Câu chuyện",
+  Epic: "Epic",
+};
+
+const PRIORITY_LABELS_VI: Record<string, string> = {
+  Highest: "Rất cao",
+  High: "Cao",
+  Medium: "Trung bình",
+  Low: "Thấp",
+  Lowest: "Rất thấp",
+};
+
+const TABS = [
+  { id: "Status", label: "Trạng thái" },
+  { id: "Assignee", label: "Người thực hiện" },
+  { id: "Task type", label: "Loại nhiệm vụ" },
+  { id: "Priority", label: "Độ ưu tiên" },
+];
 
   const allStatuses = ["To Do", "In Progress", "Testing", "Done"];
-  const filteredStatuses = allStatuses.filter(s => s.toLowerCase().includes(statusSearch.toLowerCase()));
+  const filteredStatuses = allStatuses.filter(s => {
+    const viLabel = STATUS_LABELS_VI[s] || s;
+    return s.toLowerCase().includes(statusSearch.toLowerCase()) || viLabel.toLowerCase().includes(statusSearch.toLowerCase());
+  });
 
   const filteredAssignees = filterBoardAssignees(uniqueAssignees, assigneeSearch);
 
   const allTypes = ["Task", "Bug", "Story"];
-  const filteredTypes = allTypes.filter(t => t.toLowerCase().includes(typeSearch.toLowerCase()));
+  const filteredTypes = allTypes.filter(t => {
+    const viLabel = TYPE_LABELS_VI[t] || t;
+    return t.toLowerCase().includes(typeSearch.toLowerCase()) || viLabel.toLowerCase().includes(typeSearch.toLowerCase());
+  });
 
   const allPriorities = PRIORITY_OPTIONS;
-  const filteredPriorities = allPriorities.filter(p => p.toLowerCase().includes(prioritySearch.toLowerCase()));
+  const filteredPriorities = allPriorities.filter(p => {
+    const viLabel = PRIORITY_LABELS_VI[p] || p;
+    return p.toLowerCase().includes(prioritySearch.toLowerCase()) || viLabel.toLowerCase().includes(prioritySearch.toLowerCase());
+  });
 
   return (
     <div className="flex flex-col gap-3 px-[var(--workspace-surface-pad)] pt-0 mb-2 relative" ref={popoverRef}>
@@ -114,7 +150,7 @@ export default function BoardFilters({
           <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#ABABAB] dark:text-[#6B6B6B]" />
           <input
             type="text"
-            placeholder="Search tasks..."
+            placeholder="Tìm kiếm nhiệm vụ..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             className={`min-w-60 ${searchInputCls}`}
@@ -130,7 +166,7 @@ export default function BoardFilters({
           }`}
         >
           <Filter className="w-3.5 h-3.5" />
-          <span>Filter</span>
+          <span>Bộ lọc</span>
           {hasActiveFilters && (
             <span className="w-1.5 h-1.5 rounded-full bg-[#9F2F2D]" />
           )}
@@ -141,7 +177,7 @@ export default function BoardFilters({
             onClick={handleClearFilters}
             className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7] flex items-center gap-1 transition-colors px-1.5"
           >
-            <X className="w-3.5 h-3.5" /> Clear
+            <X className="w-3.5 h-3.5" /> Xóa lọc
           </button>
         )}
         {extraActions}
@@ -153,17 +189,17 @@ export default function BoardFilters({
           style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05)" }}
         >
           <div className="w-1/3 border-r border-[#EAEAEA] dark:border-white/[0.06] bg-[#F9F9F8] dark:bg-[#252525] flex flex-col">
-            {tabs.map(tab => (
+            {TABS.map(tab => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-3 text-left text-[0.8125rem] font-medium transition-colors border-l-2 ${
-                  activeTab === tab
+                  activeTab === tab.id
                     ? "bg-white dark:bg-[#202020] text-[#2563EB] border-l-[#2563EB]"
                     : "text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] border-l-transparent"
                 }`}
               >
-                {tab}
+                {tab.label}
               </button>
             ))}
           </div>
@@ -173,16 +209,16 @@ export default function BoardFilters({
               <>
                 <div className="relative">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#ABABAB] dark:text-[#6B6B6B]" />
-                  <input type="text" placeholder="Search statuses..." value={statusSearch} onChange={(e) => setStatusSearch(e.target.value)} className={searchInputCls} />
+                  <input type="text" placeholder="Tìm kiếm trạng thái..." value={statusSearch} onChange={(e) => setStatusSearch(e.target.value)} className={searchInputCls} />
                 </div>
                 <div className="flex flex-col gap-0.5">
                   {filteredStatuses.map((status) => (
                     <label key={status} className="flex items-center gap-2.5 p-2 hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] cursor-pointer transition-colors">
                       <input type="checkbox" checked={filters.statuses.includes(status)} onChange={() => toggleArrayFilter("statuses", status)} className="rounded accent-[#2563EB] w-3.5 h-3.5" />
-                      <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{status}</span>
+                      <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{STATUS_LABELS_VI[status] || status}</span>
                     </label>
                   ))}
-                  {filteredStatuses.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">No statuses found</p>}
+                  {filteredStatuses.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">Không tìm thấy trạng thái nào</p>}
                 </div>
               </>
             )}
@@ -191,7 +227,7 @@ export default function BoardFilters({
               <>
                 <div className="relative">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#ABABAB] dark:text-[#6B6B6B]" />
-                  <input type="text" placeholder="Search assignees..." value={assigneeSearch} onChange={(e) => setAssigneeSearch(e.target.value)} className={searchInputCls} />
+                  <input type="text" placeholder="Tìm người thực hiện..." value={assigneeSearch} onChange={(e) => setAssigneeSearch(e.target.value)} className={searchInputCls} />
                 </div>
                 <div className="flex flex-col gap-0.5">
                   {filteredAssignees.map((user) => {
@@ -204,7 +240,7 @@ export default function BoardFilters({
                       </label>
                     );
                   })}
-                  {filteredAssignees.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">No assignees found</p>}
+                  {filteredAssignees.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">Không tìm thấy người thực hiện nào</p>}
                 </div>
               </>
             )}
@@ -213,16 +249,16 @@ export default function BoardFilters({
               <>
                 <div className="relative">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#ABABAB] dark:text-[#6B6B6B]" />
-                  <input type="text" placeholder="Search task types..." value={typeSearch} onChange={(e) => setTypeSearch(e.target.value)} className={searchInputCls} />
+                  <input type="text" placeholder="Tìm loại nhiệm vụ..." value={typeSearch} onChange={(e) => setTypeSearch(e.target.value)} className={searchInputCls} />
                 </div>
                 <div className="flex flex-col gap-0.5">
                   {filteredTypes.map((type) => (
                     <label key={type} className="flex items-center gap-2.5 p-2 hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] cursor-pointer transition-colors">
                       <input type="checkbox" checked={filters.types.includes(type)} onChange={() => toggleArrayFilter("types", type)} className="rounded accent-[#2563EB] w-3.5 h-3.5" />
-                      <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{type}</span>
+                      <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{TYPE_LABELS_VI[type] || type}</span>
                     </label>
                   ))}
-                  {filteredTypes.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">No task types found</p>}
+                  {filteredTypes.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">Không tìm thấy loại nhiệm vụ nào</p>}
                 </div>
               </>
             )}
@@ -231,16 +267,16 @@ export default function BoardFilters({
               <>
                 <div className="relative">
                   <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#ABABAB] dark:text-[#6B6B6B]" />
-                  <input type="text" placeholder="Search priorities..." value={prioritySearch} onChange={(e) => setPrioritySearch(e.target.value)} className={searchInputCls} />
+                  <input type="text" placeholder="Tìm độ ưu tiên..." value={prioritySearch} onChange={(e) => setPrioritySearch(e.target.value)} className={searchInputCls} />
                 </div>
                 <div className="flex flex-col gap-0.5">
                   {filteredPriorities.map((priority) => (
                     <label key={priority} className="flex items-center gap-2.5 p-2 hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] cursor-pointer transition-colors">
                       <input type="checkbox" checked={filters.priorities.includes(priority)} onChange={() => toggleArrayFilter("priorities", priority)} className="rounded accent-[#2563EB] w-3.5 h-3.5" />
-                      <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{priority}</span>
+                      <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{PRIORITY_LABELS_VI[priority] || priority}</span>
                     </label>
                   ))}
-                  {filteredPriorities.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">No priorities found</p>}
+                  {filteredPriorities.length === 0 && <p className="text-[0.8125rem] text-[#ABABAB] text-center py-4">Không tìm thấy độ ưu tiên nào</p>}
                 </div>
               </>
             )}

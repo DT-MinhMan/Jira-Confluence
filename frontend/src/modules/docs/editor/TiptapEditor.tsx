@@ -143,7 +143,7 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
     );
 
     if (isDuplicate) {
-      setTitleError("A document with this name already exists in this workspace");
+      setTitleError("Tài liệu có tên này đã tồn tại trong không gian làm việc");
       return;
     }
 
@@ -299,10 +299,10 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
       // Step 3: Create a named version
       await createVersion(label);
 
-      toast.success("Version created successfully");
+      toast.success("Đã tạo phiên bản thành công");
     } catch (error) {
       console.error("Failed to create version:", error);
-      toast.error("Failed to create version");
+      toast.error("Tạo phiên bản thất bại");
     } finally {
       setIsPublishing(false);
     }
@@ -313,10 +313,10 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
     setIsExportingDocx(true);
     try {
       await pagesService.exportDocx(document.id, document.title);
-      toast.success("Word file exported successfully");
+      toast.success("Đã xuất tệp Word thành công");
     } catch (error) {
       console.error("Export DOCX failed:", error);
-      toast.error("Failed to export Word file");
+      toast.error("Xuất tệp Word thất bại");
     } finally {
       setIsExportingDocx(false);
     }
@@ -325,17 +325,17 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
   const handleImportDocx = useCallback(async (file: File) => {
     if (!editEditor) return;
     
-    const confirm = window.confirm("Importing a Word file will overwrite all current page content. Do you want to continue?");
+    const confirm = window.confirm("Nhập tệp Word sẽ ghi đè toàn bộ nội dung trang hiện tại. Bạn có muốn tiếp tục?");
     if (!confirm) return;
 
     setIsImportingDocx(true);
     try {
       const html = await pagesService.importDocx(file);
       editEditor.commands.setContent(html);
-      toast.success("Word file imported successfully");
+      toast.success("Đã nhập tệp Word thành công");
     } catch (error) {
       console.error("Import DOCX failed:", error);
-      toast.error("Failed to import Word file");
+      toast.error("Nhập tệp Word thất bại");
     } finally {
       setIsImportingDocx(false);
     }
@@ -354,7 +354,7 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
   async function saveTitle() {
     if (!document || !persistedPageId) return true;
 
-    const nextTitle = editTitle.trim() || "Untitled Document";
+    const nextTitle = editTitle.trim() || "Tài liệu chưa đặt tên";
     if (nextTitle === document.title) {
       setTitleError(null);
       return true;
@@ -368,7 +368,7 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
 
     if (isDuplicate) {
       resetTitleToSaved(
-        "A document with this name already exists in this workspace",
+        "Tài liệu có tên này đã tồn tại trong không gian làm việc",
       );
       return false;
     }
@@ -390,7 +390,7 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
     } catch (error) {
       const message = extractApiError(
         error,
-        "Could not rename page",
+        "Không thể đổi tên trang",
       );
 
       if (message.includes("already exists")) {
@@ -563,7 +563,7 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
                   className={`w-full text-3xl font-bold border-none outline-none focus:ring-0 bg-transparent text-[#172B4D] dark:text-gray-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-all tracking-tight leading-tight print:text-black ${
                     titleError ? "text-rose-600 dark:text-rose-400" : ""
                   }`}
-                  placeholder="Untitled"
+                  placeholder="Chưa đặt tên"
                 />
                 {mode === "edit" && (
                   <div className="mt-1 min-h-[1.25rem] text-xs">
@@ -573,7 +573,7 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
                       </span>
                     ) : isSavingTitle ? (
                       <span className="text-slate-500 dark:text-slate-400">
-                        Saving title...
+                        Đang lưu tiêu đề...
                       </span>
                     ) : null}
                   </div>

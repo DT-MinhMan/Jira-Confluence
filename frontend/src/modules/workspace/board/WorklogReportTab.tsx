@@ -196,9 +196,9 @@ export default function WorklogReportTab({
       {/* Title */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAEAEA] dark:border-white/[0.06] pb-4">
         <div>
-          <h2 className="text-xl font-bold text-[#111111] dark:text-[#E8E8E7]">Worklogs Report</h2>
+          <h2 className="text-xl font-bold text-[#111111] dark:text-[#E8E8E7]">Báo cáo nhật ký công việc</h2>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mt-1">
-            Track and group user work logs by weeks or months.
+            Theo dõi và nhóm nhật ký công việc của thành viên theo ngày, tuần hoặc tháng.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -208,13 +208,13 @@ export default function WorklogReportTab({
                 onClick={handleExpandAll}
                 className="inline-flex items-center gap-1.5 border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] px-3 py-2 rounded-[6px] text-[0.8125rem] font-semibold hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors shadow-sm"
               >
-                Expand All
+                Mở rộng tất cả
               </button>
               <button
                 onClick={handleCollapseAll}
                 className="inline-flex items-center gap-1.5 border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] px-3 py-2 rounded-[6px] text-[0.8125rem] font-semibold hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors shadow-sm"
               >
-                Collapse All
+                Thu gọn tất cả
               </button>
             </>
           )}
@@ -224,7 +224,7 @@ export default function WorklogReportTab({
             className="inline-flex items-center gap-2 border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] px-3.5 py-2 rounded-[6px] text-[0.8125rem] font-semibold hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Download className="w-4 h-4" />
-            Export Excel
+            Xuất Excel
           </button>
         </div>
       </div>
@@ -234,20 +234,20 @@ export default function WorklogReportTab({
         {/* Date Range */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97] flex items-center gap-1">
-            <Calendar className="w-3.5 h-3.5" /> Date range
+            <Calendar className="w-3.5 h-3.5" /> Khoảng ngày
           </label>
           <div className="flex items-center gap-2">
             <CustomDatePicker
               value={startDate}
               onChange={(v) => setStartDate(v ?? "")}
-              placeholder="Start date"
+              placeholder="Từ ngày"
               popoverPlacement="bottom-start"
             />
             <span className="text-[#ABABAB] dark:text-[#6B6B6B]">&rarr;</span>
             <CustomDatePicker
               value={endDate}
               onChange={(v) => setEndDate(v ?? "")}
-              placeholder="End date"
+              placeholder="Đến ngày"
               popoverPlacement="bottom-start"
             />
           </div>
@@ -255,25 +255,25 @@ export default function WorklogReportTab({
 
         {/* Group By */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Group by</label>
+          <label className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Nhóm theo</label>
           <select
             value={groupBy}
             onChange={(e) => setGroupBy(e.target.value as "week" | "month" | "day")}
             className="px-3 py-1.5 rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] text-[0.8125rem] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] focus:outline-none focus:border-[#2563EB] pr-8"
           >
-            <option value="day">Day</option>
-            <option value="week">Week</option>
-            <option value="month">Month</option>
+            <option value="day">Ngày</option>
+            <option value="week">Tuần</option>
+            <option value="month">Tháng</option>
           </select>
         </div>
 
         {/* Filter Task */}
         <div className="flex flex-col gap-1.5 flex-1 min-w-[200px]">
-          <label className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Filter task</label>
+          <label className="text-[0.75rem] font-semibold text-[#5E6C84] dark:text-[#9B9A97]">Lọc nhiệm vụ</label>
           <div className="relative">
             <input
               type="text"
-              placeholder="Search by Task Key or Title..."
+              placeholder="Tìm theo mã hoặc tiêu đề..."
               value={taskKeyFilter}
               onChange={(e) => setTaskKeyFilter(e.target.value)}
               className="w-full pl-9 pr-3 py-1.5 rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] text-[0.8125rem] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] placeholder-[#ABABAB] dark:placeholder-[#6B6B6B] focus:outline-none focus:border-[#2563EB]"
@@ -289,7 +289,7 @@ export default function WorklogReportTab({
           className="inline-flex items-center gap-1.5 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white px-4 py-2 rounded-[6px] text-[0.8125rem] font-semibold transition-colors shadow-sm disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-          Reload
+          Tải lại
         </button>
       </div>
 
@@ -304,13 +304,13 @@ export default function WorklogReportTab({
       {isLoading ? (
         <div className="flex items-center justify-center py-20 gap-2 text-[#787774] dark:text-[#9B9A97] text-[0.8125rem]">
           <RefreshCw className="w-5 h-5 animate-spin text-[#2563EB]" />
-          Loading report data...
+          Đang tải dữ liệu báo cáo...
         </div>
       ) : !reportData || reportData.users.length === 0 ? (
         <div className="py-20 text-center text-[#787774] dark:text-[#9B9A97] text-[0.8125rem] border border-dashed border-[#EAEAEA] dark:border-white/5 rounded-[8px]">
           <div className="flex flex-col items-center justify-center gap-2">
             <Clock className="w-8 h-8 text-[#EAEAEA] dark:text-white/10" />
-            <p>No worklog entries found matching current filters.</p>
+            <p>Không tìm thấy nhật ký công việc nào phù hợp với bộ lọc.</p>
           </div>
         </div>
       ) : (
@@ -318,9 +318,9 @@ export default function WorklogReportTab({
           <table className="w-full text-left border-collapse text-[0.8125rem]">
             <thead>
               <tr className="bg-[#F7F6F3] dark:bg-white/[0.04] border-b border-[#EAEAEA] dark:border-white/5 text-[#5E6C84] dark:text-[#9B9A97] font-semibold">
-                <th className="p-3 sticky left-0 bg-[#F7F6F3] dark:bg-[#202020] min-w-[150px] max-w-[150px] w-[150px] z-20">User</th>
-                <th className="p-3 sticky left-[150px] bg-[#F7F6F3] dark:bg-[#202020] min-w-[280px] max-w-[280px] w-[280px] z-20">Issues</th>
-                <th className="p-3 sticky left-[430px] bg-[#F7F6F3] dark:bg-[#202020] min-w-[80px] max-w-[80px] w-[80px] z-20 text-center border-r border-[#EAEAEA] dark:border-white/10 font-semibold">Total</th>
+                <th className="p-3 sticky left-0 bg-[#F7F6F3] dark:bg-[#202020] min-w-[150px] max-w-[150px] w-[150px] z-20">Thành viên</th>
+                <th className="p-3 sticky left-[150px] bg-[#F7F6F3] dark:bg-[#202020] min-w-[280px] max-w-[280px] w-[280px] z-20">Nhiệm vụ</th>
+                <th className="p-3 sticky left-[430px] bg-[#F7F6F3] dark:bg-[#202020] min-w-[80px] max-w-[80px] w-[80px] z-20 text-center border-r border-[#EAEAEA] dark:border-white/10 font-semibold">Tổng</th>
                 {reportData.periods.map((period) => {
                   const isSelected = selectedPeriod === period;
                   return (
@@ -376,7 +376,7 @@ export default function WorklogReportTab({
                         onClick={() => toggleUserExpand(user.userId)}
                         className="p-3 text-[#ABABAB] dark:text-[#6B6B6B] italic sticky left-[150px] bg-[#FDFDFD] dark:bg-[#1a1a1a] min-w-[280px] max-w-[280px] w-[280px] z-10 cursor-pointer select-none"
                       >
-                        All logs for this user
+                        Tất cả nhật ký của thành viên này
                       </td>
                       <td className="p-3 font-bold text-center text-[#111111] dark:text-[#E8E8E7] sticky left-[430px] bg-[#FDFDFD] dark:bg-[#1a1a1a] min-w-[80px] max-w-[80px] w-[80px] z-10 border-r border-[#EAEAEA] dark:border-white/10">
                         {user.totalHours}h
@@ -471,7 +471,7 @@ export default function WorklogReportTab({
                             onClick={() => toggleShowAllTasks(user.userId)}
                             className="text-[#2563EB] dark:text-[#3B82F6] hover:underline font-semibold text-[0.8125rem]"
                           >
-                            {showAll ? "Show less tasks" : `Show ${user.tasks.length - 5} more tasks...`}
+                            {showAll ? "Thu gọn bớt nhiệm vụ" : `Xem thêm ${user.tasks.length - 5} nhiệm vụ khác...`}
                           </button>
                         </td>
                         <td className="p-3 sticky left-[430px] bg-white dark:bg-[#1a1a1a] z-10 border-r border-[#EAEAEA] dark:border-white/10"></td>
@@ -485,7 +485,7 @@ export default function WorklogReportTab({
               {/* Grand Total Row */}
               <tr className="bg-[#F7F6F3] dark:bg-white/[0.04] border-t border-t-[#ABABAB]/40 dark:border-t-white/10 font-bold">
                 <td className="p-3 sticky left-0 bg-[#F7F6F3] dark:bg-[#202020] z-10 text-[#111111] dark:text-[#E8E8E7] min-w-[150px] max-w-[150px] w-[150px]">
-                  Grand Total
+                  Tổng cộng
                 </td>
                 <td className="p-3 sticky left-[150px] bg-[#F7F6F3] dark:bg-[#202020] z-10 min-w-[280px] max-w-[280px] w-[280px]"></td>
                 <td className="p-3 text-center text-[#111111] dark:text-[#E8E8E7] sticky left-[430px] bg-[#F7F6F3] dark:bg-[#202020] z-10 min-w-[80px] max-w-[80px] w-[80px] border-r border-[#EAEAEA] dark:border-white/10">

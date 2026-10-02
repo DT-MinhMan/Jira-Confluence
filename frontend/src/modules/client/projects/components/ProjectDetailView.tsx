@@ -46,7 +46,7 @@ export default function ProjectDetailView({
           onClick={() => handleCreateTask("todo")}
           className="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-medium text-sm"
         >
-          <Plus className="w-4 h-4" /> Create Task
+          <Plus className="w-4 h-4" /> Tạo nhiệm vụ
         </button>
       </div>
 
@@ -109,7 +109,7 @@ export default function ProjectDetailView({
                           href={`/tasks/${task._id}`}
                           className="block mt-2 text-xs text-indigo-600 hover:text-indigo-800"
                         >
-                          View details
+                          Xem chi tiết
                         </Link>
                       </div>
                     ))}

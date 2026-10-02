@@ -48,9 +48,9 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.docs.uploadedByWorkspace(workspaceId) });
       setShowLibraryModal(false);
-      toast.success("Imported from library");
+      toast.success("Đã nhập từ thư viện");
     },
-    onError: () => toast.error("Failed to import from library"),
+    onError: () => toast.error("Không thể nhập từ thư viện"),
   });
 
   const detachDocumentMutation = useMutation({
@@ -61,9 +61,9 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
       );
       selectImportedDocument(null);
       setDeleteTarget(null);
-      toast.success("Removed from workspace");
+      toast.success("Đã xóa khỏi không gian làm việc");
     },
-    onError: () => toast.error("Failed to remove document"),
+    onError: () => toast.error("Không thể xóa tài liệu"),
   });
 
   const filteredDocs = useMemo(() => {
@@ -123,7 +123,7 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
   }, [filteredDocs, filteredUploadedDocs, sortOrder]);
 
   const groups = useMemo(
-    () => (dashboardDocs.length ? [{ name: "Docs", docs: dashboardDocs }] : []),
+    () => (dashboardDocs.length ? [{ name: "Tài liệu", docs: dashboardDocs }] : []),
     [dashboardDocs],
   );
 
@@ -150,7 +150,7 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
 
     const nextName = renameName.trim();
     if (!nextName) {
-      toast.error("Document name is required");
+      toast.error("Tên tài liệu không được để trống");
       return;
     }
 
@@ -232,7 +232,7 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
             className="w-full max-w-2xl bg-white dark:bg-[#202020] rounded-[10px] border border-[#EAEAEA] dark:border-white/[0.06] p-5"
             style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
           >
-            <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7] mb-4">Import from library</h3>
+            <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7] mb-4">Nhập từ thư viện</h3>
             <div className="max-h-80 overflow-auto rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06]">
               {importableLibraryDocs.map((doc) => (
                 <label key={doc._id} className="flex items-center gap-2 p-2.5 border-b border-[#EAEAEA] dark:border-white/[0.06] last:border-b-0 hover:bg-[#F7F6F3] dark:hover:bg-white/5 cursor-pointer">
@@ -252,7 +252,7 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
                 </label>
               ))}
               {importableLibraryDocs.length === 0 && (
-                <p className="p-3 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">No files available to import.</p>
+                <p className="p-3 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Không có tệp nào khả dụng để nhập.</p>
               )}
             </div>
             <div className="flex justify-end gap-2 mt-4">
@@ -260,14 +260,14 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
                 className="px-3 py-2 rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] text-[0.8125rem] font-medium text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-white/5 transition-colors"
                 onClick={() => setShowLibraryModal(false)}
               >
-                Cancel
+                Hủy
               </button>
               <button
                 className="px-3 py-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] text-[0.8125rem] font-medium text-white hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 disabled={!selectedLibraryIds.length || attachDocumentsMutation.isPending}
                 onClick={() => attachDocumentsMutation.mutate(selectedLibraryIds)}
               >
-                {attachDocumentsMutation.isPending ? "Importing..." : "Import"}
+                {attachDocumentsMutation.isPending ? "Đang nhập..." : "Nhập"}
               </button>
             </div>
           </div>
@@ -293,9 +293,9 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
               </div>
               <div className="min-w-0 flex-1">
                 <h2 id="rename-dashboard-document-title" className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Rename document
+                  Đổi tên tài liệu
                 </h2>
-                <p className="mt-0.5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Enter a new name for this document.</p>
+                <p className="mt-0.5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Nhập tên mới cho tài liệu này.</p>
               </div>
             </div>
             <input
@@ -308,16 +308,16 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
                 if (e.key === "Escape") closeRenameDialog();
               }}
               className="w-full rounded-[6px] border border-[#EAEAEA] dark:border-white/8 bg-[#F7F6F3] dark:bg-[#252525] px-3 py-2 text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] outline-none transition focus:border-[#2563EB] dark:focus:border-[#3B82F6] focus:bg-white dark:focus:bg-[#252525] disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B]"
-              placeholder="Document name"
+              placeholder="Tên tài liệu"
             />
             <div className="mt-4 flex justify-end gap-2">
               <button type="button" disabled={renaming} onClick={closeRenameDialog}
                 className="rounded-[6px] border border-[#EAEAEA] dark:border-white/8 px-4 py-2 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] transition hover:bg-[#F7F6F3] dark:hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-60">
-                Cancel
+                Hủy
               </button>
               <button type="button" disabled={renaming} onClick={handleRenameDocument}
                 className="rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-4 py-2 text-[0.8125rem] font-semibold text-white transition hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60">
-                {renaming ? "Renaming..." : "Rename"}
+                {renaming ? "Đang đổi tên..." : "Đổi tên"}
               </button>
             </div>
           </div>
@@ -343,13 +343,13 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
               </div>
               <div className="min-w-0">
                 <h2 id="delete-dashboard-document-title" className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  {deleteTarget.source === "import" ? "Remove from workspace?" : "Delete document?"}
+                  {deleteTarget.source === "import" ? "Xóa khỏi không gian làm việc?" : "Xóa tài liệu?"}
                 </h2>
                 <p className="mt-0.5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
                   {deleteTarget.source === "import" ? (
-                    <>This will remove <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{deleteTarget.title}</span> from this workspace only. The document will remain in your library.</>
+                    <>Thao tác này sẽ xóa <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{deleteTarget.title}</span> khỏi không gian làm việc này. Tài liệu vẫn sẽ được lưu trong thư viện của bạn.</>
                   ) : (
-                    <>This will permanently delete <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{deleteTarget.title}</span>. This action cannot be undone.</>
+                    <>Thao tác này sẽ xóa vĩnh viễn <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{deleteTarget.title}</span>. Hành động này không thể hoàn tác.</>
                   )}
                 </p>
               </div>
@@ -357,11 +357,11 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
             <div className="flex justify-end gap-2">
               <button type="button" disabled={deleting} onClick={closeDeleteDialog}
                 className="rounded-[6px] border border-[#EAEAEA] dark:border-white/8 px-4 py-2 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] transition hover:bg-[#F7F6F3] dark:hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-60">
-                Cancel
+                Hủy
               </button>
               <button type="button" disabled={deleting || detachDocumentMutation.isPending} onClick={handleDeleteDocument}
                 className="rounded-[6px] bg-[#9F2F2D] px-4 py-2 text-[0.8125rem] font-semibold text-white transition hover:bg-[#7F2422] disabled:cursor-not-allowed disabled:opacity-60">
-                {deleting || detachDocumentMutation.isPending ? (deleteTarget.source === "import" ? "Removing..." : "Deleting...") : (deleteTarget.source === "import" ? "Remove" : "Delete")}
+                {deleting || detachDocumentMutation.isPending ? "Đang xóa..." : "Xóa"}
               </button>
             </div>
           </div>

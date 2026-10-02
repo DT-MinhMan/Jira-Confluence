@@ -143,19 +143,19 @@ export default function TaskCoverPopover({
     imagePage * COVER_IMAGES_PER_PAGE,
   );
   const getTabLabel = (tab: CoverTab) => {
-    if (tab === "images") return "Images";
-    return tab.charAt(0).toUpperCase() + tab.slice(1);
+    if (tab === "images") return "Hình ảnh";
+    return "Màu sắc";
   };
 
   return (
     <div className="w-[21rem] overflow-hidden rounded-[10px] border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020]" style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}>
       <div className="flex items-center justify-between border-b border-[#EAEAEA] dark:border-white/[0.06] px-3 py-2">
-        <h3 className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Select a cover</h3>
+        <h3 className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Chọn ảnh bìa</h3>
         <button
           type="button"
           onClick={onRequestClose}
           className="rounded-[4px] p-1 text-[#787774] dark:text-[#9B9A97] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
-          aria-label="Close cover picker"
+          aria-label="Đóng chọn ảnh bìa"
         >
           <X className="h-4 w-4" />
         </button>
@@ -233,10 +233,10 @@ export default function TaskCoverPopover({
                 onClick={() => setImagePage((page) => Math.max(1, page - 1))}
                 className="h-8 rounded-[6px] px-2.5 text-[0.6875rem] font-medium text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] disabled:cursor-not-allowed disabled:opacity-45"
               >
-                Previous
+                Trước
               </button>
               <span className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">
-                Page {imagePage} of {imagePageCount}
+                Trang {imagePage} / {imagePageCount}
               </span>
               <button
                 type="button"
@@ -244,7 +244,7 @@ export default function TaskCoverPopover({
                 onClick={() => setImagePage((page) => Math.min(imagePageCount, page + 1))}
                 className="h-8 rounded-[6px] px-2.5 text-[0.6875rem] font-medium text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] disabled:cursor-not-allowed disabled:opacity-45"
               >
-                Next
+                Sau
               </button>
             </div>
           </div>
@@ -259,7 +259,7 @@ export default function TaskCoverPopover({
           onClick={onRemoveCover}
           className="inline-flex h-8 items-center justify-center rounded-[6px] px-3 text-[0.8125rem] font-medium text-[#9F2F2D] dark:text-[#F87171] transition-colors hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Remove cover
+          Xóa ảnh bìa
         </button>
       </div>
     </div>
@@ -277,7 +277,7 @@ export function TaskCoverMenuRow({
       onMouseEnter={onMouseEnter}
       className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
     >
-      <span>Select cover</span>
+      <span>Chọn ảnh bìa</span>
       <ChevronRight className="h-4 w-4 text-[#ABABAB] dark:text-[#6B6B6B]" />
     </button>
   );

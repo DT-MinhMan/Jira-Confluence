@@ -89,12 +89,12 @@ export default function StartSprintModal({ isOpen, onClose, onConfirm, sprint }:
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.startDate || !formData.endDate) {
-      toast.error("Please enter both the start and end dates");
+      toast.error("Vui lòng nhập cả ngày bắt đầu và ngày kết thúc");
       return;
     }
 
     if (new Date(formData.endDate) <= new Date(formData.startDate)) {
-      toast.error("The end date must be after the start date");
+      toast.error("Ngày kết thúc phải sau ngày bắt đầu");
       return;
     }
 
@@ -115,7 +115,7 @@ export default function StartSprintModal({ isOpen, onClose, onConfirm, sprint }:
       >
         <div className="flex items-center justify-between p-5 border-b border-[#EAEAEA] dark:border-white/[0.06]">
           <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-            Start Sprint: {sprint.name}
+            Bắt đầu Sprint: {sprint.name}
           </h3>
           <button onClick={onClose} className="text-[#ABABAB] hover:text-[#111111] dark:hover:text-[#E8E8E7] p-1.5 hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors">
             <X className="w-4 h-4" />
@@ -123,21 +123,21 @@ export default function StartSprintModal({ isOpen, onClose, onConfirm, sprint }:
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-            Confirm the sprint schedule before starting it.
+            Xác nhận lịch trình sprint trước khi bắt đầu.
           </p>
           <div>
-            <label className={labelCls}>Duration</label>
+            <label className={labelCls}>Thời lượng</label>
             <select value={formData.duration} onChange={handleDurationChange} className={inputCls}>
-              <option value="1 week">1 week</option>
-              <option value="2 weeks">2 weeks</option>
-              <option value="3 weeks">3 weeks</option>
-              <option value="4 weeks">4 weeks</option>
-              <option value="custom">Custom</option>
+              <option value="1 week">1 tuần</option>
+              <option value="2 weeks">2 tuần</option>
+              <option value="3 weeks">3 tuần</option>
+              <option value="4 weeks">4 tuần</option>
+              <option value="custom">Tùy chỉnh</option>
             </select>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className={labelCls}>Start date <span className="text-[#9F2F2D]">*</span></label>
+              <label className={labelCls}>Ngày bắt đầu <span className="text-[#9F2F2D]">*</span></label>
               <input
                 type="date"
                 required
@@ -147,7 +147,7 @@ export default function StartSprintModal({ isOpen, onClose, onConfirm, sprint }:
               />
             </div>
             <div>
-              <label className={labelCls}>End date <span className="text-[#9F2F2D]">*</span></label>
+              <label className={labelCls}>Ngày kết thúc <span className="text-[#9F2F2D]">*</span></label>
               <input
                 type="date"
                 required
@@ -159,10 +159,10 @@ export default function StartSprintModal({ isOpen, onClose, onConfirm, sprint }:
           </div>
           <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
             <button type="button" onClick={onClose} className="px-4 py-2 border border-[#EAEAEA] dark:border-white/[0.08] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors">
-              Cancel
+              Hủy
             </button>
             <button type="submit" className="px-4 py-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors">
-              Start sprint
+              Bắt đầu sprint
             </button>
           </div>
         </form>

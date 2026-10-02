@@ -66,8 +66,8 @@ export default function TaskAttachmentsPanel({
   const attachmentCount = imageAttachments.length + documentAttachments.length;
   const hasContent = attachmentCount > 0 || uploadingFiles.length > 0;
   const panelDescription = useMemo(() => {
-    if (isArchived) return "This task is archived. Attachments are read-only.";
-    return "Drop files here, paste screenshots, or select files.";
+    if (isArchived) return "Nhiệm vụ này đã được lưu trữ. Tệp đính kèm ở chế độ chỉ đọc.";
+    return "Kéo thả tệp vào đây, dán ảnh chụp màn hình hoặc chọn tệp.";
   }, [isArchived]);
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +95,7 @@ export default function TaskAttachmentsPanel({
           </div>
           <div className="min-w-0">
             <h3 className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-              Attachments
+              Tệp đính kèm
             </h3>
             <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">{panelDescription}</p>
           </div>
@@ -106,8 +106,8 @@ export default function TaskAttachmentsPanel({
             type="button"
             onClick={() => refetch()}
             className="rounded-[4px] p-2 text-[#ABABAB] dark:text-[#6B6B6B] transition-colors hover:bg-white dark:hover:bg-[#202020] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
-            aria-label="Refresh attachments"
-            title="Refresh"
+            aria-label="Làm mới tệp đính kèm"
+            title="Làm mới"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
           </button>
@@ -118,7 +118,7 @@ export default function TaskAttachmentsPanel({
             className="inline-flex items-center gap-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-3 py-2 text-[0.8125rem] font-semibold text-white transition-colors hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Plus className="h-4 w-4" />
-            Add
+            Thêm
           </button>
           <input
             ref={inputRef}
@@ -133,7 +133,7 @@ export default function TaskAttachmentsPanel({
 
       {error && (
         <div className="rounded-[6px] border border-[#F5C6C7] dark:border-[rgba(159,47,45,0.2)] bg-[#FDEBEC] dark:bg-[rgba(159,47,45,0.12)] px-3 py-2 text-[0.8125rem] text-[#9F2F2D] dark:text-[#F87171]">
-          Could not load attachments.
+          Không thể tải tệp đính kèm.
         </div>
       )}
 
@@ -145,7 +145,7 @@ export default function TaskAttachmentsPanel({
             type="button"
             onClick={clearUploadError}
             className="rounded-[4px] p-0.5 text-[#9F2F2D] transition-colors hover:bg-[#F5C6C7] dark:text-[#F87171] dark:hover:bg-[rgba(159,47,45,0.24)]"
-            aria-label="Dismiss upload error"
+            aria-label="Bỏ qua lỗi tải lên"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -156,7 +156,7 @@ export default function TaskAttachmentsPanel({
 
       {!hasContent && !isLoading && (
         <div className="rounded-[6px] border border-dashed border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] px-4 py-6 text-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-          No attachments yet.
+          Chưa có tệp đính kèm nào.
         </div>
       )}
 

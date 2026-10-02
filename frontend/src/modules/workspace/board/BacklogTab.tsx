@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
@@ -199,11 +199,11 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
 
       return {
         ...assignee,
-        name: member?.name ?? (assignee.id === "U" ? "Unassigned" : assignee.id),
+        name: member?.name ?? (assignee.id === "U" ? "Chưa giao" : assignee.id),
         email: member?.email ?? "",
         role: member?.role,
         avatar: member?.avatar,
-        initials: member?.initials ?? getInitials(assignee.id === "U" ? "Unassigned" : assignee.id),
+        initials: member?.initials ?? getInitials(assignee.id === "U" ? "Chưa giao" : assignee.id),
       };
     });
   }, [uniqueAssignees, workspaceMembers]);
@@ -239,7 +239,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
     if (!assignee) {
       return (
         <span className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">
-          Unassigned
+          Chưa giao
         </span>
       );
     }
@@ -307,14 +307,14 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
           {/* Backlog Top Bar with Filter */}
           <div className="flex flex-col gap-3 rounded-[8px] border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] p-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-[0.8125rem] font-medium text-[#111111] dark:text-[#E8E8E7]">
-              Showing {filteredIssues.length} results
+              Hiển thị {filteredIssues.length} kết quả
             </div>
             <div className="relative">
               <button
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className="flex items-center gap-2 px-3 py-1.5 bg-[#F7F6F3] dark:bg-[#2A2A2A] hover:bg-[#F0F0EE] dark:hover:bg-[#333333] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] font-medium transition-colors"
               >
-                Advanced filters{" "}
+                Bộ lọc nâng cao{" "}
               </button>
               <FilterMenu
                 isOpen={isFilterOpen}
@@ -375,7 +375,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                       {sprint.name}
                       {sprint.status === "active" && (
                         <span className="px-2 py-0.5 bg-[#EFF6FF] dark:bg-[rgba(37,99,235,0.12)] text-[#1F6C9F] dark:text-[#93C5FD] text-[0.6875rem] font-semibold rounded-full uppercase tracking-wide">
-                          Active
+                          Đang diễn ra
                         </span>
                       )}
                     </h3>
@@ -390,7 +390,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                         {sprintIssues.filter((i) => i.status === "Done").length}
                       </span>
                       <div className="absolute top-full mt-2 left-0 bg-[#111111] dark:bg-[#2A2A2A] text-[#E8E8E7] text-[0.6875rem] px-3 py-2 rounded-[6px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 pointer-events-none">
-                        Progress: {donePoints} / {totalPoints} story points
+                        Tiến độ: {donePoints} / {totalPoints} điểm ước lượng
                       </div>
                     </div>
                     {canManageSprint && (
@@ -398,7 +398,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                         onClick={() => handleEditSprint(sprint)}
                         disabled={sprint.status === "completed"}
                         className="p-1 text-[#ABABAB] hover:text-[#787774] dark:hover:text-[#9B9A97] rounded-[4px] transition-colors shrink-0"
-                        title="Edit sprint"
+                        title="Chỉnh sửa sprint"
                       >
                         <Pencil className="w-4 h-4" />
                       </button>
@@ -409,7 +409,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                       <button
                         onClick={() => handleDeleteSprint(sprint._id)}
                         className="p-1 text-[#ABABAB] hover:text-[#9F2F2D] dark:hover:text-[#E07B79] rounded-[4px] transition-colors"
-                        title="Delete sprint"
+                        title="Xóa sprint"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -425,10 +425,10 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                         className="px-3 py-1.5 bg-[#F7F6F3] dark:bg-[#2A2A2A] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#F0F0EE] dark:hover:bg-[#333333] transition-colors disabled:opacity-40"
                       >
                         {sprint.status === "active"
-                          ? "Complete Sprint"
+                          ? "Hoàn thành Sprint"
                           : sprint.status === "completed"
-                            ? "Completed"
-                            : "Start Sprint"}
+                            ? "Đã hoàn thành"
+                            : "Bắt đầu Sprint"}
                       </button>
                     )}
                   </div>
@@ -503,7 +503,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                                         }
                                         placeholder="-"
                                         className="w-8 h-6 text-center text-[0.6875rem] font-bold text-[#787774] dark:text-[#9B9A97] bg-[#F7F6F3] dark:bg-[#2A2A2A] hover:bg-[#F0F0EE] dark:hover:bg-[#333333] rounded-[4px] border border-transparent focus:bg-white dark:focus:bg-[#2A2A2A] focus:border-[#2563EB] outline-none transition-colors appearance-none"
-                                        title="Story Points"
+                                        title="Điểm ước lượng"
                                       />
                                     </div>
                                     <StatusPicker
@@ -532,7 +532,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                                           assigneeId: uid,
                                           assignee: uid ?? "U",
                                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                          assigneeDisplayName: uid ? workspaceMembers.find((m: any) => m.id === uid)?.name ?? uid : "Unassigned",
+                                          assigneeDisplayName: uid ? workspaceMembers.find((m: any) => m.id === uid)?.name ?? uid : "Chưa giao",
                                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                           assigneeAvatar: uid ? workspaceMembers.find((m: any) => m.id === uid)?.avatar : undefined,
                                         })}
@@ -569,7 +569,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                       {sprintIssues.length === 0 &&
                         !snapshot.isDraggingOver && (
                           <div className="p-4 text-center text-[0.8125rem] text-[#ABABAB] dark:text-[#6B6B6B] border-2 border-dashed border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] mx-2 my-1">
-                            Plan your sprint by dragging issues here
+                            Lên kế hoạch sprint bằng cách kéo thả nhiệm vụ vào đây
                           </div>
                         )}
                     </div>
@@ -579,7 +579,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                   <div className="flex flex-col gap-2 border-t border-[#F0F0EE] dark:border-white/[0.04] bg-[#F9F9F8]/50 dark:bg-[#252525] p-3 sm:flex-row sm:items-center">
                     <input
                       type="text"
-                      placeholder="What do you need to do next?"
+                      placeholder="Bạn cần làm gì tiếp theo?"
                       className="flex-1 py-1.5 px-3 bg-white dark:bg-[#2A2A2A] text-[#111111] dark:text-[#E8E8E7] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] text-[0.8125rem] focus:border-[#2563EB] outline-none transition-colors"
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && e.currentTarget.value.trim()) {
@@ -600,7 +600,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                       disabled={!canCreateTask}
                       className="text-[0.8125rem] font-medium bg-[#F7F6F3] dark:bg-[#2A2A2A] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F0F0EE] dark:hover:bg-[#333333] hover:text-[#111111] dark:hover:text-[#E8E8E7] disabled:opacity-40 px-3 py-1.5 rounded-[6px] transition-colors whitespace-nowrap"
                     >
-                      Open modal...
+                      Mở biểu mẫu...
                     </button>
                   </div>
                 )}
@@ -646,7 +646,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                   Backlog
                   <span className="text-[#ABABAB] dark:text-[#6B6B6B] font-normal text-[0.8125rem]">
                     ({backlogIssues.length}{" "}
-                    issues)
+                    nhiệm vụ)
                   </span>
                 </h3>
               </div>
@@ -655,7 +655,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                 onClick={handleCreateSprint}
                 className="px-3 py-1.5 bg-[#EFF6FF] dark:bg-[rgba(37,99,235,0.12)] text-[#1F6C9F] dark:text-[#93C5FD] rounded-[6px] text-[0.8125rem] font-medium hover:bg-[#DBEAFE] dark:hover:bg-[rgba(37,99,235,0.18)] transition-colors"
               >
-                Create Sprint
+                Tạo Sprint
               </button>
               )}
             </div>
@@ -727,7 +727,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                                       }
                                       placeholder="-"
                                       className="w-8 h-6 text-center text-[0.6875rem] font-bold text-[#787774] dark:text-[#9B9A97] bg-[#F7F6F3] dark:bg-[#2A2A2A] hover:bg-[#F0F0EE] dark:hover:bg-[#333333] rounded-[4px] border border-transparent focus:bg-white dark:focus:bg-[#2A2A2A] focus:border-[#2563EB] outline-none transition-colors appearance-none"
-                                      title="Story Points"
+                                      title="Điểm ước lượng"
                                     />
                                   </div>
                                   <StatusPicker
@@ -756,7 +756,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                                         assigneeId: uid,
                                         assignee: uid ?? "U",
                                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                        assigneeDisplayName: uid ? workspaceMembers.find((m: any) => m.id === uid)?.name ?? uid : "Unassigned",
+                                        assigneeDisplayName: uid ? workspaceMembers.find((m: any) => m.id === uid)?.name ?? uid : "Chưa giao",
                                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                         assigneeAvatar: uid ? workspaceMembers.find((m: any) => m.id === uid)?.avatar : undefined,
                                       })}
@@ -797,7 +797,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
             <div className="relative flex flex-col gap-2 border-t border-[#F0F0EE] dark:border-white/[0.04] bg-[#F9F9F8]/50 dark:bg-[#252525] p-3 sm:flex-row sm:items-center">
               <input
                 type="text"
-                placeholder="What do you need to do next?"
+                placeholder="Bạn cần làm gì tiếp theo?"
                 className="flex-1 py-1.5 px-3 bg-white dark:bg-[#2A2A2A] text-[#111111] dark:text-[#E8E8E7] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] text-[0.8125rem] focus:border-[#2563EB] outline-none transition-colors"
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && e.currentTarget.value.trim()) {
@@ -815,7 +815,7 @@ export default function BacklogTab({ data, ui, actions, permissions }: BacklogTa
                 disabled={!canCreateTask}
                 className="text-[0.8125rem] font-medium bg-[#F7F6F3] dark:bg-[#2A2A2A] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F0F0EE] dark:hover:bg-[#333333] hover:text-[#111111] dark:hover:text-[#E8E8E7] disabled:opacity-40 px-3 py-1.5 rounded-[6px] transition-colors whitespace-nowrap"
               >
-                Open modal...
+                Mở biểu mẫu...
               </button>
             </div>
             )}

@@ -24,8 +24,8 @@ export default function CreateWorkspaceView({
             <ArrowLeft className="w-5 h-5 text-[#787774] dark:text-[#9B9A97]" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7]">Create a new workspace</h1>
-            <p className="text-[#787774] dark:text-[#9B9A97] text-sm mt-0.5">A workspace for your team</p>
+            <h1 className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7]">Tạo không gian làm việc mới</h1>
+            <p className="text-[#787774] dark:text-[#9B9A97] text-sm mt-0.5">Không gian làm việc cho nhóm của bạn</p>
           </div>
         </div>
 
@@ -39,7 +39,7 @@ export default function CreateWorkspaceView({
             )}
 
             <div>
-              <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Workspace Name *</label>
+              <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Tên không gian làm việc *</label>
               <input
                 type="text"
                 value={form.name}
@@ -48,13 +48,13 @@ export default function CreateWorkspaceView({
                   handleFieldChange("key", e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, "").substring(0, 5));
                 }}
                 className="w-full px-4 py-3 border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] bg-white dark:bg-[#252525] text-[#111111] dark:text-[#E8E8E7] placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B] outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6]"
-                placeholder="Example: Engineering Team, Project Alpha"
+                placeholder="Ví dụ: Đội ngũ kỹ thuật, Dự án Alpha"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Workspace Key *</label>
+              <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Mã không gian làm việc (Key) *</label>
               <input
                 type="text"
                 value={form.key}
@@ -65,7 +65,7 @@ export default function CreateWorkspaceView({
                 required
               />
               <p className="mt-1.5 text-xs text-[#787774] dark:text-[#9B9A97]">
-                The key is used to generate work item codes. Example: {
+                Mã này được sử dụng để tạo mã định danh công việc. Ví dụ: {
                   (() => {
                     const activeKey = form.key || "ENG";
                     return /-\d+$/.test(activeKey) ? activeKey : `${activeKey}-123`;
@@ -75,13 +75,13 @@ export default function CreateWorkspaceView({
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Short description</label>
+              <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Mô tả ngắn</label>
               <textarea
                 value={form.description}
                 onChange={(e) => handleFieldChange("description", e.target.value)}
                 className="w-full px-4 py-3 border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] bg-white dark:bg-[#252525] text-[#111111] dark:text-[#E8E8E7] placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B] outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6] resize-none"
                 rows={3}
-                placeholder="Describe the purpose of this workspace..."
+                placeholder="Mô tả mục đích của không gian làm việc này..."
               />
             </div>
           </div>
@@ -96,10 +96,10 @@ export default function CreateWorkspaceView({
               />
               <div>
                 <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Workspace avatar
+                  Ảnh đại diện không gian làm việc
                 </label>
                 <p className="text-xs text-[#787774] dark:text-[#9B9A97]">
-                  Sample image library
+                  Thư viện ảnh mẫu
                 </p>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function CreateWorkspaceView({
 
           {/* Workspace Type / Template */}
           <div>
-            <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-3">Choose workspace type (template) *</label>
+            <label className="block text-sm font-semibold text-[#111111] dark:text-[#E8E8E7] mb-3">Chọn loại không gian làm việc (Mẫu) *</label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 type="button"
@@ -125,7 +125,7 @@ export default function CreateWorkspaceView({
                 {form.template === "kanban" && <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] border-4 border-[#EFF6FF] dark:border-[#202020]" />}
                 <Columns className={`w-8 h-8 mb-3 ${form.template === "kanban" ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#ABABAB] dark:text-[#6B6B6B]"}`} />
                 <h3 className="font-bold text-[#111111] dark:text-[#E8E8E7] mb-1">Kanban</h3>
-                <p className="text-sm text-[#787774] dark:text-[#9B9A97] leading-relaxed">Focus on continuous workflow. Suitable for support, operations, or simple processes.</p>
+                <p className="text-sm text-[#787774] dark:text-[#9B9A97] leading-relaxed">Tập trung vào luồng công việc liên tục. Phù hợp cho hỗ trợ, vận hành hoặc quy trình đơn giản.</p>
               </button>
 
               <button
@@ -136,7 +136,7 @@ export default function CreateWorkspaceView({
                 {form.template === "scrum" && <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] border-4 border-[#EFF6FF] dark:border-[#202020]" />}
                 <Repeat className={`w-8 h-8 mb-3 ${form.template === "scrum" ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#ABABAB] dark:text-[#6B6B6B]"}`} />
                 <h3 className="font-bold text-[#111111] dark:text-[#E8E8E7] mb-1">Scrum</h3>
-                <p className="text-sm text-[#787774] dark:text-[#9B9A97] leading-relaxed">Work in recurring sprints with a dedicated backlog. Suitable for software development projects.</p>
+                <p className="text-sm text-[#787774] dark:text-[#9B9A97] leading-relaxed">Làm việc theo các sprint định kỳ với backlog chuyên biệt. Phù hợp cho các dự án phát triển phần mềm.</p>
               </button>
             </div>
           </div>
@@ -171,9 +171,9 @@ export default function CreateWorkspaceView({
            */}
 
           <div className="flex justify-end gap-3 pt-6 border-t border-[#EAEAEA] dark:border-white/[0.06]">
-            <Link href="/workspaces" className="px-6 py-2.5 border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] font-medium transition-colors">Cancel</Link>
+            <Link href="/workspaces" className="px-6 py-2.5 border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] font-medium transition-colors">Hủy</Link>
             <button type="submit" disabled={isLoading} className="px-8 py-2.5 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-[6px] hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] font-medium transition-colors disabled:opacity-50 flex items-center gap-2">
-              {isLoading ? "Creating..." : "Create Workspace"}
+              {isLoading ? "Đang tạo..." : "Tạo không gian làm việc"}
             </button>
           </div>
         </form>

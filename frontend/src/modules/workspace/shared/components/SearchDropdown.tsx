@@ -26,7 +26,10 @@ type SearchDropdownProps = {
   inputClassName?: string;
 };
 
-const apps = ["Work", "Docs"];
+const apps = [
+  { key: "Work", label: "Công việc" },
+  { key: "Docs", label: "Tài liệu" },
+];
 const documentSearchTypes: GlobalSearchType[] = ["page", "comment"];
 const taskSearchTypes: GlobalSearchType[] = ["task", "workspace", "board", "sprint", "user"];
 
@@ -474,7 +477,7 @@ export default function SearchDropdown({
           onClick={handleOpen}
           onChange={(event) => handleSearchChange(event.target.value)}
           onKeyDown={handleInputKeyDown}
-          placeholder="Search"
+          placeholder="Tìm kiếm..."
           className={`${inputClassName} w-full rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#2A2A2A] pl-10 pr-11 font-medium text-[#111111] dark:text-[#E8E8E7] outline-none transition-colors focus:border-[#2563EB] dark:focus:border-[#3B82F6] placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B]`}
         />
         <button
@@ -488,9 +491,9 @@ export default function SearchDropdown({
               ? "bg-[#DBEAFE] text-[#1D4ED8] dark:bg-[#1E3A5F] dark:text-[#BFDBFE]"
               : "text-[#ABABAB] hover:bg-[#F7F6F3] hover:text-[#2563EB] dark:hover:bg-[#2E2E2E] dark:hover:text-[#3B82F6]"
           }`}
-          aria-label="Toggle filters"
+          aria-label="Đóng/mở bộ lọc"
           aria-expanded={isFilterPanelOpen}
-          title="Filters"
+          title="Bộ lọc"
         >
           <Filter className="h-4 w-4" />
         </button>
@@ -506,19 +509,19 @@ export default function SearchDropdown({
               <div className="mb-4 flex rounded-[6px] bg-[#F9F9F8] dark:bg-[#252525] p-1">
                 {apps.map((app) => (
                   <button
-                    key={app}
+                    key={app.key}
                     type="button"
                     onClick={() => {
-                      setActiveApp(app);
+                      setActiveApp(app.key);
                       setActiveResultIndex(-1);
                     }}
                     className={`relative flex-1 rounded-[4px] px-3 py-2 text-[0.8125rem] transition-colors ${
-                      activeApp === app
+                      activeApp === app.key
                         ? "bg-[#DBEAFE] font-semibold text-[#1D4ED8] shadow-sm after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-[#2563EB] dark:bg-[#1E3A5F] dark:text-[#BFDBFE] dark:after:bg-[#60A5FA]"
                         : "font-medium text-[#787774]/70 dark:text-[#9B9A97]/70 hover:bg-[#F7F6F3] hover:text-[#111111] dark:hover:bg-[#2E2E2E] dark:hover:text-[#E8E8E7]"
                     }`}
                   >
-                    {app}
+                    {app.label}
                   </button>
                 ))}
               </div>
@@ -527,33 +530,33 @@ export default function SearchDropdown({
                 <section>
                   <h3 className="mb-2 text-[0.6875rem] font-semibold tracking-wider text-[#ABABAB] dark:text-[#6B6B6B]">
                     {isGlobalSearchActive
-                      ? `Results for “${debouncedSearch.trim()}”${globalSearch.isFetching ? "" : ` (${globalResultCount})`}`
+                      ? `Kết quả cho “${debouncedSearch.trim()}”${globalSearch.isFetching ? "" : ` (${globalResultCount})`}`
                       : isTaskWorkspaceScopeEmpty && hasSearchInput
-                        ? "SELECT A WORKSPACE TO SEARCH TASKS"
+                        ? "CHỌN KHÔNG GIAN LÀM VIỆC ĐỂ TÌM KIẾM NHIỆM VỤ"
                       : hasSearchInput
-                        ? "KEEP TYPING TO SEARCH"
-                        : "RECENTLY VIEWED"}
+                        ? "TIẾP TỤC NHẬP ĐỂ TÌM KIẾM"
+                        : "ĐÃ XEM GẦN ĐÂY"}
                   </h3>
                   {isLoadingTasks && (
                     <p className="px-2 py-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                      {activeApp === "Docs" ? "Loading docs..." : "Loading work items..."}
+                      {activeApp === "Docs" ? "Đang tải tài liệu..." : "Đang tải công việc..."}
                     </p>
                   )}
                   {!globalSearchEnabled && !isLoadingTasks && workspaceTargets.length === 0 && (
                     <p className="px-2 py-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                      {activeApp === "Docs" ? "Select a workspace to search docs." : "Select a workspace to search work items."}
+                      {activeApp === "Docs" ? "Chọn một không gian làm việc để tìm tài liệu." : "Chọn một không gian làm việc để tìm công việc."}
                     </p>
                   )}
                   {isTaskWorkspaceScopeEmpty && debouncedSearch.trim().length >= 2 && (
                     <p className="px-2 py-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                      Select at least one workspace to search tasks.
+                      Chọn ít nhất một không gian làm việc để tìm kiếm nhiệm vụ.
                     </p>
                   )}
                   {isGlobalSearchActive &&
                     !isLoadingTasks &&
                     visibleGlobalItems.length === 0 && (
                       <p className="px-2 py-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                        No accessible results found.
+                        Không tìm thấy kết quả phù hợp.
                       </p>
                     )}
                   {activeApp === "Docs" && !globalSearchEnabled &&
@@ -561,7 +564,7 @@ export default function SearchDropdown({
                     workspaceTargets.length > 0 &&
                     visibleDocs.length === 0 && (
                       <p className="px-2 py-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                        No docs match these filters.
+                        Không có tài liệu nào khớp với bộ lọc này.
                       </p>
                     )}
                   {activeApp === "Work" && !globalSearchEnabled &&
@@ -569,7 +572,7 @@ export default function SearchDropdown({
                     workspaceTargets.length > 0 &&
                     visibleTasks.length === 0 && (
                       <p className="px-2 py-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                        No work items match these filters.
+                        Không có công việc nào khớp với bộ lọc này.
                       </p>
                     )}
                   {isGlobalSearchActive &&
@@ -590,7 +593,7 @@ export default function SearchDropdown({
                         key={doc.id}
                         icon={FileText}
                         title={doc.title}
-                        meta={`Page · v${doc.version} · ${new Date(doc.updatedAt).toLocaleDateString()}`}
+                        meta={`Tài liệu · v${doc.version} · ${new Date(doc.updatedAt).toLocaleDateString("vi-VN")}`}
                         tone="gray"
                         active={activeResultIndex === index}
                         onClick={() => openDocResult(doc)}
@@ -619,8 +622,8 @@ export default function SearchDropdown({
 
                 {showEmptyStateSuggestions && (
                 <section>
-                  <h3 className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-wider text-[#ABABAB] dark:text-[#6B6B6B]">Recent boards, workspaces,filters and plans</h3>
-                  {(projects.length > 0 ? projects : [{ id: activeWorkspaceKey, name: `${activeWorkspaceKey} board`, key: activeWorkspaceKey }])
+                  <h3 className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-wider text-[#ABABAB] dark:text-[#6B6B6B]">Bảng, không gian làm việc và bộ lọc gần đây</h3>
+                  {(projects.length > 0 ? projects : [{ id: activeWorkspaceKey, name: `Bảng ${activeWorkspaceKey}`, key: activeWorkspaceKey }])
                     .slice(0, 6)
                     .map((project, index) => (
                       <RecentItem
@@ -628,14 +631,14 @@ export default function SearchDropdown({
                         icon={project.key === activeWorkspaceKey ? Kanban : FolderKanban}
                         title={
                           project.key === activeWorkspaceKey
-                            ? `${project.key} board`
+                            ? `Bảng ${project.key}`
                             : `${project.name} (${project.key})`
                         }
-                        meta={project.key === activeWorkspaceKey ? "Board" : "Project"}
+                        meta={project.key === activeWorkspaceKey ? "Bảng" : "Dự án"}
                         tone={project.key === activeWorkspaceKey ? "red" : "gray"}
                       />
                   ))}
-                  <RecentItem icon={Sparkles} title="Open issues" meta="Filter" />
+                  <RecentItem icon={Sparkles} title="Nhiệm vụ đang mở" meta="Bộ lọc" />
                 </section>
                 )}
               </div>
@@ -694,7 +697,7 @@ export default function SearchDropdown({
               />
               <div className="mt-4 flex items-center gap-2 rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#252525] px-3 py-2 text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">
                 <Users className="h-4 w-4 text-[#2563EB] dark:text-[#3B82F6]" />
-                Filters apply to workspace tasks when you are inside a workspace.
+                Bộ lọc áp dụng cho các nhiệm vụ trong không gian làm việc.
               </div>
             </aside>
             )}

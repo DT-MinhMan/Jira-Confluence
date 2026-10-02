@@ -43,7 +43,7 @@ const getStatusClassName = (status: "active" | "archived") =>
     : "bg-[#F7F6F3] text-[#787774] ring-[#EAEAEA] dark:bg-[#252525] dark:text-[#9B9A97] dark:ring-white/[0.06]";
 
 export default function WorkspacesPage() {
-  usePageTitle('Workspaces');
+  usePageTitle('Không gian làm việc');
   const queryClient = useQueryClient();
   const { currentWorkspace, workspaces, isLoading } = useCurrentWorkspace();
 
@@ -93,11 +93,11 @@ export default function WorkspacesPage() {
       <div className="app-page-wide">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7] mb-1">Workspaces</h1>
-          <p className="text-[#787774] dark:text-[#9B9A97] text-sm">Showing {workspaces.length} Workspace{workspaces.length !== 1 ? 's' : ''}{currentWorkspace ? ` (Current: ${currentWorkspace.name})` : ''}</p>
+          <h1 className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7] mb-1">Không gian làm việc</h1>
+          <p className="text-[#787774] dark:text-[#9B9A97] text-sm">Hiển thị {workspaces.length} không gian làm việc{currentWorkspace ? ` (Hiện tại: ${currentWorkspace.name})` : ''}</p>
         </div>
         <Link href="/workspaces/create" className="inline-flex items-center gap-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white px-5 py-2.5 rounded-[6px] hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] font-medium text-sm transition-colors shadow-sm">
-          <Plus className="w-4 h-4" /> Create New Workspace
+          <Plus className="w-4 h-4" /> Tạo không gian làm việc mới
         </Link>
       </div>
 
@@ -106,10 +106,10 @@ export default function WorkspacesPage() {
           <div className="w-16 h-16 bg-[#F7F6F3] dark:bg-[#252525] rounded-full flex items-center justify-center mb-4">
             <BookOpen className="w-8 h-8 text-[#ABABAB] dark:text-[#6B6B6B]" />
           </div>
-          <h3 className="text-lg font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">No workspaces yet</h3>
-          <p className="text-[#787774] dark:text-[#9B9A97] text-sm mb-6 max-w-sm text-center">Create a new workspace to start organizing work, storing documents, and managing projects for your team.</p>
+          <h3 className="text-lg font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">Chưa có không gian làm việc nào</h3>
+          <p className="text-[#787774] dark:text-[#9B9A97] text-sm mb-6 max-w-sm text-center">Tạo không gian làm việc mới để bắt đầu sắp xếp công việc, lưu trữ tài liệu và quản lý dự án cho nhóm của bạn.</p>
           <Link href="/workspaces/create" className="inline-flex items-center gap-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white px-5 py-2.5 rounded-[6px] hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] font-medium text-sm shadow-sm transition-colors">
-            <Plus className="w-4 h-4" /> Create your first workspace
+            <Plus className="w-4 h-4" /> Tạo không gian làm việc đầu tiên
           </Link>
         </div>
       ) : (
@@ -148,7 +148,7 @@ export default function WorkspacesPage() {
                           {workspaceType}
                         </span>
                         <span className={`rounded-md px-2 py-0.5 text-xs font-semibold capitalize ring-1 ring-inset ${getStatusClassName(workspaceStatus)}`}>
-                          {workspaceStatus}
+                          {workspaceStatus === "archived" ? "Đã lưu trữ" : "Hoạt động"}
                         </span>
                       </div>
                     </div>
@@ -160,11 +160,11 @@ export default function WorkspacesPage() {
                 <div className="flex items-center justify-between pt-4 border-t border-[#EAEAEA] dark:border-white/[0.06]">
                   <div className="flex items-center gap-4">
                     <div className="flex flex-col">
-                      <span className="text-xs text-[#787774] dark:text-[#9B9A97]">Tasks</span>
+                      <span className="text-xs text-[#787774] dark:text-[#9B9A97]">Nhiệm vụ</span>
                       <span className="text-xs font-semibold text-[#111111] dark:text-[#E8E8E7]">{taskCount}</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-xs text-[#787774] dark:text-[#9B9A97]">Docs</span>
+                      <span className="text-xs text-[#787774] dark:text-[#9B9A97]">Tài liệu</span>
                       <span className="text-xs font-semibold text-[#111111] dark:text-[#E8E8E7]">{docsCount}</span>
                     </div>
                   </div>

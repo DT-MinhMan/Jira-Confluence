@@ -56,7 +56,7 @@ export default function DocumentGrid({
   if (isLoading) {
     return (
       <div className="rounded-[8px] border border-[#EAEAEA] bg-white p-10 text-center text-sm text-[#787774] dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#9B9A97]">
-        Loading documents...
+        Đang tải tài liệu...
       </div>
     );
   }
@@ -64,7 +64,7 @@ export default function DocumentGrid({
   if (documents.length === 0) {
     return (
       <div className="rounded-[8px] border border-dashed border-[#EAEAEA] bg-white p-10 text-center text-sm text-[#787774] dark:border-white/[0.08] dark:bg-[#252525] dark:text-[#9B9A97]">
-        No matching documents found.
+        Không tìm thấy tài liệu phù hợp.
       </div>
     );
   }
@@ -113,7 +113,7 @@ export default function DocumentGrid({
                   className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-gray-800"
                 >
                   <Download className="h-3.5 w-3.5" />
-                  Download
+                  Tải xuống
                 </a>
                 {doc.documentType === "online" && currentUserId === doc.uploadedBy && (
                   <button
@@ -124,7 +124,7 @@ export default function DocumentGrid({
                     }}
                   >
                     <Pencil className="h-3.5 w-3.5" />
-                    Edit
+                    Chỉnh sửa
                   </button>
                 )}
                 <button
@@ -135,7 +135,7 @@ export default function DocumentGrid({
                   }}
                 >
                   <Pencil className="h-3.5 w-3.5" />
-                  Rename
+                  Đổi tên
                 </button>
                 <button
                   className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs font-medium text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
@@ -145,7 +145,7 @@ export default function DocumentGrid({
                   }}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
-                  Delete
+                  Xóa
                 </button>
               </div>
             )}
@@ -157,7 +157,7 @@ export default function DocumentGrid({
               {doc.extension.toUpperCase()} · {formatSize(doc.size)}
             </p>
             <p className="mt-1 text-xs text-[#ABABAB] dark:text-[#6B6B6B]">
-              Date uploaded: {formatDate(doc.updatedAt || doc.createdAt)}
+              Ngày tải lên: {formatDate(doc.updatedAt || doc.createdAt)}
             </p>
           </div>
         );

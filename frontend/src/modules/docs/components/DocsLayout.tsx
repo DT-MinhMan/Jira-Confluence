@@ -16,7 +16,7 @@ const TiptapEditor = dynamic(() => import("../editor/TiptapEditor"), {
     <div className="flex-1 flex items-center justify-center">
       <div className="flex flex-col items-center gap-3 text-[#ABABAB] dark:text-[#6B6B6B]">
         <Loader2 className="w-6 h-6 animate-spin" />
-        <span className="text-[0.8125rem] font-medium">Loading editor...</span>
+        <span className="text-[0.8125rem] font-medium">Đang tải trình chỉnh sửa...</span>
       </div>
     </div>
   ),
@@ -48,7 +48,7 @@ export default function DocsLayout({ workspaceId }: { workspaceId: string }) {
           <div className="flex-1 flex items-center justify-center">
             <div className="flex flex-col items-center gap-3 text-[#ABABAB] dark:text-[#6B6B6B]">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="text-[0.8125rem] font-medium">Loading...</span>
+              <span className="text-[0.8125rem] font-medium">Đang tải...</span>
             </div>
           </div>
         ) : (

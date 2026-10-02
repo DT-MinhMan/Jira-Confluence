@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import {
@@ -20,14 +20,14 @@ type DashboardMetric = {
 
 
 const SUMMARY_FILTER_FIELDS = [
-  { id: "assignee", label: "Assignee" },
-  { id: "created", label: "Created" },
-  { id: "dueDate", label: "Due date" },
-  { id: "parent", label: "Parent" },
-  { id: "priority", label: "Priority" },
-  { id: "status", label: "Status" },
-  { id: "updated", label: "Updated" },
-  { id: "workType", label: "Work type" },
+  { id: "assignee", label: "Người thực hiện" },
+  { id: "created", label: "Ngày tạo" },
+  { id: "dueDate", label: "Ngày đến hạn" },
+  { id: "parent", label: "Nhiệm vụ cha" },
+  { id: "priority", label: "Độ ưu tiên" },
+  { id: "status", label: "Trạng thái" },
+  { id: "updated", label: "Ngày cập nhật" },
+  { id: "workType", label: "Loại nhiệm vụ" },
 ];
 
 type SummaryTabProps = {
@@ -147,7 +147,7 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
           }`}
         >
           <SlidersHorizontal className="w-4 h-4" />
-          Filter
+          Bộ lọc
           {selectedSummaryFields.length > 0 && (
             <span className="ml-1 inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] text-white text-[0.6875rem]">
               {selectedSummaryFields.length}
@@ -165,13 +165,13 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
                 autoFocus
                 value={summaryFilterSearch}
                 onChange={(e) => setSummaryFilterSearch(e.target.value)}
-                placeholder="Search more filters"
+                placeholder="Tìm kiếm bộ lọc..."
                 className="w-full px-3 py-2 rounded-[6px] border border-[#2563EB] dark:border-[#3B82F6] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 text-[0.8125rem] bg-white dark:bg-[#252525] text-[#111111] dark:text-[#E8E8E7] placeholder-[#ABABAB] dark:placeholder-[#6B6B6B]"
               />
             </div>
             <div className="max-h-80 overflow-y-auto py-1">
               {visibleSummaryFilterFields.length === 0 ? (
-                <p className="px-4 py-3 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">No filters found</p>
+                <p className="px-4 py-3 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Không tìm thấy bộ lọc nào</p>
               ) : (
                 visibleSummaryFilterFields.map((field) => {
                   const checked = selectedSummaryFields.includes(field.id);
@@ -203,7 +203,7 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
               )}
             </div>
             <div className="px-4 py-3 border-t border-[#EAEAEA] dark:border-white/[0.06] text-right text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] font-medium">
-              {visibleSummaryFilterFields.length} of {SUMMARY_FILTER_FIELDS.length}
+              {visibleSummaryFilterFields.length} / {SUMMARY_FILTER_FIELDS.length}
             </div>
           </div>
         )}
@@ -211,41 +211,40 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
 
       {selectedSummaryFields.length > 0 && (
         <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-          Showing{" "}
-          <span className="font-semibold">{dashboardData.totalVisibleItems}</span> work
-          items after applying{" "}
-          <span className="font-semibold">{selectedSummaryFields.length}</span> filter
-          field(s).
+          Hiển thị{" "}
+          <span className="font-semibold">{dashboardData.totalVisibleItems}</span> nhiệm vụ
+          sau khi áp dụng{" "}
+          <span className="font-semibold">{selectedSummaryFields.length}</span> trường lọc.
         </p>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[
           {
-            label: "completed",
+            label: "Đã hoàn thành",
             value: dashboardData.keyMetrics.completed,
-            subtitle: "in the last 7 days",
+            subtitle: "trong 7 ngày qua",
             icon: CheckCircle2,
             iconTone: "text-emerald-600 dark:text-emerald-400",
           },
           {
-            label: "updated",
+            label: "Đã cập nhật",
             value: dashboardData.keyMetrics.updated,
-            subtitle: "in the last 7 days",
+            subtitle: "trong 7 ngày qua",
             icon: PencilLine,
             iconTone: "text-[#787774] dark:text-[#9B9A97]",
           },
           {
-            label: "created",
+            label: "Đã tạo",
             value: dashboardData.keyMetrics.created,
-            subtitle: "in the last 7 days",
+            subtitle: "trong 7 ngày qua",
             icon: FileText,
             iconTone: "text-[#787774] dark:text-[#9B9A97]",
           },
           {
-            label: "due soon",
+            label: "Sắp đến hạn",
             value: dashboardData.keyMetrics.dueSoon,
-            subtitle: "in the next 7 days",
+            subtitle: "trong 7 ngày tới",
             icon: CalendarClock,
             iconTone: "text-amber-600 dark:text-amber-400",
           },
@@ -259,7 +258,7 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
             </div>
             <div>
               <p className="text-2xl font-bold text-[#111111] dark:text-[#E8E8E7] leading-none">{item.value}</p>
-              <p className="text-[0.9375rem] text-[#111111] dark:text-[#E8E8E7] font-semibold leading-tight capitalize">
+              <p className="text-[0.9375rem] text-[#111111] dark:text-[#E8E8E7] font-semibold leading-tight">
                 {item.label}
               </p>
               <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-0.5">{item.subtitle}</p>
@@ -271,11 +270,11 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
       <div className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] p-5">
         <div className="flex items-start justify-between gap-3 mb-5">
           <div>
-            <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Status overview</h3>
+            <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Tổng quan trạng thái</h3>
             <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-              Get a snapshot of the status of your work items.{" "}
+              Tổng hợp nhanh trạng thái các nhiệm vụ của bạn.{" "}
               <button className="text-[#2563EB] dark:text-[#3B82F6] hover:underline font-medium">
-                View all work items
+                Xem tất cả nhiệm vụ
               </button>
             </p>
           </div>
@@ -307,7 +306,7 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
                     {dashboardData.totalVisibleItems}
                   </p>
                   <p className="text-[0.8125rem] font-semibold text-[#787774] dark:text-[#9B9A97] mt-2">
-                    Total work items
+                    Tổng số nhiệm vụ
                   </p>
                 </div>
               </div>
@@ -327,17 +326,17 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
             </div>
           </div>
         ) : (
-          <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">No status data available.</p>
+          <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Không có dữ liệu trạng thái.</p>
         )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] p-5">
-          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Priority breakdown</h3>
+          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Phân bổ theo độ ưu tiên</h3>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-4">
-            Get a holistic view of how work is being prioritized.{" "}
+            Cái nhìn toàn diện về mức độ ưu tiên công việc.{" "}
             <button className="text-[#2563EB] dark:text-[#3B82F6] hover:underline font-medium">
-              How to manage priorities for Workspaces
+              Cách quản lý độ ưu tiên trong không gian làm việc
             </button>
           </p>
           <div className="h-60 border-l border-b border-[#EAEAEA] dark:border-white/[0.06] px-3 pb-2">
@@ -368,11 +367,11 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
         </div>
 
         <div className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] p-5">
-          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Types of work</h3>
+          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Loại công việc</h3>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-4">
-            Get a breakdown of work items by their types.{" "}
+            Thống kê chi tiết nhiệm vụ theo từng loại.{" "}
             <button className="text-[#2563EB] dark:text-[#3B82F6] hover:underline font-medium">
-              View all items
+              Xem tất cả
             </button>
           </p>
           <div className="max-h-64 overflow-y-auto pr-2 space-y-3">
@@ -395,11 +394,11 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] p-5">
-          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Team workload</h3>
+          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Khối lượng công việc của nhóm</h3>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-4">
-            Monitor the capacity of your team.{" "}
+            Theo dõi khối lượng công việc các thành viên trong nhóm.{" "}
             <button className="text-[#2563EB] dark:text-[#3B82F6] hover:underline font-medium">
-              Reassign work items to get the right balance
+              Phân bổ lại nhiệm vụ để cân bằng khối lượng
             </button>
           </p>
           <div className="space-y-3">
@@ -414,7 +413,7 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
                   >
                     {item.assignee === "Unassigned" ? "U" : item.assignee}
                   </span>
-                  {item.assignee}
+                  {item.assignee === "Unassigned" ? "Chưa giao" : item.assignee}
                 </div>
                 <div className="h-7 rounded-[4px] bg-[#F7F6F3] dark:bg-[#252525] overflow-hidden">
                   <div
@@ -430,30 +429,30 @@ export default function SummaryTab({ issues, workspaceId, workspaceMongoId }: Su
         </div>
 
         <div className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] p-5">
-          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Epic progress</h3>
+          <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Tiến độ Epic</h3>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-4">
-            See how your epics are progressing at a glance.{" "}
+            Theo dõi tiến độ hoàn thành các epic.{" "}
             <button className="text-[#2563EB] dark:text-[#3B82F6] hover:underline font-medium">
-              View all epics
+              Xem tất cả epic
             </button>
           </p>
           <div className="flex items-center gap-5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mb-4">
             <span className="inline-flex items-center gap-2">
               <span className="w-3 h-3 bg-green-600 rounded-[2px]" />
-              Done
+              Hoàn thành
             </span>
             <span className="inline-flex items-center gap-2">
               <span className="w-3 h-3 bg-blue-500 rounded-[2px]" />
-              In progress
+              Đang thực hiện
             </span>
             <span className="inline-flex items-center gap-2">
               <span className="w-3 h-3 bg-[#ABABAB] dark:bg-[#6B6B6B] rounded-[2px]" />
-              To do
+              Cần làm
             </span>
           </div>
           {dashboardData.epicProgress.length === 0 ? (
             <div className="rounded-[6px] border border-dashed border-[#EAEAEA] dark:border-white/[0.08] p-5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-              No epics yet.
+              Chưa có epic nào.
             </div>
           ) : (
             <div className="space-y-4">

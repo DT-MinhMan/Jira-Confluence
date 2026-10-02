@@ -43,7 +43,7 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
   if (!isOpen) return null;
 
   const getAssigneeLabel = (user: FilterAssignee) =>
-    user.name || (user.id === 'U' ? 'Unassigned' : user.id);
+    user.name || (user.id === 'U' ? 'Chưa giao' : user.id);
 
   const getAssigneeInitials = (user: FilterAssignee) =>
     user.initials ||
@@ -77,13 +77,26 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
     }));
   };
 
+  const TYPE_NAMES_VI: Record<string, string> = {
+    Task: "Nhiệm vụ",
+    Bug: "Lỗi",
+    Story: "Câu chuyện",
+    Epic: "Epic",
+  };
+
+  const STATUS_NAMES_VI: Record<string, string> = {
+    "To Do": "Cần làm",
+    "In Progress": "Đang thực hiện",
+    Done: "Hoàn thành",
+  };
+
   return (
     <div
       className="absolute top-16 right-0 w-[min(calc(100vw-48px),var(--app-popover-w))] bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] z-40 animate-in slide-in-from-top-2 duration-200"
       style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
     >
       <div className="flex items-center justify-between p-3 border-b border-[#EAEAEA] dark:border-white/[0.06]">
-        <h4 className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Filters</h4>
+        <h4 className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Bộ lọc</h4>
         <button onClick={onClose} className="p-1 text-[#ABABAB] hover:text-[#787774] dark:hover:text-[#9B9A97] rounded-[4px] transition-colors">
           <X className="w-4 h-4" />
         </button>
@@ -92,7 +105,7 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
 
         {/* Assignees */}
         <div className="space-y-2">
-          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Assignee</h5>
+          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Người thực hiện</h5>
           <div className="flex flex-wrap gap-2">
             {assignees.map(user => {
               const isSelected = filters.assignees?.includes(user.id);
@@ -130,14 +143,14 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
 
         {/* Types */}
         <div className="space-y-2">
-          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Work type</h5>
+          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Loại công việc</h5>
           <div className="grid grid-cols-2 gap-2">
             {['Task', 'Bug', 'Story', 'Epic'].map(type => {
               const isSelected = filters.types?.includes(type);
               return (
                 <label key={type} className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={isSelected} onChange={() => toggleArrayFilter('types', type)} className="w-4 h-4 rounded accent-[#2563EB] cursor-pointer" />
-                  <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{type}</span>
+                  <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{TYPE_NAMES_VI[type] || type}</span>
                 </label>
               );
             })}
@@ -146,14 +159,14 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
 
         {/* Statuses */}
         <div className="space-y-2">
-          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Status</h5>
+          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Trạng thái</h5>
           <div className="grid grid-cols-2 gap-2">
             {['To Do', 'In Progress', 'Done'].map(status => {
               const isSelected = filters.statuses?.includes(status);
               return (
                 <label key={status} className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={isSelected} onChange={() => toggleArrayFilter('statuses', status)} className="w-4 h-4 rounded accent-[#2563EB] cursor-pointer" />
-                  <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{status}</span>
+                  <span className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7]">{STATUS_NAMES_VI[status] || status}</span>
                 </label>
               );
             })}
@@ -162,7 +175,7 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
 
         {/* Density */}
         <div className="space-y-2 pt-4 border-t border-[#EAEAEA] dark:border-white/[0.06]">
-          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">List density</h5>
+          <h5 className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wide">Mật độ danh sách</h5>
           <div className="flex gap-2">
             <button
               onClick={() => setDensity('comfortable')}
@@ -172,7 +185,7 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
                   : 'bg-white dark:bg-[#252525] border-[#EAEAEA] dark:border-white/[0.08] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]'
               }`}
             >
-              Default
+              Mặc định
             </button>
             <button
               onClick={() => setDensity('compact')}
@@ -182,7 +195,7 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
                   : 'bg-white dark:bg-[#252525] border-[#EAEAEA] dark:border-white/[0.08] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]'
               }`}
             >
-              Compact
+              Thu gọn
             </button>
           </div>
         </div>
@@ -190,13 +203,13 @@ export default function FilterMenu({ isOpen, onClose, filters, setFilters, densi
       </div>
       <div className="p-3 border-t border-[#EAEAEA] dark:border-white/[0.06] flex justify-between items-center bg-[#F9F9F8] dark:bg-[#252525] rounded-b-[8px]">
         <span className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B]">
-          Shortcut:{' '}
+          Phím tắt:{' '}
           <kbd className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[4px] px-1 font-mono">Shift</kbd>
           {' '}+{' '}
           <kbd className="bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[4px] px-1 font-mono">F</kbd>
         </span>
         <button onClick={clearFilters} className="text-[0.8125rem] font-medium text-[#2563EB] hover:text-[#1D4ED8] dark:text-[#3B82F6] dark:hover:text-[#2563EB] transition-colors">
-          Clear filters
+          Xóa bộ lọc
         </button>
       </div>
     </div>

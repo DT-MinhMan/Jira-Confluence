@@ -40,7 +40,7 @@ export default function CalendarToolbar({
       <div className="flex flex-wrap items-center gap-2">
         <input
           type="text"
-          placeholder="Search tasks…"
+          placeholder="Tìm kiếm nhiệm vụ…"
           value={filters.search}
           onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
           className={`${SELECT_CLASS} w-44 placeholder-[#ABABAB] dark:placeholder-[#6B6B6B]`}
@@ -53,7 +53,7 @@ export default function CalendarToolbar({
           }
           className={SELECT_CLASS}
         >
-          <option value="">All Assignees</option>
+          <option value="">Tất cả người thực hiện</option>
           {assignees.map((a) => (
             <option key={a.id} value={a.id}>
               {a.id}
@@ -68,9 +68,14 @@ export default function CalendarToolbar({
           }
           className={SELECT_CLASS}
         >
-          <option value="">All Types</option>
-          {['Task', 'Bug', 'Story', 'Epic'].map((t) => (
-            <option key={t} value={t}>{t}</option>
+          <option value="">Tất cả loại</option>
+          {[
+            { value: 'Task', label: 'Nhiệm vụ' },
+            { value: 'Bug', label: 'Lỗi' },
+            { value: 'Story', label: 'Story' },
+            { value: 'Epic', label: 'Epic' },
+          ].map((t) => (
+            <option key={t.value} value={t.value}>{t.label}</option>
           ))}
         </select>
 
@@ -81,9 +86,13 @@ export default function CalendarToolbar({
           }
           className={SELECT_CLASS}
         >
-          <option value="">All Statuses</option>
-          {['To Do', 'In Progress', 'Done'].map((s) => (
-            <option key={s} value={s}>{s}</option>
+          <option value="">Tất cả trạng thái</option>
+          {[
+            { value: 'To Do', label: 'Cần làm' },
+            { value: 'In Progress', label: 'Đang thực hiện' },
+            { value: 'Done', label: 'Đã xong' },
+          ].map((s) => (
+            <option key={s.value} value={s.value}>{s.label}</option>
           ))}
         </select>
       </div>
@@ -95,7 +104,7 @@ export default function CalendarToolbar({
             onClick={() => api()?.today()}
             className="px-3 py-1.5 text-sm font-semibold rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#252525] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 transition-colors"
           >
-            Today
+            Hôm nay
           </button>
 
           <button
@@ -131,7 +140,7 @@ export default function CalendarToolbar({
                     : 'text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]',
                 ].join(' ')}
               >
-                {view === 'dayGridMonth' ? 'Month' : 'Week'}
+                {view === 'dayGridMonth' ? 'Tháng' : 'Tuần'}
               </button>
             ))}
           </div>
@@ -139,7 +148,7 @@ export default function CalendarToolbar({
           {/* Unscheduled sidebar toggle */}
           <button
             onClick={onToggleSidebar}
-            title="Unscheduled work"
+            title="Nhiệm vụ chưa lên lịch"
             className={[
               'p-1.5 rounded-[6px] border transition-colors',
               isSidebarOpen

@@ -186,7 +186,7 @@ export default function TaskDetailDrawer({
               <div className="w-5 h-5 bg-[#2563EB] dark:bg-[#3B82F6] rounded-[4px] text-white flex items-center justify-center">
                 <FileText className="w-3 h-3" />
               </div>
-              <span className="text-[#787774] dark:text-[#9B9A97]">Add epic</span>
+              <span className="text-[#787774] dark:text-[#9B9A97]">Thêm epic</span>
             </div>
             <span className="hidden text-[#ABABAB] dark:text-[#6B6B6B] sm:inline">/</span>
             <div className="flex min-w-0 items-center gap-2 hover:bg-[#F0F0EE] dark:hover:bg-[#2E2E2E] px-2 py-1 rounded-[4px] cursor-pointer transition-colors">
@@ -222,7 +222,7 @@ export default function TaskDetailDrawer({
                       className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
                     >
                       <Clock className="h-4 w-4 text-[#787774] dark:text-[#9B9A97]" />
-                      Log work
+                      Ghi nhận thời gian
                     </button>
                     <button
                       type="button"
@@ -234,7 +234,7 @@ export default function TaskDetailDrawer({
                       className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] disabled:cursor-not-allowed disabled:opacity-40 border-t border-[#EAEAEA] dark:border-white/[0.06]"
                     >
                       <Archive className="h-4 w-4 text-[#787774]" />
-                      Archive
+                      Lưu trữ
                     </button>
                   </div>
                 )}
@@ -301,7 +301,7 @@ export default function TaskDetailDrawer({
                   {/* Details */}
                   <div className="border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] bg-white dark:bg-[#202020] overflow-hidden">
                     <div className="w-full flex items-center justify-between p-3 text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7] bg-[#F9F9F8] dark:bg-[#252525] border-b border-[#EAEAEA] dark:border-white/[0.06]">
-                      Details
+                      Chi tiết
                     </div>
                     <div className="p-4">
                       <TaskDetailFields
@@ -321,9 +321,9 @@ export default function TaskDetailDrawer({
 
             {/* Meta */}
             <div className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] flex items-center justify-center gap-4 pb-8">
-              <span>Created: {formatDateTime(issue.createdAt)}</span>
+              <span>Đã tạo: {formatDateTime(issue.createdAt)}</span>
               <span>•</span>
-              <span>Updated: {formatDateTime(issue.updatedAt)}</span>
+              <span>Đã cập nhật: {formatDateTime(issue.updatedAt)}</span>
             </div>
           </div>
         </div>

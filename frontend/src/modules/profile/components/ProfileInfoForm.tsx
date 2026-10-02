@@ -76,17 +76,17 @@ export function ProfileInfoForm({
     let hasClientError = false;
 
     if (form.phone && !/^(\+?[1-9]\d{7,14}|0\d{9,10})$/.test(form.phone)) {
-      newFieldErrors.phone = "Invalid phone number";
+      newFieldErrors.phone = "Số điện thoại không hợp lệ";
       hasClientError = true;
     }
 
     if (form.birthday) {
       const bdate = new Date(form.birthday);
       if (isNaN(bdate.getTime())) {
-        newFieldErrors.birthday = "Invalid date of birth";
+        newFieldErrors.birthday = "Ngày sinh không hợp lệ";
         hasClientError = true;
       } else if (bdate > new Date()) {
-        newFieldErrors.birthday = "Date of birth cannot be in the future";
+        newFieldErrors.birthday = "Ngày sinh không thể ở tương lai";
         hasClientError = true;
       }
     }
@@ -95,7 +95,7 @@ export function ProfileInfoForm({
       form.fullName &&
       (form.fullName.length < 2 || form.fullName.length > 100)
     ) {
-      newFieldErrors.fullName = "Full name must be between 2 and 100 characters";
+      newFieldErrors.fullName = "Họ và tên phải từ 2 đến 100 ký tự";
       hasClientError = true;
     }
 
@@ -112,13 +112,13 @@ export function ProfileInfoForm({
       gender: form.gender as "male" | "female" | "other",
     });
     if (res.success) {
-      toast.success("Profile updated successfully");
+      toast.success("Cập nhật hồ sơ thành công");
       await verifyToken();
     } else {
       if (res.fieldErrors) {
         setFieldErrors(res.fieldErrors);
       }
-      toast.error("Update failed");
+      toast.error("Cập nhật thất bại");
     }
   };
 
@@ -130,10 +130,10 @@ export function ProfileInfoForm({
     e.target.value = "";
     const ok = await onUploadAvatar(file);
     if (ok) {
-      toast.success("Avatar updated successfully");
+      toast.success("Cập nhật ảnh đại diện thành công");
       await verifyToken();
     } else {
-      toast.error("Avatar update failed");
+      toast.error("Không thể cập nhật ảnh đại diện");
     }
   };
 
@@ -171,7 +171,7 @@ export function ProfileInfoForm({
             disabled={avatarUploading}
             onClick={() => fileInputRef.current?.click()}
             className="absolute bottom-0 right-0 w-7 h-7 bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white rounded-full flex items-center justify-center transition-colors"
-            aria-label="Change avatar"
+            aria-label="Thay đổi ảnh đại diện"
           >
             <Camera className="w-3.5 h-3.5" />
           </button>
@@ -187,13 +187,13 @@ export function ProfileInfoForm({
 
         <div>
           <p className="text-[0.8125rem] font-medium text-[#111111] dark:text-[#E8E8E7]">
-            {profile.fullName ?? "Not updated"}
+            {profile.fullName ?? "Chưa cập nhật"}
           </p>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
             {profile.email}
           </p>
           <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-0.5">
-            JPG, PNG, GIF, WEBP - max 10MB
+            JPG, PNG, GIF, WEBP - tối đa 10MB
           </p>
           {fieldErrors.avatar && (
             <p className="text-[0.8125rem] text-[#9F2F2D] mt-1">
@@ -205,13 +205,13 @@ export function ProfileInfoForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className={labelCls}>Full name</label>
+          <label className={labelCls}>Họ và tên</label>
           <input
             type="text"
             name="fullName"
             value={form.fullName}
             onChange={handleChange}
-            placeholder="Enter full name"
+            placeholder="Nhập họ và tên"
             className={fieldErrors.fullName ? inputErrorCls : inputNormalCls}
           />
           {fieldErrors.fullName && (
@@ -230,18 +230,18 @@ export function ProfileInfoForm({
             className="w-full px-3 py-2 border border-[#EAEAEA] dark:border-white/10 rounded-[6px] bg-[#F9F9F8] dark:bg-[#252525] text-[#ABABAB] dark:text-[#6B6B6B] cursor-not-allowed"
           />
           <p className="mt-1 text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B]">
-            Email cannot be changed
+            Không thể thay đổi email
           </p>
         </div>
 
         <div>
-          <label className={labelCls}>Phone number</label>
+          <label className={labelCls}>Số điện thoại</label>
           <input
             type="tel"
             name="phone"
             value={form.phone}
             onChange={handleChange}
-            placeholder="Enter phone number"
+            placeholder="Nhập số điện thoại"
             className={fieldErrors.phone ? inputErrorCls : inputNormalCls}
           />
           {fieldErrors.phone && (
@@ -252,17 +252,17 @@ export function ProfileInfoForm({
         </div>
 
         <div>
-          <label className={labelCls}>Date of birth</label>
+          <label className={labelCls}>Ngày sinh</label>
           <CustomDatePicker
             value={form.birthday}
             onChange={handleBirthdayChange}
-            placeholder="DD/MM/YYYY"
+            placeholder="Ngày/Tháng/Năm"
             inputClassName={`h-9 rounded-[6px] ${
               fieldErrors.birthday
                 ? "border-[#9F2F2D] focus:border-[#9F2F2D]"
                 : "border-[#EAEAEA] dark:border-white/10 focus:border-[#2563EB] dark:focus:border-[#3B82F6]"
             } bg-white dark:bg-[#252525] text-[#111111] dark:text-[#E8E8E7]`}
-            ariaLabel="Date of birth"
+            ariaLabel="Ngày sinh"
           />
           {fieldErrors.birthday && (
             <p className="mt-1.5 text-[0.8125rem] text-[#9F2F2D]">
@@ -272,16 +272,16 @@ export function ProfileInfoForm({
         </div>
 
         <div>
-          <label className={labelCls}>Gender</label>
+          <label className={labelCls}>Giới tính</label>
           <select
             name="gender"
             value={form.gender}
             onChange={handleChange}
             className={fieldErrors.gender ? inputErrorCls : inputNormalCls}
           >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
+            <option value="other">Khác</option>
           </select>
           {fieldErrors.gender && (
             <p className="mt-1.5 text-[0.8125rem] text-[#9F2F2D]">
@@ -291,13 +291,13 @@ export function ProfileInfoForm({
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelCls}>Address</label>
+          <label className={labelCls}>Địa chỉ</label>
           <input
             type="text"
             name="address"
             value={form.address}
             onChange={handleChange}
-            placeholder="Enter address"
+            placeholder="Nhập địa chỉ"
             className={fieldErrors.address ? inputErrorCls : inputNormalCls}
           />
           {fieldErrors.address && (
@@ -315,7 +315,7 @@ export function ProfileInfoForm({
           className="px-6 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] disabled:opacity-50 text-white rounded-[6px] text-[0.8125rem] font-medium transition-colors flex items-center gap-2"
         >
           {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-          {saving ? "Saving..." : "Save changes"}
+          {saving ? "Đang lưu..." : "Lưu thay đổi"}
         </button>
       </div>
     </form>

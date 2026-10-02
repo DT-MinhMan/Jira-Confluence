@@ -102,26 +102,26 @@ export default function AboutPage() {
                 href="/#features"
                 className="text-sm font-semibold text-slate-600 transition hover:text-blue-600 dark:text-slate-300 dark:hover:text-white"
               >
-                Features
+                Tính năng
               </Link>
               <Link
                 href="/aboutUs"
                 className="text-sm font-bold text-blue-600 dark:text-blue-400 relative"
               >
-                About Us
+                Về chúng tôi
                 <span className="absolute -bottom-2 left-0 right-0 h-0.5 rounded-full bg-blue-600 dark:bg-blue-400" />
               </Link>
               <Link
                 href="/#workflow"
                 className="text-sm font-semibold text-slate-600 transition hover:text-blue-600 dark:text-slate-300 dark:hover:text-white"
               >
-                Workflow
+                Quy trình
               </Link>
               <Link
                 href="/#faq"
                 className="text-sm font-semibold text-slate-600 transition hover:text-blue-600 dark:text-slate-300 dark:hover:text-white"
               >
-                FAQ
+                Hỏi đáp
               </Link>
             </nav>
           </div>
@@ -149,13 +149,13 @@ export default function AboutPage() {
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl"
           >
-            Built for engineering teams who ship software with{" "}
+            Được xây dựng cho các đội ngũ kỹ thuật triển khai phần mềm với{" "}
             <span className="text-[#0C66E4] dark:text-[#388BFF] inline-block hover:scale-105 transition-transform">
-              clarity
+              sự rõ ràng
             </span>{" "}
-            and{" "}
+            và{" "}
             <span className="text-[#2D5A27] dark:text-[#4ADE80] inline-block hover:scale-105 transition-transform">
-              continuous flow
+              dòng chảy liên tục
             </span>
             .
           </motion.h1>
@@ -166,8 +166,8 @@ export default function AboutPage() {
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300"
           >
-            Modern agile teams waste hours jumping between disparate bug trackers, disconnected wiki docs, and chat threads.
-            TaskFlow combines Jira sprint velocity and Confluence real-time documentation into one cohesive, single-source-of-truth workspace.
+            Các đội ngũ Agile hiện đại thường lãng phí hàng giờ chuyển đổi giữa các công cụ theo dõi lỗi rời rạc, tài liệu wiki ngắt quãng và các cuộc trò chuyện phân tán.
+            TaskFlow kết hợp tốc độ sprint của Jira cùng tính năng soạn thảo tài liệu thời gian thực của Confluence vào một không gian làm việc đồng nhất, nguồn dữ liệu tin cậy duy nhất.
           </motion.p>
 
           <motion.div
@@ -181,7 +181,7 @@ export default function AboutPage() {
                 href="/register"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#0C66E4] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700"
               >
-                Get Started Free <ArrowRight className="h-4 w-4" />
+                Bắt đầu miễn phí <ArrowRight className="h-4 w-4" />
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
@@ -189,7 +189,7 @@ export default function AboutPage() {
                 href="/#features"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-slate-800"
               >
-                Explore Capabilities <Layers className="h-4 w-4" />
+                Khám phá tính năng <Layers className="h-4 w-4" />
               </Link>
             </motion.div>
           </motion.div>
@@ -209,10 +209,10 @@ export default function AboutPage() {
             className="mb-12 text-center"
           >
             <p className="text-xs font-bold uppercase tracking-widest text-[#0C66E4] dark:text-blue-400">
-              Core Pillars
+              Trụ cột cốt lõi
             </p>
             <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
-              Three commitments behind every interaction
+              Ba cam kết đằng sau mọi trải nghiệm tương tác
             </h2>
           </motion.div>
 
@@ -233,7 +233,7 @@ export default function AboutPage() {
               <div>
                 <div className="flex items-center justify-between">
                   <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Velocity
+                    Tốc độ
                   </span>
                   <motion.div
                     animate={activeCard === 0 ? { rotate: [0, -12, 12, 0] } : {}}
@@ -243,11 +243,11 @@ export default function AboutPage() {
                   </motion.div>
                 </div>
                 <h3 className="mt-6 text-2xl font-black leading-tight">
-                  Sprint Delivery Without Chaos
+                  Triển khai Sprint không hỗn loạn
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-emerald-100/90">
-                  Break complex product goals into assignable, bite-sized tasks. Interactive Kanban boards,
-                  automated status columns, and sprint burndown ensure teams meet delivery commitments every cycle.
+                  Chia nhỏ các mục tiêu sản phẩm phức tạp thành các đầu việc cụ thể, dễ bàn giao. Bảng Kanban tương tác,
+                  các cột trạng thái tự động và biểu đồ burndown giúp đội ngũ luôn hoàn thành cam kết trong từng chu kỳ.
                 </p>
               </div>
 
@@ -255,11 +255,11 @@ export default function AboutPage() {
                 <div className="space-y-2 text-xs font-medium text-emerald-100">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                    <span>Real-time Kanban boards with WIP limits</span>
+                    <span>Bảng Kanban thời gian thực với giới hạn WIP</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                    <span>Sprint planning & backlog grooming</span>
+                    <span>Lập kế hoạch sprint & quản lý backlog</span>
                   </div>
                 </div>
               </div>
@@ -281,7 +281,7 @@ export default function AboutPage() {
               <div>
                 <div className="flex items-center justify-between">
                   <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Governance
+                    Quản trị
                   </span>
                   <motion.div
                     animate={activeCard === 1 ? { scale: [1, 1.2, 1] } : {}}
@@ -291,11 +291,11 @@ export default function AboutPage() {
                   </motion.div>
                 </div>
                 <h3 className="mt-6 text-2xl font-black leading-tight">
-                  Radical Transparency & RBAC
+                  Minh bạch tuyệt đối & Phân quyền RBAC
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-purple-100/90">
-                  Total visibility into task ownership, project progress, and security levels.
-                  Fine-grained 4-tier roles (Owner, Admin, Member, Guest) ensure sensitive specs remain protected while keeping work transparent.
+                  Tầm nhìn toàn diện về quyền sở hữu nhiệm vụ, tiến độ dự án và cấp độ bảo mật.
+                  Hệ thống phân quyền 4 cấp độ chi tiết (Chủ sở hữu, Quản trị viên, Thành viên, Khách) bảo vệ các yêu cầu nhạy cảm mà vẫn giữ quy trình minh bạch.
                 </p>
               </div>
 
@@ -303,11 +303,11 @@ export default function AboutPage() {
                 <div className="space-y-2 text-xs font-medium text-purple-100">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-purple-300" />
-                    <span>4-tier granular role access control</span>
+                    <span>Kiểm soát truy cập phân quyền 4 cấp độ chi tiết</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-purple-300" />
-                    <span>Live activity log & real-time auditability</span>
+                    <span>Nhật ký hoạt động trực tiếp & kiểm toán thời gian thực</span>
                   </div>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export default function AboutPage() {
               <div>
                 <div className="flex items-center justify-between">
                   <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Knowledge
+                    Tri thức
                   </span>
                   <motion.div
                     animate={activeCard === 2 ? { rotate: [0, -10, 10, 0] } : {}}
@@ -339,11 +339,11 @@ export default function AboutPage() {
                   </motion.div>
                 </div>
                 <h3 className="mt-6 text-2xl font-black leading-tight">
-                  Confluence Docs Linked to Code
+                  Tài liệu Confluence gắn liền với công việc
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-blue-100/90">
-                  Technical requirements, sprint retrospectives, and architecture designs shouldn&apos;t live in an external silo.
-                  Documents link seamlessly to tickets and workspace activities.
+                  Yêu cầu kỹ thuật, tài liệu hồi tưởng sprint và thiết kế kiến trúc không nên nằm ở các công cụ biệt lập bên ngoài.
+                  Tài liệu được liên kết liền mạch với thẻ công việc và hoạt động của dự án.
                 </p>
               </div>
 
@@ -351,11 +351,11 @@ export default function AboutPage() {
                 <div className="space-y-2 text-xs font-medium text-blue-100">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-200" />
-                    <span>Collaborative rich document editor</span>
+                    <span>Trình soạn thảo văn bản cộng tác chuyên sâu</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-200" />
-                    <span>Direct issue linking & meeting notes</span>
+                    <span>Liên kết trực tiếp tác vụ & ghi chú cuộc họp</span>
                   </div>
                 </div>
               </div>
@@ -378,16 +378,16 @@ export default function AboutPage() {
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300">
                 <CheckCircle2 className="h-3.5 w-3.5" />
-                VERIFIED ARCHITECTURAL STABILITY
+                ĐỘ ỔN ĐỊNH KIẾN TRÚC ĐƯỢC XÁC MINH
               </div>
 
               <h2 className="mt-4 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
-                Built with industrial engineering rigor and 100% automated test coverage.
+                Được xây dựng với quy chuẩn kỹ thuật công nghiệp và độ bao phủ kiểm thử tự động 100%.
               </h2>
 
               <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">
-                We believe agile project management tools must never falter. TaskFlow is backed by an automated CI/CD
-                pipeline with complete unit, integration, and security verification.
+                Chúng tôi tin rằng các công cụ quản lý dự án Agile không bao giờ được phép gián đoạn. TaskFlow được bảo chứng bởi quy trình CI/CD
+                tự động với các bài kiểm thử đơn vị, tích hợp và kiểm tra an ninh toàn diện.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-4">
@@ -397,9 +397,9 @@ export default function AboutPage() {
                 >
                   <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400">100%</p>
                   <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200">
-                    Test Pass Rate
+                    Tỷ lệ kiểm thử thành công
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">463 of 463 tests passing with 0 failures</p>
+                  <p className="mt-1 text-xs text-slate-500">463 / 463 bài kiểm thử đạt kết quả 100%</p>
                 </motion.div>
 
                 <motion.div
@@ -408,9 +408,9 @@ export default function AboutPage() {
                 >
                   <p className="text-3xl font-black text-blue-600 dark:text-blue-400">54</p>
                   <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200">
-                    Test Suites
+                    Bộ kiểm thử
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">Comprehensive backend & module coverage</p>
+                  <p className="mt-1 text-xs text-slate-500">Bao phủ toàn diện backend & các module</p>
                 </motion.div>
 
                 <motion.div
@@ -419,9 +419,9 @@ export default function AboutPage() {
                 >
                   <p className="text-3xl font-black text-purple-600 dark:text-purple-400">99.9%</p>
                   <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200">
-                    Platform Uptime
+                    Thời gian hoạt động
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">Redis cache + Dockerized resilience</p>
+                  <p className="mt-1 text-xs text-slate-500">Bộ nhớ đệm Redis + Khả năng phục hồi Docker</p>
                 </motion.div>
 
                 <motion.div
@@ -430,9 +430,9 @@ export default function AboutPage() {
                 >
                   <p className="text-3xl font-black text-orange-600 dark:text-orange-400">0</p>
                   <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200">
-                    Type Insecurities
+                    Lỗi an toàn kiểu
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">Strict TypeScript end-to-end</p>
+                  <p className="mt-1 text-xs text-slate-500">TypeScript nghiêm ngặt từ đầu đến cuối</p>
                 </motion.div>
               </div>
             </motion.div>
@@ -461,10 +461,10 @@ export default function AboutPage() {
                   onClick={handleRerunTests}
                   disabled={isRunningTests}
                   className="inline-flex items-center gap-1.5 rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-mono font-medium text-slate-300 hover:bg-slate-700 transition disabled:opacity-50"
-                  title="Simulate re-running test verification"
+                  title="Mô phỏng chạy lại kiểm thử"
                 >
                   <RefreshCw className={`h-3 w-3 ${isRunningTests ? "animate-spin text-blue-400" : ""}`} />
-                  {isRunningTests ? "Running..." : "Re-run"}
+                  {isRunningTests ? "Đang chạy..." : "Chạy lại"}
                 </button>
               </div>
 
@@ -503,20 +503,20 @@ export default function AboutPage() {
                     className="my-4 border-t border-slate-800 pt-3 text-slate-400"
                   >
                     <div className="flex justify-between">
-                      <span>Test Suites:</span>
-                      <span className="font-bold text-emerald-400">54 passed, 54 total</span>
+                      <span>Bộ kiểm thử:</span>
+                      <span className="font-bold text-emerald-400">54 đạt, 54 tổng</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Tests:</span>
-                      <span className="font-bold text-emerald-400">463 passed, 463 total</span>
+                      <span>Số bài test:</span>
+                      <span className="font-bold text-emerald-400">463 đạt, 463 tổng</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Snapshots:</span>
-                      <span className="text-slate-400">0 total</span>
+                      <span className="text-slate-400">0 tổng</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Verification:</span>
-                      <span className="text-slate-300 font-semibold">{testPassPercent}% verified</span>
+                      <span>Xác minh:</span>
+                      <span className="text-slate-300 font-semibold">{testPassPercent}% đã kiểm tra</span>
                     </div>
                   </motion.div>
                 )}
@@ -529,7 +529,7 @@ export default function AboutPage() {
                     className="rounded bg-emerald-950/60 p-2 font-semibold text-emerald-300 text-center border border-emerald-800/60 flex items-center justify-center gap-2"
                   >
                     <Check className="h-4 w-4 text-emerald-400" />
-                    Ran all test suites with 100% pass rate.
+                    Đã hoàn thành toàn bộ các bài kiểm thử với tỷ lệ đạt 100%.
                   </motion.p>
                 )}
               </div>
@@ -551,10 +551,10 @@ export default function AboutPage() {
             className="mx-auto max-w-2xl text-center"
           >
             <p className="text-xs font-bold uppercase tracking-widest text-[#0C66E4] dark:text-blue-400">
-              Our Culture
+              Văn hóa của chúng tôi
             </p>
             <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
-              Principles that guide our engineering & product decisions
+              Những nguyên tắc dẫn lối cho mọi quyết định kỹ thuật & sản phẩm
             </h2>
           </motion.div>
 
@@ -571,11 +571,11 @@ export default function AboutPage() {
                 <UsersRound className="h-6 w-6" />
               </div>
               <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
-                Open Company, Direct Honesty
+                Doanh nghiệp mở, Trung thực & Thẳng thắn
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                Information should never be locked behind bureaucratic barriers. Every task update, sprint review, and comment
-                is transparent to encourage accountability.
+                Thông tin không bao giờ bị khóa sau các rào cản hành chính. Mọi cập nhật nhiệm vụ, đánh giá sprint và bình luận
+                đều minh bạch để đề cao tinh thần trách nhiệm.
               </p>
             </motion.div>
 
@@ -591,11 +591,11 @@ export default function AboutPage() {
                 <HeartHandshake className="h-6 w-6" />
               </div>
               <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
-                Build with Heart & Balance
+                Xây dựng bằng Tâm huyết & Cân bằng
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                We balance aggressive sprint velocity with long-term codebase health. Fast delivery must never sacrifice
-                type-safety, reliability, or design craftsmanship.
+                Chúng tôi cân bằng giữa tốc độ sprint thần tốc và sức khỏe lâu dài của mã nguồn. Triển khai nhanh không bao giờ đánh đổi
+                sự an toàn kiểu dữ liệu, độ tin cậy hay tính tinh xảo của thiết kế.
               </p>
             </motion.div>
 
@@ -611,11 +611,11 @@ export default function AboutPage() {
                 <Zap className="h-6 w-6" />
               </div>
               <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
-                Play as One Cohesive Team
+                Đồng hành như Một Đội ngũ Thống nhất
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                Cross-functional teams work best when designers, backend engineers, and product leaders share the same workspace
-                without context switching.
+                Các nhóm đa chức năng làm việc hiệu quả nhất khi nhà thiết kế, lập trình viên và người quản lý sản phẩm cùng chia sẻ
+                một không gian làm việc mà không cần chuyển đổi ngữ cảnh.
               </p>
             </motion.div>
           </div>
@@ -636,10 +636,10 @@ export default function AboutPage() {
           <div className="pointer-events-none absolute -bottom-10 -right-10 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
 
           <h2 className="text-3xl font-extrabold sm:text-4xl">
-            Ready to upgrade your team&apos;s agile workflow?
+            Sẵn sàng nâng cấp quy trình Agile cho đội ngũ của bạn?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-blue-100">
-            Join hundreds of teams organizing sprint backlogs, collaborative docs, and release cycles in TaskFlow.
+            Gia nhập cùng hàng trăm đội ngũ đang sắp xếp backlog sprint, tài liệu cộng tác và chu kỳ phát hành trên TaskFlow.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -647,7 +647,7 @@ export default function AboutPage() {
                 href="/register"
                 className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-blue-700 shadow-md transition hover:bg-blue-50"
               >
-                Get Started Free <ArrowRight className="h-4 w-4" />
+                Bắt đầu miễn phí <ArrowRight className="h-4 w-4" />
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -655,7 +655,7 @@ export default function AboutPage() {
                 href="/login"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/20"
               >
-                Sign In to Workspace
+                Đăng nhập vào không gian làm việc
               </Link>
             </motion.div>
           </div>
@@ -679,50 +679,50 @@ export default function AboutPage() {
               <span className="text-lg font-black text-slate-900 dark:text-white">TaskFlow</span>
             </Link>
             <p className="mt-3 text-xs leading-relaxed text-slate-500">
-              Next-generation agile management connecting sprint planning, Kanban boards, and Confluence docs in one unified workspace.
+              Nền tảng quản lý Agile thế hệ mới kết nối lập kế hoạch sprint, bảng Kanban và tài liệu Confluence trong một không gian làm việc thống nhất.
             </p>
           </div>
 
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Platform
+              Nền tảng
             </h4>
             <ul className="mt-3 space-y-2 text-xs text-slate-500">
-              <li><Link href="/#features" className="hover:text-blue-600">Kanban Board</Link></li>
-              <li><Link href="/#features" className="hover:text-blue-600">Sprint Planning</Link></li>
-              <li><Link href="/#features" className="hover:text-blue-600">Confluence Docs</Link></li>
-              <li><Link href="/#features" className="hover:text-blue-600">RBAC Security</Link></li>
+              <li><Link href="/#features" className="hover:text-blue-600">Bảng Kanban</Link></li>
+              <li><Link href="/#features" className="hover:text-blue-600">Kế hoạch Sprint</Link></li>
+              <li><Link href="/#features" className="hover:text-blue-600">Tài liệu Confluence</Link></li>
+              <li><Link href="/#features" className="hover:text-blue-600">Bảo mật RBAC</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Company
+              Công ty
             </h4>
             <ul className="mt-3 space-y-2 text-xs text-slate-500">
-              <li><Link href="/aboutUs" className="hover:text-blue-600">About Us</Link></li>
-              <li><Link href="/#workflow" className="hover:text-blue-600">Workflow</Link></li>
-              <li><Link href="/#faq" className="hover:text-blue-600">FAQ</Link></li>
+              <li><Link href="/aboutUs" className="hover:text-blue-600">Về chúng tôi</Link></li>
+              <li><Link href="/#workflow" className="hover:text-blue-600">Quy trình</Link></li>
+              <li><Link href="/#faq" className="hover:text-blue-600">Hỏi đáp</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Reliability
+              Độ tin cậy
             </h4>
             <div className="mt-3 space-y-1.5 text-xs text-slate-500">
-              <p><strong>100%</strong> Automated Test Pass</p>
-              <p><strong>54</strong> Passing Test Suites</p>
+              <p><strong>100%</strong> Kiểm thử tự động đạt</p>
+              <p><strong>54</strong> Bộ kiểm thử thành công</p>
               <p className="flex items-center gap-1.5 text-emerald-600 font-semibold">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                99.9% Platform Uptime
+                Thời gian hoạt động 99.9%
               </p>
             </div>
           </div>
         </div>
 
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between border-t border-slate-200/80 pt-6 text-xs text-slate-500 dark:border-white/[0.08] sm:flex-row">
-          <p>© {new Date().getFullYear()} TaskFlow. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} TaskFlow. Bảo lưu mọi quyền.</p>
           <BackToTop />
         </div>
       </footer>

@@ -1,0 +1,175 @@
+AL TASK
+Ok, mình sẽ mô tả cho bạn full chức năng của một hệ thống kiểu Jira + Confluence, nhưng viết theo hướng bạn có thể đem đi build luôn (chuẩn product).
+
+🚀 1. Tổng quan hệ thống
+Hệ thống của bạn sẽ có 2 phần chính:
+1. Work Management (giống Jira)
+→ Quản lý công việc, dự án, task, bug
+2. Knowledge Base (giống Confluence)
+→ Quản lý tài liệu, wiki, quy trình
+👉 Có thể gọi chung là: Collaboration Platform
+
+🧩 2. Module chức năng chi tiết
+🔹 2.1 Authentication & User
+Đăng ký / đăng nhập (JWT / OAuth)
+Phân quyền:
+Admin
+Manager
+Member
+Profile user:
+Avatar
+Role
+Team
+Quản lý tổ chức (multi-tenant nếu muốn scale SaaS)
+
+🔹 2.2 Workspace / Organization
+Tạo Workspace (công ty/team)
+Mời thành viên qua email
+Phân quyền theo workspace
+Quản lý nhiều project trong 1 workspace
+
+🔹 2.3 Project Management (Core Jira)
+Tạo project
+Chọn loại:
+Scrum
+Kanban
+Trong mỗi project:
+Board (kanban):
+To do
+In progress
+Done
+Sprint (Scrum)
+Backlog
+
+🔹 2.4 Task / Issue Management
+Tạo task:
+Title
+Description (rich text)
+Assignee
+Priority (low → urgent)
+Status
+Loại issue:
+Task
+Bug
+Story
+Epic
+Tính năng nâng cao:
+Drag & drop task
+Comment
+Attach file
+Mention @user
+History log (activity)
+
+🔹 2.5 Workflow Engine (RẤT QUAN TRỌNG)
+Custom workflow:
+To do → Doing → Review → Done
+Cho phép config:
+trạng thái
+điều kiện chuyển trạng thái
+👉 Đây là phần giúp bạn “ăn đứt clone bình thường”
+
+🔹 2.6 Knowledge Base (Core Confluence)
+Tạo tài liệu:
+Rich text editor (giống Notion)
+Tổ chức theo:
+Space
+Page
+Sub-page
+Tính năng:
+Nhúng ảnh, video
+Table, code block
+Version history
+Comment tài liệu
+
+🔹 2.7 Link Task ↔ Document
+Gắn tài liệu vào task
+Ví dụ:
+Task: “Làm thanh toán”
+Link → tài liệu “Payment Flow”
+👉 Đây là điểm mạnh khi kết hợp Jira + Confluence
+
+🔹 2.8 Search (Global Search)
+Tìm:
+Task
+Project
+Document
+Filter:
+theo user
+theo status
+theo tag
+
+🔹 2.9 Notification System
+Thông báo:
+khi có comment
+khi assign task
+Realtime (WebSocket)
+Email notification
+
+🔹 2.10 Dashboard & Report
+Biểu đồ:
+tiến độ project
+số task hoàn thành
+Burndown chart (Scrum)
+Activity log
+
+🔹 2.11 File & Media
+Upload file:
+ảnh
+pdf
+Lưu trữ (S3 / Cloudinary)
+
+🔹 2.12 Admin Panel
+Quản lý user
+Quản lý workspace
+Giới hạn usage (nếu SaaS)
+Logs hệ thống
+
+🧠 3. Tính năng nâng cao (nên có để khác biệt)
+⚡ AI Integration
+Auto generate task từ mô tả
+Summarize document
+Suggest workflow
+
+⚡ Realtime Collaboration
+Edit tài liệu cùng lúc (giống Google Docs)
+Cursor user realtime
+
+⚡ Automation
+Rule:
+Nếu task Done → gửi mail
+y
+
+⚡ API & Integration
+Webhook
+API public
+Kết nối:
+GitHub
+Slack
+
+🏗️ 4. Gợi ý kiến trúc (chuẩn bạn đang học)
+Frontend:
+Next.js 15 (App Router)
+Tailwind CSS
+Backend:
+NestJS
+MongoDB
+Realtime:
+Socket.io
+
+
+🎯 5. MVP nên làm trước (đừng build hết ngay)
+Nếu bạn làm full hết trên → sẽ fail vì quá lớn.
+👉 MVP nên gồm:
+Auth + Workspace
+Project + Task (Kanban)
+Comment task
+Basic document (editor đơn giản)
+👉 Sau đó mới thêm:
+Workflow
+Realtime
+AI
+
+🔥 Kết luận
+Bạn đang không chỉ “làm web” nữa — mà là:
+👉 đang build 1 SaaS product giống Jira + Confluence
+

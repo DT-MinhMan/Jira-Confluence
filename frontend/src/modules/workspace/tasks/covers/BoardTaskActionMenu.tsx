@@ -159,7 +159,7 @@ export default function BoardTaskActionMenu({
       toast.success(message);
       onClose();
     } catch {
-      toast.error("Could not copy to clipboard");
+      toast.error("Không thể sao chép vào bộ nhớ tạm");
     }
   };
 
@@ -191,7 +191,7 @@ export default function BoardTaskActionMenu({
             >
               <span className="flex items-center gap-2">
                 <CircleDot className="h-4 w-4" />
-                Change status
+                Đổi trạng thái
               </span>
               <ChevronRight className="h-4 w-4 text-[#ABABAB] dark:text-[#6B6B6B]" />
             </button>
@@ -225,33 +225,22 @@ export default function BoardTaskActionMenu({
 
         <button
           type="button"
-          onClick={() => copyText(taskLink, "Task link copied")}
+          onClick={() => copyText(taskLink, "Đã sao chép liên kết nhiệm vụ")}
           className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
         >
           <Copy className="h-4 w-4" />
-          Copy link
+          Sao chép liên kết
         </button>
         <button
           type="button"
-          onClick={() => copyText(issue.key, "Task key copied")}
+          onClick={() => copyText(issue.key, "Đã sao chép mã nhiệm vụ")}
           className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
         >
           <Copy className="h-4 w-4" />
-          Copy key
+          Sao chép mã
         </button>
         {canEditTask && (
           <>
-            {/*<button
-              type="button"
-              onClick={() => {
-                // TODO: Wire to flag API when task flags are available.
-                onClose();
-              }}
-              className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
-            >
-              <Flag className="h-4 w-4" />
-              Add flag
-            </button>*/}
             {onOpenLabels && (
               <button
                 type="button"
@@ -262,7 +251,7 @@ export default function BoardTaskActionMenu({
                 className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
               >
                 <Tag className="h-4 w-4" />
-                Add label
+                Thêm nhãn
               </button>
             )}
           </>
@@ -278,7 +267,7 @@ export default function BoardTaskActionMenu({
             onMouseLeave={handleButtonMouseLeave}
             className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-[0.8125rem] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
           >
-            <span>Select cover</span>
+            <span>Chọn ảnh bìa</span>
             <ChevronRight className="h-4 w-4 text-[#ABABAB] dark:text-[#6B6B6B]" />
           </button>
         )}
@@ -292,7 +281,7 @@ export default function BoardTaskActionMenu({
             className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E]"
           >
             <Archive className="h-4 w-4" />
-            Archive
+            Lưu trữ
           </button>
         )}
         {onDeleteIssue && (
@@ -305,7 +294,7 @@ export default function BoardTaskActionMenu({
             className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8125rem] text-[#9F2F2D] dark:text-[#F87171] transition-colors hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)]"
           >
             <Trash2 className="h-4 w-4" />
-            Delete
+            Xóa
           </button>
         )}
       </div>

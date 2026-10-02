@@ -38,10 +38,10 @@ export default function DashboardGroup({
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#F9F9F8] dark:bg-[#252525] border-b border-[#EAEAEA] dark:border-white/[0.04]">
-                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider w-[45%]">Document Title</th>
-                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider">Last Edited By</th>
-                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider">Activity</th>
-                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider text-right">Options</th>
+                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider w-[45%]">Tiêu đề tài liệu</th>
+                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider">Chỉnh sửa bởi</th>
+                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider">Hoạt động</th>
+                <th className="px-6 py-4 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider text-right">Tùy chọn</th>
               </tr>
             </thead>
             <tbody>

@@ -18,24 +18,24 @@ type RoleOption = {
 export const WORKSPACE_ROLE_OPTIONS: RoleOption[] = [
   {
     value: "workspace_admin",
-    label: "Admin",
-    description: "Manage workspace",
+    label: "Quản trị viên",
+    description: "Quản lý không gian làm việc",
     Icon: ShieldCheck,
     tone:
       "bg-[#E1F3FE] text-[#1F6C9F] border-[#B9DDF3] dark:bg-[rgba(31,108,159,0.18)] dark:text-[#93C5FD] dark:border-[#1F6C9F]/35",
   },
   {
     value: "member",
-    label: "Member",
-    description: "Edit work",
+    label: "Thành viên",
+    description: "Chỉnh sửa công việc",
     Icon: Users,
     tone:
       "bg-[#EDF3EC] text-[#346538] border-[#C8DDC6] dark:bg-[rgba(52,101,56,0.18)] dark:text-[#86EFAC] dark:border-[#346538]/35",
   },
   {
     value: "viewer",
-    label: "Viewer",
-    description: "Read only",
+    label: "Người xem",
+    description: "Chỉ đọc",
     Icon: Eye,
     tone:
       "bg-[#F7F6F3] text-[#787774] border-[#EAEAEA] dark:bg-[#252525] dark:text-[#B8B7B3] dark:border-white/[0.08]",
@@ -57,7 +57,7 @@ export default function RoleChanger({
   onChange,
   disabled = false,
   isLoading = false,
-  label = "Role",
+  label = "Vai trò",
   compact = false,
   className = "",
 }: RoleChangerProps) {

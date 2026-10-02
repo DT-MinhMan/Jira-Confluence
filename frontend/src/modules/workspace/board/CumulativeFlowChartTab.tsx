@@ -85,7 +85,7 @@ export default function CumulativeFlowChartTab({ workspaceId }: CumulativeFlowCh
         <div className="bg-white dark:bg-[#1E1E1E] p-3.5 border border-[#EAEAEA] dark:border-white/[0.08] rounded-[8px] shadow-lg text-[0.8125rem] space-y-2 min-w-[200px]">
           <div className="flex justify-between border-b border-[#EAEAEA] dark:border-white/10 pb-1.5 font-bold">
             <span className="text-[#111111] dark:text-[#E8E8E7]">{label}</span>
-            <span className="text-[#5E6C84] dark:text-[#9B9A97]">Total: {totalTasks}</span>
+            <span className="text-[#5E6C84] dark:text-[#9B9A97]">Tổng số: {totalTasks}</span>
           </div>
           <div className="space-y-1">
             {/* Show in reverse order (Done at top, Todo at bottom) */}
@@ -120,24 +120,24 @@ export default function CumulativeFlowChartTab({ workspaceId }: CumulativeFlowCh
       {/* Header Title */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAEAEA] dark:border-white/[0.06] pb-4">
         <div>
-          <h2 className="text-xl font-bold text-[#111111] dark:text-[#E8E8E7]">Cumulative Flow Diagram</h2>
+          <h2 className="text-xl font-bold text-[#111111] dark:text-[#E8E8E7]">Biểu đồ luồng tích lũy (Cumulative Flow)</h2>
           <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] mt-1">
-            Monitor the distribution of tasks in each status over time to detect process bottlenecks.
+            Theo dõi sự phân bổ nhiệm vụ theo từng trạng thái theo thời gian để phát hiện điểm nghẽn quy trình.
           </p>
         </div>
         <div className="flex items-center gap-3">
           {/* Days Selector Dropdown */}
           <div className="flex items-center gap-1.5 text-[0.8125rem]">
-            <span className="text-[#5E6C84] dark:text-[#9B9A97]">Timeframe:</span>
+            <span className="text-[#5E6C84] dark:text-[#9B9A97]">Khoảng thời gian:</span>
             <select
               value={days}
               onChange={(e) => setDays(Number(e.target.value))}
               className="border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] px-3 py-1.5 rounded-[6px] text-[0.8125rem] font-semibold focus:outline-none focus:border-[#2563EB]"
             >
-              <option value={7}>Last 7 days</option>
-              <option value={14}>Last 14 days</option>
-              <option value={30}>Last 30 days</option>
-              <option value={60}>Last 60 days</option>
+              <option value={7}>7 ngày qua</option>
+              <option value={14}>14 ngày qua</option>
+              <option value={30}>30 ngày qua</option>
+              <option value={60}>60 ngày qua</option>
             </select>
           </div>
 
@@ -147,7 +147,7 @@ export default function CumulativeFlowChartTab({ workspaceId }: CumulativeFlowCh
             className="inline-flex items-center gap-1.5 border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] text-[#111111] dark:text-[#E8E8E7] px-3.5 py-2 rounded-[6px] text-[0.8125rem] font-semibold hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors shadow-sm disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-            Reload
+            Tải lại
           </button>
         </div>
       </div>
@@ -163,14 +163,14 @@ export default function CumulativeFlowChartTab({ workspaceId }: CumulativeFlowCh
       {isLoading ? (
         <div className="flex items-center justify-center py-32 gap-2 text-[#787774] dark:text-[#9B9A97] text-[0.8125rem]">
           <RefreshCw className="w-5 h-5 animate-spin text-[#2563EB]" />
-          Loading report data...
+          Đang tải dữ liệu báo cáo...
         </div>
       ) : data.length === 0 ? (
         <div className="py-24 text-center text-[#787774] dark:text-[#9B9A97] text-[0.8125rem] border border-dashed border-[#EAEAEA] dark:border-white/5 rounded-[8px]">
           <div className="flex flex-col items-center justify-center gap-2">
             <TrendingUp className="w-8 h-8 text-[#EAEAEA] dark:text-white/10" />
-            <p className="font-semibold text-[#111111] dark:text-[#E8E8E7]">No workflow data found</p>
-            <p className="text-[0.75rem]">Once tasks and status updates are recorded in this workspace, the flow diagram will render.</p>
+            <p className="font-semibold text-[#111111] dark:text-[#E8E8E7]">Chưa có dữ liệu quy trình làm việc</p>
+            <p className="text-[0.75rem]">Sau khi các nhiệm vụ và cập nhật trạng thái được ghi lại trong không gian làm việc này, sơ đồ luồng sẽ hiển thị.</p>
           </div>
         </div>
       ) : (
@@ -237,12 +237,12 @@ export default function CumulativeFlowChartTab({ workspaceId }: CumulativeFlowCh
           <div className="p-4 border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] bg-white dark:bg-[#1A1A1A] shadow-sm text-[0.8125rem] space-y-2">
             <div className="flex items-center gap-2 font-bold text-[#111111] dark:text-[#E8E8E7]">
               <AlertCircle className="w-4 h-4 text-[#3B82F6]" />
-              How to read this diagram:
+              Cách đọc sơ đồ này:
             </div>
             <ul className="list-disc pl-5 space-y-1 text-[#5E6C84] dark:text-[#9B9A97] leading-relaxed text-[0.75rem]">
-              <li><strong>Horizontal bands:</strong> Each band represents a status column on your board. If a band gets wider over time, tasks are piling up in that status (congested).</li>
-              <li><strong>Steep curves:</strong> Indicates high task completion or movement rate.</li>
-              <li><strong>Flat curves:</strong> Indicates progress is stalling (possible blockers).</li>
+              <li><strong>Các dải màu ngang:</strong> Mỗi dải màu đại diện cho một trạng thái trên bảng. Nếu dải mở rộng theo thời gian, các nhiệm vụ đang dồn ứ tại trạng thái đó (tắc nghẽn).</li>
+              <li><strong>Đường cong dốc:</strong> Biểu thị tốc độ chuyển trạng thái hoặc hoàn thành nhiệm vụ nhanh.</li>
+              <li><strong>Đường thẳng nằm ngang:</strong> Biểu thị tiến độ đang chững lại (có thể bị chặn hoặc đình trệ).</li>
             </ul>
           </div>
         </div>

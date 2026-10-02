@@ -85,7 +85,7 @@ export default function TaskLabelsField({
         {labels.length === 0 ? (
           <span className="flex items-center gap-1.5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
             <Tag className="h-3.5 w-3.5" />
-            None
+            Không có
           </span>
         ) : (
           <span className="flex min-w-0 flex-wrap gap-1.5">

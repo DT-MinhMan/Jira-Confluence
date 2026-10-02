@@ -23,7 +23,7 @@ export default function ForYouPage() {
         <ForYouWorkspaceGrid workspaces={workspaces} stats={stats} error={error} />
 
         <DashboardTaskList
-          title="My Tasks"
+          title="Nhiệm vụ của tôi"
           assignedTasks={assignedTasks}
           completedCount={completedAssignedTasks.length}
           workspaceCount={workspaces.length}

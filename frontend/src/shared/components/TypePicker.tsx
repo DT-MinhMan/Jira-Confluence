@@ -7,6 +7,13 @@ import { Check, FileText, Bug, Zap, BookOpen, ChevronDown } from "lucide-react";
 export const TASK_TYPES = ["Task", "Bug", "Epic", "Story"] as const;
 export type TaskType = (typeof TASK_TYPES)[number];
 
+export const TASK_TYPES_VI: Record<string, string> = {
+  Task: "Nhiệm vụ",
+  Bug: "Lỗi",
+  Epic: "Epic",
+  Story: "Câu chuyện",
+};
+
 type IconComp = React.ComponentType<{ className?: string }>;
 
 export const TASK_TYPE_CONFIG: Record<string, {
@@ -105,7 +112,7 @@ export default function TypePicker({
 
   const resolved = TASK_TYPES.find((t) => t.toLowerCase() === (value ?? "").toLowerCase()) ?? "Task";
   const cfg = TASK_TYPE_CONFIG[resolved];
-  const label = resolved;
+  const label = TASK_TYPES_VI[resolved] ?? resolved;
   const Icon = cfg?.Icon ?? FileText;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _iconColor = cfg?.iconColor ?? "text-[#ABABAB]";
@@ -154,7 +161,7 @@ export default function TypePicker({
                 }`}
               >
                 <TypeIcon className={`w-4 h-4 shrink-0 ${isSelected ? "text-[#2563EB] dark:text-[#3B82F6]" : c.iconColor}`} />
-                <span className="flex-1">{t}</span>
+                <span className="flex-1">{TASK_TYPES_VI[t] || t}</span>
                 {isSelected && <Check className="w-3.5 h-3.5 ml-auto shrink-0" />}
               </button>
             );

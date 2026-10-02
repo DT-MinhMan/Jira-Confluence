@@ -208,8 +208,8 @@ export default function CalendarView({
       {onQuickCreateTask && (
         <button
           type="button"
-          title="Create work item"
-          aria-label="Create work item"
+          title="Tạo nhiệm vụ"
+          aria-label="Tạo nhiệm vụ"
           className="al-calendar-create-btn"
           onClick={(event) => {
             event.preventDefault();
@@ -345,7 +345,7 @@ export default function CalendarView({
             eventLongPressDelay={2500}
             longPressDelay={2500}
             dayMaxEventRows={4}
-            moreLinkContent={(arg) => `+ ${arg.num} more`}
+            moreLinkContent={(arg) => `+ ${arg.num} mục khác`}
             moreLinkClassNames="al-calendar-more-link"
             moreLinkClick={handleMoreLinkClick}
             dayCellContent={renderDayCellContent}
@@ -375,7 +375,7 @@ export default function CalendarView({
         >
           <div className="mb-3 flex items-center gap-3">
             <div>
-              <p className="text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">Create work item</p>
+              <p className="text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">Tạo nhiệm vụ nhanh</p>
               <p className="text-xs font-medium text-[#787774] dark:text-[#9B9A97]">{quickCreate.date}</p>
             </div>
             <button
@@ -391,7 +391,7 @@ export default function CalendarView({
               autoFocus
               value={quickCreate.title}
               onChange={(event) => setQuickCreate((current) => current ? { ...current, title: event.target.value } : current)}
-              placeholder="Work item title"
+              placeholder="Tiêu đề nhiệm vụ..."
               className="w-full rounded-[6px] border border-[#EAEAEA] bg-white px-3 py-2 text-sm font-medium text-[#111111] outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#E8E8E7]"
             />
             <div className="flex justify-end gap-2">
@@ -400,14 +400,14 @@ export default function CalendarView({
                 onClick={() => setQuickCreate(null)}
                 className="rounded-[6px] px-3 py-2 text-sm font-semibold text-[#787774] hover:bg-[#F7F6F3] dark:text-[#9B9A97] dark:hover:bg-white/5"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="submit"
                 disabled={!quickCreate.title.trim() || isCreating}
                 className="rounded-[6px] bg-[#2563EB] px-3 py-2 text-sm font-semibold text-white hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Create
+                Tạo
               </button>
             </div>
           </form>
@@ -430,7 +430,7 @@ export default function CalendarView({
               type="button"
               className="ml-auto rounded-[6px] p-1 text-[#ABABAB] hover:bg-[#F7F6F3] hover:text-[#787774] dark:text-[#6B6B6B] dark:hover:bg-white/5 dark:hover:text-[#9B9A97]"
               onClick={() => setMorePopover(null)}
-              aria-label="Close"
+              aria-label="Đóng"
             >
               <X className="h-4 w-4" />
             </button>

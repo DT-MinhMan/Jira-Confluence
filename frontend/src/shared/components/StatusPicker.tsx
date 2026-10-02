@@ -11,6 +11,13 @@ export type StatusOption = {
   [key: string]: any;
 };
 
+export const STATUS_LABELS_VI: Record<string, string> = {
+  "To Do": "Cần làm",
+  "In Progress": "Đang thực hiện",
+  "Review": "Kiểm thử",
+  "Done": "Hoàn thành",
+};
+
 export type StatusPickerProps = {
   value?: string | null;
   columnId?: string | null;
@@ -84,7 +91,8 @@ export default function StatusPicker({
       (value && opt.name.toLowerCase() === value.toLowerCase())
   );
 
-  const displayName = currentOption?.name ?? placeholder ?? value ?? columnId ?? "No status";
+  const rawName = currentOption?.name ?? placeholder ?? value ?? columnId;
+  const displayName = rawName ? (STATUS_LABELS_VI[rawName] || rawName) : "Chưa có trạng thái";
 
   useEffect(() => {
     if (!open) return;
@@ -152,7 +160,7 @@ export default function StatusPicker({
                 ) : (
                   <span className="h-3.5 w-3.5 shrink-0" />
                 )}
-                <span className="truncate">{option.name}</span>
+                <span className="truncate">{STATUS_LABELS_VI[option.name] || option.name}</span>
               </button>
             );
           })}
@@ -208,7 +216,7 @@ export default function StatusPicker({
                 ) : (
                   <span className="h-3.5 w-3.5 shrink-0" />
                 )}
-                <span className="truncate">{option.name}</span>
+                <span className="truncate">{STATUS_LABELS_VI[option.name] || option.name}</span>
               </button>
             );
           })}

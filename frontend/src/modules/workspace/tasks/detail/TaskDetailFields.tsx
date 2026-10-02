@@ -46,10 +46,10 @@ export default function TaskDetailFields({
   const sprintLabel =
     issue.sprint?.name ||
     sprints.find((s) => (s._id || s.id) === issue.sprintId)?.name ||
-    "None";
+    "Không có";
   const storyPointsLabel =
     issue.storyPoints === null || issue.storyPoints === undefined
-      ? "None"
+      ? "Không có"
       : String(issue.storyPoints);
   const assigneeUsers = toAssigneePickerUsers(workspaceMembers);
 
@@ -80,7 +80,7 @@ export default function TaskDetailFields({
     } else if (field === "startDate") {
       const dueVal = toDateInputValue(issue.dueDate);
       if (value && dueVal && value > dueVal) {
-        toast.error("Start date cannot be after due date.");
+        toast.error("Ngày bắt đầu không thể sau ngày đến hạn.");
         cancelEdit();
         return;
       }
@@ -88,7 +88,7 @@ export default function TaskDetailFields({
     } else if (field === "dueDate") {
       const startVal = toDateInputValue(issue.startDate);
       if (value && startVal && value < startVal) {
-        toast.error("Due date cannot be before start date.");
+        toast.error("Ngày đến hạn không thể trước ngày bắt đầu.");
         cancelEdit();
         return;
       }
@@ -117,14 +117,14 @@ export default function TaskDetailFields({
     if (field === "startDate") {
       const dueVal = toDateInputValue(issue.dueDate);
       if (nextDate && dueVal && nextDate > dueVal) {
-        toast.error("Start date cannot be after due date.");
+        toast.error("Ngày bắt đầu không thể sau ngày đến hạn.");
         return;
       }
     }
     if (field === "dueDate") {
       const startVal = toDateInputValue(issue.startDate);
       if (nextDate && startVal && nextDate < startVal) {
-        toast.error("Due date cannot be before start date.");
+        toast.error("Ngày đến hạn không thể trước ngày bắt đầu.");
         return;
       }
     }
@@ -150,7 +150,7 @@ export default function TaskDetailFields({
     ) : (
       <div
         onDoubleClick={() => startEdit(field, rawValue ?? displayValue)}
-        title={canEditTask && !issue.isArchived ? "Double click to edit" : undefined}
+        title={canEditTask && !issue.isArchived ? "Nhấn đúp để chỉnh sửa" : undefined}
         className={
           canEditTask && !issue.isArchived
             ? editableTextClass
@@ -172,7 +172,7 @@ export default function TaskDetailFields({
   return (
     <div className="space-y-4">
       {/* Assignee */}
-      <FieldRow label="Assignee">
+      <FieldRow label="Người thực hiện">
         <AssigneePicker
           users={assigneeUsers}
           value={getIssueAssigneeId(issue) || null}
@@ -183,7 +183,7 @@ export default function TaskDetailFields({
               assigneeDisplayName:
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 resolveMemberName(workspaceMembers as any[], uid ?? undefined) ??
-                (uid ? uid : "Unassigned"),
+                (uid ? uid : "Chưa giao"),
             })
           }
           placement="auto"
@@ -193,7 +193,7 @@ export default function TaskDetailFields({
       </FieldRow>
 
       {/* Type */}
-      <FieldRow label="Type">
+      <FieldRow label="Loại nhiệm vụ">
         <TypePicker
           value={issue.type ?? "Task"}
           onChange={(type) => onUpdate({ type })}
@@ -205,41 +205,41 @@ export default function TaskDetailFields({
       </FieldRow>
 
       {/* Reporter */}
-      <FieldRow label="Reporter">
+      <FieldRow label="Người báo cáo">
         <div className="text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] p-1.5 -ml-1.5 rounded-[6px] cursor-pointer transition-colors">
           {reporterName}
         </div>
       </FieldRow>
 
       {/* Start date */}
-      <FieldRow label="Start date">
+      <FieldRow label="Ngày bắt đầu">
         <CustomDatePicker
           value={toDateInputValue(issue.startDate)}
           onChange={(nextValue) => handleDateChange("startDate", nextValue)}
           disabled={!canEditTask || issue.isArchived}
           inputClassName="h-8 bg-transparent dark:bg-transparent"
-          ariaLabel="Task start date"
+          ariaLabel="Ngày bắt đầu nhiệm vụ"
         />
       </FieldRow>
 
       {/* Due date */}
-      <FieldRow label="Due date">
+      <FieldRow label="Ngày đến hạn">
         <CustomDatePicker
           value={toDateInputValue(issue.dueDate)}
           onChange={(nextValue) => handleDateChange("dueDate", nextValue)}
           disabled={!canEditTask || issue.isArchived}
           inputClassName="h-8 bg-transparent dark:bg-transparent"
-          ariaLabel="Task due date"
+          ariaLabel="Ngày đến hạn nhiệm vụ"
         />
       </FieldRow>
 
       {/* Story points */}
-      <FieldRow label="Story points">
+      <FieldRow label="Điểm ước lượng">
         {renderInlineInput("storyPoints", storyPointsLabel, issue.storyPoints, "number")}
       </FieldRow>
 
       {/* Labels */}
-      <FieldRow label="Labels">
+      <FieldRow label="Nhãn">
         <TaskLabelsField
           workspaceId={workspaceId}
           issue={issue}
@@ -255,7 +255,7 @@ export default function TaskDetailFields({
       )}
 
       {/* Priority */}
-      <FieldRow label="Priority">
+      <FieldRow label="Độ ưu tiên">
         <PriorityPicker
           value={issue.priority}
           onChange={(p) => onUpdate({ priority: p })}

@@ -39,19 +39,19 @@ interface SidebarProps {
 }
 
 const mainNav = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: Sparkles, label: "For You", href: "/for-you" },
-  { icon: Clock7, label: "Recent", href: "/recent" },
-  { icon: Star, label: "Starred", href: "/starred" },
-  { icon: BookOpen, label: 'Workspaces', href: '/workspaces' },
-  { icon: FolderOpen, label: 'Documents', href: '/documents' },
+  { icon: LayoutDashboard, label: "Bảng điều khiển", href: "/dashboard" },
+  { icon: Sparkles, label: "Dành cho bạn", href: "/for-you" },
+  { icon: Clock7, label: "Gần đây", href: "/recent" },
+  { icon: Star, label: "Đã đánh dấu sao", href: "/starred" },
+  { icon: BookOpen, label: 'Không gian làm việc', href: '/workspaces' },
+  { icon: FolderOpen, label: 'Tài liệu', href: '/documents' },
 ];
 
 const adminNav = [
-  { icon: UserCog, label: 'User Management', href: '/dashboard/users' },
-  { icon: Building2, label: 'Workspace Settings', href: '/dashboard/workspace' },
-  { icon: Zap, label: 'Workflows', href: '/dashboard/workflows' },
-  { icon: Shield, label: 'Permissions', href: '/dashboard/permissions' },
+  { icon: UserCog, label: 'Quản lý người dùng', href: '/dashboard/users' },
+  { icon: Building2, label: 'Cài đặt không gian làm việc', href: '/dashboard/workspace' },
+  { icon: Zap, label: 'Quy trình làm việc', href: '/dashboard/workflows' },
+  { icon: Shield, label: 'Phân quyền', href: '/dashboard/permissions' },
 ];
 
 const SHOW_ADMIN_NAV = false;
@@ -203,7 +203,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
           {/* Desktop collapse/expand toggle — stays inside sidebar at all times */}
           <button
             onClick={() => onCollapse(!collapsed)}
-            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            title={collapsed ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên'}
             className="hidden lg:flex p-2 hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] transition-colors flex-shrink-0"
           >
             {collapsed ? (
@@ -235,7 +235,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                 className="w-full flex items-center justify-center gap-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white py-2 px-3 rounded-[6px] hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors text-[0.8125rem] font-medium"
               >
                 <Plus className="w-4 h-4" />
-                Create workspace
+                Tạo không gian làm việc
               </Link>
             </div>
           )}
@@ -244,7 +244,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
               <Link
                 href="/workspaces/create"
                 onClick={onMobileClose}
-                title="Create workspace"
+                title="Tạo không gian làm việc"
                 className="w-9 h-9 bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-[6px] flex items-center justify-center hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors"
               >
                 <Plus className="w-4 h-4" />
@@ -264,7 +264,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                   <Link
                     href="/workspaces"
                     onClick={onMobileClose}
-                    title="Workspaces"
+                    title="Không gian làm việc"
                     className={`w-full flex items-center justify-center px-3 py-2 rounded-[6px] transition-colors ${
                       pathname.startsWith('/workspaces') ? navActiveClass : `text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 hover:text-[#111111] dark:hover:text-[#E8E8E7]`
                     }`}
@@ -277,7 +277,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                     className="w-full flex items-center gap-3 px-3 py-2 rounded-[6px] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 hover:text-[#111111] dark:hover:text-[#E8E8E7] transition-colors"
                   >
                     <BookOpen className="w-[1.125rem] h-[1.125rem] text-[#ABABAB] dark:text-[#6B6B6B]" />
-                    <span className="text-[0.8125rem] font-medium flex-1 text-left">Workspaces</span>
+                    <span className="text-[0.8125rem] font-medium flex-1 text-left">Không gian làm việc</span>
                     {workspaceOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                   </button>
                 )}
@@ -305,7 +305,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                       onClick={handleToggleMoreWorkspaces}
                       className="w-full text-left flex items-center justify-between px-2 py-1.5 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5 hover:text-[#111111] dark:hover:text-[#E8E8E7] rounded-[6px] group transition-colors"
                     >
-                      <span>More Workspaces</span>
+                      <span>Thêm không gian làm việc</span>
                       <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </button>
                   )}
@@ -327,10 +327,10 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                 {!collapsed && (
                   <>
                     {adminOpen ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
-                    <span>Administration</span>
+                    <span>Quản trị hệ thống</span>
                   </>
                 )}
-                {collapsed && <span className="w-full text-center">Admin</span>}
+                {collapsed && <span className="w-full text-center">Quản trị</span>}
               </button>
               {adminOpen && !collapsed && (
                 <div className="space-y-0.5 mt-1">
@@ -370,7 +370,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
               <WorkspaceAvatar workspace={currentWorkspace} size="sm" />
               <div className="min-w-0">
                 <p className="text-[0.625rem] font-semibold uppercase tracking-[0.06em] text-[#ABABAB] dark:text-[#6B6B6B]">
-                  Workspace
+                  Không gian làm việc
                 </p>
                 <p className="truncate text-[0.8125rem] font-medium text-[#111111] dark:text-[#E8E8E7]">
                   {currentWorkspace.name}
@@ -386,7 +386,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
             <Settings
               className={`w-[1.125rem] h-[1.125rem] flex-shrink-0 ${pathname === '/settings' ? iconActiveClass : iconInactiveClass}`}
             />
-            {!collapsed && <span className="text-[0.8125rem] font-medium">Settings</span>}
+            {!collapsed && <span className="text-[0.8125rem] font-medium">Cài đặt</span>}
           </Link>
         </div>
       </aside>
@@ -406,7 +406,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
               }}
             >
               <div className="flex items-center justify-between p-3 border-b border-[#EAEAEA] dark:border-white/[0.06]">
-                <span className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Workspaces</span>
+                <span className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Không gian làm việc</span>
                 <button
                   onClick={() => setActivePopover(null)}
                   className="p-1.5 hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] transition-colors"
@@ -422,7 +422,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                     type="text"
                     value={moreWorkspaceSearch}
                     onChange={(event) => setMoreWorkspaceSearch(event.target.value)}
-                    placeholder="Search all Workspaces"
+                    placeholder="Tìm kiếm tất cả không gian làm việc"
                     className="w-full pl-9 pr-3 py-2 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[6px] text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B] focus:border-[#111111] dark:focus:border-[#3B82F6] outline-none transition-colors"
                   />
                 </div>
@@ -434,16 +434,16 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                     <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#F0F0EE] dark:bg-white/5 text-[#787774] dark:text-[#9B9A97]">
                       <BookOpen className="h-5 w-5" />
                     </div>
-                    <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">No more workspaces</p>
-                    <p className="mt-1 text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">All available workspaces are already shown in the sidebar.</p>
+                    <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Không còn không gian làm việc nào khác</p>
+                    <p className="mt-1 text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">Tất cả không gian làm việc hiện có đã hiển thị trên thanh bên.</p>
                   </div>
                 ) : visibleMoreWorkspaces.length === 0 ? (
                   <div className="px-3 py-8 text-center">
                     <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#F0F0EE] dark:bg-white/5 text-[#787774] dark:text-[#9B9A97]">
                       <Search className="h-5 w-5" />
                     </div>
-                    <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">No matching workspaces</p>
-                    <p className="mt-1 text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">Try another workspace name or key.</p>
+                    <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Không tìm thấy không gian làm việc phù hợp</p>
+                    <p className="mt-1 text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">Thử tìm kiếm với tên hoặc mã khác.</p>
                   </div>
                 ) : (
                   <div className="space-y-0.5">
@@ -453,8 +453,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                         currentWorkspace?._id === workspace._id ||
                         currentWorkspace?.key === workspace.key ||
                         currentWorkspace?.slug === workspace.slug;
-                      const wsId = workspace._id || "";
-                      const hasUnread = getWorkspaceUnread(wsId) > 0;
+                      const hasUnread = false;
 
                       return (
                         <Link
@@ -474,8 +473,8 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <WorkspaceAvatar workspace={workspace} size="md" />
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-[0.8125rem] font-semibold">{workspace.name || "Untitled workspace"}</p>
-                              <p className="truncate text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">{workspace.key || workspace.slug || "Workspace"}</p>
+                              <p className="truncate text-[0.8125rem] font-semibold">{workspace.name || "Không gian làm việc chưa đặt tên"}</p>
+                              <p className="truncate text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">{workspace.key || workspace.slug || "Không gian làm việc"}</p>
                             </div>
                           </div>
                           {hasUnread && (
@@ -495,7 +494,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                   className="w-full flex items-center gap-3 p-2 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] transition-colors"
                 >
                   <BookOpen className="w-4 h-4 text-[#ABABAB] dark:text-[#6B6B6B]" />
-                  View all Workspaces
+                  Xem tất cả không gian làm việc
                 </Link>
                 <Link
                   href="/workspaces/create"
@@ -503,7 +502,7 @@ export default function Sidebar({ collapsed, onCollapse, mobileOpen, onMobileClo
                   className="w-full flex items-center gap-3 p-2 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] transition-colors"
                 >
                   <Plus className="w-4 h-4 text-[#ABABAB] dark:text-[#6B6B6B]" />
-                  Create Workspace
+                  Tạo không gian làm việc
                 </Link>
               </div>
             </div>

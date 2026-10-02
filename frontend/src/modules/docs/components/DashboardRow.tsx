@@ -35,11 +35,11 @@ export default function DashboardRow({
               <span
                 className={`px-2 py-0.5 text-[0.625rem] rounded-[4px] font-semibold ${doc.source === "import" ? "bg-[#FBF3DB] dark:bg-[rgba(149,100,0,0.12)] text-[#956400] dark:text-[#F59E0B]" : "bg-[#EFF6FF] dark:bg-[rgba(37,99,235,0.12)] text-[#1F6C9F] dark:text-[#93C5FD]"}`}
               >
-                {doc.source === "import" ? "IMPORT" : "DOCS"}
+                {doc.source === "import" ? "NHẬP" : "TÀI LIỆU"}
               </span>
             </div>
             <span className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] font-medium mt-1 block">
-              Created {new Date(doc.createdAt).toLocaleDateString()}
+              Tạo ngày {new Date(doc.createdAt).toLocaleDateString("vi-VN")}
             </span>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function DashboardRow({
       <td className="px-6 py-4">
         <div className="flex items-center gap-2 text-[0.6875rem] font-medium text-[#ABABAB] dark:text-[#6B6B6B]">
           <History className="w-3.5 h-3.5" />
-          {new Date(doc.updatedAt).toLocaleDateString()}
+          {new Date(doc.updatedAt).toLocaleDateString("vi-VN")}
         </div>
       </td>
       <td className="px-6 py-4 text-right">
@@ -72,7 +72,7 @@ export default function DashboardRow({
                 href={documentService.downloadUrl(doc.id)}
                 onClick={(e) => e.stopPropagation()}
                 className="p-2 hover:bg-[#F7F6F3] dark:hover:bg-[#2A2A2A] rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#2563EB] dark:hover:text-[#3B82F6] transition-all border border-transparent hover:border-[#EAEAEA] dark:hover:border-white/10"
-                title="Download"
+                title="Tải xuống"
               >
                 <Download className="w-4 h-4" />
               </a>
@@ -82,7 +82,7 @@ export default function DashboardRow({
                   onDelete(doc);
                 }}
                 className="p-2 hover:bg-[#F7F6F3] dark:hover:bg-[#2A2A2A] rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#9F2F2D] dark:hover:text-[#F87171] transition-all border border-transparent hover:border-[#F5C6C7] dark:hover:border-red-900/20"
-                title="Delete"
+                title="Xóa"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -92,7 +92,7 @@ export default function DashboardRow({
               <button
                 onClick={(e) => { e.stopPropagation(); onRename(doc.id, doc.title); }}
                 className="p-2 hover:bg-white dark:hover:bg-[#2A2A2A] rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#2563EB] dark:hover:text-[#3B82F6] transition-all border border-transparent hover:border-[#EAEAEA] dark:hover:border-white/8"
-                title="Rename"
+                title="Đổi tên"
               >
                 <FileText className="w-4 h-4" />
               </button>
@@ -102,7 +102,7 @@ export default function DashboardRow({
                   onDelete(doc);
                 }}
                 className="p-2 hover:bg-white dark:hover:bg-[#2A2A2A] rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#9F2F2D] dark:hover:text-[#F87171] transition-all border border-transparent hover:border-[#F5C6C7] dark:hover:border-red-900/20"
-                title="Delete"
+                title="Xóa"
               >
                 <Trash2 className="w-4 h-4" />
               </button>

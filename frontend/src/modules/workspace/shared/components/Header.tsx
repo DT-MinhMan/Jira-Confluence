@@ -56,7 +56,7 @@ const Header = ({
       setAvatarSamples(samples);
       setSelectedAvatar(workspace.avatar || samples[0]?.url);
     } catch {
-      toast.error("Unable to load workspace avatars.");
+      toast.error("Không thể tải ảnh đại diện không gian làm việc.");
     } finally {
       setLoadingAvatars(false);
     }
@@ -71,9 +71,9 @@ const Header = ({
       });
       onWorkspaceUpdated?.({ ...workspace, ...updatedWorkspace });
       setIsAvatarPickerOpen(false);
-      toast.success("Workspace avatar updated.");
+      toast.success("Đã cập nhật ảnh đại diện không gian làm việc.");
     } catch {
-      toast.error("Unable to update workspace avatar.");
+      toast.error("Không thể cập nhật ảnh đại diện không gian làm việc.");
     } finally {
       setSavingAvatar(false);
     }
@@ -116,11 +116,11 @@ const Header = ({
             >
               {workspace.access === "private" ? (
                 <>
-                  <Lock className="w-3 h-3" /> Private
+                  <Lock className="w-3 h-3" /> Riêng tư
                 </>
               ) : (
                 <>
-                  <Globe className="w-3 h-3" /> Public
+                  <Globe className="w-3 h-3" /> Công khai
                 </>
               )}
             </span>
@@ -144,7 +144,7 @@ const Header = ({
             onClick={() => setIsInviteModalOpen(true)}
             className="inline-flex items-center gap-2 bg-white dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] text-[#111111] dark:text-[#E8E8E7] px-4 py-2 rounded-[6px] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] font-medium text-[0.8125rem] transition-colors"
           >
-            Invite members
+            Mời thành viên
           </button>
         )}
         {canCreateTask && (
@@ -152,7 +152,7 @@ const Header = ({
             onClick={() => setShowCreateIssue(true)}
             className="inline-flex items-center gap-2 bg-[#2563EB] dark:bg-[#3B82F6] text-white px-4 py-2 rounded-[6px] hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] font-medium text-[0.8125rem] transition-colors"
           >
-            <Plus className="w-4 h-4" /> Create Task
+            <Plus className="w-4 h-4" /> Tạo nhiệm vụ
           </button>
         )}
       </div>
@@ -170,7 +170,7 @@ const Header = ({
               <div className="flex items-center gap-3">
                 <WorkspaceAvatar workspace={{ ...workspace, avatar: selectedAvatar }} size="lg" />
                 <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Workspace avatar
+                  Ảnh đại diện không gian làm việc
                 </h2>
               </div>
               <button
@@ -193,7 +193,7 @@ const Header = ({
                 onClick={() => setIsAvatarPickerOpen(false)}
                 className="rounded-[6px] border border-[#EAEAEA] px-4 py-2 text-sm font-medium text-[#111111] transition-colors hover:bg-[#F7F6F3] dark:border-white/[0.08] dark:text-[#E8E8E7] dark:hover:bg-[#2E2E2E]"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="button"
@@ -201,7 +201,7 @@ const Header = ({
                 disabled={!selectedAvatar || savingAvatar}
                 className="rounded-[6px] bg-[#2563EB] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8] disabled:opacity-50 dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
               >
-                {savingAvatar ? "Saving..." : "Save"}
+                {savingAvatar ? "Đang lưu..." : "Lưu"}
               </button>
             </div>
           </div>

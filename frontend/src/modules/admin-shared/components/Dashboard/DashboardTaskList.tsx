@@ -13,29 +13,29 @@ interface Props {
   showAllHref?: string;
 }
 
-export function DashboardTaskList({ assignedTasks, completedCount, workspaceCount, onOpenTask, title = "For you", showAllHref }: Props) {
+export function DashboardTaskList({ assignedTasks, completedCount, workspaceCount, onOpenTask, title = "Dành cho bạn", showAllHref }: Props) {
   return (
     <div className="mt-10">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-[#111111] dark:text-[#E8E8E7]">{title}</h2>
         {showAllHref && (
           <Link href={showAllHref} className="text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8]">
-            View all for you items
+            Xem tất cả mục dành cho bạn
           </Link>
         )}
       </div>
 
       <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-[8px] border border-[#EAEAEA] bg-white px-4 py-3 dark:border-white/[0.06] dark:bg-[#202020]">
-          <p className="text-xs text-[#787774] dark:text-[#9B9A97]">Assigned tasks</p>
+          <p className="text-xs text-[#787774] dark:text-[#9B9A97]">Nhiệm vụ được giao</p>
           <p className="mt-1 text-xl font-semibold text-[#111111] dark:text-[#E8E8E7]">{assignedTasks.length}</p>
         </div>
         <div className="rounded-[8px] border border-[#EAEAEA] bg-white px-4 py-3 dark:border-white/[0.06] dark:bg-[#202020]">
-          <p className="text-xs text-[#787774] dark:text-[#9B9A97]">Recently completed</p>
+          <p className="text-xs text-[#787774] dark:text-[#9B9A97]">Hoàn thành gần đây</p>
           <p className="mt-1 text-xl font-semibold text-[#111111] dark:text-[#E8E8E7]">{completedCount}</p>
         </div>
         <div className="rounded-[8px] border border-[#EAEAEA] bg-white px-4 py-3 dark:border-white/[0.06] dark:bg-[#202020]">
-          <p className="text-xs text-[#787774] dark:text-[#9B9A97]">Recommended workspaces</p>
+          <p className="text-xs text-[#787774] dark:text-[#9B9A97]">Không gian làm việc gợi ý</p>
           <p className="mt-1 text-xl font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspaceCount}</p>
         </div>
       </div>
@@ -43,7 +43,7 @@ export function DashboardTaskList({ assignedTasks, completedCount, workspaceCoun
       <div className="space-y-2">
         {assignedTasks.length === 0 ? (
           <div className="rounded-[8px] border border-dashed border-[#EAEAEA] bg-[#F9F9F8] px-4 py-8 text-center text-sm text-[#787774] dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#9B9A97]">
-            No tasks assigned to you yet.
+            Chưa có nhiệm vụ nào được giao cho bạn.
           </div>
         ) : (
           assignedTasks.map((task) => (
@@ -66,7 +66,7 @@ export function DashboardTaskList({ assignedTasks, completedCount, workspaceCoun
                 </div>
               </div>
               <span className="ml-3 rounded-[4px] bg-[#EFF6FF] px-3 py-1 text-xs font-medium text-[#1F6C9F] dark:bg-[rgba(37,99,235,0.12)] dark:text-[#93C5FD]">
-                Open
+                Mở
               </span>
             </div>
           ))

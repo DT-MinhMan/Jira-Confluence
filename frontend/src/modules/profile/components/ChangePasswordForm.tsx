@@ -53,12 +53,12 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
 
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     if (!passwordPattern.test(form.newPassword)) {
-      newFieldErrors.newPassword = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+      newFieldErrors.newPassword = "Mật khẩu phải có ít nhất 8 ký tự và bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.";
       hasClientError = true;
     }
 
     if (form.newPassword !== form.confirmPassword) {
-      newFieldErrors.confirmPassword = "Password confirmation does not match";
+      newFieldErrors.confirmPassword = "Mật khẩu xác nhận không khớp";
       hasClientError = true;
     }
 
@@ -73,7 +73,7 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
     });
 
     if (res.success) {
-      toast.success("Password changed successfully");
+      toast.success("Đổi mật khẩu thành công");
       setSuccess(true);
       setForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
     } else {
@@ -96,18 +96,18 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
       {success && (
         <div className="p-3 rounded-[6px] bg-[#EDF3EC] dark:bg-[rgba(52,101,56,0.12)] border border-[#C3DFC1] dark:border-[rgba(52,101,56,0.2)] text-[0.8125rem] text-[#346538] dark:text-[#4ADE80] flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 shrink-0" />
-          Your password has been changed successfully
+          Mật khẩu của bạn đã được thay đổi thành công
         </div>
       )}
 
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label className={labelCls}>Current password</label>
+          <label className={labelCls}>Mật khẩu hiện tại</label>
           <Link
             href="/forgot-password"
             className="text-[0.6875rem] text-[#2563EB] hover:text-[#1D4ED8] dark:text-[#3B82F6] transition-colors"
           >
-            Forgot password?
+            Quên mật khẩu?
           </Link>
         </div>
         <div className="relative">
@@ -116,7 +116,7 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
             name="currentPassword"
             value={form.currentPassword}
             onChange={handleChange}
-            placeholder="Enter your current password"
+            placeholder="Nhập mật khẩu hiện tại"
             autoCapitalize="none"
             autoComplete="new-password"
             autoCorrect="off"
@@ -140,14 +140,14 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
       </div>
 
       <div>
-        <label className={`${labelCls} mb-1.5 block`}>New password</label>
+        <label className={`${labelCls} mb-1.5 block`}>Mật khẩu mới</label>
         <div className="relative">
           <input
             type={showNew ? "text" : "password"}
             name="newPassword"
             value={form.newPassword}
             onChange={handleChange}
-            placeholder="At least 8 characters"
+            placeholder="Tối thiểu 8 ký tự"
             autoCapitalize="none"
             autoComplete="new-password"
             autoCorrect="off"
@@ -171,14 +171,14 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
       </div>
 
       <div>
-        <label className={`${labelCls} mb-1.5 block`}>Confirm new password</label>
+        <label className={`${labelCls} mb-1.5 block`}>Xác nhận mật khẩu mới</label>
         <div className="relative">
           <input
             type={showConfirm ? "text" : "password"}
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
-            placeholder="Re-enter your new password"
+            placeholder="Nhập lại mật khẩu mới"
             autoCapitalize="none"
             autoComplete="new-password"
             autoCorrect="off"
@@ -208,7 +208,7 @@ export function ChangePasswordForm({ saving, onChangePassword }: Props) {
           className="px-6 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] disabled:opacity-50 text-white rounded-[6px] text-[0.8125rem] font-medium transition-colors flex items-center gap-2"
         >
           {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-          {saving ? "Saving..." : "Change password"}
+          {saving ? "Đang lưu..." : "Đổi mật khẩu"}
         </button>
       </div>
     </form>

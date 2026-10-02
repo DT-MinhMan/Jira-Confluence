@@ -467,7 +467,7 @@ export default function TimelineView({
             {/* Dependency connector dot — right edge */}
             {onCreateDependency && (
               <div
-                title="Drag to link dependency"
+                title="Kéo để tạo liên kết phụ thuộc"
                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 rounded-full border-2 bg-white z-10 cursor-crosshair"
                 style={{ borderColor: row.barColor }}
                 onMouseDown={e => e.stopPropagation()}
@@ -516,7 +516,7 @@ export default function TimelineView({
             className="border-b border-[#EAEAEA] dark:border-white/[0.06] bg-[#F9F9F8] dark:bg-[#252525] flex items-center px-3 shrink-0 gap-2"
             style={{ height: TIMELINE_HEADER_H }}
           >
-            <span className="font-semibold text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Work Items</span>
+            <span className="font-semibold text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Nhiệm vụ</span>
             <span className="ml-auto text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] tabular-nums">{rows.length}</span>
           </div>
           {hasSprintTrack && (
@@ -524,7 +524,7 @@ export default function TimelineView({
             className="flex shrink-0 items-center border-b border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] px-3 text-[0.625rem] font-bold uppercase tracking-wider text-[#2563EB] dark:text-[#3B82F6]"
             style={{ height: SPRINT_TRACK_H }}
           >
-            Sprints
+            Sprint
           </div>
           )}
 
@@ -633,7 +633,7 @@ export default function TimelineView({
         <button
           onClick={() => setPixelsPerDay(p => Math.max(10, p - 10))}
           className="p-1.5 text-[#787774] hover:text-[#111111] dark:hover:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[4px] transition-colors"
-          title="Zoom Out"
+          title="Thu nhỏ"
         >
           <ZoomOut className="w-4 h-4" />
         </button>
@@ -643,7 +643,7 @@ export default function TimelineView({
         <button
           onClick={() => setPixelsPerDay(p => Math.min(100, p + 10))}
           className="p-1.5 text-[#787774] hover:text-[#111111] dark:hover:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[4px] transition-colors"
-          title="Zoom In"
+          title="Phóng to"
         >
           <ZoomIn className="w-4 h-4" />
         </button>

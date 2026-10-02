@@ -38,12 +38,12 @@ export default function EditorStatusBar({ editor }: EditorStatusBarProps) {
   return (
     <div className="flex items-center gap-4 text-xs font-semibold text-gray-500 dark:text-gray-400 print:hidden select-none">
       <div className="flex items-center gap-1">
-        <span>Words:</span>
+        <span>Từ:</span>
         <span className="text-gray-800 dark:text-gray-200">{wordCount}</span>
       </div>
       <span className="w-1.5 h-1.5 rounded-full bg-gray-200 dark:bg-gray-800" />
       <div className="flex items-center gap-1">
-        <span>Characters:</span>
+        <span>Ký tự:</span>
         <span className="text-gray-800 dark:text-gray-200">{charCount}</span>
       </div>
     </div>

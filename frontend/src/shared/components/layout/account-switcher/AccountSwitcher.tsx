@@ -124,7 +124,7 @@ export default function AccountSwitcherList({
       <div className="flex items-center justify-between px-3 pt-2 pb-1">
         <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#9B9A97] dark:text-[#6B6B6B]">
           <Repeat className="h-3 w-3" />
-          Account trên thiết bị này
+          Tài khoản trên thiết bị này
         </p>
       </div>
 
@@ -139,10 +139,10 @@ export default function AccountSwitcherList({
           <div className="px-3 py-4 text-center">
             <UserCircle2 className="mx-auto h-6 w-6 text-[#ABABAB] dark:text-[#6B6B6B]" />
             <p className="mt-1.5 text-[11px] text-[#787774] dark:text-[#9B9A97]">
-              Chưa có account nào khác.
+              Chưa có tài khoản nào khác.
             </p>
             <p className="mt-0.5 text-[10px] text-[#9B9A97] dark:text-[#6B6B6B]">
-              Đăng nhập account khác trên thiết bị này — chúng sẽ tự xuất hiện ở đây.
+              Đăng nhập tài khoản khác trên thiết bị này — các tài khoản sẽ tự động xuất hiện ở đây.
             </p>
           </div>
         )}
@@ -214,7 +214,7 @@ export default function AccountSwitcherList({
         className="flex items-center justify-center gap-1.5 border-t border-[#EAEAEA] px-3 py-2 text-[11px] font-medium text-[#2563EB] transition hover:bg-[#EFF6FF] dark:border-white/[0.06] dark:text-indigo-300 dark:hover:bg-indigo-500/10"
       >
         <LogIn className="h-3.5 w-3.5" />
-        Đăng nhập bằng account khác
+        Đăng nhập bằng tài khoản khác
       </a>
     </div>
   );

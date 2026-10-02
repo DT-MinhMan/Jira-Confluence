@@ -400,7 +400,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <button
               onClick={() => setTheme(theme === "light" ? "dark" : theme === "dark" ? "system" : "light")}
               className="p-2 sm:p-2 md:p-2 lg:p-2 hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] transition-colors"
-              title={`Theme: ${theme}`}
+              title={`Giao diện: ${theme === "dark" ? "Tối" : theme === "light" ? "Sáng" : "Hệ thống"}`}
             >
               {theme === "dark" ? (
                 <Moon className="w-4 h-4 text-[#787774] dark:text-[#9B9A97]" />
@@ -442,7 +442,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 type="button"
                 onClick={() => setShowUserMenu((v) => !v)}
                 className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[#444444] dark:text-gray-200 transition hover:bg-[#DBEAFE] dark:hover:bg-white/10"
-                aria-label="User menu"
+                aria-label="Menu người dùng"
                 aria-expanded={showUserMenu}
               >
                 <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-sm font-semibold text-white">
@@ -463,15 +463,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <div className="flex items-start gap-2 border-b border-[#EAEAEA] px-4 py-2 dark:border-white/[0.06]">
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                        {user?.fullName ?? "User"}
+                        {user?.fullName ?? "Người dùng"}
                       </p>
                       <p className="truncate text-xs text-[#787774] dark:text-[#9B9A97]">{user?.email}</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setShowSwitcher((v) => !v)}
-                      title="Switch account"
-                      aria-label="Switch account"
+                      title="Chuyển tài khoản"
+                      aria-label="Chuyển tài khoản"
                       aria-expanded={showSwitcher}
                       className={`relative grid h-7 w-7 shrink-0 place-items-center rounded-md transition ${
                         showSwitcher
@@ -511,7 +511,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     }}
                   >
                     <LayoutDashboard className="h-4 w-4 text-[#2563EB]" />
-                    Dashboard
+                    Bảng điều khiển
                   </Link>
 
                   <Link
@@ -523,7 +523,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     }}
                   >
                     <User className="h-4 w-4 text-[#787774] dark:text-[#9B9A97]" />
-                    Profile
+                    Hồ sơ cá nhân
                   </Link>
 
                   <Link
@@ -535,7 +535,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     }}
                   >
                     <Settings className="h-4 w-4 text-[#787774] dark:text-[#9B9A97]" />
-                    Settings
+                    Cài đặt
                   </Link>
 
                   {IS_SUPER_ADMIN(user?.role) && (
@@ -551,7 +551,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         className="flex w-full items-center gap-3 px-4 py-2.5 text-sm font-medium text-[#2563EB] transition hover:bg-[#EFF6FF] dark:text-indigo-300 dark:hover:bg-indigo-500/10"
                       >
                         <Shield className="h-4 w-4" />
-                        Admin
+                        Trang quản trị
                         <span className="ml-auto text-[10px] uppercase tracking-wider text-[#9B9A97] dark:text-[#6B6B6B]">
                           -&gt;
                         </span>
@@ -570,7 +570,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                       className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-red-500 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10"
                     >
                       <LogOut className="h-4 w-4" />
-                      Log out
+                      Đăng xuất
                     </button>
                   </div>
                 </div>

@@ -13,12 +13,12 @@ export function formatSprintDate(dateKey: string): string {
 export function getSprintBoundaryMessage(bounds: SprintDateBounds): string {
   const name = bounds.sprintName ? ` "${bounds.sprintName}"` : "";
   if (bounds.sprintEndDate) {
-    return `Sprint${name} ends on ${formatSprintDate(bounds.sprintEndDate)}. This task cannot be moved beyond that date.`;
+    return `Sprint${name} kết thúc vào ngày ${formatSprintDate(bounds.sprintEndDate)}. Không thể dời nhiệm vụ sau thời gian này.`;
   }
   if (bounds.sprintStartDate) {
-    return `Sprint${name} starts on ${formatSprintDate(bounds.sprintStartDate)}. This task cannot be moved outside the sprint.`;
+    return `Sprint${name} bắt đầu vào ngày ${formatSprintDate(bounds.sprintStartDate)}. Không thể dời nhiệm vụ ra ngoài sprint.`;
   }
-  return "This task cannot be moved outside the sprint dates.";
+  return "Không thể dời nhiệm vụ ra ngoài thời gian của sprint.";
 }
 
 export function getSprintDateBoundViolation(
@@ -30,7 +30,7 @@ export function getSprintDateBoundViolation(
     bounds.sprintStartDate &&
     isBefore(parseISO(startDate), parseISO(bounds.sprintStartDate))
   ) {
-    return `Sprint${bounds.sprintName ? ` "${bounds.sprintName}"` : ""} starts on ${formatSprintDate(bounds.sprintStartDate)}. This task cannot be moved before that date.`;
+    return `Sprint${bounds.sprintName ? ` "${bounds.sprintName}"` : ""} bắt đầu vào ngày ${formatSprintDate(bounds.sprintStartDate)}. Không thể dời nhiệm vụ trước thời gian này.`;
   }
 
   if (

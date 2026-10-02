@@ -1094,4 +1094,22 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   .animate-landing-float-delayed {
     animation: landing-float-delayed 4.5s ease-in-out 1s infinite;
   }
+
+  /* ── Glassmorphism Styles ── */
+  .glass-card {
+    background: rgba(11, 17, 32, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .glass-navbar {
+    background: rgba(11, 17, 32, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(95, 44, 255, 0.08);
+  }
 }
+

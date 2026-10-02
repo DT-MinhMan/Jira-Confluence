@@ -25,10 +25,33 @@ type TaskFilterPanelProps = {
   onDocumentAuthorIdsChange: (authorIds: string[]) => void;
 };
 
-const lastUpdatedOptions = ["Any time", "Today", "Yesterday", "Past 7 days", "Past 30 days", "Past year"];
-const statuses = ["To Do", "In Progress", "Testing", "Done"];
-const types = ["Task", "Bug", "Story", "Epic"];
-const priorities = ["Lowest", "Low", "Medium", "High", "Highest"];
+const lastUpdatedOptions = [
+  { value: "Any time", label: "Mọi lúc" },
+  { value: "Today", label: "Hôm nay" },
+  { value: "Yesterday", label: "Hôm qua" },
+  { value: "Past 7 days", label: "7 ngày qua" },
+  { value: "Past 30 days", label: "30 ngày qua" },
+  { value: "Past year", label: "Năm qua" },
+];
+const statuses = [
+  { value: "To Do", label: "Cần làm" },
+  { value: "In Progress", label: "Đang thực hiện" },
+  { value: "Testing", label: "Kiểm thử" },
+  { value: "Done", label: "Hoàn thành" },
+];
+const types = [
+  { value: "Task", label: "Nhiệm vụ" },
+  { value: "Bug", label: "Lỗi" },
+  { value: "Story", label: "Story" },
+  { value: "Epic", label: "Epic" },
+];
+const priorities = [
+  { value: "Lowest", label: "Rất thấp" },
+  { value: "Low", label: "Thấp" },
+  { value: "Medium", label: "Trung bình" },
+  { value: "High", label: "Cao" },
+  { value: "Highest", label: "Khẩn cấp" },
+];
 
 function Section({
   title,
@@ -146,44 +169,44 @@ export default function TaskFilterPanel({
   if (activeTab === "Docs") {
     return (
       <div className="space-y-4">
-        <Section title="Document scope" icon={FolderKanban}>
+        <Section title="Phạm vi tài liệu" icon={FolderKanban}>
           <p className="px-2 text-[0.8125rem] leading-5 text-[#787774] dark:text-[#9B9A97]">
-            Searching documents in all workspaces you own or are a member of.
+            Tìm kiếm tài liệu trong tất cả không gian làm việc bạn sở hữu hoặc tham gia.
           </p>
         </Section>
 
-        <Section title="Content type" icon={FileText}>
+        <Section title="Loại nội dung" icon={FileText}>
           <CheckboxRow
             checked={documentTypes.includes("page")}
-            label="Pages"
-            detail="Workspace documents"
+            label="Trang tài liệu"
+            detail="Tài liệu không gian làm việc"
             onChange={() => toggleDocumentType("page")}
           />
           <CheckboxRow
             checked={documentTypes.includes("comment")}
-            label="Comments"
-            detail="Comments on documents"
+            label="Bình luận"
+            detail="Bình luận trên tài liệu"
             onChange={() => toggleDocumentType("comment")}
           />
         </Section>
 
-        <Section title="Last updated" icon={Clock}>
+        <Section title="Cập nhật lần cuối" icon={Clock}>
           {lastUpdatedOptions.map((option) => (
             <CheckboxRow
-              key={option}
-              checked={(documentLastUpdated || "Any time") === option}
-              label={option}
+              key={option.value}
+              checked={(documentLastUpdated || "Any time") === option.value}
+              label={option.label}
               inputType="radio"
               name="documentLastUpdated"
-              onChange={() => onDocumentLastUpdatedChange(option === "Any time" ? null : option)}
+              onChange={() => onDocumentLastUpdatedChange(option.value === "Any time" ? null : option.value)}
             />
           ))}
         </Section>
 
-        <Section title="Author" icon={MessageSquare}>
+        <Section title="Tác giả" icon={MessageSquare}>
           <CheckboxRow
             checked={Boolean(currentUserId && documentAuthorIds.includes(currentUserId))}
-            label="Created by me"
+            label="Tôi tạo"
             detail={currentUserName}
             avatar={(currentUserName || "Me").slice(0, 2).toUpperCase()}
             onChange={() => {
@@ -202,36 +225,36 @@ export default function TaskFilterPanel({
 
   return (
     <div className="space-y-4">
-      <Section title="Work scope" icon={FolderKanban}>
+      <Section title="Phạm vi công việc" icon={FolderKanban}>
         <p className="px-2 text-[0.8125rem] leading-5 text-[#787774] dark:text-[#9B9A97]">
-          Searching work items in all selected workspaces.
+          Tìm kiếm công việc trong các không gian làm việc đã chọn.
         </p>
       </Section>
 
-      <Section title="Last updated" icon={Clock}>
+      <Section title="Cập nhật lần cuối" icon={Clock}>
         {lastUpdatedOptions.map((option) => (
           <CheckboxRow
-            key={option}
-            checked={(filters.lastUpdated || "Any time") === option}
-            label={option}
+            key={option.value}
+            checked={(filters.lastUpdated || "Any time") === option.value}
+            label={option.label}
             inputType="radio"
             name="lastUpdated"
-            onChange={() => setFilters((prev) => ({ ...prev, lastUpdated: option === "Any time" ? null : option }))}
+            onChange={() => setFilters((prev) => ({ ...prev, lastUpdated: option.value === "Any time" ? null : option.value }))}
           />
         ))}
       </Section>
 
-      <Section title="Filter by workspace" icon={FolderKanban}>
+      <Section title="Lọc theo không gian làm việc" icon={FolderKanban}>
         <div className="flex items-center justify-between px-2 pb-2 text-[0.6875rem]">
           <span className="text-[#787774] dark:text-[#9B9A97]">
-            {selectedWorkspaceCount > 0 ? `Searching ${selectedWorkspaceCount} workspace${selectedWorkspaceCount === 1 ? "" : "s"}` : "No workspace selected"}
+            {selectedWorkspaceCount > 0 ? `Đang tìm trong ${selectedWorkspaceCount} không gian làm việc` : "Chưa chọn không gian làm việc"}
           </span>
           <span className="flex items-center gap-2 font-medium text-[#2563EB] dark:text-[#3B82F6]">
             <button type="button" onClick={() => onSetWorkspaceKeys?.(availableWorkspaces.map((workspace) => workspace.key))} disabled={allWorkspacesSelected} className="disabled:cursor-not-allowed disabled:opacity-40">
-              Select all
+              Chọn tất cả
             </button>
             <button type="button" onClick={() => onSetWorkspaceKeys?.([])} disabled={selectedWorkspaceCount === 0} className="disabled:cursor-not-allowed disabled:opacity-40">
-              Clear all
+              Bỏ chọn tất cả
             </button>
           </span>
         </div>
@@ -258,33 +281,33 @@ export default function TaskFilterPanel({
             className="inline-flex items-center gap-1 px-2 py-1 text-[0.8125rem] font-medium text-[#2563EB] dark:text-[#3B82F6]"
           >
             {showAllWorkspaces
-              ? "Show fewer workspaces"
-              : `Show ${hiddenWorkspaceCount} more workspace${hiddenWorkspaceCount === 1 ? "" : "s"}`}
+              ? "Thu gọn bớt"
+              : `Hiển thị thêm ${hiddenWorkspaceCount} không gian làm việc`}
             <ChevronDown className={`h-4 w-4 transition-transform ${showAllWorkspaces ? "rotate-180" : ""}`} />
           </button>
         )}
       </Section>
 
-      <Section title="Filter by assignee" icon={Users}>
-        {(assignees.length > 0 ? assignees : [{ id: "me", name: currentUserName || "Assigned to me" }]).slice(0, 5).map((user) => (
+      <Section title="Lọc theo người thực hiện" icon={Users}>
+        {(assignees.length > 0 ? assignees : [{ id: "me", name: currentUserName || "Giao cho tôi" }]).slice(0, 5).map((user) => (
           <CheckboxRow
             key={user.id}
             checked={filters.assignees.includes(user.id)}
             label={user.name}
-            detail="Assignee"
+            detail="Người thực hiện"
             avatar={(user.avatar || user.name || user.id).slice(0, 2).toUpperCase()}
             onChange={() => toggleArray("assignees", user.id)}
           />
         ))}
         <button type="button" className="inline-flex items-center gap-1 px-2 py-1 text-[0.8125rem] font-medium text-[#2563EB] dark:text-[#3B82F6]">
-          Show more <ChevronDown className="h-4 w-4" />
+          Hiển thị thêm <ChevronDown className="h-4 w-4" />
         </button>
       </Section>
 
-      <Section title="Filter by reporter" icon={UserCircle}>
+      <Section title="Lọc theo người báo cáo" icon={UserCircle}>
         <CheckboxRow
           checked={Boolean(currentUserId && filters.reporterId === currentUserId)}
-          label="Reported by me"
+          label="Tôi báo cáo"
           detail={currentUserName}
           avatar={(currentUserName || "Me").slice(0, 2).toUpperCase()}
           onChange={() => {
@@ -297,38 +320,38 @@ export default function TaskFilterPanel({
         />
       </Section>
 
-      <Section title="Filter by task fields" icon={Flag}>
+      <Section title="Lọc theo trường nhiệm vụ" icon={Flag}>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div>
-            <p className="mb-1 px-2 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B]">Status</p>
+            <p className="mb-1 px-2 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B]">Trạng thái</p>
             {statuses.map((status) => (
               <CheckboxRow
-                key={status}
-                checked={filters.statuses.includes(status)}
-                label={status}
-                onChange={() => toggleArray("statuses", status)}
+                key={status.value}
+                checked={filters.statuses.includes(status.value)}
+                label={status.label}
+                onChange={() => toggleArray("statuses", status.value)}
               />
             ))}
           </div>
           <div>
-            <p className="mb-1 px-2 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B]">Type</p>
+            <p className="mb-1 px-2 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B]">Loại nhiệm vụ</p>
             {types.map((type) => (
               <CheckboxRow
-                key={type}
-                checked={filters.types.includes(type)}
-                label={type}
-                onChange={() => toggleArray("types", type)}
+                key={type.value}
+                checked={filters.types.includes(type.value)}
+                label={type.label}
+                onChange={() => toggleArray("types", type.value)}
               />
             ))}
           </div>
           <div>
-            <p className="mb-1 px-2 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B]">Priority</p>
+            <p className="mb-1 px-2 text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B]">Độ ưu tiên</p>
             {priorities.map((priority) => (
               <CheckboxRow
-                key={priority}
-                checked={filters.priorities.includes(priority)}
-                label={priority}
-                onChange={() => toggleArray("priorities", priority)}
+                key={priority.value}
+                checked={filters.priorities.includes(priority.value)}
+                label={priority.label}
+                onChange={() => toggleArray("priorities", priority.value)}
               />
             ))}
           </div>

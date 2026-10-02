@@ -73,7 +73,7 @@ export default function FindReplacePanel({ editor, onClose }: FindReplacePanelPr
       <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-2">
         <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
           <Search className="w-3.5 h-3.5 text-indigo-500" />
-          Find & Replace
+          Tìm kiếm & Thay thế
         </span>
         <button onClick={onClose} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded text-gray-400 hover:text-gray-600 transition-colors">
           <X className="w-4 h-4" />
@@ -82,18 +82,18 @@ export default function FindReplacePanel({ editor, onClose }: FindReplacePanelPr
 
       {/* Find Input */}
       <div className="flex flex-col gap-1">
-        <label className="text-[9px] font-bold text-gray-400 uppercase">Find</label>
+        <label className="text-[9px] font-bold text-gray-400 uppercase">Tìm kiếm</label>
         <div className="flex items-center border border-gray-200 dark:border-gray-800 rounded-lg px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-indigo-100 dark:focus-within:ring-indigo-900/40 focus-within:border-indigo-500 transition-all bg-gray-50 dark:bg-gray-900/50">
           <input
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
-            placeholder="Enter search term..."
+            placeholder="Nhập từ cần tìm..."
             className="w-full text-xs border-none outline-none bg-transparent p-0 focus:ring-0 text-gray-800 dark:text-gray-200 placeholder:text-gray-400"
           />
           {searchTerm && (
             <span className="text-[10px] text-gray-400 font-medium whitespace-nowrap shrink-0 ml-1.5">
-              {matchCount} results
+              {matchCount} kết quả
             </span>
           )}
         </div>
@@ -101,13 +101,13 @@ export default function FindReplacePanel({ editor, onClose }: FindReplacePanelPr
 
       {/* Replace Input */}
       <div className="flex flex-col gap-1">
-        <label className="text-[9px] font-bold text-gray-400 uppercase">Replace with</label>
+        <label className="text-[9px] font-bold text-gray-400 uppercase">Thay thế bằng</label>
         <div className="flex items-center border border-gray-200 dark:border-gray-800 rounded-lg px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-indigo-100 dark:focus-within:ring-indigo-900/40 focus-within:border-indigo-500 transition-all bg-gray-50 dark:bg-gray-900/50">
           <input
             type="text"
             value={replaceTerm}
             onChange={handleReplaceChange}
-            placeholder="Enter replacement..."
+            placeholder="Nhập từ thay thế..."
             className="w-full text-xs border-none outline-none bg-transparent p-0 focus:ring-0 text-gray-800 dark:text-gray-200 placeholder:text-gray-400"
           />
         </div>
@@ -121,14 +121,14 @@ export default function FindReplacePanel({ editor, onClose }: FindReplacePanelPr
           className="px-3 py-1.5 text-[11px] font-semibold border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1"
         >
           <Replace className="w-3.5 h-3.5" />
-          Replace
+          Thay thế
         </button>
         <button
           onClick={handleReplaceAll}
           disabled={matchCount === 0}
           className="px-3 py-1.5 text-[11px] font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
-          Replace all
+          Thay thế tất cả
         </button>
       </div>
     </div>

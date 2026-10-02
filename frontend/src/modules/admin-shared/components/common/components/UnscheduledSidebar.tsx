@@ -36,7 +36,21 @@ export default function UnscheduledSidebar({ tasks, isOpen, onClose }: Unschedul
     return () => draggable.destroy();
   }, [isOpen, tasks]);
 
-  if (!isOpen) return null;
+  const TYPE_NAMES: Record<string, string> = {
+    Task: "Nhiệm vụ",
+    Bug: "Lỗi",
+    Story: "Story",
+    Epic: "Epic",
+  };
+
+  const PRIORITY_NAMES: Record<string, string> = {
+    Highest: "Rất cao",
+    High: "Cao",
+    Medium: "Trung bình",
+    Low: "Thấp",
+    Lowest: "Rất thấp",
+    Critical: "Nghiêm trọng",
+  };
 
   return (
     <div
@@ -47,10 +61,10 @@ export default function UnscheduledSidebar({ tasks, isOpen, onClose }: Unschedul
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#EAEAEA] dark:border-white/[0.06]">
         <div>
           <h3 className="text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">
-            Unscheduled work
+            Nhiệm vụ chưa lên lịch
           </h3>
           <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-0.5">
-            {tasks.length} task{tasks.length !== 1 ? 's' : ''} — drag to schedule
+            {tasks.length} nhiệm vụ — kéo để lên lịch
           </p>
         </div>
         <button
@@ -66,7 +80,7 @@ export default function UnscheduledSidebar({ tasks, isOpen, onClose }: Unschedul
         <div className="flex-1 flex flex-col items-center justify-center gap-2 p-6 text-center">
           <span className="text-2xl">🎉</span>
           <p className="text-sm text-[#787774] dark:text-[#9B9A97]">
-            All tasks are scheduled
+            Tất cả nhiệm vụ đã được lên lịch
           </p>
         </div>
       ) : (
@@ -88,7 +102,7 @@ export default function UnscheduledSidebar({ tasks, isOpen, onClose }: Unschedul
                 {task.title}
               </p>
               <p className="text-xs text-[#787774] dark:text-[#9B9A97] mt-0.5">
-                {task.type} · {task.priority}
+                {TYPE_NAMES[task.type] || task.type} · {PRIORITY_NAMES[task.priority] || task.priority}
               </p>
             </div>
           ))}

@@ -69,7 +69,7 @@ function actorName(notification: AppNotification): string {
   return (
     notification.actor?.fullName ||
     notification.actor?.email ||
-    "A teammate"
+    "Một đồng nghiệp"
   );
 }
 
@@ -83,21 +83,21 @@ function initials(value: string): string {
 function actionText(type: NotificationType): string {
   switch (type) {
     case "TASK_ASSIGNED":
-      return "assigned a task to you";
+      return "đã giao một nhiệm vụ cho bạn";
     case "TASK_STATUS_CHANGED":
-      return "changed the task status";
+      return "đã thay đổi trạng thái nhiệm vụ";
     case "COMMENT_MENTIONED":
-      return "mentioned you in a comment";
+      return "đã nhắc đến bạn trong một bình luận";
     case "TASK_COMMENT_CREATED":
-      return "commented on a task";
+      return "đã bình luận về nhiệm vụ";
     case "WORKSPACE_INVITED":
-      return "invited you to a workspace";
+      return "đã mời bạn tham gia không gian làm việc";
     case "THREAD_REPLY":
-      return "replied to a thread";
+      return "đã trả lời trong một chủ đề";
     case "CHAT_MENTIONED":
-      return "mentioned you in a chat channel";
+      return "đã nhắc đến bạn trong kênh trò chuyện";
     default:
-      return "sent you a notification";
+      return "đã gửi thông báo cho bạn";
   }
 }
 
@@ -243,13 +243,13 @@ function groupName(createdAt: string): string {
   const yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate() - 1);
 
-  if (date.toDateString() === today.toDateString()) return "Latest";
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
-  return "Older";
+  if (date.toDateString() === today.toDateString()) return "Mới nhất";
+  if (date.toDateString() === yesterday.toDateString()) return "Hôm qua";
+  return "Cũ hơn";
 }
 
 function formatTime(createdAt: string): string {
-  return new Date(createdAt).toLocaleString("en-US", {
+  return new Date(createdAt).toLocaleString("vi-VN", {
     weekday: "short",
     hour: "numeric",
     minute: "numeric",
@@ -494,13 +494,13 @@ export default function NotificationPanel({
       setInviteActionId(`${notificationId}:accept`);
     },
     onSuccess: async (data, { notificationId }) => {
-      updateInviteNotification(notificationId, "accepted", "Invitation accepted.");
+      updateInviteNotification(notificationId, "accepted", "Đã chấp nhận lời mời.");
       
       await notificationService.markAsRead(notificationId);
       
       queryClient.invalidateQueries({ queryKey: queryKeys.notifications.list() });
       queryClient.invalidateQueries({ queryKey: queryKeys.notifications.unreadCount() });
-      toast.success("Workspace invitation accepted.");
+      toast.success("Đã chấp nhận lời mời tham gia không gian làm việc.");
       onClose();
       
       const notification = notifications.find((n) => n.id === notificationId);
@@ -508,7 +508,7 @@ export default function NotificationPanel({
       router.push(workspaceKey ? `/workspaces/${encodeURIComponent(workspaceKey)}` : "/workspaces");
     },
     onError: (error, { notificationId }) => {
-      const failure = getInviteFailureState(error, "Could not accept invitation.");
+      const failure = getInviteFailureState(error, "Không thể chấp nhận lời mời.");
       if (failure.status) {
         updateInviteNotification(notificationId, failure.status, failure.message);
         notificationService.markAsRead(notificationId).finally(() => {
@@ -530,16 +530,16 @@ export default function NotificationPanel({
       setInviteActionId(`${notificationId}:decline`);
     },
     onSuccess: async (data, { notificationId }) => {
-      updateInviteNotification(notificationId, "declined", "Invitation declined.");
+      updateInviteNotification(notificationId, "declined", "Đã từ chối lời mời.");
       
       await notificationService.markAsRead(notificationId);
       
       queryClient.invalidateQueries({ queryKey: queryKeys.notifications.list() });
       queryClient.invalidateQueries({ queryKey: queryKeys.notifications.unreadCount() });
-      toast.success("Workspace invitation declined.");
+      toast.success("Đã từ chối lời mời tham gia không gian làm việc.");
     },
     onError: (error, { notificationId }) => {
-      const failure = getInviteFailureState(error, "Could not decline invitation.");
+      const failure = getInviteFailureState(error, "Không thể từ chối lời mời.");
       if (failure.status) {
         updateInviteNotification(notificationId, failure.status, failure.message);
         notificationService.markAsRead(notificationId).finally(() => {
@@ -566,7 +566,7 @@ export default function NotificationPanel({
     event.stopPropagation();
     const inviteId = notification.inviteData?.inviteId;
     if (!inviteId) {
-      toast.error("Invitation is missing.");
+      toast.error("Không tìm thấy thông tin lời mời.");
       return;
     }
     acceptInviteMutation.mutate({ inviteId, notificationId: notification.id });
@@ -579,7 +579,7 @@ export default function NotificationPanel({
     event.stopPropagation();
     const inviteId = notification.inviteData?.inviteId;
     if (!inviteId) {
-      toast.error("Invitation is missing.");
+      toast.error("Không tìm thấy thông tin lời mời.");
       return;
     }
     declineInviteMutation.mutate({ inviteId, notificationId: notification.id });
@@ -602,7 +602,7 @@ export default function NotificationPanel({
     }, {});
   }, [filteredNotifications]);
 
-  const groupOrder = ["Latest", "Yesterday", "Older"];
+  const groupOrder = ["Mới nhất", "Hôm qua", "Cũ hơn"];
 
   return (
     <div
@@ -612,9 +612,9 @@ export default function NotificationPanel({
     >
       <div className="px-4 pt-4 border-b border-[#EAEAEA] dark:border-white/[0.06] flex flex-col gap-3">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Notifications</h2>
+          <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Thông báo</h2>
           <div className="flex items-center gap-2">
-            <span className="text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">Unread</span>
+            <span className="text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">Chưa đọc</span>
             <button
               onClick={() => setShowUnreadOnly((value) => !value)}
               className={`h-5 w-9 rounded-full relative transition-colors ${showUnreadOnly ? "bg-[#2563EB] dark:bg-[#3B82F6]" : "bg-[#EAEAEA] dark:bg-white/10"}`}
@@ -631,7 +631,7 @@ export default function NotificationPanel({
               </button>
               {showMenu && (
                 <div
-                  className="absolute right-0 top-full mt-1 w-44 bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] py-1 z-50"
+                  className="absolute right-0 top-full mt-1 w-48 bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] py-1 z-50"
                   style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)" }}
                 >
                   <button
@@ -639,7 +639,7 @@ export default function NotificationPanel({
                     className="w-full text-left px-3 py-2 text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-white/5 flex items-center gap-2 transition-colors"
                   >
                     <Check className="w-3.5 h-3.5 text-[#ABABAB]" />
-                    Mark all as read
+                    Đánh dấu tất cả là đã đọc
                   </button>
                 </div>
               )}
@@ -658,13 +658,13 @@ export default function NotificationPanel({
             onClick={() => setActiveTab("DIRECT")}
             className={`pb-3 text-[0.8125rem] font-semibold border-b-2 transition-colors ${activeTab === "DIRECT" ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]" : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"}`}
           >
-            Direct
+            Trực tiếp
           </button>
           <button
             onClick={() => setActiveTab("WATCHING")}
             className={`pb-3 text-[0.8125rem] font-semibold border-b-2 transition-colors ${activeTab === "WATCHING" ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]" : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"}`}
           >
-            Watching
+            Đang theo dõi
           </button>
         </div>
       </div>
@@ -673,7 +673,7 @@ export default function NotificationPanel({
         {isLoading ? (
           <div className="p-12 text-center flex flex-col items-center gap-3">
             <Loader2 className="w-5 h-5 animate-spin text-[#2563EB] dark:text-[#3B82F6]" />
-            <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Loading notifications...</p>
+            <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">Đang tải thông báo...</p>
           </div>
         ) : error ? (
           <div className="p-12 text-center flex flex-col items-center">
@@ -687,8 +687,8 @@ export default function NotificationPanel({
             <div className="w-14 h-14 bg-[#F7F6F3] dark:bg-[#252525] rounded-full flex items-center justify-center mb-3">
               <Bell className="w-7 h-7 text-[#ABABAB] dark:text-[#6B6B6B]" />
             </div>
-            <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">You&apos;re all caught up!</p>
-            <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">No notifications here.</p>
+            <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Bạn đã xem hết thông báo!</p>
+            <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">Không có thông báo nào ở đây.</p>
           </div>
         ) : (
           <div className="p-3 space-y-5">
@@ -764,7 +764,7 @@ export default function NotificationPanel({
                                 <div className="mt-2 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[6px] p-3">
                                   <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">{notification.inviteData.workspaceName}</p>
                                   {notification.inviteData.role && (
-                                    <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">Role: {notification.inviteData.role}</p>
+                                    <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">Vai trò: {notification.inviteData.role}</p>
                                   )}
                                   {isPendingInvite && notification.inviteData.message && (
                                     <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-1">{notification.inviteData.message}</p>
@@ -778,7 +778,7 @@ export default function NotificationPanel({
                                         className="inline-flex items-center justify-center rounded-[6px] bg-[#2563EB] px-3 py-1.5 text-[0.75rem] font-semibold text-white transition-colors hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-60"
                                       >
                                         {isAccepting ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
-                                        Accept
+                                        Chấp nhận
                                       </button>
                                       <button
                                         type="button"
@@ -787,12 +787,12 @@ export default function NotificationPanel({
                                         className="inline-flex items-center justify-center rounded-[6px] border border-[#EAEAEA] px-3 py-1.5 text-[0.75rem] font-semibold text-[#787774] transition-colors hover:bg-white dark:border-white/[0.08] dark:text-[#C9C9C7] dark:hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-60"
                                       >
                                         {isDeclining ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
-                                        Decline
+                                        Từ chối
                                       </button>
                                     </div>
                                   ) : (
                                     <p className="mt-2 text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">
-                                      {notification.inviteData.statusMessage || `Invitation ${inviteStatus ?? "processed"}.`}
+                                      {notification.inviteData.statusMessage || (inviteStatus === "accepted" ? "Lời mời đã được chấp nhận." : inviteStatus === "declined" ? "Lời mời đã bị từ chối." : "Lời mời đã được xử lý.")}
                                     </p>
                                   )}
                                 </div>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import Link from "next/link";
@@ -51,6 +51,21 @@ const getInitials = (value: string) =>
     .join("")
     .slice(0, 2)
     .toUpperCase() || "?";
+
+const PRIORITY_LABELS_VI: Record<string, string> = {
+  Highest: "Khẩn cấp",
+  High: "Cao",
+  Medium: "Trung bình",
+  Low: "Thấp",
+  Lowest: "Rất thấp",
+};
+
+const TASK_TYPES_VI: Record<string, string> = {
+  Task: "Nhiệm vụ",
+  Bug: "Lỗi",
+  Story: "Câu chuyện",
+  Epic: "Epic",
+};
 
 type BoardTabProps = {
   data: {
@@ -207,7 +222,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
     if (!assignee) {
       return (
         <span className="max-w-[8rem] truncate text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">
-          Unassigned
+          Chưa giao
         </span>
       );
     }
@@ -289,16 +304,16 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
           <PlayCircle className="w-8 h-8 text-[#2563EB] dark:text-[#60A5FA]" />
         </div>
         <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7] mb-2">
-          No active sprint
+          Không có sprint đang hoạt động
         </h3>
         <p className="text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-          Start a sprint from the Backlog tab to view the board
+          Bắt đầu một sprint từ tab Backlog để xem bảng công việc
         </p>
         <Link
           href={`/workspaces/${workspace.key}/backlog`}
           className="mt-5 inline-flex items-center gap-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2 dark:focus:ring-offset-[#202020]"
         >
-          Go to backlog
+          Đi tới Backlog
 
         </Link>
       </div>
@@ -313,7 +328,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
     <div className="flex flex-col gap-0.5 relative">
       {filters.archived && (
         <div className="absolute top-0 right-[var(--workspace-surface-pad)] mt-2 bg-[#FDEBEC] text-[#9F2F2D] px-3 py-1 rounded-[4px] text-[0.6875rem] font-bold z-10">
-          Archived View - Read Only
+          Chế độ xem đã lưu trữ - Chỉ đọc
         </div>
       )}
 
@@ -482,10 +497,10 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                                           <span
                                             className={`px-2 py-0.5 rounded-[4px] text-[0.625rem] font-semibold ${issue.priority === "High" || issue.priority === "Highest" ? "bg-[#FDEBEC] text-[#9F2F2D]" : issue.priority === "Medium" ? "bg-[#FBF3DB] text-[#956400]" : "bg-[#EDF3EC] text-[#346538]"}`}
                                           >
-                                            {issue.priority}
+                                            {PRIORITY_LABELS_VI[issue.priority] || issue.priority}
                                           </span>
                                           <span className="px-2 py-0.5 rounded-[4px] text-[0.625rem] font-semibold bg-[#EFF6FF] text-[#1F6C9F] dark:bg-[rgba(37,99,235,0.12)] dark:text-[#93C5FD]">
-                                            {issue.type}
+                                            {TASK_TYPES_VI[issue.type] || issue.type}
                                           </span>
                                           {(issue.labels ?? []).slice(0, 3).map((label) => (
                                             <span
@@ -540,7 +555,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                                 }}
                                 className="w-full mt-2 flex items-center gap-2 py-2 px-3 hover:bg-[#F0F0EE] dark:hover:bg-[#2E2E2E] rounded-[6px] text-[#ABABAB] hover:text-[#787774] dark:text-[#6B6B6B] dark:hover:text-[#9B9A97] transition-all duration-200 opacity-0 group-hover/column:opacity-100 text-[0.8125rem] font-medium justify-center"
                               >
-                                <Plus className="w-4 h-4" /> Add new task
+                                <Plus className="w-4 h-4" /> Thêm nhiệm vụ mới
                               </button>
                             )}
                           </div>
@@ -571,7 +586,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                           setNewColumnName("");
                         }
                       }}
-                      placeholder="New column name..."
+                      placeholder="Tên cột mới..."
                       className="w-full px-3 py-2 border border-[#EAEAEA] dark:border-white/[0.08] bg-white dark:bg-[#2A2A2A] text-[#111111] dark:text-[#E8E8E7] rounded-[6px] text-[0.8125rem] focus:border-[#2563EB] outline-none transition-colors"
                     />
                     <div className="flex items-center gap-2 mt-3">
@@ -579,7 +594,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                         onClick={handleAddColumn}
                         className="flex-1 bg-[#2563EB] dark:bg-[#3B82F6] text-white text-[0.6875rem] font-medium py-1.5 rounded-[4px] hover:bg-[#1D4ED8] transition-colors flex items-center justify-center gap-1"
                       >
-                        <Check className="w-3.5 h-3.5" /> Add column
+                        <Check className="w-3.5 h-3.5" /> Thêm cột
                       </button>
                       <button
                         onClick={() => {
@@ -588,7 +603,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                         }}
                         className="flex-1 bg-[#F7F6F3] dark:bg-[#2A2A2A] text-[#787774] dark:text-[#9B9A97] text-[0.6875rem] font-medium py-1.5 rounded-[4px] hover:bg-[#F0F0EE] dark:hover:bg-[#333333] transition-colors flex items-center justify-center gap-1"
                       >
-                        <X className="w-3.5 h-3.5" /> Cancel
+                        <X className="w-3.5 h-3.5" /> Hủy
                       </button>
                     </div>
                   </div>
@@ -597,7 +612,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                     onClick={() => setShowCreateColumn(true)}
                     className="flex items-center gap-2 w-full bg-transparent hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] border-2 border-dashed border-[#EAEAEA] dark:border-white/[0.08] hover:border-[#C8C7C4] dark:hover:border-white/[0.12] rounded-[8px] p-4 text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#787774] dark:hover:text-[#9B9A97] transition-all duration-200 opacity-0 group-hover/new-col:opacity-100 text-[0.8125rem] justify-center"
                   >
-                    <Plus className="w-5 h-5" /> Add new column
+                    <Plus className="w-5 h-5" /> Thêm cột mới
                   </button>
                 ) : null}
               </div>
@@ -667,24 +682,24 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
             <div className="flex items-start justify-between gap-4 border-b border-[#EAEAEA] dark:border-white/[0.06] p-5">
               <div>
                 <h3 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Delete work item
+                  Xóa nhiệm vụ
                 </h3>
                 <p className="mt-1 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                  This permanently deletes {issueToDelete.key}. Archive it instead if you may need it later.
+                  Thao tác này sẽ xóa vĩnh viễn {issueToDelete.key}. Bạn có thể lưu trữ nếu muốn sử dụng lại sau này.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={closeDeleteIssueModal}
                 className="rounded-[6px] p-1.5 text-[#ABABAB] transition-colors hover:bg-[#F7F6F3] hover:text-[#787774] dark:hover:bg-[#2E2E2E] dark:hover:text-[#9B9A97]"
-                aria-label="Close delete confirmation"
+                aria-label="Đóng xác nhận xóa"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
             <div className="space-y-3 p-5">
               <label className="block text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97]">
-                Type <span className="font-mono font-semibold text-[#9F2F2D]">delete</span> to confirm
+                Nhập <span className="font-mono font-semibold text-[#9F2F2D]">delete</span> để xác nhận
               </label>
               <input
                 autoFocus
@@ -709,7 +724,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                 disabled={!onArchiveIssue}
                 className="rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.08] bg-white dark:bg-[#252525] px-4 py-2 text-[0.8125rem] font-medium text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] disabled:opacity-40"
               >
-                Archive
+                Lưu trữ
               </button>
               <button
                 type="button"
@@ -717,7 +732,7 @@ export default function BoardTab({ data, ui, actions, refs, permissions }: Board
                 disabled={deleteConfirmText !== "delete"}
                 className="rounded-[6px] bg-[#9F2F2D] px-4 py-2 text-[0.8125rem] font-medium text-white transition-colors hover:bg-[#8A2826] disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Delete
+                Xóa
               </button>
             </div>
           </div>

@@ -55,12 +55,12 @@ export default function VersionHistorySidebar({
       {/* Header */}
       <div className="p-4 border-b border-gray-200/60 dark:border-gray-800 flex items-center gap-2">
         <History className="w-[18px] h-[18px] text-indigo-500" />
-        <h3 className="font-semibold text-slate-800 dark:text-slate-100 text-sm">Version History</h3>
+        <h3 className="font-semibold text-slate-800 dark:text-slate-100 text-sm">Lịch sử phiên bản</h3>
       </div>
 
       {/* Info Card */}
       <div className="p-3 mx-3 mt-3 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100/50 dark:border-indigo-900/30 rounded-lg text-xs text-indigo-600 dark:text-indigo-400">
-        Restore document content to a specific version.
+        Khôi phục nội dung tài liệu về một phiên bản cụ thể.
       </div>
 
       {/* List */}
@@ -68,12 +68,12 @@ export default function VersionHistorySidebar({
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-8 gap-2">
             <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-            <span className="text-xs text-slate-400">Loading list...</span>
+            <span className="text-xs text-slate-400">Đang tải danh sách...</span>
           </div>
         ) : versions.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-center px-4">
             <History className="w-8 h-8 text-slate-300 dark:text-slate-700 mb-2 stroke-[1.5]" />
-            <span className="text-xs text-slate-400 dark:text-slate-500">No named versions yet.</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500">Chưa có phiên bản nào được đặt tên.</span>
           </div>
         ) : (
           versions.map((ver) => (
@@ -111,12 +111,12 @@ export default function VersionHistorySidebar({
                   className="flex-1 py-1.5 px-2 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-[11px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-gray-900 transition-colors flex items-center justify-center gap-1"
                 >
                   <Eye className="w-3.5 h-3.5" />
-                  <span>Preview</span>
+                  <span>Xem trước</span>
                 </button>
                 <button
                   onClick={() => setConfirmRestoreId(ver.id)}
                   className="py-1.5 px-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40 rounded-lg text-[11px] font-medium hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors flex items-center justify-center"
-                  title="Restore"
+                  title="Khôi phục"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                 </button>
@@ -136,14 +136,14 @@ export default function VersionHistorySidebar({
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-indigo-500 shrink-0" />
                   <h3 className="font-semibold text-slate-800 dark:text-slate-100 text-sm sm:text-base truncate">
-                    Preview: {previewVersion.label}
+                    Xem trước: {previewVersion.label}
                   </h3>
                   <span className="px-1.5 py-0.5 text-xs font-semibold bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 rounded-md shrink-0">
                     v{previewVersion.version}
                   </span>
                 </div>
                 <p className="text-[11px] sm:text-xs text-slate-500 mt-1">
-                  Created at {formatTime(previewVersion.createdAt)} by {previewVersion.createdBy.fullName}
+                  Tạo lúc {formatTime(previewVersion.createdAt)} bởi {previewVersion.createdBy.fullName}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ export default function VersionHistorySidebar({
                   className="py-1.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all duration-200 flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Restore this version</span>
+                  <span>Khôi phục phiên bản này</span>
                 </button>
                 <button
                   onClick={() => setPreviewVersion(null)}
@@ -183,10 +183,10 @@ export default function VersionHistorySidebar({
               <AlertTriangle className="w-6 h-6 shrink-0 stroke-[2]" />
               <div>
                 <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-sm">
-                  Restore version?
+                  Khôi phục phiên bản?
                 </h4>
                 <p className="text-xs text-slate-500 mt-1">
-                  The current document content will be completely overwritten by the restored version content. Active users will receive the new content. This action cannot be directly undone.
+                  Nội dung tài liệu hiện tại sẽ bị ghi đè hoàn toàn bởi nội dung của phiên bản được khôi phục. Người dùng đang hoạt động sẽ nhận được nội dung mới. Hành động này không thể hoàn tác trực tiếp.
                 </p>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function VersionHistorySidebar({
                 onClick={() => setConfirmRestoreId(null)}
                 className="py-2 px-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-gray-900 dark:hover:bg-gray-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-semibold transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 disabled={isRestoring}
@@ -208,7 +208,7 @@ export default function VersionHistorySidebar({
                 ) : (
                   <RotateCcw className="w-3.5 h-3.5" />
                 )}
-                <span>Restore</span>
+                <span>Khôi phục</span>
               </button>
             </div>
           </div>

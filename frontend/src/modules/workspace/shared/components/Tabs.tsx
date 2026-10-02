@@ -14,7 +14,7 @@ const Tabs = ({ workspace, activeTab, setActiveTab }: TabProps) => {
   return (
     <OverflowTabs activeId={activeTab}>
       <OverflowTabs.Item id="board" onSelect={() => setActiveTab("board")}>
-        Board
+        Bảng
       </OverflowTabs.Item>
       {template === "scrum" && (
         <OverflowTabs.Item id="backlog" onSelect={() => setActiveTab("backlog")}>
@@ -22,25 +22,25 @@ const Tabs = ({ workspace, activeTab, setActiveTab }: TabProps) => {
         </OverflowTabs.Item>
       )}
       <OverflowTabs.Item id="timeline" onSelect={() => setActiveTab("timeline")}>
-        Timeline
+        Mốc thời gian
       </OverflowTabs.Item>
       <OverflowTabs.Item id="calendar" onSelect={() => setActiveTab("calendar")}>
-        Calendar
+        Lịch
       </OverflowTabs.Item>
       <OverflowTabs.Item id="list" onSelect={() => setActiveTab("list")}>
-        List
+        Danh sách
       </OverflowTabs.Item>
       <OverflowTabs.Item id="archive" onSelect={() => setActiveTab("archive")}>
-        Archive
+        Lưu trữ
       </OverflowTabs.Item>
       <OverflowTabs.Item id="pages" onSelect={() => setActiveTab("pages")}>
-        Docs
+        Tài liệu
       </OverflowTabs.Item>
       <OverflowTabs.Item id="members" onSelect={() => setActiveTab("members")}>
-        Members
+        Thành viên
       </OverflowTabs.Item>
       <OverflowTabs.Item id="reports" onSelect={() => setActiveTab("reports")}>
-        Reports
+        Báo cáo
       </OverflowTabs.Item>
     </OverflowTabs>
   );

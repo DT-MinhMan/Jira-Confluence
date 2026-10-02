@@ -108,7 +108,7 @@ export default function LinkEditorPopover({ editor, anchorEl, onClose }: LinkEdi
     event.preventDefault();
     const href = normalizeLinkUrl(url);
     if (!href) {
-      toast.error("Invalid URL");
+      toast.error("URL không hợp lệ");
       return;
     }
     const attrs: LinkAttrs = {
@@ -152,7 +152,7 @@ export default function LinkEditorPopover({ editor, anchorEl, onClose }: LinkEdi
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2 text-[0.6875rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
           <LinkIcon className="h-3.5 w-3.5" />
-          Link
+          Liên kết
         </div>
         <button type="button" onClick={onClose} className="rounded-[4px] p-1 text-[#ABABAB] hover:bg-[#F7F6F3] dark:hover:bg-white/5 transition-colors">
           <X className="h-3.5 w-3.5" />
@@ -161,12 +161,12 @@ export default function LinkEditorPopover({ editor, anchorEl, onClose }: LinkEdi
 
       <form onSubmit={submitLink} className="space-y-3">
         <label className="block text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">
-          Display Text
+          Văn bản hiển thị
           <input
             type="text"
             value={displayText}
             onChange={(event) => setDisplayText(event.target.value)}
-            placeholder="Enter display text"
+            placeholder="Nhập văn bản hiển thị"
             className={inputCls}
           />
         </label>
@@ -190,7 +190,7 @@ export default function LinkEditorPopover({ editor, anchorEl, onClose }: LinkEdi
             onChange={(event) => setOpenNewTab(event.target.checked)}
             className="h-3.5 w-3.5 rounded border-[#EAEAEA] accent-[#2563EB]"
           />
-          Open in new tab
+          Mở trong tab mới
         </label>
 
         <div className="flex items-center justify-between gap-2 pt-1">
@@ -201,7 +201,7 @@ export default function LinkEditorPopover({ editor, anchorEl, onClose }: LinkEdi
               className="inline-flex h-8 items-center gap-1.5 rounded-[4px] px-2 text-[0.6875rem] font-semibold text-[#9F2F2D] hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)] transition-colors"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              Remove Link
+              Gỡ liên kết
             </button>
           ) : (
             <span />
@@ -211,7 +211,7 @@ export default function LinkEditorPopover({ editor, anchorEl, onClose }: LinkEdi
             className="inline-flex h-8 items-center gap-1.5 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-3 text-[0.6875rem] font-semibold text-white hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-colors"
           >
             <ExternalLink className="h-3.5 w-3.5" />
-            Apply
+            Áp dụng
           </button>
         </div>
       </form>

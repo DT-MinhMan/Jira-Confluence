@@ -17,7 +17,7 @@ export default function DocumentToolbar({ query, setQuery, sortBy, setSortBy }: 
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search documents..."
+            placeholder="Tìm kiếm tài liệu..."
             className="w-full rounded-[6px] border border-[#EAEAEA] bg-[#F9F9F8] py-2.5 pl-9 pr-3 text-sm text-[#111111] outline-none transition-colors focus:border-[#2563EB] focus:bg-white dark:border-white/[0.06] dark:bg-[#2A2A2A] dark:text-[#E8E8E7] dark:focus:border-[#3B82F6]"
           />
         </div>
@@ -26,9 +26,9 @@ export default function DocumentToolbar({ query, setQuery, sortBy, setSortBy }: 
           onChange={(e) => setSortBy(e.target.value as DocumentSortBy)}
           className="rounded-[6px] border border-[#EAEAEA] bg-[#F9F9F8] px-3 py-2.5 text-sm text-[#111111] outline-none transition-colors focus:border-[#2563EB] focus:bg-white dark:border-white/[0.06] dark:bg-[#2A2A2A] dark:text-[#E8E8E7] dark:focus:border-[#3B82F6]"
         >
-          <option value="newest">Newest</option>
-          <option value="name">Name (A-Z)</option>
-          <option value="size">Size (Largest)</option>
+          <option value="newest">Mới nhất</option>
+          <option value="name">Tên (A-Z)</option>
+          <option value="size">Kích thước (Lớn nhất)</option>
         </select>
       </div>
     </div>

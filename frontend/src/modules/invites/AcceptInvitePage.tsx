@@ -32,39 +32,39 @@ function getRoleMeta(role: string) {
   const normalized = (role || '').toLowerCase();
   if (normalized.includes('admin')) {
     return {
-      label: 'Workspace Admin',
+      label: 'Quản trị viên',
       badgeColor: 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-800/80',
       icon: ShieldCheck,
-      description: 'Full control over workspace settings, sprint management, and team invites.',
+      description: 'Toàn quyền quản trị cài đặt, chu kỳ sprint và lời mời thành viên.',
       permissions: [
-        'Manage sprint cycles, backlog prioritization & releases',
-        'Invite new members and configure role access',
-        'Full read & write access across all Confluence docs',
+        'Quản lý chu kỳ sprint, sắp xếp backlog & phiên bản phát hành',
+        'Mời thành viên mới và cấu hình phân quyền vai trò',
+        'Toàn quyền đọc & ghi trên tất cả tài liệu Confluence',
       ],
     };
   }
   if (normalized.includes('viewer') || normalized.includes('guest')) {
     return {
-      label: 'Workspace Viewer',
+      label: 'Người xem',
       badgeColor: 'bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-950/60 dark:text-teal-300 dark:border-teal-800/80',
       icon: UsersRound,
-      description: 'Read-only access to sprint boards, tasks, and documentation.',
+      description: 'Quyền chỉ đọc bảng sprint, nhiệm vụ và tài liệu.',
       permissions: [
-        'View real-time Kanban boards and sprint progress',
-        'Read Confluence specs and project documentation',
-        'Comment on assigned tickets and updates',
+        'Xem bảng Kanban và tiến độ sprint theo thời gian thực',
+        'Đọc tài liệu mô tả và đặc tả dự án Confluence',
+        'Bình luận về các ticket và cập nhật được phân công',
       ],
     };
   }
   return {
-    label: 'Team Member',
+    label: 'Thành viên dự án',
     badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800/80',
     icon: UsersRound,
-    description: 'Standard agile contributor with full task and documentation capabilities.',
+    description: 'Thành viên phát triển Agile với đầy đủ quyền thực thi nhiệm vụ và tài liệu.',
     permissions: [
-      'Create, estimate, and assign sprint tasks & bugs',
-      'Drag-and-drop cards across Kanban status columns',
-      'Author and edit collaborative Confluence documents',
+      'Tạo, ước tính và phân công nhiệm vụ sprint & lỗi',
+      'Kéo thả thẻ nhiệm vụ qua các cột trạng thái Kanban',
+      'Tạo và chỉnh sửa tài liệu cộng tác Confluence',
     ],
   };
 }
@@ -82,7 +82,7 @@ export default function AcceptInvitePage({ token }: Props) {
     inviteService
       .getInviteByToken(token)
       .then(setInvite)
-      .catch(() => setFetchError('This invitation does not exist or has expired.'))
+      .catch(() => setFetchError('Lời mời này không tồn tại hoặc đã hết hạn.'))
       .finally(() => setLoadingInvite(false));
   }, [token]);
 
@@ -113,25 +113,25 @@ export default function AcceptInvitePage({ token }: Props) {
     try {
       const workspaceKey = invite?.workspaceKey;
       if (!workspaceKey) {
-        toast.error('Could not identify the invitation workspace.');
+        toast.error('Không thể xác định không gian làm việc của lời mời.');
         return;
       }
 
       await inviteService.acceptInvite(token);
       setDone(true);
-      toast.success('You have joined the workspace successfully!');
+      toast.success('Bạn đã tham gia không gian làm việc thành công!');
       setTimeout(() => router.push(`/workspaces/${workspaceKey}`), 1500);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       const status = e?.response?.status;
       const workspaceKey = invite?.workspaceKey;
       if (status === 409 && workspaceKey) {
-        toast.success('You are already a member of this workspace.');
+        toast.success('Bạn đã là thành viên của không gian làm việc này.');
         setTimeout(() => router.push(`/workspaces/${workspaceKey}`), 1500);
         setDone(true);
         return;
       }
-      toast.error(e?.response?.data?.message || 'Could not accept the invitation.');
+      toast.error(e?.response?.data?.message || 'Không thể chấp nhận lời mời.');
     } finally {
       setAccepting(false);
     }
@@ -158,9 +158,9 @@ export default function AcceptInvitePage({ token }: Props) {
           </div>
           <div>
             <h2 className="text-base font-bold text-slate-900 dark:text-white">
-              Verifying workspace invitation...
+              Đang xác thực lời mời không gian làm việc...
             </h2>
-            <p className="mt-1 text-xs text-slate-500">Connecting to TaskFlow secure workspace</p>
+            <p className="mt-1 text-xs text-slate-500">Đang kết nối đến không gian làm việc bảo mật TaskFlow</p>
           </div>
         </div>
       </div>
@@ -178,20 +178,20 @@ export default function AcceptInvitePage({ token }: Props) {
             <XCircle className="h-8 w-8" />
           </div>
           <h1 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
-            Invitation Expired or Invalid
+            Lời mời đã hết hạn hoặc không hợp lệ
           </h1>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             {fetchError}
           </p>
           <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-500 dark:border-white/10 dark:bg-slate-800/60">
-            If you received this invitation recently, please contact your workspace administrator to request a new invite link.
+            Nếu bạn mới nhận được lời mời này gần đây, vui lòng liên hệ quản trị viên không gian làm việc để nhận đường dẫn mời mới.
           </div>
           <div className="mt-6">
             <Link
               href="/"
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0C66E4] px-5 py-3 text-sm font-bold text-white shadow-md transition hover:bg-blue-700"
             >
-              Return to TaskFlow Home
+              Quay lại trang chủ TaskFlow
             </Link>
           </div>
         </div>
@@ -221,16 +221,16 @@ export default function AcceptInvitePage({ token }: Props) {
             <CheckCircle2 className="h-10 w-10 animate-pulse" />
           </div>
           <h1 className="mt-5 text-2xl font-black text-slate-900 dark:text-white">
-            Welcome to {invite.workspaceName}!
+            Chào mừng bạn đến với {invite.workspaceName}!
           </h1>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            You have successfully joined as a <strong className="text-blue-600 dark:text-blue-400">{roleMeta.label}</strong>.
+            Bạn đã tham gia thành công với vai trò <strong className="text-blue-600 dark:text-blue-400">{roleMeta.label}</strong>.
           </p>
           <div className="mt-6 flex flex-col items-center gap-2">
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
               <div className="h-full w-full animate-[progress_1.5s_ease-in-out] bg-emerald-500 rounded-full" />
             </div>
-            <p className="text-xs text-slate-400">Redirecting to your workspace board...</p>
+            <p className="text-xs text-slate-400">Đang chuyển hướng đến bảng làm việc của bạn...</p>
           </div>
         </div>
       </div>
@@ -255,14 +255,14 @@ export default function AcceptInvitePage({ token }: Props) {
             />
             <span className="font-extrabold text-slate-900 dark:text-white text-base">TaskFlow</span>
             <span className="rounded bg-blue-100 dark:bg-blue-950/60 px-1.5 py-0.5 text-[10px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
-              Workspace Invite
+              Lời mời Workspace
             </span>
           </Link>
           <Link
             href="/"
             className="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition"
           >
-            Back to Home
+            Quay lại Trang chủ
           </Link>
         </div>
       </header>
@@ -285,7 +285,7 @@ export default function AcceptInvitePage({ token }: Props) {
                 </span>
               </div>
               <p className="mt-1 text-xs text-slate-500 flex items-center gap-1.5">
-                <span>Invited by</span>
+                <span>Được mời bởi</span>
                 <strong className="text-slate-700 dark:text-slate-300">
                   {invite.invitedBy?.fullName || invite.invitedBy?.email}
                 </strong>
@@ -297,7 +297,7 @@ export default function AcceptInvitePage({ token }: Props) {
           <div className="mt-6 rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 dark:border-white/10 dark:bg-slate-800/40">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Assigned Role
+                Vai trò được chỉ định
               </span>
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${roleMeta.badgeColor}`}
@@ -326,13 +326,13 @@ export default function AcceptInvitePage({ token }: Props) {
             <div className="flex items-center gap-1.5">
               <Mail className="h-3.5 w-3.5 text-slate-400" />
               <span>
-                {invite.invitedEmail ? `Sent to: ${invite.invitedEmail}` : 'Public invitation link'}
+                {invite.invitedEmail ? `Gửi tới: ${invite.invitedEmail}` : 'Đường dẫn mời công khai'}
               </span>
             </div>
             {invite.expiresAt && (
               <div className="flex items-center gap-1.5 text-slate-400">
                 <Calendar className="h-3.5 w-3.5" />
-                <span>Expires {new Date(invite.expiresAt).toLocaleDateString('en-US')}</span>
+                <span>Hết hạn vào {new Date(invite.expiresAt).toLocaleDateString('vi-VN')}</span>
               </div>
             )}
           </div>
@@ -342,9 +342,9 @@ export default function AcceptInvitePage({ token }: Props) {
             <div className="mt-6 flex items-start gap-3 rounded-xl border border-yellow-200 bg-yellow-50 p-4 text-xs text-yellow-800 dark:border-yellow-800 dark:bg-yellow-950/40 dark:text-yellow-300">
               <AlertCircle className="h-4 w-4 shrink-0 text-yellow-600 dark:text-yellow-400 mt-0.5" />
               <div>
-                <strong className="block font-semibold">Invitation No Longer Active</strong>
+                <strong className="block font-semibold">Lời mời không còn khả dụng</strong>
                 <span>
-                  This invite link has {invite.status === 'accepted' ? 'already been accepted' : 'expired or been revoked'}.
+                  Đường dẫn mời này {invite.status === 'accepted' ? 'đã được chấp nhận' : 'đã hết hạn hoặc bị thu hồi'}.
                 </span>
               </div>
             </div>
@@ -355,16 +355,16 @@ export default function AcceptInvitePage({ token }: Props) {
               <div className="flex items-start gap-2.5">
                 <AlertCircle className="h-4 w-4 shrink-0 text-amber-600 mt-0.5" />
                 <div>
-                  <strong className="block font-semibold">Different Account Detected</strong>
+                  <strong className="block font-semibold">Phát hiện tài khoản khác</strong>
                   <p className="mt-1 leading-relaxed">
-                    This invite was sent specifically to <strong>{invite.invitedEmail}</strong>, but you are currently signed in as <strong>{user?.email}</strong>.
+                    Lời mời này được gửi riêng cho <strong>{invite.invitedEmail}</strong>, nhưng bạn hiện đang đăng nhập với tài khoản <strong>{user?.email}</strong>.
                   </p>
                   <button
                     type="button"
                     onClick={() => void logout()}
                     className="mt-3 inline-flex items-center gap-1.5 font-bold text-blue-700 dark:text-blue-400 underline hover:text-blue-800"
                   >
-                    <LogOut className="h-3.5 w-3.5" /> Switch account or sign out
+                    <LogOut className="h-3.5 w-3.5" /> Chuyển tài khoản hoặc đăng xuất
                   </button>
                 </div>
               </div>
@@ -375,12 +375,12 @@ export default function AcceptInvitePage({ token }: Props) {
             <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50/80 p-4 text-xs text-blue-900 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-200">
               <div className="flex items-center gap-2 font-semibold">
                 <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                <span>Account Required</span>
+                <span>Yêu cầu tài khoản</span>
               </div>
               <p className="mt-1 leading-relaxed text-blue-800/90 dark:text-blue-300">
                 {isLinkInvite
-                  ? 'Sign in or register a free account to join this workspace.'
-                  : `Please sign in with ${invite.invitedEmail} to accept your workspace invitation.`}
+                  ? 'Đăng nhập hoặc đăng ký tài khoản miễn phí để tham gia không gian làm việc này.'
+                  : `Vui lòng đăng nhập với ${invite.invitedEmail} để chấp nhận lời mời tham gia không gian làm việc.`}
               </p>
             </div>
           )}
@@ -391,7 +391,7 @@ export default function AcceptInvitePage({ token }: Props) {
               {isAuthenticated ? (
                 <>
                   <div className="flex items-center justify-between rounded-xl bg-slate-100 dark:bg-slate-800/60 px-3.5 py-2 text-xs text-slate-600 dark:text-slate-300">
-                    <span>Joining as:</span>
+                    <span>Tham gia với tên:</span>
                     <span className="font-semibold text-slate-900 dark:text-white">
                       {user?.fullName || user?.email}
                     </span>
@@ -406,12 +406,12 @@ export default function AcceptInvitePage({ token }: Props) {
                     {accepting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Joining Workspace...</span>
+                        <span>Đang tham gia không gian làm việc...</span>
                       </>
                     ) : (
                       <>
                         <UserPlus className="h-4 w-4" />
-                        <span>Accept Invitation & Join</span>
+                        <span>Chấp nhận lời mời & Tham gia</span>
                         <ArrowRight className="h-4 w-4" />
                       </>
                     )}
@@ -421,7 +421,7 @@ export default function AcceptInvitePage({ token }: Props) {
                     href="/"
                     className="block text-center text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 py-1"
                   >
-                    Decline / Not Now
+                    Từ chối / Để sau
                   </Link>
                 </>
               ) : (
@@ -430,14 +430,14 @@ export default function AcceptInvitePage({ token }: Props) {
                     href={`/login?callbackUrl=/invites/accept/${token}`}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0C66E4] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700"
                   >
-                    <span>Sign In to Accept</span>
+                    <span>Đăng nhập để chấp nhận</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href={`/register?callbackUrl=/invites/accept/${token}`}
                     className="flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
                   >
-                    Create New Account
+                    Tạo tài khoản mới
                   </Link>
                 </div>
               )}
@@ -448,7 +448,7 @@ export default function AcceptInvitePage({ token }: Props) {
 
       {/* Footer minimal */}
       <footer className="border-t border-slate-200/70 bg-white/50 dark:border-white/[0.05] dark:bg-[#0B0F17]/50 py-4 text-center text-xs text-slate-400">
-        <p>© {new Date().getFullYear()} TaskFlow Workspace Platform. Powered by Atlassian Agile Standards.</p>
+        <p>© {new Date().getFullYear()} Nền tảng TaskFlow Workspace. Chuẩn quy trình Agile hiện đại.</p>
       </footer>
     </div>
   );

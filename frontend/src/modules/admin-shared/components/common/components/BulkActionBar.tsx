@@ -97,14 +97,14 @@ export default function BulkActionBar({
           <div className="bg-[#2563EB] min-w-[1.5rem] h-6 px-1 rounded-[4px] flex items-center justify-center text-xs font-bold">
             {selectedCount}
           </div>
-          <span className="text-sm font-medium text-[#9B9A97] whitespace-nowrap">selected</span>
+          <span className="text-sm font-medium text-[#9B9A97] whitespace-nowrap">đã chọn</span>
         </div>
 
         {/* Status */}
         {canEditTask && (
           <StatusPicker
             value={null}
-            placeholder="Status"
+            placeholder="Trạng thái"
             placement="top"
             options={STATUS_OPTIONS}
             onChange={(status) => apply({ status })}
@@ -157,7 +157,7 @@ export default function BulkActionBar({
               className={showSprintMenu ? BTN_ACTIVE : BTN_DEFAULT}
             >
               <ArrowRightCircle className="w-3.5 h-3.5 text-[#3B82F6] shrink-0" />
-              <span>Move sprint</span>
+              <span>Chuyển sprint</span>
               <ChevronUp className="w-3 h-3 text-[#6B6B6B]" />
             </button>
             {showSprintMenu && (
@@ -166,7 +166,7 @@ export default function BulkActionBar({
                   onClick={() => { onMoveSprint(null); setShowSprintMenu(false); }}
                   className={`${menuItemCls} italic text-[#6B6B6B] hover:text-[#9B9A97]`}
                 >
-                  Backlog (no sprint)
+                  Backlog (không có sprint)
                 </button>
                 {sprints && sprints.length > 0 && (
                   <>
@@ -196,7 +196,7 @@ export default function BulkActionBar({
             className="h-8 flex items-center gap-1.5 px-3 rounded-[6px] text-sm font-medium text-[#F87171] hover:text-[#FCA5A5] hover:bg-[rgba(159,47,45,0.12)] transition-colors"
           >
             <Trash2 className="w-3.5 h-3.5 shrink-0" />
-            Delete
+            Xóa
           </button>
         )}
 
@@ -204,7 +204,7 @@ export default function BulkActionBar({
         <button
           onClick={onClear}
           className="h-8 w-8 flex items-center justify-center hover:bg-white/8 rounded-[6px] text-[#6B6B6B] hover:text-[#E8E8E7] transition-colors shrink-0"
-          title="Deselect all (Esc)"
+          title="Bỏ chọn tất cả (Esc)"
         >
           <X className="w-4 h-4" />
         </button>

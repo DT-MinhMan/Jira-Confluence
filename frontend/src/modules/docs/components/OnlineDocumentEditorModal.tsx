@@ -116,9 +116,9 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
   }, [open, loading, status, editor, doc, title, onSaved]);
 
   const statusLabel = useMemo(() => {
-    if (status === "saving") return "Saving...";
-    if (status === "saved") return lastSavedAt ? `Saved at ${lastSavedAt}` : "Saved";
-    return "Unsaved changes";
+    if (status === "saving") return "Đang lưu...";
+    if (status === "saved") return lastSavedAt ? `Đã lưu lúc ${lastSavedAt}` : "Đã lưu";
+    return "Thay đổi chưa lưu";
   }, [status, lastSavedAt]);
 
   const hasUnsavedChanges = open && !loading && status !== "saved";
@@ -131,7 +131,7 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
       editor.commands.setContent(res.content || "", { emitUpdate: false });
       setStatus("saved");
     } catch {
-      toast.error("Can not load document content");
+      toast.error("Không thể tải nội dung tài liệu");
       onClose();
     } finally {
       setLoading(false);
@@ -153,10 +153,10 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
       updatedDoc = await documentService.updateContent(doc._id, sanitized);
       setStatus("saved");
       onSaved?.(updatedDoc);
-      toast.success("Document saved successfully");
+      toast.success("Đã lưu tài liệu thành công");
     } catch (error) {
       setStatus("idle");
-      toast.error("Failed to save document");
+      toast.error("Lưu tài liệu thất bại");
       throw error;
     }
   }, [doc, editor, onSaved, title]);
@@ -167,7 +167,7 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
       const data = await documentService.getVersions(doc._id);
       setVersions(data);
     } catch {
-      toast.error("Can not load version history");
+      toast.error("Không thể tải lịch sử phiên bản");
     } finally {
       setVersionsLoading(false);
     }
@@ -186,9 +186,9 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
       const version = await documentService.createVersion(doc._id, label);
       setVersions((prev) => [version, ...prev]);
       setShowVersionModal(false);
-      toast.success("Version created successfully");
+      toast.success("Đã tạo phiên bản thành công");
     } catch {
-      toast.error("Failed to create version");
+      toast.error("Tạo phiên bản thất bại");
     } finally {
       setIsPublishing(false);
     }
@@ -200,7 +200,7 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
     editor?.commands.setContent(content.content || "", { emitUpdate: false });
     setStatus("saved");
     onSaved?.(restored);
-    toast.success("Version restored successfully");
+    toast.success("Đã khôi phục phiên bản thành công");
     return restored;
   }, [doc._id, editor, onSaved]);
 
@@ -211,9 +211,9 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
         await saveContent();
       }
       await documentService.exportDocx(doc._id, title || doc.name);
-      toast.success("Word file exported successfully");
+      toast.success("Đã xuất tệp Word thành công");
     } catch {
-      toast.error("Failed to export Word file");
+      toast.error("Xuất tệp Word thất bại");
     } finally {
       setIsExportingDocx(false);
     }
@@ -221,7 +221,7 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
 
   const handleImportDocx = useCallback(async (file: File) => {
     if (!editor) return;
-    const confirmed = window.confirm("Importing Word will replace the current document content. Continue?");
+    const confirmed = window.confirm("Nhập tệp Word sẽ thay thế nội dung tài liệu hiện tại. Bạn có muốn tiếp tục?");
     if (!confirmed) return;
 
     setIsImportingDocx(true);
@@ -229,9 +229,9 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
       const html = await documentService.importDocx(file);
       editor.commands.setContent(html);
       setStatus("idle");
-      toast.success("Word file imported successfully");
+      toast.success("Đã nhập tệp Word thành công");
     } catch {
-      toast.error("Failed to import Word file");
+      toast.error("Nhập tệp Word thất bại");
     } finally {
       setIsImportingDocx(false);
     }
@@ -304,9 +304,9 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
       <div className="flex h-dvh w-full flex-col overflow-hidden">
         <div className="flex items-center justify-between border-b border-[#EAEAEA] bg-white px-5 py-3 dark:border-white/[0.06] dark:bg-[#202020] print:hidden">
           <div className="flex items-center gap-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-            <span>Library</span>
+            <span>Thư viện</span>
             <span>{">"}</span>
-            <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{title || "Untitled Document"}</span>
+            <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{title || "Tài liệu chưa đặt tên"}</span>
           </div>
           <div className="flex items-center gap-2">
             {status === "saving" ? (
@@ -332,7 +332,7 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
                   ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-300"
                   : "text-[#787774] hover:bg-[#F7F6F3] dark:text-[#9B9A97] dark:hover:bg-white/5"
               }`}
-              title="Version history"
+              title="Lịch sử phiên bản"
             >
               <History className="h-4 w-4" />
             </button>
@@ -340,13 +340,13 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
               onClick={handleExportDocx}
               disabled={isExportingDocx}
               className="rounded-[4px] p-2 text-[#787774] transition-colors hover:bg-[#F7F6F3] disabled:opacity-50 dark:text-[#9B9A97] dark:hover:bg-white/5"
-              title="Export Word"
+              title="Xuất Word"
             >
               {isExportingDocx ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
             </button>
             <label
               className="rounded-[4px] p-2 text-[#787774] transition-colors hover:bg-[#F7F6F3] dark:text-[#9B9A97] dark:hover:bg-white/5"
-              title="Import Word"
+              title="Nhập Word"
             >
               {isImportingDocx ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
               <input
@@ -368,18 +368,18 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
               className="inline-flex items-center gap-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-3 py-2 text-xs font-semibold text-white hover:bg-[#1D4ED8]"
             >
               <Save className="h-3.5 w-3.5" />
-              Save
+              Lưu
             </button>
             <button
               onClick={() => {
-                setVersionLabel(`Version ${versions.length + 1}`);
+                setVersionLabel(`Phiên bản ${versions.length + 1}`);
                 setShowVersionModal(true);
               }}
               disabled={isPublishing}
               className="inline-flex items-center gap-2 rounded-[6px] bg-indigo-600 px-3 py-2 text-xs font-semibold text-white hover:bg-indigo-700 disabled:opacity-50"
             >
               {isPublishing ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Bookmark className="h-3.5 w-3.5" />}
-              Version
+              Phiên bản
             </button>
             <button onClick={onClose} className="rounded-[4px] p-2 text-[#787774] dark:text-[#9B9A97] hover:bg-[#F7F6F3] dark:hover:bg-white/5">
               <X className="h-4 w-4" />
@@ -399,13 +399,13 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
             {loading ? (
               <div className="flex h-full items-center justify-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Loading content...
+                Đang tải nội dung...
               </div>
             ) : (
               <div className="mx-auto w-full max-w-[75rem] px-6 py-8 lg:px-10">
               <div className="mb-10">
                 <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-wide text-[#ABABAB] dark:text-[#6B6B6B] print:hidden">
-                  Document Title
+                  Tiêu đề tài liệu
                 </p>
                 <div className="rounded-[8px] border border-[#D5DAE1] bg-[#F8FAFC] px-5 py-4 shadow-sm transition focus-within:border-[#2563EB] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2563EB]/10 dark:border-white/[0.14] dark:bg-[#292929] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.03)] dark:focus-within:border-[#3B82F6] dark:focus-within:bg-[#2D2D2D] dark:focus-within:ring-[#3B82F6]/15">
                   <input
@@ -416,14 +416,14 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
                       setStatus("idle");
                     }}
                     className="w-full bg-transparent text-4xl font-extrabold leading-tight tracking-tight text-[#111111] dark:text-[#E8E8E7] outline-none placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B]"
-                    placeholder="Enter document title..."
+                    placeholder="Nhập tiêu đề tài liệu..."
                   />
                 </div>
               </div>
 
               <div className="pb-40">
                 <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-wide text-[#ABABAB] dark:text-[#6B6B6B] print:hidden">
-                  Document Content
+                  Nội dung tài liệu
                 </p>
                 <div className="min-h-[37.5rem] rounded-[8px] border border-[#D5DAE1] bg-[#F8FAFC] px-4 py-3 shadow-sm transition focus-within:border-[#2563EB] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2563EB]/10 dark:border-white/[0.14] dark:bg-[#292929] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.03)] dark:focus-within:border-[#3B82F6] dark:focus-within:bg-[#2D2D2D] dark:focus-within:ring-[#3B82F6]/15">
                   <div
@@ -474,12 +474,12 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
             }}
             className="w-full max-w-sm rounded-[10px] border border-[#EAEAEA] bg-white p-5 shadow-xl dark:border-white/[0.08] dark:bg-[#202020]"
           >
-            <h3 className="mb-2 text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">Create named version</h3>
+            <h3 className="mb-2 text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">Tạo phiên bản đặt tên</h3>
             <input
               value={versionLabel}
               onChange={(e) => setVersionLabel(e.target.value)}
               className="mb-4 w-full rounded-[6px] border border-[#D5DAE1] bg-white px-3 py-2 text-sm outline-none focus:border-[#2563EB] dark:border-white/[0.14] dark:bg-[#292929] dark:text-[#E8E8E7]"
-              placeholder="Version name"
+              placeholder="Tên phiên bản"
               maxLength={100}
               autoFocus
             />
@@ -489,14 +489,14 @@ export default function OnlineDocumentEditorModal({ doc, open, onClose, onSaved 
                 onClick={() => setShowVersionModal(false)}
                 className="rounded-[6px] px-3 py-2 text-xs font-semibold text-[#787774] hover:bg-[#F7F6F3] dark:text-[#9B9A97] dark:hover:bg-white/5"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="submit"
                 disabled={isPublishing || !versionLabel.trim()}
                 className="rounded-[6px] bg-indigo-600 px-3 py-2 text-xs font-semibold text-white hover:bg-indigo-700 disabled:opacity-50"
               >
-                Create
+                Tạo
               </button>
             </div>
           </form>

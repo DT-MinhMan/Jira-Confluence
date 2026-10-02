@@ -49,9 +49,9 @@ export default function TaskLabelModal({
       queryClient.setQueryData<TaskLabel[]>(labelsKey, (current = []) => [...current, createdLabel]);
       setSelectedIds((current) => [...current, createdLabel.id]);
       setNewLabelName("");
-      toast.success("Label created");
+      toast.success("Đã tạo nhãn");
     },
-    onError: (error) => toast.error(extractApiError(error, "Could not create label")),
+    onError: (error) => toast.error(extractApiError(error, "Không thể tạo nhãn")),
   });
 
   const deleteLabelMutation = useMutation({
@@ -65,9 +65,9 @@ export default function TaskLabelModal({
       setSelectedIds(nextSelectedIds);
       onSaved({ ...issue, labels: nextIssueLabels, labelIds: nextSelectedIds });
       setLabelToDelete(null);
-      toast.success("Label deleted");
+      toast.success("Đã xóa nhãn");
     },
-    onError: (error) => toast.error(extractApiError(error, "Could not delete label")),
+    onError: (error) => toast.error(extractApiError(error, "Không thể xóa nhãn")),
   });
 
   const saveLabelsMutation = useMutation({
@@ -79,10 +79,10 @@ export default function TaskLabelModal({
         labels: selectedLabels,
         labelIds: selectedIds,
       });
-      toast.success("Label updated");
+      toast.success("Đã cập nhật nhãn");
       onClose();
     },
-    onError: (error) => toast.error(extractApiError(error, "Could not update label")),
+    onError: (error) => toast.error(extractApiError(error, "Không thể cập nhật nhãn")),
   });
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function TaskLabelModal({
   const trimmedNewLabelName = newLabelName.trim();
   const isNewLabelTooLong = trimmedNewLabelName.length > MAX_LABEL_NAME_LENGTH;
   const newLabelError = isNewLabelTooLong
-    ? `Label name must be ${MAX_LABEL_NAME_LENGTH} characters or fewer.`
+    ? `Tên nhãn phải có từ ${MAX_LABEL_NAME_LENGTH} ký tự trở xuống.`
     : "";
   const canCreateLabel =
     Boolean(trimmedNewLabelName) &&
@@ -154,7 +154,7 @@ export default function TaskLabelModal({
           <div className="min-w-0">
             <h3 className="flex items-center gap-2 text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
               <Tag className="h-4 w-4 text-[#2563EB] dark:text-[#3B82F6]" />
-              Labels
+              Nhãn
             </h3>
             <p className="mt-1 truncate text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
               {issue.key} - {issue.title}
@@ -164,7 +164,7 @@ export default function TaskLabelModal({
             type="button"
             onClick={onClose}
             className="rounded-[6px] p-1.5 text-[#ABABAB] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
-            aria-label="Close labels"
+            aria-label="Đóng nhãn"
           >
             <X className="h-4 w-4" />
           </button>
@@ -181,7 +181,7 @@ export default function TaskLabelModal({
                   if (e.key === "Enter") handleCreateLabel();
                   if (e.key === "Escape") onClose();
                 }}
-                placeholder="Write label"
+                placeholder="Nhập tên nhãn..."
                 maxLength={MAX_LABEL_NAME_LENGTH + 1}
                 aria-invalid={isNewLabelTooLong}
                 aria-describedby="label-name-limit"
@@ -198,7 +198,7 @@ export default function TaskLabelModal({
                 className="inline-flex h-10 items-center gap-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-3 text-[0.8125rem] font-medium text-white transition-colors hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {createLabelMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-                Add
+                Thêm
               </button>
             </div>
             <div
@@ -209,7 +209,7 @@ export default function TaskLabelModal({
                   : "text-[#787774] dark:text-[#9B9A97]"
               }`}
             >
-              <span>{newLabelError || `Maximum ${MAX_LABEL_NAME_LENGTH} characters.`}</span>
+              <span>{newLabelError || `Tối đa ${MAX_LABEL_NAME_LENGTH} ký tự.`}</span>
               <span>{Math.min(newLabelName.length, MAX_LABEL_NAME_LENGTH + 1)}/{MAX_LABEL_NAME_LENGTH}</span>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function TaskLabelModal({
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search labels"
+              placeholder="Tìm kiếm nhãn..."
               className={`${inputCls} pl-9`}
             />
           </div>
@@ -228,11 +228,11 @@ export default function TaskLabelModal({
             {labelsQuery.isLoading ? (
               <div className="flex h-28 items-center justify-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Loading labels
+                Đang tải nhãn...
               </div>
             ) : filteredLabels.length === 0 ? (
               <div className="px-3 py-8 text-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                No labels found
+                Không tìm thấy nhãn nào
               </div>
             ) : (
               filteredLabels.map((label) => {
@@ -259,8 +259,8 @@ export default function TaskLabelModal({
                       onClick={() => setLabelToDelete(label)}
                       disabled={deleteLabelMutation.isPending && deleteLabelMutation.variables?.id === label.id}
                       className="shrink-0 rounded-[4px] p-1 text-[#ABABAB] transition-colors hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)] hover:text-[#9F2F2D] dark:hover:text-[#F87171] disabled:cursor-not-allowed disabled:opacity-50"
-                      aria-label={`Delete ${label.name}`}
-                      title="Delete label"
+                      aria-label={`Xóa nhãn ${label.name}`}
+                      title="Xóa nhãn"
                     >
                       {deleteLabelMutation.isPending && deleteLabelMutation.variables?.id === label.id ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
@@ -287,11 +287,11 @@ export default function TaskLabelModal({
                     <Trash2 className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Delete label</h4>
+                    <h4 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Xóa nhãn</h4>
                     <p className="mt-1 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                      Delete{" "}
+                      Bạn có chắc muốn xóa{" "}
                       <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">&quot;{labelToDelete.name}&quot;</span>?
-                      {" "}This will remove it from all tasks.
+                      {" "}Thao tác này sẽ gỡ bỏ nhãn khỏi tất cả nhiệm vụ.
                     </p>
                   </div>
                 </div>
@@ -303,7 +303,7 @@ export default function TaskLabelModal({
                   disabled={deleteLabelMutation.isPending}
                   className={cancelBtnCls}
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="button"
@@ -312,7 +312,7 @@ export default function TaskLabelModal({
                   className="inline-flex items-center gap-2 rounded-[6px] bg-[#9F2F2D] px-4 py-2 text-[0.8125rem] font-medium text-white transition-colors hover:bg-[#8F2927] dark:hover:bg-[#F87171]/80 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {deleteLabelMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Delete
+                  Xóa
                 </button>
               </div>
             </div>
@@ -321,7 +321,7 @@ export default function TaskLabelModal({
 
         <div className="flex justify-end gap-2 border-t border-[#EAEAEA] dark:border-white/[0.06] p-4">
           <button type="button" onClick={onClose} className={cancelBtnCls}>
-            Cancel
+            Hủy
           </button>
           <button
             type="button"
@@ -330,7 +330,7 @@ export default function TaskLabelModal({
             className="inline-flex items-center gap-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-4 py-2 text-[0.8125rem] font-medium text-white transition-colors hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saveLabelsMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
-            Save
+            Lưu
           </button>
         </div>
       </div>

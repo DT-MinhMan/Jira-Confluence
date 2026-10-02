@@ -114,7 +114,7 @@ export const useTaskHandlers = ({
           if (existingIssue && existingIssue.key) {
             queryClient.setQueryData(queryKeys.tasks.detail(workspaceId, existingIssue.key), existingIssue);
           }
-          toast.error(extractApiError(error, "Could not update task"));
+          toast.error(extractApiError(error, "Không thể cập nhật nhiệm vụ"));
         });
     },
     [queryClient, workspaceId]
@@ -151,7 +151,7 @@ export const useTaskHandlers = ({
       queryClient.invalidateQueries({ queryKey: queryKeyPrefix });
       invalidateDashboard(queryClient);
     } catch (error) {
-      toast.error(extractApiError(error, "Could not create task"));
+      toast.error(extractApiError(error, "Không thể tạo nhiệm vụ"));
     } finally {
       isCreatingRef.current = false;
     }
@@ -161,7 +161,7 @@ export const useTaskHandlers = ({
     updatedIssue: Issue
   ) => {
     if (!updatedIssue.id) {
-      toast.error("Task ID not found");
+      toast.error("Không tìm thấy mã nhiệm vụ");
       return;
     }
 
@@ -219,7 +219,7 @@ export const useTaskHandlers = ({
         queryClient.setQueryData(queryKeys.tasks.detail(workspaceId, updatedIssue.key), previousDetail);
       }
       setSelectedIssue(previousDetail ?? null);
-      toast.error(extractApiError(error, "Could not update task"));
+      toast.error(extractApiError(error, "Không thể cập nhật nhiệm vụ"));
     }
   };
 
@@ -253,7 +253,7 @@ export const useTaskHandlers = ({
       queryClient.invalidateQueries({ queryKey: queryKeyPrefix });
       invalidateDashboard(queryClient);
     } catch (error) {
-      toast.error(extractApiError(error, "Could not create task"));
+      toast.error(extractApiError(error, "Không thể tạo nhiệm vụ"));
     } finally {
       isCreatingRef.current = false;
     }
@@ -285,7 +285,7 @@ export const useTaskHandlers = ({
       queryClient.invalidateQueries({ queryKey: queryKeyPrefix });
       invalidateDashboard(queryClient);
     } catch (error) {
-      toast.error(extractApiError(error, 'Could not create task'));
+      toast.error(extractApiError(error, 'Không thể tạo nhiệm vụ'));
     } finally {
       isCreatingRef.current = false;
     }
@@ -312,7 +312,7 @@ export const useTaskHandlers = ({
       queryClient.invalidateQueries({ queryKey: queryKeyPrefix });
       invalidateDashboard(queryClient);
     } catch (error) {
-      toast.error(extractApiError(error, "Could not create work item"));
+      toast.error(extractApiError(error, "Không thể tạo nhiệm vụ"));
     } finally {
       isCreatingRef.current = false;
     }

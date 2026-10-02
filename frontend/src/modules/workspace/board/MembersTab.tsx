@@ -37,23 +37,23 @@ interface MembersTabProps {
 
 const ROLE_BADGE: Record<string, { label: string; cls: string }> = {
   workspace_admin: {
-    label: "Admin",
+    label: "Quản trị viên",
     cls: "bg-[#E1F3FE] text-[#1F6C9F] border-[#B9DDF3] dark:bg-[rgba(31,108,159,0.18)] dark:text-[#93C5FD] dark:border-[#1F6C9F]/35",
   },
   member: {
-    label: "Member",
+    label: "Thành viên",
     cls: "bg-[#EDF3EC] text-[#346538] border-[#C8DDC6] dark:bg-[rgba(52,101,56,0.18)] dark:text-[#86EFAC] dark:border-[#346538]/35",
   },
   viewer: {
-    label: "Viewer",
+    label: "Người xem",
     cls: "bg-[#F7F6F3] text-[#787774] border-[#EAEAEA] dark:bg-[#252525] dark:text-[#B8B7B3] dark:border-white/[0.08]",
   },
 };
 
 const ROLE_LABELS: Record<string, string> = {
-  workspace_admin: "Admin",
-  member: "Member",
-  viewer: "Viewer",
+  workspace_admin: "Quản trị viên",
+  member: "Thành viên",
+  viewer: "Người xem",
 };
 
 function getMemberInitials(member: WorkspaceMember) {
@@ -113,10 +113,10 @@ export default function MembersTab({
           m.userId?._id === userId ? { ...m, role } : m,
         ),
       );
-      toast.success("Member permissions updated.");
+      toast.success("Đã cập nhật quyền thành viên.");
     } catch (error) {
       toast.error(
-        extractApiError(error, "Could not update member permissions."),
+        extractApiError(error, "Không thể cập nhật quyền thành viên."),
       );
     } finally {
       setUpdatingId(null);
@@ -134,10 +134,10 @@ export default function MembersTab({
         ["members", workspaceId],
         (prev) => (prev ?? []).filter((m) => m.userId?._id !== userId),
       );
-      toast.success("Member removed from workspace.");
+      toast.success("Đã xóa thành viên khỏi không gian làm việc.");
     } catch (error) {
       toast.error(
-        extractApiError(error, "Could not remove member."),
+        extractApiError(error, "Không thể xóa thành viên."),
       );
     } finally {
       setRemovingId(null);
@@ -152,10 +152,10 @@ export default function MembersTab({
         ["invites", workspaceId],
         (prev) => (prev ?? []).filter((i) => i._id !== inviteId),
       );
-      toast.success("Invitation cancelled.");
+      toast.success("Đã hủy lời mời.");
     } catch (error) {
       toast.error(
-        extractApiError(error, "Could not cancel invitation."),
+        extractApiError(error, "Không thể hủy lời mời."),
       );
     } finally {
       setCancelingId(null);
@@ -171,7 +171,7 @@ export default function MembersTab({
   if (isLoading) {
     return (
       <div className="flex items-center gap-2 py-12 text-sm text-[#ABABAB] dark:text-[#6B6B6B]">
-        <Loader2 className="h-4 w-4 animate-spin" /> Loading members...
+        <Loader2 className="h-4 w-4 animate-spin" /> Đang tải danh sách thành viên...
       </div>
     );
   }
@@ -195,7 +195,7 @@ export default function MembersTab({
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-[#787774] dark:text-[#9B9A97]" />
             <span className="text-sm font-semibold text-[#111111] dark:text-[#E8E8E7]">
-              {members.length} member{members.length !== 1 ? "s" : ""}
+              {members.length} thành viên
             </span>
           </div>
           {isAdmin && (
@@ -205,7 +205,7 @@ export default function MembersTab({
               className="inline-flex items-center gap-1.5 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB]"
             >
               <MailPlus className="h-3.5 w-3.5" />
-              Invite
+              Mời thành viên
             </button>
           )}
         </div>
@@ -218,14 +218,14 @@ export default function MembersTab({
               onClick={() => setMemberSubTab("list")}
               className={subTabCls(memberSubTab === "list")}
             >
-              List ({members.length})
+              Danh sách ({members.length})
             </button>
             <button
               type="button"
               onClick={() => setMemberSubTab("invites")}
               className={subTabCls(memberSubTab === "invites")}
             >
-              Invitations ({activePendingInvites.length})
+              Lời mời ({activePendingInvites.length})
             </button>
           </div>
         )}
@@ -235,7 +235,7 @@ export default function MembersTab({
           <section>
             {members.length === 0 ? (
               <div className="rounded-[6px] border border-dashed border-[#EAEAEA] p-6 text-center text-sm text-[#787774] dark:border-white/[0.08] dark:text-[#9B9A97]">
-                No members in this workspace.
+                Không có thành viên nào trong không gian làm việc này.
               </div>
             ) : (
               <div className="overflow-hidden rounded-[8px] border border-[#EAEAEA] dark:border-white/[0.06]">
@@ -243,7 +243,7 @@ export default function MembersTab({
                   {members.map((member) => {
                     const memberUser = member.userId;
                     const displayName =
-                      memberUser?.fullName || memberUser?.email || "User";
+                      memberUser?.fullName || memberUser?.email || "Người dùng";
                     const memberId = memberUser?._id;
                     const isSelf = memberId === currentUserId;
                     const isBusy = updatingId === memberId || removingId === memberId;
@@ -277,7 +277,7 @@ export default function MembersTab({
                               </p>
                               {isSelf && (
                                 <span className="rounded-full bg-[#F7F6F3] px-2 py-0.5 text-xs font-semibold text-[#787774] dark:bg-[#252525] dark:text-[#9B9A97]">
-                                  You
+                                  Bạn
                                 </span>
                               )}
                             </div>
@@ -309,7 +309,7 @@ export default function MembersTab({
                                 ) : (
                                   <Trash2 className="h-4 w-4" />
                                 )}
-                                Remove
+                                Xóa
                               </button>
                             </>
                           ) : (
@@ -334,11 +334,11 @@ export default function MembersTab({
           <section>
             {isLoadingInvites ? (
               <div className="flex items-center gap-2 py-8 text-sm text-[#ABABAB] dark:text-[#6B6B6B]">
-                <Loader2 className="h-4 w-4 animate-spin" /> Loading invitations...
+                <Loader2 className="h-4 w-4 animate-spin" /> Đang tải lời mời...
               </div>
             ) : activePendingInvites.length === 0 ? (
               <div className="rounded-[6px] border border-dashed border-[#EAEAEA] p-6 text-center text-sm text-[#787774] dark:border-white/[0.08] dark:text-[#9B9A97]">
-                There are no pending invitations.
+                Không có lời mời nào đang chờ.
               </div>
             ) : (
               <div className="overflow-x-auto rounded-[8px] border border-[#EAEAEA] dark:border-white/[0.06]">
@@ -346,9 +346,9 @@ export default function MembersTab({
                   <thead className="border-b border-[#EAEAEA] bg-[#F9F9F8] font-medium text-[#787774] dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#9B9A97]">
                     <tr>
                       <th className="px-4 py-3">Email</th>
-                      <th className="w-36 px-4 py-3">Role</th>
-                      <th className="w-40 px-4 py-3">Status</th>
-                      <th className="w-24 px-4 py-3 text-right">Actions</th>
+                      <th className="w-36 px-4 py-3">Vai trò</th>
+                      <th className="w-40 px-4 py-3">Trạng thái</th>
+                      <th className="w-24 px-4 py-3 text-right">Thao tác</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#EAEAEA] dark:divide-white/[0.06]">
@@ -367,9 +367,9 @@ export default function MembersTab({
                         </td>
                         <td className="px-4 py-3 text-xs text-[#787774] dark:text-[#9B9A97]">
                           {invite.expiresAt
-                            ? "Expires " +
-                              new Date(invite.expiresAt).toLocaleDateString("en-US")
-                            : "Pending, no expiration"}
+                            ? "Hết hạn " +
+                              new Date(invite.expiresAt).toLocaleDateString("vi-VN")
+                            : "Đang chờ, không thời hạn"}
                         </td>
                         <td className="px-4 py-3 text-right">
                           <button
@@ -383,7 +383,7 @@ export default function MembersTab({
                             ) : (
                               <X className="h-4 w-4" />
                             )}
-                            Cancel
+                            Hủy
                           </button>
                         </td>
                       </tr>

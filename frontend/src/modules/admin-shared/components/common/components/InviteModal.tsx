@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { X, Link as LinkIcon, Check, Loader2 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import RoleChanger, {
@@ -56,11 +56,11 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
       const { inviteUrl } = await inviteService.createInviteLink(projectId, role);
       await navigator.clipboard.writeText(inviteUrl);
       setIsCopied(true);
-      toast.success("Invite link copied.");
+      toast.success("Đã sao chép liên kết mời.");
       setTimeout(() => setIsCopied(false), 2000);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      toast.error(err?.response?.data?.message ?? "Could not generate invite link.");
+      toast.error(err?.response?.data?.message ?? "Không thể tạo liên kết mời.");
     } finally {
       setIsGeneratingLink(false);
     }
@@ -72,7 +72,7 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
 
     const invalidEmails = getInvalidEmails(emails);
     if (invalidEmails.length > 0) {
-      toast.error(`Invalid email: ${invalidEmails[0]}`);
+      toast.error(`Email không hợp lệ: ${invalidEmails[0]}`);
       return;
     }
 
@@ -93,20 +93,20 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
         .filter(({ r }) => r.status === "rejected");
 
       if (failed.length === 0) {
-        toast.success(`Invitation sent to ${emails.length} people.`);
+        toast.success(`Đã gửi lời mời đến ${emails.length} người.`);
         onClose();
       } else if (failed.length < emails.length) {
         const failedEmails = failed.map(({ email, r }) => {
           const msg = (r as PromiseRejectedResult).reason?.response?.data?.message;
           return msg ? `${email} (${msg})` : email;
         });
-        toast.error(`Some invitations failed: ${failedEmails.join(", ")}`);
+        toast.error(`Một số lời mời không thành công: ${failedEmails.join(", ")}`);
       } else {
         const firstMsg = (failed[0].r as PromiseRejectedResult).reason?.response?.data?.message;
-        toast.error(firstMsg || "User is already a member of this workspace.");
+        toast.error(firstMsg || "Người dùng đã là thành viên của không gian làm việc này.");
       }
     } catch {
-      toast.error("User is already a member of this workspace.");
+      toast.error("Người dùng đã là thành viên của không gian làm việc này.");
     } finally {
       setIsSubmitting(false);
     }
@@ -122,7 +122,7 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
         style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#EAEAEA] dark:border-white/[0.06]">
-          <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Add people to this Workspace</h2>
+          <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Thêm người vào Không gian làm việc này</h2>
           <button
             onClick={onClose}
             className="p-1.5 text-[#ABABAB] hover:text-[#111111] dark:hover:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors"
@@ -135,7 +135,7 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
           <div className="flex flex-col sm:flex-row gap-3 items-start">
             <div className="flex-1 w-full">
               <label className="block text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] mb-1.5">
-                Emails <span className="text-[#9F2F2D]">*</span>
+                Email <span className="text-[#9F2F2D]">*</span>
               </label>
               <textarea
                 value={emailInput}
@@ -172,7 +172,7 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
             ) : (
               <LinkIcon className="w-3.5 h-3.5" />
             )}
-            {isGeneratingLink ? "Generating..." : isCopied ? <span className="text-[#346538]">Copied</span> : "Copy link"}
+            {isGeneratingLink ? "Đang tạo..." : isCopied ? <span className="text-[#346538]">Đã sao chép</span> : "Sao chép liên kết"}
           </button>
 
           <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
@@ -181,7 +181,7 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
               disabled={isSubmitting || isGeneratingLink}
               className="px-4 py-2 text-[0.8125rem] font-medium text-[#111111] dark:text-[#E8E8E7] border border-[#EAEAEA] dark:border-white/[0.08] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors disabled:opacity-40"
             >
-              Cancel
+              Hủy
             </button>
             <button
               onClick={handleSubmit}
@@ -189,7 +189,7 @@ export default function InviteModal({ isOpen, onClose, projectId }: InviteModalP
               className="flex items-center gap-2 px-4 py-2 text-[0.8125rem] font-medium text-white bg-[#2563EB] dark:bg-[#3B82F6] hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] disabled:opacity-40 disabled:cursor-not-allowed rounded-[6px] transition-colors"
             >
               {isSubmitting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-              {isSubmitting ? "Sending..." : "Add"}
+              {isSubmitting ? "Đang gửi..." : "Thêm"}
             </button>
           </div>
         </div>

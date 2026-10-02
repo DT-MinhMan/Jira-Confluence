@@ -35,35 +35,35 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
-import { HeroAuthActions, HeroEasySignUpForm, NavAuthActions } from "./LandingAuthActions";
-import AdminNavLink from "./AdminNavLink";
+import { HeroAuthActions, HeroEasySignUpForm } from "./LandingAuthActions";
+import LandingGlassNavbar from "./LandingGlassNavbar";
 import BackToTop from "@/shared/components/back-to-top/BackToTop";
 
 // ==========================================
 // DỮ LIỆU GỐC 100% TỪ TASKFLOW
 // ==========================================
 const trustedTeams = [
-  "Startup Teams",
-  "Agencies",
-  "Developers",
-  "Product Teams",
-  "Enterprise Teams",
+  "Nhóm Startup",
+  "Doanh nghiệp Agency",
+  "Đội ngũ Lập trình viên",
+  "Nhóm Phát triển Sản phẩm",
+  "Doanh nghiệp Lớn",
 ];
 
 // Số liệu thống kê hỗ trợ hiệu ứng Count-Up (như Unbrew template)
 const statsData = [
-  { value: 10000, suffix: "+", label: "Tasks completed", detail: "tracked across all projects" },
-  { value: 500, suffix: "+", label: "Teams onboarded", detail: "collaborating seamlessly" },
-  { value: 99.9, suffix: "%", decimals: 1, label: "Platform uptime", detail: "enterprise-grade stability" },
+  { value: 10000, suffix: "+", label: "Nhiệm vụ hoàn thành", detail: "được theo dõi trên mọi dự án" },
+  { value: 500, suffix: "+", label: "Đội ngũ tham gia", detail: "cộng tác liền mạch và hiệu quả" },
+  { value: 99.9, suffix: "%", decimals: 1, label: "Thời gian hoạt động", detail: "độ ổn định chuẩn doanh nghiệp" },
 ];
 
 // 6 Thẻ Bento Grid phong cách Linear/Raycast với Spotlight Glow & Sheen
 const colorBlockFeatures = [
   {
     badge: "KANBAN",
-    title: "Kanban Board",
-    desc: "Visualize flow from backlog to done with status columns built for delivery teams.",
-    action: "Explore Kanban",
+    title: "Bảng Kanban",
+    desc: "Trực quan hóa luồng công việc từ backlog đến hoàn thành với các cột trạng thái được thiết kế cho đội ngũ triển khai.",
+    action: "Khám phá Kanban",
     icon: KanbanSquare,
     accentColor: "#10B981", // Emerald Green
     accentClass: "text-emerald-400",
@@ -75,9 +75,9 @@ const colorBlockFeatures = [
   },
   {
     badge: "SPRINT",
-    title: "Sprint Planning",
-    desc: "Plan iterations, balance capacity, and keep product priorities connected to execution.",
-    action: "Plan Sprints",
+    title: "Kế hoạch Sprint",
+    desc: "Lập kế hoạch sprint, cân bằng khối lượng công việc và gắn kết mục tiêu sản phẩm với thực thi.",
+    action: "Lập kế hoạch Sprint",
     icon: GitBranch,
     accentColor: "#F97316", // Terracotta Orange
     accentClass: "text-orange-400",
@@ -88,10 +88,10 @@ const colorBlockFeatures = [
     previewType: "sprint",
   },
   {
-    badge: "TEAMS",
-    title: "Team Collaboration",
-    desc: "Use comments, mentions, activity history, and ownership signals in one workspace.",
-    action: "Collaborate Now",
+    badge: "CỘNG TÁC",
+    title: "Cộng tác đội ngũ",
+    desc: "Sử dụng bình luận, nhắc tên (@mention), lịch sử hoạt động và phân công trách nhiệm trong cùng một không gian làm việc.",
+    action: "Cộng tác ngay",
     icon: UsersRound,
     accentColor: "#A855F7", // Purple / Violet
     accentClass: "text-purple-400",
@@ -102,10 +102,10 @@ const colorBlockFeatures = [
     previewType: "team",
   },
   {
-    badge: "ANALYTICS",
-    title: "Analytics & Health",
-    desc: "Monitor velocity, blockers, workload, and delivery health with focused dashboards.",
-    action: "View Analytics",
+    badge: "PHÂN TÍCH",
+    title: "Phân tích & Tiến độ",
+    desc: "Theo dõi tốc độ sprint, rào cản, khối lượng công việc và sức khỏe dự án qua các bảng điều khiển trực quan.",
+    action: "Xem phân tích",
     icon: BarChart3,
     accentColor: "#3B82F6", // Royal Blue
     accentClass: "text-blue-400",
@@ -116,10 +116,10 @@ const colorBlockFeatures = [
     previewType: "analytics",
   },
   {
-    badge: "REAL-TIME",
-    title: "Real-time Updates",
-    desc: "See progress, task movement, and project activity as teams collaborate live.",
-    action: "See Live Sync",
+    badge: "THỜI GIAN THỰC",
+    title: "Cập nhật thời gian thực",
+    desc: "Theo dõi tiến độ, di chuyển nhiệm vụ và hoạt động dự án được đồng bộ trực tiếp khi các thành viên phối hợp.",
+    action: "Xem đồng bộ trực tiếp",
     icon: Radio,
     accentColor: "#06B6D4", // Ocean Cyan
     accentClass: "text-cyan-400",
@@ -130,10 +130,10 @@ const colorBlockFeatures = [
     previewType: "realtime",
   },
   {
-    badge: "SECURITY",
-    title: "Role Permissions",
-    desc: "Protect workspaces with clear access control for admins, members, and guests.",
-    action: "Check Roles",
+    badge: "BẢO MẬT",
+    title: "Phân quyền theo vai trò",
+    desc: "Bảo vệ không gian làm việc với tính năng kiểm soát truy cập rõ ràng cho quản trị viên, thành viên và khách.",
+    action: "Kiểm tra phân quyền",
     icon: ShieldCheck,
     accentColor: "#EF4444", // Crimson Red
     accentClass: "text-rose-400",
@@ -146,62 +146,62 @@ const colorBlockFeatures = [
 ];
 
 const metricCards = [
-  { label: "completed", value: "24", subtitle: "in the last 7 days", icon: CheckCircle2, tone: "text-emerald-400", bg: "bg-emerald-950/40 border border-emerald-500/20" },
-  { label: "updated", value: "86", subtitle: "in the last 7 days", icon: PencilLine, tone: "text-[#5F2CFF]", bg: "bg-[#5F2CFF]/10 border border-[#5F2CFF]/20" },
-  { label: "created", value: "31", subtitle: "in the last 7 days", icon: FileText, tone: "text-[#DFF6FF]", bg: "bg-[#DFF6FF]/10 border border-[#DFF6FF]/20" },
-  { label: "due soon", value: "12", subtitle: "in the next 7 days", icon: CalendarClock, tone: "text-amber-400", bg: "bg-amber-950/40 border border-amber-500/20" },
+  { label: "hoàn thành", value: "24", subtitle: "trong 7 ngày qua", icon: CheckCircle2, tone: "text-emerald-400", bg: "bg-emerald-950/40 border border-emerald-500/20" },
+  { label: "đã cập nhật", value: "86", subtitle: "trong 7 ngày qua", icon: PencilLine, tone: "text-[#5F2CFF]", bg: "bg-[#5F2CFF]/10 border border-[#5F2CFF]/20" },
+  { label: "đã tạo", value: "31", subtitle: "trong 7 ngày qua", icon: FileText, tone: "text-[#DFF6FF]", bg: "bg-[#DFF6FF]/10 border border-[#DFF6FF]/20" },
+  { label: "sắp đến hạn", value: "12", subtitle: "trong 7 ngày tới", icon: CalendarClock, tone: "text-amber-400", bg: "bg-amber-950/40 border border-amber-500/20" },
 ];
 
 const previewTasks = [
-  { key: "ALT-128", title: "Design workspace permission matrix", priority: "High", type: "Story", avatar: "MN", color: "bg-[#5F2CFF]" },
-  { key: "ALT-134", title: "Connect sprint board with activity feed", priority: "Medium", type: "Task", avatar: "LT", color: "bg-emerald-600" },
-  { key: "ALT-139", title: "QA notification preferences", priority: "Low", type: "Bug", avatar: "QA", color: "bg-amber-600" },
+  { key: "ALT-128", title: "Thiết kế ma trận phân quyền không gian làm việc", priority: "Cao", type: "Story", avatar: "MN", color: "bg-[#5F2CFF]" },
+  { key: "ALT-134", title: "Kết nối bảng sprint với luồng hoạt động", priority: "Trung bình", type: "Task", avatar: "LT", color: "bg-emerald-600" },
+  { key: "ALT-139", title: "Kiểm thử cài đặt tùy chọn thông báo", priority: "Thấp", type: "Bug", avatar: "QA", color: "bg-amber-600" },
 ];
 
 const roles = [
-  { role: "Admin", access: "Full system control", level: "100%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
-  { role: "Workspace Owner", access: "Billing, members, settings", level: "82%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
-  { role: "Member", access: "Create, assign, update work", level: "58%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
-  { role: "Guest", access: "Scoped project visibility", level: "30%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
+  { role: "Quản trị viên (Admin)", access: "Toàn quyền quản trị hệ thống", level: "100%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
+  { role: "Chủ không gian làm việc", access: "Thanh toán, quản lý thành viên, cài đặt", level: "82%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
+  { role: "Thành viên", access: "Tạo, phân công, cập nhật công việc", level: "58%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
+  { role: "Khách", access: "Chỉ xem dự án được phân quyền", level: "30%", color: "bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF]" },
 ];
 
 const steps = [
-  { num: "01", title: "Create Workspace", desc: "Set up your team space in seconds with custom issue types and permissions." },
-  { num: "02", title: "Invite Team", desc: "Add developers, PMs, and stakeholders with granular role-based security." },
-  { num: "03", title: "Create Tasks", desc: "Prioritize backlog items, assign owners, and set deadlines with zero friction." },
-  { num: "04", title: "Track Progress", desc: "Ship iterations on time with real-time Kanban boards and sprint metrics." },
+  { num: "01", title: "Tạo không gian làm việc", desc: "Khởi tạo không gian nhóm trong vài giây với các loại tác vụ và phân quyền linh hoạt." },
+  { num: "02", title: "Mời đội ngũ tham gia", desc: "Mời lập trình viên, PM và các bên liên quan với bảo mật phân quyền chi tiết theo vai trò." },
+  { num: "03", title: "Tạo nhiệm vụ công việc", desc: "Sắp xếp ưu tiên các đầu việc trong backlog, chỉ định người phụ trách và đặt hạn hoàn thành một cách dễ dàng." },
+  { num: "04", title: "Theo dõi tiến độ", desc: "Giao sản phẩm đúng hạn với bảng Kanban thời gian thực và các chỉ số đo lường sprint." },
 ];
 
 // Dữ liệu đánh giá người dùng thực tế (Testimonials Carousel)
 const testimonials = [
   {
-    quote: "TaskFlow completely replaced our messy Trello + Google Docs combo. The Kanban sprint sync and role matrix cut our sprint planning meetings in half.",
+    quote: "TaskFlow đã thay thế hoàn toàn bộ đôi Trello + Google Docs rườm rà trước đây của chúng tôi. Tính năng đồng bộ sprint trên Kanban và ma trận phân quyền đã giảm một nửa thời gian họp lập kế hoạch sprint.",
     name: "Alex Rivera",
-    role: "Lead Frontend Engineer",
+    role: "Kỹ sư Frontend trưởng",
     company: "FinFlow Tech",
     avatar: "AR",
     accent: "from-[#5F2CFF] to-indigo-600",
   },
   {
-    quote: "The real-time live sync is blazing fast. When developers move a task on the sprint board, stakeholders see the progress update with zero lag.",
+    quote: "Khả năng đồng bộ thời gian thực cực kỳ nhanh chóng. Khi các lập trình viên kéo thả một nhiệm vụ trên bảng sprint, tất cả các bên liên quan đều thấy tiến độ cập nhật ngay lập tức không có độ trễ.",
     name: "Minh Thu",
-    role: "Senior Product Manager",
+    role: "Giám đốc sản phẩm cấp cao",
     company: "NextGen Media",
     avatar: "MT",
     accent: "from-emerald-500 to-teal-600",
   },
   {
-    quote: "Setting up granular roles for developers, designers, and external client guests took less than 2 minutes. The most intuitive Jira alternative we've used.",
+    quote: "Thiết lập phân quyền chi tiết cho lập trình viên, nhà thiết kế và khách bên ngoài chỉ mất chưa đầy 2 phút. Đây là giải pháp thay thế Jira trực quan nhất mà chúng tôi từng trải nghiệm.",
     name: "David Chen",
-    role: "Engineering Director",
+    role: "Giám đốc kỹ thuật",
     company: "CloudScale Studio",
     avatar: "DC",
     accent: "from-blue-500 to-cyan-600",
   },
   {
-    quote: "Sprint velocity tracking and workload analytics gave our startup the visibility we desperately needed right before our major version release.",
+    quote: "Theo dõi tốc độ sprint và phân tích khối lượng công việc đã mang lại cho startup của chúng tôi tầm nhìn rõ ràng và chính xác ngay trước đợt phát hành phiên bản lớn.",
     name: "Sarah Jenkins",
-    role: "Scrum Master & Agile Coach",
+    role: "Chuyên gia Scrum & Agile Coach",
     company: "Velocity AI",
     avatar: "SJ",
     accent: "from-purple-500 to-pink-600",
@@ -210,20 +210,20 @@ const testimonials = [
 
 const faqs = [
   {
-    question: "What is TaskFlow?",
-    answer: "TaskFlow is a project management platform for teams that need workspaces, tasks, Kanban boards, sprint planning, collaboration, and project progress tracking in one place.",
+    question: "TaskFlow là gì?",
+    answer: "TaskFlow là nền tảng quản lý dự án toàn diện dành cho các đội ngũ cần không gian làm việc, quản lý nhiệm vụ, bảng Kanban, lập kế hoạch sprint, cộng tác và theo dõi tiến độ dự án tập trung tại một nơi.",
   },
   {
-    question: "Who should use TaskFlow?",
-    answer: "It is built for developer teams, startups, agencies, freelancers, product managers, project managers, and agile teams that need a reliable workspace.",
+    question: "Những ai nên sử dụng TaskFlow?",
+    answer: "TaskFlow được thiết kế dành cho các đội ngũ phát triển phần mềm, startup, agency, freelancer, nhà quản lý sản phẩm (PM), quản lý dự án và các nhóm Agile cần một không gian làm việc linh hoạt, đáng tin cậy.",
   },
   {
-    question: "Does TaskFlow support permissions?",
-    answer: "Yes. The platform includes role-based access for Admins, Workspace Owners, Members, and Guests so teams can manage visibility and control safely.",
+    question: "TaskFlow có hỗ trợ phân quyền người dùng không?",
+    answer: "Có. Nền tảng cung cấp hệ thống phân quyền chi tiết theo vai trò bao gồm Quản trị viên, Chủ không gian làm việc, Thành viên và Khách giúp quản lý quyền hạn và bảo mật an toàn.",
   },
   {
-    question: "Can teams track progress in real time?",
-    answer: "Yes. TaskFlow provides real-time updates, activity tracking, analytics cards, progress bars, and productivity reporting as core features.",
+    question: "Đội ngũ có thể theo dõi tiến độ theo thời gian thực không?",
+    answer: "Có. TaskFlow cung cấp tính năng cập nhật thời gian thực, nhật ký hoạt động, thẻ phân tích trực quan, thanh tiến độ và báo cáo hiệu suất làm việc chuyên sâu.",
   },
 ];
 
@@ -287,78 +287,9 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#070C18] text-[#E2E8F0] selection:bg-[#5F2CFF] selection:text-white">
       {/* ========================================================
-          STICKY HEADER (GLASS EFFECT + CHROME VIOLET)
+          STICKY FLOATING GLASS NAVBAR
       ======================================================== */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#070C18]/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="group flex items-center gap-2.5">
-              <Image
-                src="/icon.png"
-                alt="TaskFlow Logo"
-                width={36}
-                height={36}
-                className="h-9 w-9 object-contain transition-transform duration-200 group-hover:scale-105"
-                priority
-              />
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-lg font-black tracking-tight text-white">
-                    TaskFlow
-                  </span>
-                  <span className="rounded border border-[#5F2CFF]/30 bg-[#5F2CFF]/15 px-1.5 py-0.5 text-[10px] font-bold text-[#DFF6FF]">
-                    Jira+
-                  </span>
-                </div>
-              </div>
-            </Link>
-
-            <nav className="hidden items-center gap-6 md:flex">
-              <a
-                href="#features"
-                className="text-sm font-semibold text-slate-300 transition-colors hover:text-[#5F2CFF]"
-              >
-                Features
-              </a>
-              <a
-                href="#workspace-demo"
-                className="text-sm font-semibold text-slate-300 transition-colors hover:text-[#5F2CFF]"
-              >
-                Board Preview
-              </a>
-              <a
-                href="#roles"
-                className="text-sm font-semibold text-slate-300 transition-colors hover:text-[#5F2CFF]"
-              >
-                Permissions
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-sm font-semibold text-slate-300 transition-colors hover:text-[#5F2CFF]"
-              >
-                How It Works
-              </a>
-              <a
-                href="#testimonials"
-                className="text-sm font-semibold text-slate-300 transition-colors hover:text-[#5F2CFF]"
-              >
-                Testimonials
-              </a>
-              <Link
-                href="/aboutUs"
-                className="text-sm font-semibold text-slate-300 transition-colors hover:text-[#5F2CFF]"
-              >
-                About Us
-              </Link>
-              <AdminNavLink />
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <NavAuthActions />
-          </div>
-        </div>
-      </header>
+      <LandingGlassNavbar />
 
       {/* ========================================================
           HERO SECTION (DARK AESTHETICS + VIOLET GLOW + DEPTH)
@@ -366,7 +297,7 @@ export default function LandingPage() {
       {/* ========================================================
           HERO SECTION (COLORLIB EASY TEMPLATE INSPIRATION + CHROME VIOLET DARK THEME)
       ======================================================== */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0B1120] via-[#070C18] to-[#070C18] pt-12 pb-24 sm:pt-20 sm:pb-32 lg:pt-24 lg:pb-40">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#0B1120] via-[#070C18] to-[#070C18] pt-24 pb-24 sm:pt-32 sm:pb-32 lg:pt-36 lg:pb-40">
         {/* Ambient atmospheric glows */}
         <div className="pointer-events-none absolute -top-40 left-1/4 h-[500px] w-[700px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(95,44,255,0.22),transparent_70%)] blur-3xl" />
         <div className="pointer-events-none absolute top-20 right-10 h-[450px] w-[550px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(223,246,255,0.08),transparent_70%)] blur-3xl" />
@@ -449,7 +380,7 @@ export default function LandingPage() {
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#DFF6FF]">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      TaskFlow Workspace View
+                      Giao diện TaskFlow Workspace
                     </div>
                   </div>
 
@@ -475,7 +406,7 @@ export default function LandingPage() {
                   <div className="flex items-center gap-2">
                     <span className="flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
-                      Sprint 14 Velocity
+                      Tiến độ Sprint 14
                     </p>
                   </div>
                   <p className="mt-1 text-xl font-black text-[#5F2CFF] drop-shadow-[0_0_12px_rgba(95,44,255,0.4)]">
@@ -497,7 +428,7 @@ export default function LandingPage() {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                     </span>
-                    <p className="text-[10px] font-bold text-[#DFF6FF]">Live Sync Online</p>
+                    <p className="text-[10px] font-bold text-[#DFF6FF]">Đồng bộ trực tuyến</p>
                   </div>
                   <p className="mt-1 text-xs font-semibold text-white">4 thành viên đang làm việc</p>
                   <div className="mt-2 flex -space-x-1.5">
@@ -588,7 +519,7 @@ export default function LandingPage() {
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -left-4 top-12 z-20 hidden rounded-2xl border border-white/[0.12] bg-[#111C30]/95 p-4 shadow-2xl shadow-black/80 backdrop-blur-xl md:block"
             >
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Active sprint</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Sprint đang chạy</p>
               <p className="mt-1 text-2xl font-black text-[#5F2CFF] drop-shadow-[0_0_12px_rgba(95,44,255,0.5)]">72%</p>
               <div className="mt-2 h-1.5 w-32 rounded-full bg-slate-700/80">
                 <div className="h-1.5 w-[72%] rounded-full bg-gradient-to-r from-[#5F2CFF] to-[#DFF6FF] shadow-[0_0_8px_rgba(95,44,255,0.6)]" />
@@ -601,7 +532,7 @@ export default function LandingPage() {
               transition={{ duration: 5, delay: 1, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -right-4 bottom-12 z-20 hidden rounded-2xl border border-white/[0.12] bg-[#111C30]/95 p-4 shadow-2xl shadow-black/80 backdrop-blur-xl lg:block"
             >
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Workspace members</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Thành viên workspace</p>
               <div className="mt-2 flex -space-x-2">
                 {["PM", "FE", "BE", "QA"].map((m, i) => (
                   <span
@@ -625,7 +556,7 @@ export default function LandingPage() {
                   <span className="h-3 w-3 rounded-full bg-amber-500/80" />
                   <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
                   <span className="ml-3 hidden text-xs font-semibold text-slate-300 sm:inline-block">
-                    TaskFlow / Product Delivery / Sprint 24
+                    TaskFlow / Phân phối sản phẩm / Sprint 24
                   </span>
                 </div>
                 {/* Live Sync with pulse radar wave aura */}
@@ -634,7 +565,7 @@ export default function LandingPage() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                   </span>
-                  Live Sync
+                  Đồng bộ trực tiếp
                 </div>
               </div>
 
@@ -668,7 +599,7 @@ export default function LandingPage() {
 
                 {/* Real 3-Column Kanban Board Preview */}
                 <div className="grid gap-4 lg:grid-cols-3">
-                  {["TO DO", "IN PROGRESS", "REVIEW"].map((col, idx) => (
+                  {["CẦN LÀM", "ĐANG THỰC HIỆN", "ĐÁNH GIÁ"].map((col, idx) => (
                     <div
                       key={col}
                       className="rounded-xl border border-white/[0.08] bg-[#151F32] p-3.5 shadow-xs"
@@ -695,9 +626,9 @@ export default function LandingPage() {
                               </span>
                               <span
                                 className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${
-                                  task.priority === "High"
+                                  task.priority === "Cao"
                                     ? "bg-rose-950 text-rose-300 border border-rose-800/40"
-                                    : task.priority === "Medium"
+                                    : task.priority === "Trung bình"
                                     ? "bg-blue-950 text-blue-300 border border-blue-800/40"
                                     : "bg-slate-800 text-slate-300 border border-slate-700/40"
                                 }`}
@@ -744,13 +675,13 @@ export default function LandingPage() {
             className="mx-auto max-w-3xl text-center mb-14"
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#5F2CFF]">
-              Core Capabilities
+              Tính năng cốt lõi
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-5xl">
-              Everything your team needs to deliver work.
+              Mọi công cụ đội ngũ bạn cần để hoàn thành dự án.
             </h2>
             <p className="mt-4 text-base text-slate-300">
-              Powerful tools built with speed, clarity, and enterprise control in one place.
+              Công cụ mạnh mẽ được xây dựng với tốc độ, sự rõ ràng và khả năng kiểm soát tập trung tại một nơi.
             </p>
           </motion.div>
 
@@ -804,14 +735,14 @@ export default function LandingPage() {
                         <div className="flex items-center justify-between text-[11px] font-bold text-slate-300">
                           <span className="flex items-center gap-1.5">
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                            ALT-102 Define roles
+                            ALT-102 Phân quyền vai trò
                           </span>
                           <span className="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-400 border border-emerald-500/25">
-                            Done
+                            Hoàn thành
                           </span>
                         </div>
                         <div className="rounded-lg border border-white/[0.06] bg-white/[0.03] p-2 text-[10px] text-slate-300">
-                          Create onboarding checklist
+                          Tạo danh mục chào mừng thành viên mới
                         </div>
                       </div>
                     )}
@@ -821,7 +752,7 @@ export default function LandingPage() {
                         <div className="flex items-center justify-between text-[11px] font-bold text-slate-300">
                           <span className="flex items-center gap-1.5">
                             <GitBranch className="h-3.5 w-3.5 text-orange-400" />
-                            Sprint 24 Iteration
+                            Tiến độ Sprint 24
                           </span>
                           <span className="text-[10px] font-bold text-orange-400">80%</span>
                         </div>
@@ -834,7 +765,7 @@ export default function LandingPage() {
                             className="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-400 shadow-[0_0_8px_rgba(249,115,22,0.5)]"
                           />
                         </div>
-                        <p className="mt-2 text-[10px] text-slate-400">16 of 20 story points shipped</p>
+                        <p className="mt-2 text-[10px] text-slate-400">Đã hoàn thành 16 / 20 story points</p>
                       </div>
                     )}
 
@@ -854,7 +785,7 @@ export default function LandingPage() {
                         </div>
                         <span className="flex items-center gap-1.5 rounded-full border border-purple-500/20 bg-purple-500/10 px-2 py-0.5 text-[10px] font-semibold text-purple-300">
                           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          4 Active
+                          4 Đang hoạt động
                         </span>
                       </div>
                     )}
@@ -879,8 +810,8 @@ export default function LandingPage() {
                             <Radio className="h-4 w-4 animate-pulse" />
                           </div>
                           <div>
-                            <p className="text-[11px] font-bold text-white">Live Stream</p>
-                            <p className="text-[9px] text-slate-400">WebSocket Connected</p>
+                            <p className="text-[11px] font-bold text-white">Đồng bộ trực tiếp</p>
+                            <p className="text-[9px] text-slate-400">Đã kết nối WebSocket</p>
                           </div>
                         </div>
                         <span className="rounded bg-cyan-500/15 px-1.5 py-0.5 text-[9px] font-bold text-cyan-400">
@@ -892,12 +823,12 @@ export default function LandingPage() {
                     {feat.previewType === "roles" && (
                       <div className="space-y-1.5 text-xs">
                         <div className="flex items-center justify-between rounded bg-white/[0.04] px-2 py-1 text-[10px]">
-                          <span className="text-slate-300">Admin</span>
-                          <span className="font-bold text-rose-400">Full Access</span>
+                          <span className="text-slate-300">Quản trị viên</span>
+                          <span className="font-bold text-rose-400">Toàn quyền</span>
                         </div>
                         <div className="flex items-center justify-between rounded bg-white/[0.04] px-2 py-1 text-[10px]">
-                          <span className="text-slate-300">Member</span>
-                          <span className="font-bold text-slate-400">Scoped Work</span>
+                          <span className="text-slate-300">Thành viên</span>
+                          <span className="font-bold text-slate-400">Theo phân công</span>
                         </div>
                       </div>
                     )}
@@ -928,13 +859,13 @@ export default function LandingPage() {
             className="mx-auto max-w-3xl text-center mb-12"
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#5F2CFF]">
-              Security & Governance
+              Bảo mật & Quản trị
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Role-based access control built for security.
+              Kiểm soát truy cập theo vai trò đảm bảo an toàn tuyệt đối.
             </h2>
             <p className="mt-3 text-sm text-slate-300">
-              Protect workspaces with clear access control for admins, members, and guests.
+              Bảo vệ không gian làm việc với các cấp độ truy cập rõ ràng cho quản trị viên, thành viên và khách.
             </p>
           </motion.div>
 
@@ -982,13 +913,13 @@ export default function LandingPage() {
             className="mx-auto max-w-3xl text-center mb-16"
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#5F2CFF]">
-              Workflow
+              Quy trình làm việc
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Get up and running in minutes.
+              Khởi đầu và vận hành chỉ trong vài phút.
             </h2>
             <p className="mt-3 text-sm text-slate-300">
-              Simple, flexible steps to organize your team and ship projects with clarity.
+              Các bước đơn giản, linh hoạt để tổ chức đội ngũ và hoàn thành dự án một cách rõ ràng.
             </p>
           </motion.div>
 
@@ -1035,7 +966,7 @@ export default function LandingPage() {
                     </span>
                     {isActive && (
                       <span className="rounded-full bg-[#5F2CFF] px-2 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-[#5F2CFF]/40">
-                        Active
+                        Đang chọn
                       </span>
                     )}
                   </div>
@@ -1099,13 +1030,13 @@ export default function LandingPage() {
             className="mx-auto max-w-3xl text-center mb-14"
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#5F2CFF]">
-              Loved by Agile Teams
+              Được các đội ngũ Agile tin dùng
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Trusted by leaders who deliver on schedule.
+              Lựa chọn tin cậy của các nhà quản lý luôn hoàn thành đúng tiến độ.
             </h2>
             <p className="mt-3 text-sm text-slate-300">
-              See how modern development and product teams ship faster with TaskFlow.
+              Khám phá cách các đội ngũ phát triển và sản phẩm tăng tốc độ triển khai cùng TaskFlow.
             </p>
           </motion.div>
 
@@ -1160,7 +1091,7 @@ export default function LandingPage() {
                     <div className="flex items-center gap-1.5">
                       <button
                         type="button"
-                        aria-label="Previous review"
+                        aria-label="Đánh giá trước"
                         onClick={() =>
                           setActiveTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
                         }
@@ -1170,7 +1101,7 @@ export default function LandingPage() {
                       </button>
                       <button
                         type="button"
-                        aria-label="Next review"
+                        aria-label="Đánh giá tiếp theo"
                         onClick={() =>
                           setActiveTestimonial((prev) => (prev + 1) % testimonials.length)
                         }
@@ -1190,7 +1121,7 @@ export default function LandingPage() {
                 <button
                   key={i}
                   type="button"
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`Chuyển đến trang ${i + 1}`}
                   onClick={() => setActiveTestimonial(i)}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     activeTestimonial === i
@@ -1217,10 +1148,10 @@ export default function LandingPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-black text-white">
-              Frequently Asked Questions
+              Câu hỏi thường gặp
             </h2>
             <p className="mt-2 text-sm text-slate-300">
-              Clear answers to help your team get started smoothly.
+              Giải đáp chi tiết giúp đội ngũ của bạn bắt đầu nhanh chóng và thuận lợi.
             </p>
           </motion.div>
 
@@ -1281,23 +1212,23 @@ export default function LandingPage() {
 
             <div className="relative z-10">
               <h2 className="text-3xl font-black sm:text-5xl text-white">
-                Get started with TaskFlow today
+                Bắt đầu cùng TaskFlow ngay hôm nay
               </h2>
               <p className="mt-4 text-base text-violet-100 max-w-2xl mx-auto">
-                Collaborate, track sprints, and deliver high-impact work with your entire team.
+                Cộng tác, theo dõi sprint và hoàn thành công việc hiệu quả vượt trội cùng cả đội ngũ.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="/register"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-bold text-[#4A1FD4] shadow-xl transition-all duration-300 hover:rounded-2xl hover:bg-[#DFF6FF] hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-95 sm:w-auto"
                 >
-                  Create Free Account <ArrowRight className="h-4 w-4" />
+                  Tạo tài khoản miễn phí <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/aboutUs"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:rounded-2xl hover:bg-white/20 hover:scale-105 active:scale-95 sm:w-auto"
                 >
-                  About Our Team
+                  Về đội ngũ của chúng tôi
                 </Link>
               </div>
             </div>
@@ -1313,56 +1244,56 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                Platform
+                Nền tảng
               </h4>
               <ul className="mt-4 space-y-2 text-xs text-slate-400">
-                <li><a href="#features" className="hover:text-[#5F2CFF] transition-colors">Kanban Board</a></li>
-                <li><a href="#features" className="hover:text-[#5F2CFF] transition-colors">Sprint Planning</a></li>
-                <li><a href="#roles" className="hover:text-[#5F2CFF] transition-colors">Role Permissions</a></li>
-                <li><a href="#how-it-works" className="hover:text-[#5F2CFF] transition-colors">4-Step Workflow</a></li>
-                <li><a href="#testimonials" className="hover:text-[#5F2CFF] transition-colors">Customer Reviews</a></li>
+                <li><a href="#features" className="hover:text-[#5F2CFF] transition-colors">Bảng Kanban</a></li>
+                <li><a href="#features" className="hover:text-[#5F2CFF] transition-colors">Kế hoạch Sprint</a></li>
+                <li><a href="#roles" className="hover:text-[#5F2CFF] transition-colors">Phân quyền theo vai trò</a></li>
+                <li><a href="#how-it-works" className="hover:text-[#5F2CFF] transition-colors">Quy trình 4 bước</a></li>
+                <li><a href="#testimonials" className="hover:text-[#5F2CFF] transition-colors">Đánh giá từ khách hàng</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                Workspaces
+                Không gian làm việc
               </h4>
               <ul className="mt-4 space-y-2 text-xs text-slate-400">
-                <li><Link href="/workspaces" className="hover:text-[#5F2CFF] transition-colors">View Workspaces</Link></li>
-                <li><Link href="/dashboard" className="hover:text-[#5F2CFF] transition-colors">Dashboard Overview</Link></li>
-                <li><Link href="/dashboard/permissions" className="hover:text-[#5F2CFF] transition-colors">Permissions Matrix</Link></li>
+                <li><Link href="/workspaces" className="hover:text-[#5F2CFF] transition-colors">Xem các không gian làm việc</Link></li>
+                <li><Link href="/dashboard" className="hover:text-[#5F2CFF] transition-colors">Tổng quan bảng điều khiển</Link></li>
+                <li><Link href="/dashboard/permissions" className="hover:text-[#5F2CFF] transition-colors">Ma trận phân quyền</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                Company
+                Công ty
               </h4>
               <ul className="mt-4 space-y-2 text-xs text-slate-400">
-                <li><Link href="/aboutUs" className="hover:text-[#5F2CFF] transition-colors">About TaskFlow</Link></li>
-                <li><Link href="/login" className="hover:text-[#5F2CFF] transition-colors">Sign In</Link></li>
-                <li><Link href="/register" className="hover:text-[#5F2CFF] transition-colors">Get Started Free</Link></li>
+                <li><Link href="/aboutUs" className="hover:text-[#5F2CFF] transition-colors">Về TaskFlow</Link></li>
+                <li><Link href="/login" className="hover:text-[#5F2CFF] transition-colors">Đăng nhập</Link></li>
+                <li><Link href="/register" className="hover:text-[#5F2CFF] transition-colors">Bắt đầu miễn phí</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                Platform Stats
+                Chỉ số nền tảng
               </h4>
               <div className="mt-4 space-y-2 text-xs text-slate-400">
-                <p><strong className="text-white">10,000+</strong> Tasks completed</p>
-                <p><strong className="text-white">500+</strong> Teams onboarded</p>
+                <p><strong className="text-white">10,000+</strong> Nhiệm vụ đã hoàn thành</p>
+                <p><strong className="text-white">500+</strong> Đội ngũ đã tham gia</p>
                 <p className="flex items-center gap-1.5 text-emerald-400 font-semibold">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  99.9% Platform Uptime
+                  Thời gian hoạt động 99.9%
                 </p>
               </div>
             </div>
           </div>
 
           <div className="mt-12 flex flex-col items-center justify-between border-t border-white/[0.08] pt-6 text-xs text-slate-500 sm:flex-row">
-            <p>© {new Date().getFullYear()} TaskFlow. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} TaskFlow. Bảo lưu mọi quyền.</p>
             <BackToTop />
           </div>
         </div>

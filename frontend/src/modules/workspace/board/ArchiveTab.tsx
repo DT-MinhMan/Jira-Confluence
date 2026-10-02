@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ArchiveRestore, CheckSquare, FileText, Loader2, Search } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -28,6 +28,21 @@ const formatDateTime = (value?: string | null) => {
   } catch {
     return value;
   }
+};
+
+const TYPE_LABELS_VI: Record<string, string> = {
+  Task: "Nhiệm vụ",
+  Bug: "Lỗi",
+  Story: "Câu chuyện",
+  Epic: "Epic",
+};
+
+const PRIORITY_LABELS_VI: Record<string, string> = {
+  Highest: "Rất cao",
+  High: "Cao",
+  Medium: "Trung bình",
+  Low: "Thấp",
+  Lowest: "Rất thấp",
 };
 
 export default function ArchiveTab({
@@ -71,12 +86,12 @@ export default function ArchiveTab({
       <div className="flex flex-col gap-3 border-b border-[#EAEAEA] dark:border-white/[0.06] bg-[#F9F9F8] dark:bg-[#252525] p-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-            Archived work items
+            Nhiệm vụ đã lưu trữ
           </h2>
           <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">
             {total !== undefined
-              ? `Showing ${issues.length} of ${total}`
-              : `${issues.length} item archived`}
+              ? `Hiển thị ${issues.length} / ${total}`
+              : `${issues.length} nhiệm vụ đã lưu trữ`}
           </p>
         </div>
         <div className="relative">
@@ -85,7 +100,7 @@ export default function ArchiveTab({
             type="text"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Search archived items..."
+            placeholder="Tìm kiếm nhiệm vụ đã lưu trữ..."
             className="w-full min-w-[13.75rem] rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.08] bg-white dark:bg-[#252525] py-1.5 pl-9 pr-3 text-[0.8125rem] outline-none focus:border-[#2563EB] dark:focus:border-[#3B82F6] text-[#111111] dark:text-[#E8E8E7] transition-colors sm:w-80 placeholder:text-[#ABABAB] dark:placeholder:text-[#6B6B6B]"
           />
         </div>
@@ -101,12 +116,12 @@ export default function ArchiveTab({
         <table className="w-full min-w-[51.25rem] border-collapse text-left">
           <thead className="sticky top-0 z-0 border-b border-[#EAEAEA] dark:border-white/[0.06] bg-[#F9F9F8] dark:bg-[#252525] text-[0.6875rem] font-semibold uppercase text-[#ABABAB] dark:text-[#6B6B6B]">
             <tr>
-              <th className="px-4 py-3">Key</th>
-              <th className="px-4 py-3">Work item</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Archived by</th>
-              <th className="px-4 py-3">Archived at</th>
-              <th className="px-4 py-3 text-right">Action</th>
+              <th className="px-4 py-3">Mã</th>
+              <th className="px-4 py-3">Nhiệm vụ</th>
+              <th className="px-4 py-3">Trạng thái</th>
+              <th className="px-4 py-3">Lưu trữ bởi</th>
+              <th className="px-4 py-3">Thời gian lưu trữ</th>
+              <th className="px-4 py-3 text-right">Thao tác</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#EAEAEA] dark:divide-white/[0.06] bg-white dark:bg-[#202020]">
@@ -131,7 +146,7 @@ export default function ArchiveTab({
                         {issue.title}
                       </p>
                       <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B]">
-                        {issue.type} - {issue.priority}
+                        {TYPE_LABELS_VI[issue.type] || issue.type} - {PRIORITY_LABELS_VI[issue.priority] || issue.priority}
                       </p>
                     </div>
                   </div>
@@ -162,7 +177,7 @@ export default function ArchiveTab({
                     ) : (
                       <ArchiveRestore className="h-4 w-4" />
                     )}
-                    Restore
+                    Khôi phục
                   </button>
                 </td>
               </tr>
@@ -173,7 +188,7 @@ export default function ArchiveTab({
         {!isLoading && visibleIssues.length === 0 && (
           <div className="flex h-56 flex-col items-center justify-center gap-2 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
             <CheckSquare className="h-6 w-6 text-[#ABABAB] dark:text-[#6B6B6B]" />
-            No archived work items match this list.
+            Không có nhiệm vụ lưu trữ nào phù hợp.
           </div>
         )}
       </div>
@@ -190,8 +205,8 @@ export default function ArchiveTab({
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : null}
             {isLoadingMore
-              ? "Loading..."
-              : `Load more (${total - issues.length} remaining)`}
+              ? "Đang tải..."
+              : `Tải thêm (còn ${total - issues.length})`}
           </button>
         </div>
       )}

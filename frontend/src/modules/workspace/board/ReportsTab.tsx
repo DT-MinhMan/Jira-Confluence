@@ -39,11 +39,11 @@ export default function ReportsTab(props: ReportsTabProps) {
     };
   }, []);
 
-  let currentOption = { name: "Worklogs", icon: <Clock className="w-4 h-4" /> };
+  let currentOption = { name: "Nhật ký công việc", icon: <Clock className="w-4 h-4" /> };
   if (activeSubTab === "velocity") {
-    currentOption = { name: "Sprint Velocity", icon: <BarChart3 className="w-4 h-4" /> };
+    currentOption = { name: "Tốc độ Sprint", icon: <BarChart3 className="w-4 h-4" /> };
   } else if (activeSubTab === "cfd") {
-    currentOption = { name: "Cumulative Flow", icon: <TrendingUp className="w-4 h-4" /> };
+    currentOption = { name: "Luồng tích lũy (CFD)", icon: <TrendingUp className="w-4 h-4" /> };
   }
 
   return (
@@ -61,7 +61,7 @@ export default function ReportsTab(props: ReportsTabProps) {
           </button>
 
           {isOpen && (
-            <div className="absolute left-0 mt-1.5 w-[190px] bg-white dark:bg-[#1E1E1E] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] shadow-lg py-1 text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] animate-in fade-in duration-100">
+            <div className="absolute left-0 mt-1.5 w-[210px] bg-white dark:bg-[#1E1E1E] border border-[#EAEAEA] dark:border-white/[0.08] rounded-[6px] shadow-lg py-1 text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] animate-in fade-in duration-100">
               <button
                 onClick={() => {
                   setActiveSubTab("worklogs");
@@ -72,7 +72,7 @@ export default function ReportsTab(props: ReportsTabProps) {
                 }`}
               >
                 <Clock className="w-4 h-4 shrink-0" />
-                Worklogs
+                Nhật ký công việc
               </button>
 
               {isScrum && (
@@ -86,7 +86,7 @@ export default function ReportsTab(props: ReportsTabProps) {
                   }`}
                 >
                   <BarChart3 className="w-4 h-4 shrink-0" />
-                  Sprint Velocity
+                  Tốc độ Sprint
                 </button>
               )}
 
@@ -100,7 +100,7 @@ export default function ReportsTab(props: ReportsTabProps) {
                 }`}
               >
                 <TrendingUp className="w-4 h-4 shrink-0" />
-                Cumulative Flow
+                Luồng tích lũy (CFD)
               </button>
             </div>
           )}

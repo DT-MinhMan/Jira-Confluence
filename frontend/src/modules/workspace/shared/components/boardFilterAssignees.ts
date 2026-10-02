@@ -6,7 +6,7 @@ export type BoardFilterAssignee = {
 };
 
 export const getBoardFilterAssigneeLabel = (user: BoardFilterAssignee) =>
-  user.name || user.fullName || user.email || (user.id === "U" ? "Unassigned" : user.id);
+  user.name || user.fullName || user.email || (user.id === "U" ? "Chưa giao" : user.id);
 
 export const filterBoardAssignees = (
   assignees: BoardFilterAssignee[],

@@ -21,23 +21,23 @@ export default function VerifyEmailForm() {
   const verifyEmailMutation = useMutation({
     mutationFn: ({ email, otp }: { email: string; otp: string }) => verifyEmailAPI(email, otp),
     onSuccess: () => {
-      toast.success('Account created successfully');
+      toast.success('Tạo tài khoản thành công');
       router.push(AUTH_ROUTES.LOGIN);
     },
     onError: (err: unknown) => {
       const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error?.response?.data?.message || 'Verification failed. Please check the OTP code.');
+      toast.error(error?.response?.data?.message || 'Xác thực thất bại. Vui lòng kiểm tra lại mã OTP.');
     },
   });
 
   const resendVerifyEmailMutation = useMutation({
     mutationFn: resendVerifyEmailAPI,
     onSuccess: () => {
-      toast.success('Verification code resent. Please check your email.');
+      toast.success('Đã gửi lại mã xác thực. Vui lòng kiểm tra email của bạn.');
     },
     onError: (err: unknown) => {
       const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error?.response?.data?.message || 'Could not resend verification code.');
+      toast.error(error?.response?.data?.message || 'Không thể gửi lại mã xác thực.');
     },
   });
 
@@ -49,7 +49,7 @@ export default function VerifyEmailForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
-      toast.error('Could not find the email to verify.');
+      toast.error('Không tìm thấy email cần xác thực.');
       return;
     }
     const emailError = validateEmail(email);
@@ -58,7 +58,7 @@ export default function VerifyEmailForm() {
       return;
     }
     if (otp.length < 6) {
-      toast.error('OTP must contain at least 6 characters.');
+      toast.error('Mã OTP phải có ít nhất 6 ký tự.');
       return;
     }
 
@@ -67,7 +67,7 @@ export default function VerifyEmailForm() {
 
   const handleResend = async () => {
     if (!email) {
-      toast.error('Could not find the email for resending the code.');
+      toast.error('Không tìm thấy email để gửi lại mã.');
       return;
     }
     const emailError = validateEmail(email);
@@ -85,7 +85,7 @@ export default function VerifyEmailForm() {
     <div className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden">
       <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover z-0">
         <source src="/videos/mixkit-clouds-and-blue-sky-background-2408-full-hd.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        Trình duyệt của bạn không hỗ trợ phát video.
       </video>
 
       <div className="absolute top-0 left-0 w-full h-full bg-slate-900/10 z-10" />
@@ -98,10 +98,10 @@ export default function VerifyEmailForm() {
                 <Image src={logoIcon} width={48} height={48} alt="Logo" className="w-12 h-12 object-contain" priority />
               </div>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-950 tracking-tight">Verify Email</h1>
+            <h1 className="text-2xl font-bold text-gray-950 tracking-tight">Xác thực Email</h1>
             <p className="text-gray-600 text-[0.8125rem] mt-1.5 font-semibold">
-              Please enter the 6-digit OTP sent to <br />
-              <span className="font-bold text-gray-950">{email || 'your email'}</span>
+              Vui lòng nhập mã OTP 6 chữ số được gửi tới <br />
+              <span className="font-bold text-gray-950">{email || 'email của bạn'}</span>
             </p>
           </div>
 
@@ -113,14 +113,14 @@ export default function VerifyEmailForm() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-[0.8125rem] font-semibold text-gray-800 mb-1.5 text-center">Verification code (OTP)</label>
-              <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required maxLength={6} placeholder="Enter 6 digits"
+              <label className="block text-[0.8125rem] font-semibold text-gray-800 mb-1.5 text-center">Mã xác thực (OTP)</label>
+              <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required maxLength={6} placeholder="Nhập 6 chữ số"
                 className="w-full text-center px-4 py-3 bg-white/45 border border-gray-200/35 rounded-[6px] font-sans text-[0.8125rem] font-medium text-gray-900 placeholder:text-gray-500 focus:bg-white/95 focus:ring-2 focus:ring-[#2563EB] focus:border-[#2563EB] outline-none transition-all shadow-inner" />
             </div>
 
             <button type="submit" disabled={isLoading}
               className="w-full py-3 bg-[#2563EB] text-white rounded-[6px] font-bold hover:bg-[#1D4ED8] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-              {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" />Verifying...</> : 'Verify account'}
+              {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" />Đang xác thực...</> : 'Xác thực tài khoản'}
             </button>
           </form>
 
@@ -128,12 +128,12 @@ export default function VerifyEmailForm() {
             <button type="button" onClick={handleResend} disabled={isResending || !email}
               className="text-[0.8125rem] font-semibold text-[#2563EB] hover:text-[#1D4ED8] disabled:opacity-50 transition-colors flex items-center gap-1">
               {isResending ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
-              Resend verification code
+              Gửi lại mã xác thực
             </button>
 
             <Link href={AUTH_ROUTES.LOGIN} className="text-[0.8125rem] text-gray-600 hover:text-gray-950 font-medium flex items-center gap-1">
               <ArrowLeft className="w-4 h-4" />
-              Back to Sign in
+              Quay lại đăng nhập
             </Link>
           </div>
         </div>

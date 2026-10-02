@@ -80,10 +80,10 @@ export default function DocumentModals({
               </div>
               <div className="min-w-0 flex-1">
                 <h2 id="rename-document-title" className="text-base font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Rename document
+                  Đổi tên tài liệu
                 </h2>
                 <p className="mt-1 text-sm text-[#787774] dark:text-[#9B9A97]">
-                  Enter a new name for this document.
+                  Nhập tên mới cho tài liệu này.
                 </p>
               </div>
             </div>
@@ -101,7 +101,7 @@ export default function DocumentModals({
                 if (e.key === "Escape") closeRenameDialog(renaming);
               }}
               className="mt-5 w-full rounded-[6px] border border-[#EAEAEA] bg-[#F9F9F8] px-3 py-2.5 text-sm text-[#111111] outline-none transition-colors focus:border-[#2563EB] focus:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/[0.06] dark:bg-[#2A2A2A] dark:text-[#E8E8E7] dark:focus:border-[#3B82F6]"
-              placeholder="Document name"
+              placeholder="Tên tài liệu"
             />
             <div className="mt-5 flex justify-end gap-2">
               <button
@@ -110,7 +110,7 @@ export default function DocumentModals({
                 onClick={() => closeRenameDialog(renaming)}
                 className="rounded-[6px] border border-[#EAEAEA] px-4 py-2 text-sm font-semibold text-[#787774] transition-colors hover:bg-[#F7F6F3] disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/[0.06] dark:text-[#9B9A97] dark:hover:bg-white/5"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="button"
@@ -121,7 +121,7 @@ export default function DocumentModals({
                 }}
                 className="rounded-[6px] bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
               >
-                {renaming ? "Renaming..." : "Rename"}
+                {renaming ? "Đang đổi tên..." : "Đổi tên"}
               </button>
             </div>
           </div>
@@ -146,14 +146,14 @@ export default function DocumentModals({
               </div>
               <div className="min-w-0">
                 <h2 id="delete-document-title" className="text-base font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Delete document?
+                  Xóa tài liệu?
                 </h2>
                 <p className="mt-1 text-sm text-[#787774] dark:text-[#9B9A97]">
-                  This will permanently delete{" "}
+                  Thao tác này sẽ xóa vĩnh viễn{" "}
                   <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">
                     {deleteTarget.name}
                   </span>
-                  . This action cannot be undone.
+                  . Hành động này không thể hoàn tác.
                 </p>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function DocumentModals({
                 onClick={() => setDeleteTarget(null)}
                 className="rounded-[6px] border border-[#EAEAEA] px-4 py-2 text-sm font-semibold text-[#787774] transition-colors hover:bg-[#F7F6F3] disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/[0.06] dark:text-[#9B9A97] dark:hover:bg-white/5"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="button"
@@ -172,7 +172,7 @@ export default function DocumentModals({
                 onClick={() => onDelete(deleteTarget)}
                 className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {deleting ? "Deleting..." : "Delete"}
+                {deleting ? "Đang xóa..." : "Xóa"}
               </button>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function DocumentModals({
                   type="button"
                   onClick={() => setViewingDoc(null)}
                   className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-gray-800"
-                  aria-label="Close"
+                  aria-label="Đóng"
                 >
                   <X className="h-4 w-4" />
                 </button>

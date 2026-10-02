@@ -16,6 +16,7 @@ import { loginAPI, registerAPI, logoutAPI, getCurrentUserAPI } from "../services
 import { clearTokens } from "../services/tokenService";
 import { getMyPermissionsAPI } from "../../permission/services/permissionService";
 import { AUTH_ROUTES } from "../constants/auth-routes";
+import { ADMIN_URL } from "@/lib/admin-url";
 import { AuthErrorCode } from "../types/auth.types";
 import { validateEmail } from "../utils/emailValidation";
 import type { AuthUser, LoginRequest, RegisterRequest, AuthApiError, Permission } from "../types/auth.types";

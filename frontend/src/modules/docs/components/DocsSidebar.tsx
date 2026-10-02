@@ -36,9 +36,9 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
         selectImportedDocument(null);
       }
       setRemoveTarget(null);
-      toast.success("Removed from workspace");
+      toast.success("Đã xóa khỏi không gian làm việc");
     },
-    onError: () => toast.error("Failed to remove document"),
+    onError: () => toast.error("Không thể xóa tài liệu"),
   });
 
   const filteredDocs = useMemo(() => {
@@ -86,7 +86,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
         className={`hidden md:flex absolute -right-3 top-10 z-[80] h-6 w-6 items-center justify-center rounded-full border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#252525] text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#2563EB] dark:hover:text-[#3B82F6] transition-opacity ${
           isCollapsed ? "opacity-100" : "opacity-0 group-hover:opacity-100"
         }`}
-        aria-label={isCollapsed ? "Expand docs sidebar" : "Collapse docs sidebar"}
+        aria-label={isCollapsed ? "Mở rộng thanh bên tài liệu" : "Thu gọn thanh bên tài liệu"}
       >
         {isCollapsed ? <ChevronRight className="h-3.5 w-3.5" /> : <ChevronLeft className="h-3.5 w-3.5" />}
       </button>
@@ -109,7 +109,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                 }`}
               >
                 <Layout className={`w-4 h-4 ${!selectedDocumentId && !selectedImportedDocumentId ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#ABABAB] dark:text-[#6B6B6B]"}`} />
-                All Documents
+                Tất cả tài liệu
               </button>
 
               <div className="h-px bg-[#EAEAEA] dark:bg-white/8 mx-1" />
@@ -121,7 +121,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
               {searchQuery ? (
                 <div className="px-2">
                   <h3 className="px-3 text-[0.625rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-widest mb-3">
-                    Search Results
+                    Kết quả tìm kiếm
                   </h3>
                   <ul className="space-y-1">
                     {filteredDocs.map(doc => (
@@ -144,7 +144,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                       </li>
                     ))}
                     {filteredDocs.length === 0 && (
-                      <p className="px-3 text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] italic py-2">No results found</p>
+                      <p className="px-3 text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] italic py-2">Không tìm thấy kết quả</p>
                     )}
                   </ul>
                 </div>
@@ -154,12 +154,12 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                   <div className="px-2">
                     <div className="flex items-center justify-between px-3 mb-3">
                       <h3 className="text-[0.625rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-widest">
-                        Documents in Workspace
+                        Tài liệu không gian làm việc
                       </h3>
                       <button 
                         onClick={handleCreate}
                         className="p-1 hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded text-[#ABABAB] dark:text-[#6B6B6B] hover:text-[#2563EB] dark:hover:text-[#3B82F6] transition-colors"
-                        title="Create new document"
+                        title="Tạo tài liệu mới"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -169,7 +169,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                   <div className="px-2">
                     <div className="flex items-center justify-between px-3 mb-3">
                       <h3 className="text-[0.625rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-widest">
-                        Imported Documents
+                        Tài liệu đã nhập
                       </h3>
                     </div>
                     <ul className="space-y-1 px-1">
@@ -191,14 +191,14 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                                 setRemoveTarget(doc);
                               }}
                               className="opacity-0 group-hover:opacity-100 p-1 rounded-[4px] text-[#ABABAB] hover:text-[#9F2F2D] hover:bg-[#FDEBEC] dark:hover:bg-[rgba(159,47,45,0.12)] transition-colors"
-                              title="Remove from workspace"
+                              title="Xóa khỏi không gian làm việc"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                             <a
                               href={documentService.downloadUrl(doc._id)}
                               className="opacity-0 group-hover:opacity-100 p-1 rounded-[4px] text-[#ABABAB] hover:text-[#2563EB] hover:bg-[#EFF6FF] dark:hover:text-[#3B82F6] dark:hover:bg-[rgba(37,99,235,0.12)] transition-colors"
-                              title="Download document"
+                              title="Tải xuống tài liệu"
                             >
                               <Download className="w-3.5 h-3.5" />
                             </a>
@@ -206,7 +206,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                         </li>
                       ))}
                       {uploadedDocs.length === 0 && (
-                        <li className="px-3 py-1.5 text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] italic">No imported files</li>
+                        <li className="px-3 py-1.5 text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] italic">Không có tệp đã nhập</li>
                       )}
                     </ul>
                   </div>
@@ -238,14 +238,14 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
               </div>
               <div className="min-w-0">
                 <h2 id="remove-imported-document-title" className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">
-                  Remove from workspace?
+                  Xóa khỏi không gian làm việc?
                 </h2>
                 <p className="mt-1 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                  This will remove{" "}
+                  Thao tác này sẽ xóa{" "}
                   <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">
                     {removeTarget.name}
                   </span>{" "}
-                  from this workspace only. The document will remain in your library.
+                  khỏi không gian làm việc này. Tài liệu vẫn sẽ được lưu trong thư viện của bạn.
                 </p>
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                 onClick={() => setRemoveTarget(null)}
                 className="rounded-[6px] border border-[#EAEAEA] dark:border-white/[0.06] px-4 py-2 text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="button"
@@ -265,7 +265,7 @@ export default function DocsSidebar({ workspaceId }: { workspaceId: string }) {
                 onClick={handleRemoveImportedDocument}
                 className="rounded-[6px] bg-[#9F2F2D] px-4 py-2 text-[0.8125rem] font-semibold text-white transition-colors hover:bg-[#8F2927] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {removeImportedDocumentMutation.isPending ? "Removing..." : "Remove"}
+                {removeImportedDocumentMutation.isPending ? "Đang xóa..." : "Xóa"}
               </button>
             </div>
           </div>

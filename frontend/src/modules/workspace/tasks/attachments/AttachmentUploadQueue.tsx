@@ -46,7 +46,7 @@ export default function AttachmentUploadQueue({
                     type="button"
                     onClick={() => onClear(item.id)}
                     className="rounded-[4px] p-1 text-[#ABABAB] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
-                    aria-label="Clear upload row"
+                    aria-label="Xóa hàng tải lên"
                   >
                     <X className="h-3.5 w-3.5" />
                   </button>
@@ -72,10 +72,10 @@ export default function AttachmentUploadQueue({
                 }`}
               >
                 {item.status === "error"
-                  ? item.error || "Upload failed."
+                  ? item.error || "Tải lên thất bại."
                   : item.status === "success"
-                    ? "Upload complete."
-                    : `${item.progress}% uploaded`}
+                    ? "Tải lên hoàn tất."
+                    : `Đã tải lên ${item.progress}%`}
               </p>
             </div>
           </div>

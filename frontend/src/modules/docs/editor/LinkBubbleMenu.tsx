@@ -90,7 +90,7 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
     if (!href) return;
     navigator.clipboard.writeText(href);
     setCopied(true);
-    toast.success("Link copied");
+    toast.success("Đã sao chép liên kết");
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -110,7 +110,7 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
     e.preventDefault();
     const normalized = normalizeLinkUrl(editUrl);
     if (!normalized) {
-      toast.error("Invalid URL");
+      toast.error("URL không hợp lệ");
       return;
     }
 
@@ -151,25 +151,25 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
           <form onSubmit={handleSaveEdit} className="space-y-3">
             <div>
               <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase mb-1">
-                Display text
+                Văn bản hiển thị
               </label>
               <input
                 type="text"
                 value={editLabel}
                 onChange={(e) => setEditLabel(e.target.value)}
-                placeholder="Enter display text"
+                placeholder="Nhập văn bản hiển thị"
                 className="w-full h-8 px-2 border border-gray-200 dark:border-gray-800 rounded bg-transparent text-xs outline-none focus:border-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div>
               <label className="block text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase mb-1">
-                Link URL
+                URL liên kết
               </label>
               <input
                 type="text"
                 value={editUrl}
                 onChange={(e) => setEditUrl(e.target.value)}
-                placeholder="Enter URL (https://...)"
+                placeholder="Nhập URL (https://...)"
                 autoFocus
                 className="w-full h-8 px-2 border border-gray-200 dark:border-gray-800 rounded bg-transparent text-xs outline-none focus:border-blue-500 dark:focus:border-blue-500"
               />
@@ -180,13 +180,13 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
                 onClick={() => setIsEditing(false)}
                 className="px-2 py-1 text-xs font-semibold rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="submit"
                 className="px-2.5 py-1 text-xs font-semibold rounded bg-blue-600 hover:bg-blue-700 text-white transition-colors"
               >
-                Apply
+                Áp dụng
               </button>
             </div>
           </form>
@@ -196,7 +196,7 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
             {loading ? (
               <div className="flex items-center justify-center py-4 text-gray-400 dark:text-gray-500 gap-2">
                 <Loader2 className="w-4 h-4 animate-spin text-blue-500" />
-                <span className="text-xs">Loading preview...</span>
+                <span className="text-xs">Đang tải bản xem trước...</span>
               </div>
             ) : previewData ? (
               <div className="flex gap-2 bg-gray-50 dark:bg-gray-950 p-2 rounded-md border border-gray-100 dark:border-gray-850">
@@ -237,28 +237,28 @@ export default function LinkBubbleMenu({ editor }: LinkBubbleMenuProps) {
               <div className="flex items-center gap-1">
                 <button
                   onClick={handleCopy}
-                  title="Copy"
+                  title="Sao chép"
                   className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors text-gray-500 dark:text-gray-400 flex items-center gap-1"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>Copy</span>
+                  <span>Sao chép</span>
                 </button>
                 <button
                   onClick={handleStartEdit}
-                  title="Edit"
+                  title="Chỉnh sửa"
                   className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors text-gray-500 dark:text-gray-400 flex items-center gap-1"
                 >
                   <Pencil className="w-3.5 h-3.5" />
-                  <span>Edit</span>
+                  <span>Chỉnh sửa</span>
                 </button>
               </div>
               <button
                 onClick={handleUnlink}
-                title="Unlink"
+                title="Hủy liên kết"
                 className="p-1.5 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 rounded transition-colors flex items-center gap-1"
               >
                 <Unlink className="w-3.5 h-3.5" />
-                <span>Unlink</span>
+                <span>Hủy liên kết</span>
               </button>
             </div>
           </div>

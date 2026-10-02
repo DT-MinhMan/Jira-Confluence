@@ -23,13 +23,13 @@ interface TableContextMenuProps {
 }
 
 const COLORS = [
-  { name: "No color", value: null },
-  { name: "Light gray", value: "#F3F4F6" },
-  { name: "Light red", value: "#FEE2E2" },
-  { name: "Light blue", value: "#DBEAFE" },
-  { name: "Light green", value: "#D1FAE5" },
-  { name: "Light yellow", value: "#FEF3C7" },
-  { name: "Light purple", value: "#F3E8FF" },
+  { name: "Không màu", value: null },
+  { name: "Xám nhạt", value: "#F3F4F6" },
+  { name: "Đỏ nhạt", value: "#FEE2E2" },
+  { name: "Xanh dương nhạt", value: "#DBEAFE" },
+  { name: "Xanh lá nhạt", value: "#D1FAE5" },
+  { name: "Vàng nhạt", value: "#FEF3C7" },
+  { name: "Tím nhạt", value: "#F3E8FF" },
 ];
 
 export default function TableContextMenu({ editor, x, y, onClose }: TableContextMenuProps) {
@@ -110,7 +110,7 @@ export default function TableContextMenu({ editor, x, y, onClose }: TableContext
               className={menuBtnCls}
             >
               <Grid className="h-3.5 w-3.5" />
-              Merge selected cells
+              Gộp các ô đã chọn
             </button>
           )}
           {canSplitCell && (
@@ -119,7 +119,7 @@ export default function TableContextMenu({ editor, x, y, onClose }: TableContext
               className={menuBtnCls}
             >
               <Grid className="h-3.5 w-3.5" />
-              Split merged cell
+              Tách ô đã gộp
             </button>
           )}
 
@@ -132,34 +132,34 @@ export default function TableContextMenu({ editor, x, y, onClose }: TableContext
         className={menuBtnCls}
       >
         <ArrowUp className="h-3.5 w-3.5" />
-        Insert row above
+        Thêm hàng phía trên
       </button>
       <button
         onClick={() => runCommand(() => editor.chain().focus().addRowAfter().run())}
         className={menuBtnCls}
       >
         <ArrowDown className="h-3.5 w-3.5" />
-        Insert row below
+        Thêm hàng phía dưới
       </button>
       <button
         onClick={() => runCommand(() => editor.chain().focus().addColumnBefore().run())}
         className={menuBtnCls}
       >
         <ArrowLeft className="h-3.5 w-3.5" />
-        Insert column left
+        Thêm cột bên trái
       </button>
       <button
         onClick={() => runCommand(() => editor.chain().focus().addColumnAfter().run())}
         className={menuBtnCls}
       >
         <ArrowRight className="h-3.5 w-3.5" />
-        Insert column right
+        Thêm cột bên phải
       </button>
 
       <div className="my-1 h-px bg-gray-100 dark:bg-gray-800" />
 
       <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-        Cell background
+        Màu nền ô
       </div>
       <div className="flex flex-wrap gap-1 px-3 py-1.5">
         {COLORS.map((color) => (
@@ -182,21 +182,21 @@ export default function TableContextMenu({ editor, x, y, onClose }: TableContext
         className={menuBtnCls}
       >
         <Rows className="h-3.5 w-3.5 text-red-500" />
-        Delete current row
+        Xóa hàng hiện tại
       </button>
       <button
         onClick={() => runCommand(() => editor.chain().focus().deleteColumn().run())}
         className={menuBtnCls}
       >
         <Columns className="h-3.5 w-3.5 text-red-500" />
-        Delete current column
+        Xóa cột hiện tại
       </button>
       <button
         onClick={() => runCommand(() => editor.chain().focus().deleteTable().run())}
         className={`${menuBtnCls} text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20`}
       >
         <Trash2 className="h-3.5 w-3.5 text-red-600" />
-        Delete entire table
+        Xóa toàn bộ bảng
       </button>
     </div>,
     document.body,

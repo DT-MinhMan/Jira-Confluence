@@ -9,9 +9,9 @@ import { Suspense } from "react";
 export const metadata = {
     title: {
       template: '%s - TaskFlow',
-      default: 'TaskFlow — Modern Project & Task Management Platform',
+      default: 'TaskFlow — Nền tảng Quản lý Dự án & Công việc Hiện đại',
     },
-    description: "TaskFlow is a modern workspace for task tracking, Kanban boards, sprint planning, and team collaboration.",
+    description: "TaskFlow là không gian làm việc số hiện đại hỗ trợ theo dõi nhiệm vụ, bảng Kanban, kế hoạch sprint và cộng tác nhóm.",
     icons: {
       icon: [
         { url: "/favicon.ico?v=5", sizes: "any" },
@@ -23,7 +23,7 @@ export const metadata = {
     openGraph: {
       title: "TaskFlow",
       type: "website",
-      locale: "en_US",
+      locale: "vi_VN",
     },
   };
 

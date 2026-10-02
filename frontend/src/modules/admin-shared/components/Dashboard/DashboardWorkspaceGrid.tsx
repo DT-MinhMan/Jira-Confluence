@@ -12,16 +12,16 @@ export function DashboardWorkspaceGrid({ workspaces }: Props) {
   return (
     <>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="px-2 text-2xl font-bold text-[#111111] dark:text-[#E8E8E7]">Recommended workspaces</h1>
+        <h1 className="px-2 text-2xl font-bold text-[#111111] dark:text-[#E8E8E7]">Không gian làm việc gợi ý</h1>
         <Link href="/workspaces" className="text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8]">
-          View all
+          Xem tất cả
         </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {workspaces.length === 0 ? (
           <div className="col-span-full rounded-[8px] border border-dashed border-[#EAEAEA] bg-[#F9F9F8] p-8 text-center text-sm text-[#787774] dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#9B9A97]">
-            No recommended workspaces yet.
+            Chưa có không gian làm việc gợi ý nào.
           </div>
         ) : (
           workspaces.map((workspace) => (

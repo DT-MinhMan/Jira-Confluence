@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import {
@@ -28,13 +28,13 @@ type ListSplitSortField =
   | "updated";
 
 const LIST_SPLIT_SORT_OPTIONS: { id: ListSplitSortField; label: string }[] = [
-  { id: "created", label: "Created" },
-  { id: "key", label: "Key" },
-  { id: "lastViewed", label: "Last viewed" },
-  { id: "priority", label: "Priority" },
-  { id: "resolved", label: "Resolved" },
-  { id: "status", label: "Status" },
-  { id: "updated", label: "Updated" },
+  { id: "created", label: "Ngày tạo" },
+  { id: "key", label: "Mã" },
+  { id: "lastViewed", label: "Xem gần đây" },
+  { id: "priority", label: "Độ ưu tiên" },
+  { id: "resolved", label: "Đã hoàn thành" },
+  { id: "status", label: "Trạng thái" },
+  { id: "updated", label: "Ngày cập nhật" },
 ];
 
 type ListTabProps = {
@@ -64,9 +64,17 @@ type ListTabProps = {
 };
 
 const COLUMN_LABELS: Record<string, string> = {
-  key: "Key", title: "Work", type: "Type", status: "Status", priority: "Priority",
-  assigneeId: "Assignee", storyPoints: "Story Points", startDate: "Start Date",
-  dueDate: "Due Date", updatedAt: "Updated", labels: "Labels",
+  key: "Mã", title: "Nhiệm vụ", type: "Loại", status: "Trạng thái", priority: "Độ ưu tiên",
+  assigneeId: "Người thực hiện", storyPoints: "Điểm ước lượng", startDate: "Ngày bắt đầu",
+  dueDate: "Ngày đến hạn", updatedAt: "Cập nhật", labels: "Nhãn",
+};
+
+const PRIORITY_LABELS_VI: Record<string, string> = {
+  Highest: "Rất cao",
+  High: "Cao",
+  Medium: "Trung bình",
+  Low: "Thấp",
+  Lowest: "Rất thấp",
 };
 
 export default function ListTab({
@@ -122,11 +130,11 @@ export default function ListTab({
         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border text-[0.8125rem] bg-white dark:bg-[#252525] border-[#EAEAEA] dark:border-white/[0.08] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] transition-colors"
       >
         <Columns className="w-4 h-4" />
-        Columns
+        Cột hiển thị
       </button>
       {showColumnMenu && (
         <div className="absolute left-0 top-full mt-1 w-48 bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] z-50 p-2" style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}>
-          <div className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] mb-2 px-2 uppercase tracking-wider">Show / Hide</div>
+          <div className="text-[0.6875rem] font-semibold text-[#ABABAB] dark:text-[#6B6B6B] mb-2 px-2 uppercase tracking-wider">Ẩn / Hiện cột</div>
           {Object.keys(COLUMN_LABELS).map(id => (
             <label key={id} className="flex items-center gap-2 px-2 py-1.5 hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] rounded-[4px] cursor-pointer">
               <input
@@ -269,7 +277,7 @@ export default function ListTab({
       <button
         type="button"
         onClick={() => setListViewModePersisted("grid")}
-        title="Table view"
+        title="Chế độ bảng"
         className={`p-1.5 transition-colors ${
           listViewMode === "grid"
             ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white"
@@ -285,7 +293,7 @@ export default function ListTab({
           setListGridDrawerOpen(false);
           setListViewModePersisted("split");
         }}
-        title="Split view"
+        title="Chế độ chia đôi"
         className={`p-1.5 transition-colors border-l border-[#EAEAEA] dark:border-white/[0.06] ${
           listViewMode === "split"
             ? "bg-[#2563EB] dark:bg-[#3B82F6] text-white"
@@ -359,14 +367,14 @@ export default function ListTab({
                 <button
                   type="button"
                   onClick={() => setListSplitOrderOpen((o) => !o)}
-                  title={`Order work items by: ${LIST_SPLIT_SORT_OPTIONS.find((o) => o.id === listSplitSortBy)?.label ?? listSplitSortBy} (${listSplitSortDir})`}
+                  title={`Sắp xếp nhiệm vụ theo: ${LIST_SPLIT_SORT_OPTIONS.find((o) => o.id === listSplitSortBy)?.label ?? listSplitSortBy} (${listSplitSortDir === "asc" ? "Tăng dần" : "Giảm dần"})`}
                   className={`flex w-full items-center justify-between gap-2 rounded-[6px] border bg-white dark:bg-[#202020] px-2.5 py-1.5 text-left text-[0.8125rem] font-medium transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#2E2E2E] ${
                     listSplitOrderOpen
                       ? "border-[#2563EB] dark:border-[#3B82F6] text-[#2563EB] dark:text-[#3B82F6]"
                       : "border-[#EAEAEA] dark:border-white/[0.08] text-[#111111] dark:text-[#E8E8E7]"
                   }`}
                 >
-                  <span className="truncate">Custom field</span>
+                  <span className="truncate">Sắp xếp</span>
                   <ChevronDown
                     className={`h-4 w-4 shrink-0 ${listSplitOrderOpen ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-[#ABABAB] dark:text-[#6B6B6B]"}`}
                   />
@@ -374,7 +382,7 @@ export default function ListTab({
                 {listSplitOrderOpen && (
                   <div className="absolute left-0 right-0 top-full z-30 mt-1 max-h-72 overflow-y-auto rounded-[8px] border border-[#EAEAEA] dark:border-white/[0.06] bg-white dark:bg-[#202020] py-1" style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}>
                     <div className="px-3 py-2 text-[0.6875rem] font-semibold uppercase tracking-wide text-[#ABABAB] dark:text-[#6B6B6B]">
-                      Order work items by
+                      Sắp xếp nhiệm vụ theo
                     </div>
                     {LIST_SPLIT_SORT_OPTIONS.map((opt) => (
                       <label
@@ -399,7 +407,7 @@ export default function ListTab({
               </div>
               <button
                 type="button"
-                title={listSplitSortDir === "asc" ? "Sort ascending" : "Sort descending"}
+                title={listSplitSortDir === "asc" ? "Sắp xếp tăng dần" : "Sắp xếp giảm dần"}
                 onClick={() =>
                   setListSplitSortDir((d) => (d === "asc" ? "desc" : "asc"))
                 }
@@ -411,7 +419,7 @@ export default function ListTab({
               </button>
               <button
                 type="button"
-                title="Reset sort"
+                title="Đặt lại sắp xếp"
                 onClick={() => {
                   setListSplitSortBy("key");
                   setListSplitSortDir("asc");
@@ -425,7 +433,7 @@ export default function ListTab({
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
               {splitSortedIssues.length === 0 ? (
                 <p className="p-4 text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                  No tasks match the current filter.
+                  Không có nhiệm vụ nào phù hợp với bộ lọc hiện tại.
                 </p>
               ) : (
                 <>
@@ -477,7 +485,7 @@ export default function ListTab({
                               </span>
                               {issue.priority && (
                                 <span className="rounded-[4px] bg-[#FBF3DB] dark:bg-[rgba(149,100,0,0.12)] px-1.5 py-0.5 text-[0.625rem] font-semibold text-[#956400] dark:text-[#F59E0B]">
-                                  {issue.priority}
+                                  {PRIORITY_LABELS_VI[issue.priority] || issue.priority}
                                 </span>
                               )}
                             </div>
@@ -487,7 +495,7 @@ export default function ListTab({
                     })}
                   </ul>
                   <div className="shrink-0 border-t border-[#EAEAEA] dark:border-white/[0.06] bg-[#F9F9F8] dark:bg-[#252525] px-3 py-2 text-center text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">
-                    {splitSortedIssues.length} of {splitSortedIssues.length}
+                    {splitSortedIssues.length} / {splitSortedIssues.length}
                   </div>
                 </>
               )}
@@ -497,7 +505,7 @@ export default function ListTab({
           <section className="flex min-h-80 flex-col overflow-hidden bg-white dark:bg-[#202020] lg:min-h-0">
             {!selectedIssue ? (
               <div className="flex flex-1 items-center justify-center p-8 text-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                Select a task in the left column to view details.
+                Chọn một nhiệm vụ ở cột bên trái để xem chi tiết.
               </div>
             ) : splitSortedIssues.some((i) => i.id === selectedIssue.id) ? (
               <TaskDetailList
@@ -518,13 +526,13 @@ export default function ListTab({
               />
             ) : (
               <div className="flex flex-1 items-center justify-center p-8 text-center text-[0.8125rem] text-[#787774] dark:text-[#9B9A97]">
-                The selected task is no longer in the filtered list.{" "}
+                Nhiệm vụ đã chọn không còn trong danh sách đã lọc.{" "}
                 <button
                   type="button"
                   onClick={() => setSelectedIssue(null)}
                   className="ml-1 font-medium text-[#2563EB] dark:text-[#3B82F6] hover:underline"
                 >
-                  Clear selection
+                  Bỏ chọn
                 </button>
               </div>
             )}
