@@ -57,6 +57,7 @@
     "cookie": "^1.1.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
+    "express": "^5.2.1",
     "google-auth-library": "^10.7.0",
     "helmet": "^8.2.0",
     "html-to-docx": "^1.8.0",
