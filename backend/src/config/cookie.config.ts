@@ -18,10 +18,18 @@ const BASE_COOKIE_OPTIONS = (
   configService: ConfigService,
 ): Omit<CookieOptions, 'maxAge'> => {
   const isProduction = configService.get<string>('NODE_ENV') === 'production';
+  const rawSameSite = configService.get<string>('COOKIE_SAME_SITE')?.toLowerCase();
+  const sameSite: 'strict' | 'lax' | 'none' =
+    rawSameSite === 'none' || rawSameSite === 'lax' || rawSameSite === 'strict'
+      ? rawSameSite
+      : isProduction
+        ? 'strict'
+        : 'lax';
+
   return {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'strict' : 'lax',
+    secure: isProduction || sameSite === 'none',
+    sameSite,
     path: '/',
     domain: isProduction
       ? configService.get<string>('COOKIE_DOMAIN')
@@ -60,11 +68,14 @@ export const getRefreshCookieOptions = (
 // Không nhạy cảm (chỉ là UUID ngẫu nhiên, không leak identity), nên có thể giữ 1 năm.
 export const getDeviceCookieOptions = (
   configService: ConfigService,
-): CookieOptions => ({
-  ...BASE_COOKIE_OPTIONS(configService),
-  sameSite: 'lax', // ép lax để chắc chắn browser gửi kèm khi navigate cùng site
-  maxAge: 365 * 24 * 60 * 60 * 1000, // 1 năm
-});
+): CookieOptions => {
+  const base = BASE_COOKIE_OPTIONS(configService);
+  return {
+    ...base,
+    sameSite: base.sameSite === 'none' ? 'none' : 'lax',
+    maxAge: 365 * 24 * 60 * 60 * 1000, // 1 năm
+  };
+};
 
 // Backward-compat alias
 export const getCookieOptions = getAccessCookieOptions;

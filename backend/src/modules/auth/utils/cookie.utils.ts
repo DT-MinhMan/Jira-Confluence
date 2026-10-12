@@ -71,11 +71,22 @@ export function clearAuthCookies(
   configService: ConfigService,
 ): void {
   const isProduction = configService.get<string>('NODE_ENV') === 'production';
+  const rawSameSite = configService.get<string>('COOKIE_SAME_SITE')?.toLowerCase();
+  const sameSite: 'strict' | 'lax' | 'none' =
+    rawSameSite === 'none' || rawSameSite === 'lax' || rawSameSite === 'strict'
+      ? rawSameSite
+      : isProduction
+        ? 'strict'
+        : 'lax';
+
   const clearOptions: CookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'strict' : 'lax',
+    secure: isProduction || sameSite === 'none',
+    sameSite,
     path: '/',
+    domain: isProduction
+      ? configService.get<string>('COOKIE_DOMAIN')
+      : undefined,
   };
 
   res.clearCookie(COOKIE_NAMES.ACCESS, clearOptions);

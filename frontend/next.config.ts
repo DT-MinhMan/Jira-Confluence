@@ -17,7 +17,8 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingRoot: path.join(__dirname),
   output:
-    process.platform === "win32" && !process.env.NEXT_STANDALONE
+    process.env.VERCEL ||
+    (process.platform === "win32" && !process.env.NEXT_STANDALONE)
       ? undefined
       : "standalone",
 };
