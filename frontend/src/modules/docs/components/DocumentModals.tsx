@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { DocumentItem } from "../types/document.type";
 import ImportedDocumentViewer from "./ImportedDocumentViewer";
 import DocumentWorkspaceLinkModal from "./DocumentWorkspaceLinkModal";
+import DocumentUploadModal from "./DocumentUploadModal";
 
 const OnlineDocumentEditorModal = dynamic(() => import("./OnlineDocumentEditorModal"), { ssr: false });
 
@@ -24,6 +25,8 @@ interface DocumentModalsProps {
   setRenameName: (name: string) => void;
   linkingDoc: DocumentItem | null;
   setLinkingDoc: (doc: DocumentItem | null) => void;
+  isUploadOpen?: boolean;
+  setIsUploadOpen?: (open: boolean) => void;
   deleting: boolean;
   renaming: boolean;
   onDelete: (doc: DocumentItem) => void;
@@ -44,6 +47,8 @@ export default function DocumentModals({
   setRenameName,
   linkingDoc,
   setLinkingDoc,
+  isUploadOpen = false,
+  setIsUploadOpen,
   deleting,
   renaming,
   onDelete,
@@ -221,6 +226,14 @@ export default function DocumentModals({
           open={Boolean(linkingDoc)}
           onClose={() => setLinkingDoc(null)}
           onSaved={onSaved}
+        />
+      )}
+
+      {isUploadOpen && (
+        <DocumentUploadModal
+          open={isUploadOpen}
+          onClose={() => setIsUploadOpen?.(false)}
+          onSuccess={onSaved}
         />
       )}
     </>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Loader2, Trash2, UserPlus, Users, X } from "lucide-react";
 
@@ -73,10 +73,10 @@ export default function MemberSettings({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] flex items-center gap-2">
-            <Users className="w-5 h-5 text-[#2563EB] dark:text-[#3B82F6]" /> Member
+            <Users className="w-5 h-5 text-[#2563EB] dark:text-[#3B82F6]" /> Thành viên
           </h2>
           <p className="mt-1 text-sm text-[#787774] dark:text-[#9B9A97]">
-            Manage access permissions and pending invitations in this workspace.
+            Quản lý quyền truy cập và các lời mời đang chờ xử lý trong không gian làm việc này.
           </p>
         </div>
         {canManageWorkspace && (
@@ -86,7 +86,7 @@ export default function MemberSettings({
             className="inline-flex items-center justify-center gap-2 rounded-[6px] bg-[#2563EB] dark:bg-[#3B82F6] px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-[#2563EB]/20 transition-colors hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB]"
           >
             <UserPlus className="h-4 w-4" />
-            Invite member
+            Mời thành viên
           </button>
         )}
       </div>
@@ -97,7 +97,7 @@ export default function MemberSettings({
           onClick={() => setMemberSubTab("list")}
           className={"rounded-md px-3 py-1.5 text-sm font-semibold transition-colors " + listTabClass}
         >
-          List ({members.length})
+          Danh sách ({members.length})
         </button>
         {canManageWorkspace && (
           <button
@@ -105,7 +105,7 @@ export default function MemberSettings({
             onClick={() => setMemberSubTab("invites")}
             className={"rounded-md px-3 py-1.5 text-sm font-semibold transition-colors " + invitesTabClass}
           >
-            Invitations ({invites.length})
+            Lời mời ({invites.length})
           </button>
         )}
       </div>
@@ -114,18 +114,18 @@ export default function MemberSettings({
         <section>
           {loadingMembers ? (
             <div className="flex items-center gap-2 py-8 text-sm text-[#ABABAB] dark:text-[#6B6B6B]">
-              <Loader2 className="h-4 w-4 animate-spin" /> Loading members...
+              <Loader2 className="h-4 w-4 animate-spin" /> Đang tải thành viên...
             </div>
           ) : members.length === 0 ? (
             <div className="rounded-[6px] border border-dashed border-[#EAEAEA] p-6 text-center text-sm text-[#787774] dark:border-white/[0.08] dark:text-[#9B9A97]">
-              There are no members in this workspace yet.
+              Chưa có thành viên nào trong không gian làm việc này.
             </div>
           ) : (
             <div className="overflow-hidden rounded-[8px] border border-[#EAEAEA] dark:border-white/[0.06]">
               <div className="divide-y divide-[#EAEAEA] dark:divide-white/[0.06]">
                 {members.map((member) => {
                   const memberUser = member.userId;
-                  const displayName = memberUser?.fullName || memberUser?.email || "User";
+                  const displayName = memberUser?.fullName || memberUser?.email || "Người dùng";
                   const memberId = memberUser?._id;
                   const isSelf = memberId === currentUserId;
                   const isBusy = updatingMemberId === memberId || removingMemberId === memberId;
@@ -156,12 +156,12 @@ export default function MemberSettings({
                             </p>
                             {isSelf && (
                               <span className="rounded-full bg-[#F7F6F3] px-2 py-0.5 text-xs font-semibold text-[#787774] dark:bg-[#252525] dark:text-[#9B9A97]">
-                                You
+                                Bạn
                               </span>
                             )}
                           </div>
                           <p className="truncate text-xs text-[#787774] dark:text-[#9B9A97]">
-                            {memberUser?.email || "No email"}
+                            {memberUser?.email || "Không có email"}
                           </p>
                         </div>
                       </div>
@@ -187,7 +187,7 @@ export default function MemberSettings({
                           ) : (
                             <Trash2 className="h-4 w-4" />
                           )}
-                          Remove
+                          Xóa
                         </button>
                       </div>
                     </div>
@@ -201,11 +201,11 @@ export default function MemberSettings({
         <section>
           {loadingInvites ? (
             <div className="flex items-center gap-2 py-8 text-sm text-[#ABABAB] dark:text-[#6B6B6B]">
-              <Loader2 className="h-4 w-4 animate-spin" /> Loading invitations...
+              <Loader2 className="h-4 w-4 animate-spin" /> Đang tải lời mời...
             </div>
           ) : invites.length === 0 ? (
             <div className="rounded-[6px] border border-dashed border-[#EAEAEA] p-6 text-center text-sm text-[#787774] dark:border-white/[0.08] dark:text-[#9B9A97]">
-              There are no pending invitations.
+              Không có lời mời nào đang chờ xử lý.
             </div>
           ) : (
             <div className="overflow-x-auto rounded-[8px] border border-[#EAEAEA] dark:border-white/[0.06]">
@@ -213,9 +213,9 @@ export default function MemberSettings({
                 <thead className="border-b border-[#EAEAEA] bg-[#F9F9F8] font-medium text-[#787774] dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#9B9A97]">
                   <tr>
                     <th className="px-4 py-3">Email</th>
-                    <th className="px-4 py-3 w-36">Role</th>
-                    <th className="px-4 py-3 w-40">Status</th>
-                    <th className="px-4 py-3 w-24 text-right">Actions</th>
+                    <th className="px-4 py-3 w-36">Vai trò</th>
+                    <th className="px-4 py-3 w-40">Trạng thái</th>
+                    <th className="px-4 py-3 w-24 text-right">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EAEAEA] dark:divide-white/[0.06]">
@@ -234,8 +234,8 @@ export default function MemberSettings({
                       </td>
                       <td className="px-4 py-3 text-xs text-[#787774] dark:text-[#9B9A97]">
                         {invite.expiresAt
-                          ? "Expires " + new Date(invite.expiresAt).toLocaleDateString("en-US")
-                          : "Pending, no expiration"}
+                          ? "Hết hạn " + new Date(invite.expiresAt).toLocaleDateString("vi-VN")
+                          : "Đang chờ, không có thời hạn"}
                       </td>
                       <td className="px-4 py-3 text-right">
                         <button
@@ -249,7 +249,7 @@ export default function MemberSettings({
                           ) : (
                             <X className="h-4 w-4" />
                           )}
-                          Cancel
+                          Hủy
                         </button>
                       </td>
                     </tr>

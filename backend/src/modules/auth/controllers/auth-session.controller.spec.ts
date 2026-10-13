@@ -174,7 +174,7 @@ describe('AuthSessionController', () => {
         .expect(429);
 
       expect(response.body).toMatchObject({
-        message: 'Please wait before trying again.',
+        message: 'Vui lòng đợi trước khi thử lại.',
         code: AUTH_ERROR_CODES.LOGIN_RETRY_LATER,
         details: {
           retryAfterSeconds,

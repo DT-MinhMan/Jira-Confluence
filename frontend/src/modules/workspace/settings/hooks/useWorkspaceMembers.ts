@@ -86,10 +86,10 @@ export function useWorkspaceMembers(
     try {
       await inviteService.cancelInvite(workspaceId, inviteId);
       setInvites((prev) => prev.filter((invite) => invite._id !== inviteId));
-      toast.success("Invitation canceled.");
+      toast.success("Đã hủy lời mời.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not cancel invitation.");
+      toast.error(error?.response?.data?.message || "Không thể hủy lời mời.");
     } finally {
       setCancellingId(null);
     }
@@ -107,10 +107,10 @@ export function useWorkspaceMembers(
       setMembers((prev) =>
         prev.map((item) => (item.userId?._id === userId ? { ...item, role } : item)),
       );
-      toast.success("Member permissions updated.");
+      toast.success("Đã cập nhật quyền thành viên.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not update member permissions.");
+      toast.error(error?.response?.data?.message || "Không thể cập nhật quyền thành viên.");
     } finally {
       setUpdatingMemberId(null);
     }
@@ -126,10 +126,10 @@ export function useWorkspaceMembers(
 
       await api.delete(apiRoutes.WORKSPACES.REMOVE_MEMBER(workspaceId, userId));
       setMembers((prev) => prev.filter((item) => item.userId?._id !== userId));
-      toast.success("Member removed from workspace.");
+      toast.success("Đã xóa thành viên khỏi không gian làm việc.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not remove member.");
+      toast.error(error?.response?.data?.message || "Không thể xóa thành viên.");
     } finally {
       setRemovingMemberId(null);
     }

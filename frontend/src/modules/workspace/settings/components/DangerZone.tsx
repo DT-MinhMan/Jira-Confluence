@@ -46,15 +46,15 @@ export default function DangerZone({
     <>
       <section className="mt-12 p-5 border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/20 rounded-lg space-y-6">
         <h3 className="text-red-800 dark:text-red-200 font-bold flex items-center gap-2">
-          <ShieldAlert className="w-5 h-5" /> Danger zone
+          <ShieldAlert className="w-5 h-5" /> Vùng nguy hiểm
         </h3>
 
         <div className="pb-6 border-b border-red-200 dark:border-red-800">
-          <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-1">Leave workspace</p>
+          <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-1">Rời khỏi không gian làm việc</p>
           <p className="text-sm text-red-600 dark:text-red-300 mb-3">
             {canManageWorkspace
-              ? "You are the workspace owner. You must delete the workspace before leaving."
-              : "You will lose access to this workspace."}
+              ? "Bạn là chủ sở hữu không gian làm việc. Bạn phải xóa không gian làm việc trước khi rời đi."
+              : "Bạn sẽ mất quyền truy cập vào không gian làm việc này."}
           </p>
           <button
             type="button"
@@ -62,15 +62,15 @@ export default function DangerZone({
             className="flex items-center gap-2 px-4 py-2 bg-amber-600 text-white hover:bg-amber-700 rounded-[6px] text-sm font-semibold transition-colors shadow-sm shadow-amber-600/20"
           >
             <LogOut className="w-4 h-4" />
-            Leave workspace
+            Rời khỏi không gian làm việc
           </button>
         </div>
 
         {canManageWorkspace && (
           <div>
-            <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-1">Delete workspace</p>
+            <p className="text-sm font-semibold text-red-800 dark:text-red-200 mb-1">Xóa không gian làm việc</p>
             <p className="text-sm text-red-600 dark:text-red-300 mb-4">
-              Delete this workspace along with its boards, backlog, and related content. This action cannot be undone.
+              Xóa không gian làm việc này cùng với bảng, backlog và các nội dung liên quan. Hành động này không thể hoàn tác.
             </p>
             <button
               type="button"
@@ -81,7 +81,7 @@ export default function DangerZone({
               className="px-4 py-2 bg-[#9F2F2D] text-white hover:bg-[#8F2927] rounded-[6px] text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm shadow-[#9F2F2D]/20"
             >
               <Trash2 className="w-4 h-4" />
-              Delete workspace
+              Xóa không gian làm việc
             </button>
           </div>
         )}
@@ -94,12 +94,12 @@ export default function DangerZone({
               <div className="w-10 h-10 rounded-full bg-[#FDEBEC] dark:bg-[rgba(159,47,45,0.12)] flex items-center justify-center flex-shrink-0">
                 <Trash2 className="w-5 h-5 text-[#9F2F2D] dark:text-[#F87171]" />
               </div>
-              <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7]">Delete workspace</h2>
+              <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7]">Xóa không gian làm việc</h2>
             </div>
             <p className="text-sm text-[#787774] dark:text-[#9B9A97] mb-4">
-              This action will delete workspace{" "}
-              <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspace.name}</span> and cannot be
-              undone. Enter <span className="font-mono font-semibold">delete</span> to confirm.
+              Hành động này sẽ xóa không gian làm việc{" "}
+              <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspace.name}</span> và không thể hoàn
+              tác. Nhập <span className="font-mono font-semibold">delete</span> để xác nhận.
             </p>
             <input
               type="text"
@@ -119,7 +119,7 @@ export default function DangerZone({
                 }}
                 className="px-4 py-2 text-sm font-medium text-[#111111] dark:text-[#E8E8E7] bg-[#F9F9F8] dark:bg-[#252525] hover:bg-[#F0F0EE] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 type="button"
@@ -128,7 +128,7 @@ export default function DangerZone({
                 className="px-4 py-2 text-sm font-medium text-white bg-[#9F2F2D] hover:bg-[#8F2927] disabled:bg-[#F5C6C7] disabled:cursor-not-allowed rounded-[6px] transition-colors flex items-center gap-2"
               >
                 {deleting && <Loader2 className="w-4 h-4 animate-spin" />}
-                {deleting ? "Deleting..." : "Confirm delete"}
+                {deleting ? "Đang xóa..." : "Xác nhận xóa"}
               </button>
             </div>
           </div>
@@ -145,13 +145,13 @@ export default function DangerZone({
                     <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                   </div>
                   <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7]">
-                    You are the owner of this workspace
+                    Bạn là chủ sở hữu không gian làm việc này
                   </h2>
                 </div>
                 <p className="text-sm text-[#787774] dark:text-[#9B9A97] mb-6">
-                  Do you want to delete workspace{" "}
-                  <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspace.name}</span> now? This
-                  action will delete all data and cannot be undone.
+                  Bạn có muốn xóa không gian làm việc{" "}
+                  <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspace.name}</span> ngay bây giờ? Hành
+                  động này sẽ xóa toàn bộ dữ liệu và không thể hoàn tác.
                 </p>
                 <div className="flex justify-end gap-3">
                   <button
@@ -159,7 +159,7 @@ export default function DangerZone({
                     onClick={() => setShowLeaveDialog(false)}
                     className="px-4 py-2 text-sm font-medium text-[#111111] dark:text-[#E8E8E7] bg-[#F9F9F8] dark:bg-[#252525] hover:bg-[#F0F0EE] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors"
                   >
-                    Close
+                    Đóng
                   </button>
                   <button
                     type="button"
@@ -174,7 +174,7 @@ export default function DangerZone({
                     className="px-4 py-2 text-sm font-medium text-white bg-[#9F2F2D] hover:bg-[#8F2927] rounded-[6px] transition-colors flex items-center gap-2"
                   >
                     <Trash2 className="w-4 h-4" />
-                    Go to delete workspace
+                    Đi đến xóa không gian làm việc
                   </button>
                 </div>
               </>
@@ -184,12 +184,12 @@ export default function DangerZone({
                   <div className="w-10 h-10 rounded-full bg-[#FDEBEC] dark:bg-[rgba(159,47,45,0.12)] flex items-center justify-center flex-shrink-0">
                     <LogOut className="w-5 h-5 text-[#9F2F2D] dark:text-[#F87171]" />
                   </div>
-                  <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7]">Leave workspace</h2>
+                  <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7]">Rời khỏi không gian làm việc</h2>
                 </div>
                 <p className="text-sm text-[#787774] dark:text-[#9B9A97] mb-4">
-                  You will lose access to workspace{" "}
-                  <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspace.name}</span>. Enter{" "}
-                  <span className="font-mono font-semibold">leave</span> to confirm.
+                  Bạn sẽ mất quyền truy cập vào không gian làm việc{" "}
+                  <span className="font-semibold text-[#111111] dark:text-[#E8E8E7]">{workspace.name}</span>. Nhập{" "}
+                  <span className="font-mono font-semibold">leave</span> để xác nhận.
                 </p>
                 <input
                   type="text"
@@ -209,7 +209,7 @@ export default function DangerZone({
                     }}
                     className="px-4 py-2 text-sm font-medium text-[#111111] dark:text-[#E8E8E7] bg-[#F9F9F8] dark:bg-[#252525] hover:bg-[#F0F0EE] dark:hover:bg-[#2E2E2E] rounded-[6px] transition-colors"
                   >
-                    Cancel
+                    Hủy
                   </button>
                   <button
                     type="button"
@@ -218,7 +218,7 @@ export default function DangerZone({
                     className="px-4 py-2 text-sm font-medium text-white bg-[#9F2F2D] hover:bg-[#8F2927] disabled:bg-[#F5C6C7] disabled:cursor-not-allowed rounded-[6px] transition-colors flex items-center gap-2"
                   >
                     {leaving && <Loader2 className="w-4 h-4 animate-spin" />}
-                    {leaving ? "Leaving..." : "Confirm leave"}
+                    {leaving ? "Đang rời khỏi..." : "Xác nhận rời khỏi"}
                   </button>
                 </div>
               </>

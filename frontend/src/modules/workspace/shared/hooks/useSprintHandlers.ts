@@ -60,13 +60,13 @@ export const useSprintHandlers = ({
       return { previousSprints };
     },
     onSuccess: () => {
-      toast.success("Sprint created");
+      toast.success("Đã tạo sprint");
     },
     onError: (err, _input, context) => {
       if (context?.previousSprints) {
         queryClient.setQueryData(queryKeys.sprints.byWorkspace(workspaceId), context.previousSprints);
       }
-      toast.error(getApiErrorMessage(err, "Error creating sprint"));
+      toast.error(getApiErrorMessage(err, "Không thể tạo sprint"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.sprints.byWorkspace(workspaceId) });
@@ -90,13 +90,13 @@ export const useSprintHandlers = ({
       if (context?.previousSprints) {
         queryClient.setQueryData(queryKeys.sprints.byWorkspace(workspaceId), context.previousSprints);
       }
-      toast.error(getApiErrorMessage(err, "Error updating sprint"));
+      toast.error(getApiErrorMessage(err, "Không thể cập nhật sprint"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.sprints.byWorkspace(workspaceId) });
     },
     onSuccess: () => {
-      toast.success("Sprint updated");
+      toast.success("Đã cập nhật sprint");
     },
   });
 
@@ -117,13 +117,13 @@ export const useSprintHandlers = ({
       if (context?.previousSprints) {
         queryClient.setQueryData(queryKeys.sprints.byWorkspace(workspaceId), context.previousSprints);
       }
-      toast.error(getApiErrorMessage(err, "Error deleting sprint"));
+      toast.error(getApiErrorMessage(err, "Không thể xóa sprint"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.sprints.byWorkspace(workspaceId) });
     },
     onSuccess: () => {
-      toast.success("Sprint deleted");
+      toast.success("Đã xóa sprint");
     },
   });
 
@@ -144,14 +144,14 @@ export const useSprintHandlers = ({
       if (context?.previousSprints) {
         queryClient.setQueryData(queryKeys.sprints.byWorkspace(workspaceId), context.previousSprints);
       }
-      toast.error(getApiErrorMessage(err, "Error starting sprint"));
+      toast.error(getApiErrorMessage(err, "Không thể bắt đầu sprint"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.sprints.byWorkspace(workspaceId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.board.byWorkspace(workspaceId) });
     },
     onSuccess: () => {
-      toast.success("Sprint started");
+      toast.success("Đã bắt đầu sprint");
     },
   });
 
@@ -172,7 +172,7 @@ export const useSprintHandlers = ({
       if (context?.previousSprints) {
         queryClient.setQueryData(queryKeys.sprints.byWorkspace(workspaceId), context.previousSprints);
       }
-      toast.error(getApiErrorMessage(err, "Error completing sprint"));
+      toast.error(getApiErrorMessage(err, "Không thể hoàn thành sprint"));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.sprints.byWorkspace(workspaceId) });
@@ -180,7 +180,7 @@ export const useSprintHandlers = ({
       queryClient.invalidateQueries({ queryKey: queryKeys.tasks.all });
     },
     onSuccess: () => {
-      toast.success("Sprint completed");
+      toast.success("Đã hoàn thành sprint");
     },
   });
 
@@ -201,7 +201,7 @@ export const useSprintHandlers = ({
 
   const handleEditSprint = (sprint: Sprint) => {
     if (sprint.status === "completed") {
-      toast.error("Completed sprints cannot be edited");
+      toast.error("Sprint đã hoàn thành không thể chỉnh sửa");
       return;
     }
     setEditingSprint(sprint);
@@ -215,15 +215,15 @@ export const useSprintHandlers = ({
   const handleStartSprint = (sprintId: string) => {
     const sprint = sprints.find((s) => s._id === sprintId);
     if (!sprint) {
-      toast.error("No sprint");
+      toast.error("Không tìm thấy sprint");
       return;
     }
     if (sprint._id.startsWith("temp-")) {
-      toast.error("Sprint is being created. Please wait for sync");
+      toast.error("Sprint đang được tạo. Vui lòng đợi đồng bộ");
       return;
     }
     if (sprint.status !== "planning") {
-      toast.error("Only planned sprints can be started");
+      toast.error("Chỉ sprint đang lên kế hoạch mới có thể bắt đầu");
       return;
     }
     if (!sprint.startDate || !sprint.endDate) {
@@ -231,7 +231,7 @@ export const useSprintHandlers = ({
       return;
     }
     if (new Date(sprint.endDate) <= new Date(sprint.startDate)) {
-      toast.error("End date must be after start date");
+      toast.error("Ngày kết thúc phải sau ngày bắt đầu");
       return;
     }
 
@@ -259,7 +259,7 @@ export const useSprintHandlers = ({
   const handleCompleteSprint = (sprintId: string) => {
     const sprint = sprints.find((s) => s._id === sprintId);
     if (!sprint) {
-      toast.error("No sprint");
+      toast.error("Không tìm thấy sprint");
       return;
     }
     setCompleteSprintTarget(sprint);

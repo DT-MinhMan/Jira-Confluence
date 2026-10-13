@@ -17,7 +17,7 @@ export class ErrorFactory {
   // ─── Auth ───────────────────────────────────────────────────────────────
   static publicLoginFailure(retryAfterSeconds = 0): ErrorPayload {
     const payload: ErrorPayload = {
-      message: 'Email or password is incorrect.',
+      message: 'Email hoặc mật khẩu không chính xác.',
       code: AUTH_ERROR_CODES.INVALID_CREDENTIALS,
     };
 
@@ -30,7 +30,7 @@ export class ErrorFactory {
 
   static loginRetryLater(retryAfterSeconds: number): ErrorPayload {
     return {
-      message: 'Please wait before trying again.',
+      message: 'Vui lòng đợi trước khi thử lại.',
       code: AUTH_ERROR_CODES.LOGIN_RETRY_LATER,
       details: this.loginRetryDetails(retryAfterSeconds),
     };
@@ -47,21 +47,21 @@ export class ErrorFactory {
 
   static emailNotVerified(): ErrorPayload {
     return {
-      message: 'Please verify your email before signing in.',
+      message: 'Vui lòng xác thực email trước khi đăng nhập.',
       code: AUTH_ERROR_CODES.EMAIL_NOT_VERIFIED,
     };
   }
 
   static accountSuspended(): ErrorPayload {
     return {
-      message: 'Account has been locked or suspended.',
+      message: 'Tài khoản đã bị khóa hoặc tạm ngưng.',
       code: AUTH_ERROR_CODES.USER_SUSPENDED,
     };
   }
 
   static accountDeactivated(): ErrorPayload {
     return {
-      message: 'Account has been locked or suspended.',
+      message: 'Tài khoản đã bị khóa hoặc tạm ngưng.',
       code: AUTH_ERROR_CODES.USER_DEACTIVATED,
     };
   }
@@ -69,21 +69,21 @@ export class ErrorFactory {
   // ─── Tasks ──────────────────────────────────────────────────────────────
   static taskNotFound(id?: string): ErrorPayload {
     return {
-      message: id ? `Task with ID "${id}" not found` : 'Task not found',
+      message: id ? `Không tìm thấy nhiệm vụ với ID "${id}"` : 'Không tìm thấy nhiệm vụ',
       code: TASK_ERROR_CODES.TASK_NOT_FOUND,
     };
   }
 
   static taskArchived(): ErrorPayload {
     return {
-      message: 'Archived task operations are read-only.',
+      message: 'Nhiệm vụ đã lưu trữ chỉ có thể xem.',
       code: TASK_ERROR_CODES.TASK_ARCHIVED,
     };
   }
 
   static taskKeyConflict(key: string): ErrorPayload {
     return {
-      message: `Task key "${key}" conflicts with an existing task.`,
+      message: `Mã nhiệm vụ "${key}" đã trùng với một nhiệm vụ khác.`,
       code: TASK_ERROR_CODES.TASK_KEY_CONFLICT,
     };
   }
@@ -91,14 +91,14 @@ export class ErrorFactory {
   // ─── Scrum / Sprint ─────────────────────────────────────────────────────
   static sprintNotFound(id?: string): ErrorPayload {
     return {
-      message: id ? `Sprint with ID "${id}" not found` : 'Sprint not found',
+      message: id ? `Không tìm thấy sprint với ID "${id}"` : 'Không tìm thấy sprint',
       code: SPRINT_ERROR_CODES.SPRINT_NOT_FOUND,
     };
   }
 
   static sprintInvalidStatus(expected: string, actual: string): ErrorPayload {
     return {
-      message: `Sprint must be in "${expected}" status, but current status is "${actual}".`,
+      message: `Sprint phải ở trạng thái "${expected}", nhưng hiện tại là "${actual}".`,
       code: SPRINT_ERROR_CODES.SPRINT_INVALID_STATUS,
     };
   }
@@ -106,7 +106,7 @@ export class ErrorFactory {
   static activeSprintExists(): ErrorPayload {
     return {
       message:
-        'Cannot start sprint: There is already an active sprint in this workspace.',
+        'Không thể bắt đầu sprint: Đã có sprint đang hoạt động trong không gian làm việc này.',
       code: SPRINT_ERROR_CODES.ACTIVE_SPRINT_EXISTS,
     };
   }
@@ -114,14 +114,14 @@ export class ErrorFactory {
   static sprintTargetInvalid(): ErrorPayload {
     return {
       message:
-        'Target sprint must exist, belong to the same workspace, and be in planning status.',
+        'Sprint đích phải tồn tại, thuộc cùng không gian làm việc và đang ở trạng thái lên kế hoạch.',
       code: SPRINT_ERROR_CODES.SPRINT_TARGET_INVALID,
     };
   }
 
   static invalidIdFormat(resourceName: string): ErrorPayload {
     return {
-      message: `ID format ${resourceName} is invalid`,
+      message: `Định dạng ID ${resourceName} không hợp lệ`,
       code: SPRINT_ERROR_CODES.INVALID_ID_FORMAT,
     };
   }
@@ -129,14 +129,14 @@ export class ErrorFactory {
   // ─── Kanban ──────────────────────────────────────────────────────────────
   static invalidColumnName(): ErrorPayload {
     return {
-      message: 'Column name must not be empty.',
+      message: 'Tên cột không được để trống.',
       code: KANBAN_ERROR_CODES.INVALID_COLUMN_NAME,
     };
   }
 
   static duplicateColumnName(): ErrorPayload {
     return {
-      message: 'A column with this name already exists.',
+      message: 'Cột với tên này đã tồn tại.',
       code: KANBAN_ERROR_CODES.DUPLICATE_COLUMN_NAME,
     };
   }
@@ -145,8 +145,8 @@ export class ErrorFactory {
   static workspaceNotFound(id?: string): ErrorPayload {
     return {
       message: id
-        ? `Workspace with ID "${id}" not found`
-        : 'Workspace not found',
+        ? `Không tìm thấy không gian làm việc với ID "${id}"`
+        : 'Không tìm thấy không gian làm việc',
       code: WORKSPACE_ERROR_CODES.WORKSPACE_NOT_FOUND,
     };
   }
@@ -154,92 +154,92 @@ export class ErrorFactory {
   static workspaceMemberNotFound(userId?: string): ErrorPayload {
     return {
       message: userId
-        ? `User "${userId}" is not a member`
-        : 'User is not a member',
+        ? `Người dùng "${userId}" không phải là thành viên`
+        : 'Người dùng không phải là thành viên',
       code: WORKSPACE_ERROR_CODES.WORKSPACE_MEMBER_NOT_FOUND,
     };
   }
 
   static workspaceKeyConflict(): ErrorPayload {
     return {
-      message: 'Unable to generate unique workspace key.',
+      message: 'Không thể tạo mã không gian làm việc duy nhất.',
       code: WORKSPACE_ERROR_CODES.WORKSPACE_KEY_CONFLICT,
     };
   }
 
   static cannotRemoveOwner(): ErrorPayload {
     return {
-      message: 'Cannot remove workspace owner.',
+      message: 'Không thể xóa chủ sở hữu không gian làm việc.',
       code: WORKSPACE_ERROR_CODES.CANNOT_REMOVE_OWNER,
     };
   }
 
   static cannotChangeOwnerRole(): ErrorPayload {
     return {
-      message: 'Cannot change owner role.',
+      message: 'Không thể thay đổi vai trò của chủ sở hữu.',
       code: WORKSPACE_ERROR_CODES.CANNOT_CHANGE_OWNER_ROLE,
     };
   }
 
   static inviteNotFound(): ErrorPayload {
     return {
-      message: 'Invite not found.',
+      message: 'Không tìm thấy lời mời.',
       code: WORKSPACE_ERROR_CODES.INVITE_NOT_FOUND,
     };
   }
 
   static inviteAlreadyAccepted(): ErrorPayload {
     return {
-      message: 'This invitation has already been accepted.',
+      message: 'Lời mời này đã được chấp nhận.',
       code: WORKSPACE_ERROR_CODES.INVITE_ACCEPTED,
     };
   }
 
   static inviteAlreadyDeclined(): ErrorPayload {
     return {
-      message: 'This invitation has already been declined.',
+      message: 'Lời mời này đã bị từ chối.',
       code: WORKSPACE_ERROR_CODES.INVITE_DECLINED,
     };
   }
 
   static inviteUnavailable(): ErrorPayload {
     return {
-      message: 'This invitation is no longer available.',
+      message: 'Lời mời này không còn khả dụng.',
       code: WORKSPACE_ERROR_CODES.INVITE_UNAVAILABLE,
     };
   }
 
   static inviteExpired(): ErrorPayload {
     return {
-      message: 'This invitation has expired.',
+      message: 'Lời mời này đã hết hạn.',
       code: WORKSPACE_ERROR_CODES.INVITE_EXPIRED,
     };
   }
 
   static memberAlreadyExists(): ErrorPayload {
     return {
-      message: 'You are already a member of this workspace.',
+      message: 'Bạn đã là thành viên của không gian làm việc này.',
       code: WORKSPACE_ERROR_CODES.MEMBER_ALREADY_EXISTS,
     };
   }
 
   static inviteAlreadyPending(): ErrorPayload {
     return {
-      message: 'Invite already pending for this email.',
+      message: 'Lời mời đang chờ xử lý cho email này.',
       code: WORKSPACE_ERROR_CODES.INVITE_ALREADY_PENDING,
     };
   }
 
   static inviteWorkspaceMismatch(): ErrorPayload {
     return {
-      message: 'Invite does not belong to this workspace.',
+      message: 'Lời mời không thuộc về không gian làm việc này.',
       code: WORKSPACE_ERROR_CODES.INVITE_WORKSPACE_MISMATCH,
     };
   }
 
   static frontendUrlNotConfigured(): ErrorPayload {
     return {
-      message: 'FRONTEND_URL is not configured.',
+      message: 'FRONTEND_URL chưa được cấu hình.',
       code: WORKSPACE_ERROR_CODES.FRONTEND_URL_NOT_CONFIGURED,
     };
   }
@@ -247,28 +247,28 @@ export class ErrorFactory {
   // ─── User ───────────────────────────────────────────────────────────────
   static userNotFound(id?: string): ErrorPayload {
     return {
-      message: id ? `User with ID "${id}" not found` : 'User not found',
+      message: id ? `Không tìm thấy người dùng với ID "${id}"` : 'Không tìm thấy người dùng',
       code: USER_ERROR_CODES.USER_NOT_FOUND,
     };
   }
 
   static invalidUserId(): ErrorPayload {
     return {
-      message: 'Invalid user ID format.',
+      message: 'Định dạng ID người dùng không hợp lệ.',
       code: USER_ERROR_CODES.INVALID_USER_ID,
     };
   }
 
   static currentPasswordIncorrect(): ErrorPayload {
     return {
-      message: 'Current password is incorrect.',
+      message: 'Mật khẩu hiện tại không đúng.',
       code: USER_ERROR_CODES.CURRENT_PASSWORD_INCORRECT,
     };
   }
 
   static passwordHasWhitespace(): ErrorPayload {
     return {
-      message: 'Password must not contain leading or trailing whitespace.',
+      message: 'Mật khẩu không được chứa khoảng trắng ở đầu hoặc cuối.',
       code: USER_ERROR_CODES.PASSWORD_HAS_WHITESPACE,
     };
   }

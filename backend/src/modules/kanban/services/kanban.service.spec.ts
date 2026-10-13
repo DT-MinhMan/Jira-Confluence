@@ -61,7 +61,7 @@ describe('KanbanService column name validation', () => {
     await expect(operation).rejects.toBeInstanceOf(ConflictException);
     await operation.catch(error => {
       expect((error as ConflictException).getResponse()).toEqual({
-        message: 'A column with this name already exists.',
+        message: 'Cột với tên này đã tồn tại.',
         code: KANBAN_ERROR_CODES.DUPLICATE_COLUMN_NAME,
       });
     });
@@ -77,7 +77,7 @@ describe('KanbanService column name validation', () => {
     await expect(operation).rejects.toBeInstanceOf(BadRequestException);
     await operation.catch(error => {
       expect((error as BadRequestException).getResponse()).toEqual({
-        message: 'Column name must not be empty.',
+        message: 'Tên cột không được để trống.',
         code: KANBAN_ERROR_CODES.INVALID_COLUMN_NAME,
       });
     });

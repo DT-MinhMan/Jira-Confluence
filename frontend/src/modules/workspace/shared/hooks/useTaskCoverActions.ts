@@ -51,7 +51,7 @@ export function useTaskCoverActions<TIssue extends CoverableIssue>({
         invalidateCoverCaches();
       } catch (error) {
         onCoverChange(previousCover);
-        toast.error(extractApiError(error, "Could not update task cover"));
+        toast.error(extractApiError(error, "Không thể cập nhật ảnh bìa nhiệm vụ"));
       } finally {
         setSaving(false);
       }
@@ -72,7 +72,7 @@ export function useTaskCoverActions<TIssue extends CoverableIssue>({
       invalidateCoverCaches();
     } catch (error) {
       onCoverChange(previousCover);
-      toast.error(extractApiError(error, "Could not remove task cover"));
+      toast.error(extractApiError(error, "Không thể xóa ảnh bìa nhiệm vụ"));
     } finally {
       setSaving(false);
     }

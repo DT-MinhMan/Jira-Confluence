@@ -74,7 +74,7 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
       })
       .catch(() => {
         setWorkspace(null);
-        toast.error("Could not load workspace settings.");
+        toast.error("Không thể tải cài đặt không gian làm việc.");
       })
       .finally(() => setLoading(false));
   }, [workspaceKey]);
@@ -82,7 +82,7 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
     if (!form.name.trim()) {
-      toast.error("Workspace name is required.");
+      toast.error("Tên không gian làm việc là bắt buộc.");
       return;
     }
 
@@ -107,10 +107,10 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
         status: updated.status || "active",
         access: updated.access || "public",
       });
-      toast.success("Workspace settings saved.");
+      toast.success("Đã lưu cài đặt không gian làm việc.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not save workspace settings.");
+      toast.error(error?.response?.data?.message || "Không thể lưu cài đặt không gian làm việc.");
     } finally {
       setSaving(false);
     }
@@ -118,7 +118,7 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
 
   const handleDelete = async () => {
     if (deleteConfirm !== "delete") {
-      toast.error('Enter "delete" to confirm.');
+      toast.error('Nhập "delete" để xác nhận.');
       return;
     }
 
@@ -128,12 +128,12 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
       if (!workspaceId) throw new Error("Missing workspace id");
 
       await api.delete(apiRoutes.WORKSPACES.BY_ID(workspaceId));
-      toast.success("Workspace deleted.");
+      toast.success("Đã xóa không gian làm việc.");
       setShowDeleteDialog(false);
       router.push("/workspaces");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not delete workspace.");
+      toast.error(error?.response?.data?.message || "Không thể xóa không gian làm việc.");
     } finally {
       setDeleting(false);
     }
@@ -141,7 +141,7 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
 
   const handleLeave = async () => {
     if (leaveConfirm !== "leave") {
-      toast.error('Enter "leave" to confirm.');
+      toast.error('Nhập "leave" để xác nhận.');
       return;
     }
 
@@ -151,11 +151,11 @@ export function useWorkspaceSettings(workspaceKey: string): UseWorkspaceSettings
       if (!workspaceId) throw new Error("Missing workspace id");
 
       await api.delete(apiRoutes.WORKSPACES.LEAVE(workspaceId));
-      toast.success("Left workspace.");
+      toast.success("Đã rời khỏi không gian làm việc.");
       router.push("/workspaces");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not leave workspace.");
+      toast.error(error?.response?.data?.message || "Không thể rời khỏi không gian làm việc.");
     } finally {
       setLeaving(false);
       setShowLeaveDialog(false);

@@ -13,6 +13,7 @@ import { DocumentItem } from "../types/document.type";
 import { Document } from "../types/docs.type";
 import { Pencil, Trash2 } from "lucide-react";
 import { useUploadedWorkspaceDocsQuery, useWorkspaceDocs } from "../hooks/useWorkspaceDocs";
+import DocumentUploadModal from "./DocumentUploadModal";
 
 export default function DocsDashboard({ workspaceId }: { workspaceId: string }) {
   const {
@@ -25,6 +26,7 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest" | "az">("newest");
   const [showLibraryModal, setShowLibraryModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedLibraryIds, setSelectedLibraryIds] = useState<string[]>([]);
   const [renameTarget, setRenameTarget] = useState<Document | null>(null);
   const [renameName, setRenameName] = useState("");
@@ -220,6 +222,7 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
         onCreatePage={handleCreate}
+        onUploadFile={() => setShowUploadModal(true)}
         onImportFromLibrary={() => {
           setSelectedLibraryIds([]);
           setShowLibraryModal(true);
@@ -385,6 +388,22 @@ export default function DocsDashboard({ workspaceId }: { workspaceId: string }) 
           {groups.length === 0 && <DashboardEmpty onClearFilters={() => setSearchQuery("")} />}
         </div>
       </div>
+
+      {showUploadModal && (
+        <DocumentUploadModal
+          open={showUploadModal}
+          onClose={() => setShowUploadModal(false)}
+          defaultWorkspaceId={workspaceId}
+          onSuccess={() => {
+            queryClient.invalidateQueries({
+              queryKey: queryKeys.docs.uploadedByWorkspace(workspaceId),
+            });
+            queryClient.invalidateQueries({
+              queryKey: queryKeys.docs.library(),
+            });
+          }}
+        />
+      )}
     </div>
   );
 }

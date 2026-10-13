@@ -71,7 +71,7 @@ export function useDragHandlers({
                   return;
                 }
                 queryClient.invalidateQueries({ queryKey: ["tasks", workspaceId] });
-                toast.error(error?.response?.data?.message || "Could not update task position");
+                toast.error(error?.response?.data?.message || "Không thể cập nhật vị trí nhiệm vụ");
               });
           }
         },
@@ -114,7 +114,7 @@ export function useDragHandlers({
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               .catch((error: any) => {
                 queryClient.invalidateQueries({ queryKey: ["tasks", workspaceId] });
-                toast.error(error?.response?.data?.message || "Could not update task sprint");
+                toast.error(error?.response?.data?.message || "Không thể cập nhật sprint cho nhiệm vụ");
               });
           }
         },

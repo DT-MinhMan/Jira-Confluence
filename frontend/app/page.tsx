@@ -35,7 +35,7 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
-import { HeroAuthActions, HeroEasySignUpForm } from "./LandingAuthActions";
+import { HeroAuthActions } from "./LandingAuthActions";
 import LandingGlassNavbar from "./LandingGlassNavbar";
 import BackToTop from "@/shared/components/back-to-top/BackToTop";
 
@@ -313,7 +313,6 @@ export default function LandingPage() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#5F2CFF]/30 bg-[#5F2CFF]/10 px-4 py-1.5 text-xs font-bold text-[#DFF6FF]"
               >
-                <Sparkles className="h-3.5 w-3.5 text-[#5F2CFF]" />
                 <span>Nền tảng quản lý Agile & Sprint thế hệ mới</span>
                 <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </motion.div>
@@ -338,18 +337,31 @@ export default function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                 className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg"
               >
-                Đồng bộ hóa Kanban board, sprint planning và phân quyền vai trò theo thời gian thực.
-                TaskFlow kết nối sức mạnh quản lý tinh gọn của Jira cùng tính cộng tác mượt mà của Confluence.
               </motion.p>
 
-              {/* Easy-inspired Interactive Sign-up Form */}
+              {/* Hero CTA Actions */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                className="mt-8"
+                className="mt-8 flex flex-col items-start gap-4"
               >
-                <HeroEasySignUpForm />
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                  <HeroAuthActions />
+                </div>
+
+                {/* Trust micro badges */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-400">
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-emerald-400 font-bold">✓</span> Miễn phí dùng thử
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-emerald-400 font-bold">✓</span> Không cần thẻ tín dụng
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-emerald-400 font-bold">✓</span> Thiết lập trong 2 phút
+                  </span>
+                </div>
               </motion.div>
             </div>
 
@@ -435,9 +447,8 @@ export default function LandingPage() {
                     {["PM", "FE", "BE", "QA"].map((m, i) => (
                       <span
                         key={m}
-                        className={`grid h-6 w-6 place-items-center rounded-full border-2 border-[#111C30] text-[9px] font-bold text-white shadow-sm ${
-                          i === 0 ? "bg-[#5F2CFF]" : i === 1 ? "bg-emerald-600" : i === 2 ? "bg-indigo-600" : "bg-amber-600"
-                        }`}
+                        className={`grid h-6 w-6 place-items-center rounded-full border-2 border-[#111C30] text-[9px] font-bold text-white shadow-sm ${i === 0 ? "bg-[#5F2CFF]" : i === 1 ? "bg-emerald-600" : i === 2 ? "bg-indigo-600" : "bg-amber-600"
+                          }`}
                       >
                         {m}
                       </span>
@@ -492,9 +503,6 @@ export default function LandingPage() {
       <section id="workspace-demo" className="relative overflow-hidden bg-[#070C18] py-16 sm:py-24">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#5F2CFF]/30 bg-[#5F2CFF]/10 px-3.5 py-1 text-xs font-bold text-[#DFF6FF]">
-              ⚡ Trải nghiệm Kanban Board trực quan
-            </span>
             <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
               Không gian làm việc thời gian thực cho mọi Sprint
             </h2>
@@ -537,9 +545,8 @@ export default function LandingPage() {
                 {["PM", "FE", "BE", "QA"].map((m, i) => (
                   <span
                     key={m}
-                    className={`grid h-8 w-8 place-items-center rounded-full border-2 border-[#111C30] text-[10px] font-bold text-white shadow-md ${
-                      i === 0 ? "bg-[#5F2CFF]" : i === 1 ? "bg-emerald-600" : i === 2 ? "bg-purple-600" : "bg-amber-600"
-                    }`}
+                    className={`grid h-8 w-8 place-items-center rounded-full border-2 border-[#111C30] text-[10px] font-bold text-white shadow-md ${i === 0 ? "bg-[#5F2CFF]" : i === 1 ? "bg-emerald-600" : i === 2 ? "bg-purple-600" : "bg-amber-600"
+                      }`}
                   >
                     {m}
                   </span>
@@ -625,13 +632,12 @@ export default function LandingPage() {
                                 {task.key}
                               </span>
                               <span
-                                className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${
-                                  task.priority === "Cao"
-                                    ? "bg-rose-950 text-rose-300 border border-rose-800/40"
-                                    : task.priority === "Trung bình"
+                                className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${task.priority === "Cao"
+                                  ? "bg-rose-950 text-rose-300 border border-rose-800/40"
+                                  : task.priority === "Trung bình"
                                     ? "bg-blue-950 text-blue-300 border border-blue-800/40"
                                     : "bg-slate-800 text-slate-300 border border-slate-700/40"
-                                }`}
+                                  }`}
                               >
                                 {task.priority}
                               </span>
@@ -775,9 +781,8 @@ export default function LandingPage() {
                           {["AL", "TM", "MN", "FE"].map((user, uIdx) => (
                             <div
                               key={user}
-                              className={`grid h-8 w-8 place-items-center rounded-full border-2 border-[#0A101D] text-[10px] font-bold text-white shadow-sm ${
-                                uIdx === 0 ? "bg-purple-600" : uIdx === 1 ? "bg-indigo-600" : uIdx === 2 ? "bg-emerald-600" : "bg-amber-600"
-                              }`}
+                              className={`grid h-8 w-8 place-items-center rounded-full border-2 border-[#0A101D] text-[10px] font-bold text-white shadow-sm ${uIdx === 0 ? "bg-purple-600" : uIdx === 1 ? "bg-indigo-600" : uIdx === 2 ? "bg-emerald-600" : "bg-amber-600"
+                                }`}
                             >
                               {user}
                             </div>
@@ -939,11 +944,10 @@ export default function LandingPage() {
                     y: isActive ? -6 : 0,
                   }}
                   onClick={() => setActiveStepIndex(idx)}
-                  className={`cursor-pointer relative overflow-hidden rounded-2xl border p-6 transition-colors duration-200 ${
-                    isActive
-                      ? "border-[#5F2CFF] ring-2 ring-[#5F2CFF]/30 bg-[#152238] shadow-2xl shadow-[#5F2CFF]/20"
-                      : "border-white/[0.08] bg-[#111C30]/80 shadow-xs opacity-75 hover:opacity-100 hover:border-white/20"
-                  }`}
+                  className={`cursor-pointer relative overflow-hidden rounded-2xl border p-6 transition-colors duration-200 ${isActive
+                    ? "border-[#5F2CFF] ring-2 ring-[#5F2CFF]/30 bg-[#152238] shadow-2xl shadow-[#5F2CFF]/20"
+                    : "border-white/[0.08] bg-[#111C30]/80 shadow-xs opacity-75 hover:opacity-100 hover:border-white/20"
+                    }`}
                 >
                   {/* Progress bar for active step */}
                   {isActive && (
@@ -958,17 +962,11 @@ export default function LandingPage() {
 
                   <div className="flex items-center justify-between">
                     <span
-                      className={`text-3xl font-black transition-colors duration-200 ${
-                        isActive ? "text-[#5F2CFF] drop-shadow-[0_0_12px_rgba(95,44,255,0.4)]" : "text-slate-600"
-                      }`}
+                      className={`text-3xl font-black transition-colors duration-200 ${isActive ? "text-[#5F2CFF] drop-shadow-[0_0_12px_rgba(95,44,255,0.4)]" : "text-slate-600"
+                        }`}
                     >
                       {st.num}
                     </span>
-                    {isActive && (
-                      <span className="rounded-full bg-[#5F2CFF] px-2 py-0.5 text-[10px] font-bold text-white shadow-sm shadow-[#5F2CFF]/40">
-                        Đang chọn
-                      </span>
-                    )}
                   </div>
 
                   <h3 className="mt-3 text-lg font-bold text-white">
@@ -1123,11 +1121,10 @@ export default function LandingPage() {
                   type="button"
                   aria-label={`Chuyển đến trang ${i + 1}`}
                   onClick={() => setActiveTestimonial(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeTestimonial === i
-                      ? "w-8 bg-[#5F2CFF] shadow-[0_0_8px_rgba(95,44,255,0.6)]"
-                      : "w-2 bg-slate-700 hover:bg-slate-500"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${activeTestimonial === i
+                    ? "w-8 bg-[#5F2CFF] shadow-[0_0_8px_rgba(95,44,255,0.6)]"
+                    : "w-2 bg-slate-700 hover:bg-slate-500"
+                    }`}
                 />
               ))}
             </div>
@@ -1172,9 +1169,8 @@ export default function LandingPage() {
                 >
                   <span>{faq.question}</span>
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-200 ${
-                      openFaq === idx ? "rotate-180 text-[#5F2CFF]" : "text-slate-400"
-                    }`}
+                    className={`h-4 w-4 transition-transform duration-200 ${openFaq === idx ? "rotate-180 text-[#5F2CFF]" : "text-slate-400"
+                      }`}
                   />
                 </button>
                 <AnimatePresence>

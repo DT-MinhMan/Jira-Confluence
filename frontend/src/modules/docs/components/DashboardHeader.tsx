@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Layout } from "lucide-react";
+import { Search, Layout, Upload } from "lucide-react";
 
 interface DashboardHeaderProps {
   searchQuery: string;
@@ -9,6 +9,7 @@ interface DashboardHeaderProps {
   setSortOrder: (order: "newest" | "oldest" | "az") => void;
   onCreatePage: () => void;
   onImportFromLibrary: () => void;
+  onUploadFile?: () => void;
 }
 
 export default function DashboardHeader({
@@ -18,6 +19,7 @@ export default function DashboardHeader({
   setSortOrder,
   onCreatePage,
   onImportFromLibrary,
+  onUploadFile,
 }: DashboardHeaderProps) {
   return (
     <div className="bg-white dark:bg-[#202020] border-b border-[#EAEAEA] dark:border-white/[0.05] px-6 py-4">
@@ -27,6 +29,16 @@ export default function DashboardHeader({
         </div>
         <h1 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7] flex-1 min-w-0">Tài liệu không gian làm việc</h1>
         <div className="flex items-center gap-2 shrink-0">
+          {onUploadFile && (
+            <button
+              type="button"
+              onClick={onUploadFile}
+              className="flex h-8 items-center gap-1.5 rounded-[6px] border border-[#EAEAEA] dark:border-white/10 px-3 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-white/5 hover:text-[#111111] dark:hover:text-[#E8E8E7]"
+            >
+              <Upload className="h-3.5 w-3.5" />
+              Tải lên
+            </button>
+          )}
           <button
             onClick={onImportFromLibrary}
             className="flex h-8 items-center gap-1.5 rounded-[6px] border border-[#EAEAEA] dark:border-white/10 px-3 text-[0.8125rem] font-medium text-[#787774] dark:text-[#9B9A97] transition-colors hover:bg-[#F7F6F3] dark:hover:bg-white/5 hover:text-[#111111] dark:hover:text-[#E8E8E7]"

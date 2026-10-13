@@ -30,8 +30,8 @@ export function useCreateWorkspace() {
       return res.data?.data ?? res.data;
     },
     onSuccess: (data) => {
-      toast.success(`Workspace "${data?.name ?? ""}" has been created`);
-      
+      toast.success(`Đã tạo workspace "${data?.name ?? ""}" thành công`);
+
       const normalizedId = data?._id ?? data?.id;
       if (normalizedId) {
         queryClient.setQueryData<Workspace[]>(queryKeys.workspaces.list(), (prev = []) => {
@@ -39,22 +39,22 @@ export function useCreateWorkspace() {
             (w) => w._id === normalizedId || (w as { id?: string }).id === normalizedId
           );
           if (alreadyInCache) return prev;
-          
-          const normalizedWorkspace = { 
-            ...data, 
-            _id: normalizedId, 
-            slug: data.slug ?? data.key 
+
+          const normalizedWorkspace = {
+            ...data,
+            _id: normalizedId,
+            slug: data.slug ?? data.key
           } as Workspace;
-          
+
           return [normalizedWorkspace, ...prev];
         });
       }
-      
+
       queryClient.invalidateQueries({ queryKey: queryKeys.workspaces.list() });
     },
     onError: (err: unknown) => {
       const error = err as { response?: { data?: { message?: string } } };
-      const msg = error?.response?.data?.message || "Workspace creation failed";
+      const msg = error?.response?.data?.message || "Không thể tạo workspace";
       toast.error(msg);
     },
   });
@@ -64,7 +64,7 @@ export function useCreateWorkspace() {
       return await mutation.mutateAsync(input);
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
-      const msg = error?.response?.data?.message || "Workspace creation failed";
+      const msg = error?.response?.data?.message || "Không thể tạo workspace";
       throw new Error(msg);
     }
   };

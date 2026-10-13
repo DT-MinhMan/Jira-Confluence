@@ -72,7 +72,7 @@ export class WorkspacesService {
     const existingSlug = await this.workspacesRepository.findAnyBySlug(slug);
     if (existingSlug) {
       throw new BadRequestException(
-        `Workspace with slug "${slug}" already exists`,
+        `Không gian làm việc với đường dẫn "${slug}" đã tồn tại`,
       );
     }
 
@@ -255,7 +255,7 @@ export class WorkspacesService {
       const user = await this.usersService.getUserById(actorId);
       if (user?.role !== GLOBAL_ROLES.SUPER_ADMIN) {
         throw new ForbiddenException(
-          'Only the workspace owner can delete this workspace',
+          'Chỉ chủ sở hữu mới có thể xóa không gian làm việc này',
         );
       }
     }
@@ -327,7 +327,7 @@ export class WorkspacesService {
 
     if (!isWorkspaceSampleAvatar(avatar)) {
       throw new BadRequestException(
-        'Workspace avatar must be one of the sample avatars',
+        'Ảnh đại diện không gian làm việc phải là một trong các ảnh mẫu',
       );
     }
 

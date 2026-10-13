@@ -12,7 +12,7 @@ describe('ErrorFactory', () => {
     it('publicLoginFailure() returns correct shape', () => {
       const result = ErrorFactory.publicLoginFailure();
       expect(result).toEqual({
-        message: 'Email or password is incorrect.',
+        message: 'Email hoặc mật khẩu không chính xác.',
         code: AUTH_ERROR_CODES.INVALID_CREDENTIALS,
       });
     });
@@ -33,7 +33,7 @@ describe('ErrorFactory', () => {
 
     it('emailNotVerified() returns correct shape', () => {
       const result = ErrorFactory.emailNotVerified();
-      expect(result.message).toContain('verify your email');
+      expect(result.message).toContain('xác thực email');
       expect(result.code).toBe(AUTH_ERROR_CODES.EMAIL_NOT_VERIFIED);
     });
 
@@ -51,7 +51,7 @@ describe('ErrorFactory', () => {
   describe('Task errors', () => {
     it('taskNotFound() without id', () => {
       const result = ErrorFactory.taskNotFound();
-      expect(result.message).toBe('Task not found');
+      expect(result.message).toBe('Không tìm thấy nhiệm vụ');
       expect(result.code).toBe(TASK_ERROR_CODES.TASK_NOT_FOUND);
     });
 
@@ -63,7 +63,7 @@ describe('ErrorFactory', () => {
 
     it('taskArchived() returns correct message', () => {
       const result = ErrorFactory.taskArchived();
-      expect(result.message).toContain('read-only');
+      expect(result.message).toContain('lưu trữ');
       expect(result.code).toBe(TASK_ERROR_CODES.TASK_ARCHIVED);
     });
 
@@ -77,7 +77,7 @@ describe('ErrorFactory', () => {
   describe('Sprint errors', () => {
     it('sprintNotFound() without id', () => {
       const result = ErrorFactory.sprintNotFound();
-      expect(result.message).toBe('Sprint not found');
+      expect(result.message).toBe('Không tìm thấy sprint');
       expect(result.code).toBe(SPRINT_ERROR_CODES.SPRINT_NOT_FOUND);
     });
 
@@ -95,13 +95,13 @@ describe('ErrorFactory', () => {
 
     it('activeSprintExists() returns correct message', () => {
       const result = ErrorFactory.activeSprintExists();
-      expect(result.message).toContain('already an active sprint');
+      expect(result.message).toContain('sprint đang hoạt động');
       expect(result.code).toBe(SPRINT_ERROR_CODES.ACTIVE_SPRINT_EXISTS);
     });
 
     it('sprintTargetInvalid() returns correct message', () => {
       const result = ErrorFactory.sprintTargetInvalid();
-      expect(result.message).toContain('Target sprint');
+      expect(result.message).toContain('Sprint đích');
       expect(result.code).toBe(SPRINT_ERROR_CODES.SPRINT_TARGET_INVALID);
     });
 
@@ -115,7 +115,7 @@ describe('ErrorFactory', () => {
   describe('Workspace errors', () => {
     it('workspaceNotFound() without id', () => {
       const result = ErrorFactory.workspaceNotFound();
-      expect(result.message).toBe('Workspace not found');
+      expect(result.message).toBe('Không tìm thấy không gian làm việc');
       expect(result.code).toBe(WORKSPACE_ERROR_CODES.WORKSPACE_NOT_FOUND);
     });
 
@@ -139,13 +139,13 @@ describe('ErrorFactory', () => {
 
     it('cannotRemoveOwner() returns correct message', () => {
       const result = ErrorFactory.cannotRemoveOwner();
-      expect(result.message).toContain('Cannot remove workspace owner');
+      expect(result.message).toContain('Không thể xóa chủ sở hữu');
       expect(result.code).toBe(WORKSPACE_ERROR_CODES.CANNOT_REMOVE_OWNER);
     });
 
     it('cannotChangeOwnerRole() returns correct message', () => {
       const result = ErrorFactory.cannotChangeOwnerRole();
-      expect(result.message).toContain('Cannot change owner role');
+      expect(result.message).toContain('Không thể thay đổi vai trò');
     });
 
     it('inviteNotFound() returns correct code', () => {
@@ -155,25 +155,25 @@ describe('ErrorFactory', () => {
 
     it('inviteAlreadyAccepted() returns correct message', () => {
       const result = ErrorFactory.inviteAlreadyAccepted();
-      expect(result.message).toContain('already been accepted');
+      expect(result.message).toContain('chấp nhận');
       expect(result.code).toBe(WORKSPACE_ERROR_CODES.INVITE_ACCEPTED);
     });
 
     it('inviteAlreadyDeclined() returns correct message', () => {
       const result = ErrorFactory.inviteAlreadyDeclined();
-      expect(result.message).toContain('already been declined');
+      expect(result.message).toContain('từ chối');
       expect(result.code).toBe(WORKSPACE_ERROR_CODES.INVITE_DECLINED);
     });
 
     it('inviteUnavailable() returns correct message', () => {
       const result = ErrorFactory.inviteUnavailable();
-      expect(result.message).toContain('no longer available');
+      expect(result.message).toContain('không còn khả dụng');
       expect(result.code).toBe(WORKSPACE_ERROR_CODES.INVITE_UNAVAILABLE);
     });
 
     it('inviteExpired() returns correct message', () => {
       const result = ErrorFactory.inviteExpired();
-      expect(result.message).toContain('expired');
+      expect(result.message).toContain('hết hạn');
       expect(result.code).toBe(WORKSPACE_ERROR_CODES.INVITE_EXPIRED);
     });
 
@@ -203,7 +203,7 @@ describe('ErrorFactory', () => {
   describe('User errors', () => {
     it('userNotFound() without id', () => {
       const result = ErrorFactory.userNotFound();
-      expect(result.message).toBe('User not found');
+      expect(result.message).toBe('Không tìm thấy người dùng');
       expect(result.code).toBe(USER_ERROR_CODES.USER_NOT_FOUND);
     });
 

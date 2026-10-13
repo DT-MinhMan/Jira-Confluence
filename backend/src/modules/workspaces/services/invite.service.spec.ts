@@ -335,7 +335,7 @@ describe('InviteService', () => {
       } as any);
       await expect(
         service.acceptInvite(mockToken, userId, userEmail),
-      ).rejects.toThrow('This invitation has expired.');
+      ).rejects.toThrow('Lời mời này đã hết hạn.');
     });
 
     it('throws clear GoneException when invite has already been accepted', async () => {
@@ -345,7 +345,7 @@ describe('InviteService', () => {
       } as any);
       await expect(
         service.acceptInvite(mockToken, userId, userEmail),
-      ).rejects.toThrow('This invitation has already been accepted.');
+      ).rejects.toThrow('Lời mời này đã được chấp nhận.');
     });
 
     it('prefers accepted message over expired message when accepted invite is also past expiry', async () => {
@@ -356,7 +356,7 @@ describe('InviteService', () => {
       } as any);
       await expect(
         service.acceptInvite(mockToken, userId, userEmail),
-      ).rejects.toThrow('This invitation has already been accepted.');
+      ).rejects.toThrow('Lời mời này đã được chấp nhận.');
     });
 
     it('throws ForbiddenException when authenticated user email does not match invite', async () => {

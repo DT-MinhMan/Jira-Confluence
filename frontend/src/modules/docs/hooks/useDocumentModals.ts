@@ -9,6 +9,7 @@ export function useDocumentModals() {
   const [renameTarget, setRenameTarget] = useState<DocumentItem | null>(null);
   const [renameName, setRenameName] = useState("");
   const [linkingDoc, setLinkingDoc] = useState<DocumentItem | null>(null);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   useEffect(() => {
     const close = () => setOpenMenuId(null);
@@ -49,6 +50,8 @@ export function useDocumentModals() {
     setRenameName,
     linkingDoc,
     setLinkingDoc,
+    isUploadOpen,
+    setIsUploadOpen,
     openRenameDialog,
     closeRenameDialog,
     clearRenameDialog,

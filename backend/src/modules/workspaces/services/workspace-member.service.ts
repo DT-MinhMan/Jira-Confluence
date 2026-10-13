@@ -58,7 +58,7 @@ export class WorkspaceMemberService {
     );
     if (isAlreadyMember) {
       throw new BadRequestException(
-        `User with email "${email}" is already a member`,
+        `Người dùng với email "${email}" đã là thành viên`,
       );
     }
 
@@ -92,7 +92,7 @@ export class WorkspaceMemberService {
     }
 
     if (workspace.ownerId.toString() === userId) {
-      throw new ForbiddenException('Cannot remove workspace owner');
+      throw new ForbiddenException('Không thể xóa chủ sở hữu không gian làm việc');
     }
 
     this.ensureNotLastAdmin(workspace, userId);
@@ -125,7 +125,7 @@ export class WorkspaceMemberService {
     }
 
     if (workspace.ownerId.toString() === userId) {
-      throw new ForbiddenException('Cannot change owner role');
+      throw new ForbiddenException('Không thể thay đổi vai trò của chủ sở hữu');
     }
 
     if (
@@ -229,7 +229,7 @@ export class WorkspaceMemberService {
 
     if (adminCount === 1 && isTargetAdmin) {
       throw new BadRequestException(
-        'Cannot remove or demote the last workspace admin',
+        'Không thể xóa hoặc hạ cấp quản trị viên cuối cùng của không gian làm việc',
       );
     }
   }

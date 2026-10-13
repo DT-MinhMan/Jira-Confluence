@@ -60,16 +60,16 @@ export default function GeneralSettings({
   return (
     <form onSubmit={handleSave} className="space-y-8 max-w-[min(100%,42rem)]">
       <section>
-        <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] mb-4">Basic information</h2>
+        <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] mb-4">Thông tin cơ bản</h2>
         {!canManageWorkspace && (
           <p className="mb-4 rounded-[6px] border border-[#EAEAEA] bg-[#F9F9F8] px-4 py-3 text-sm text-[#787774] dark:border-white/[0.06] dark:bg-[#252525] dark:text-[#9B9A97]">
-            You can view workspace information. Only administrators can edit it.
+            Bạn có thể xem thông tin không gian làm việc. Chỉ quản trị viên mới có thể chỉnh sửa.
           </p>
         )}
         <div className="space-y-5">
           <div>
             <label className="block text-sm font-medium text-[#787774] dark:text-[#9B9A97] mb-1.5">
-              Workspace name
+              Tên không gian làm việc
             </label>
             <input
               type="text"
@@ -83,7 +83,7 @@ export default function GeneralSettings({
 
           <div>
             <label className="block text-sm font-medium text-[#787774] dark:text-[#9B9A97] mb-1.5">
-              Description
+              Mô tả
             </label>
             <textarea
               value={form.description}
@@ -96,7 +96,7 @@ export default function GeneralSettings({
 
           <div>
             <label className="block text-sm font-medium text-[#787774] dark:text-[#9B9A97] mb-1.5">
-              Workspace key
+              Mã không gian làm việc (Key)
             </label>
             <input
               type="text"
@@ -111,11 +111,11 @@ export default function GeneralSettings({
       <hr className="border-[#EAEAEA] dark:border-white/[0.06]" />
 
       <section>
-        <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] mb-4">Access</h2>
+        <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] mb-4">Quyền truy cập</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {([
-            { value: "public", label: "Public", icon: Globe },
-            { value: "private", label: "Private", icon: Lock },
+            { value: "public", label: "Công khai", icon: Globe },
+            { value: "private", label: "Riêng tư", icon: Lock },
           ] as const).map((option) => (
             <label
               key={option.value}
@@ -144,11 +144,11 @@ export default function GeneralSettings({
       </section>
 
       <section>
-        <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] mb-4">Status</h2>
+        <h2 className="text-lg font-bold text-[#111111] dark:text-[#E8E8E7] mb-4">Trạng thái</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {([
-            { value: "active", label: "Active" },
-            { value: "archived", label: "Archived" },
+            { value: "active", label: "Đang hoạt động" },
+            { value: "archived", label: "Đã lưu trữ" },
           ] as const).map((option) => (
             <label
               key={option.value}
@@ -182,11 +182,11 @@ export default function GeneralSettings({
           >
             {saving ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" /> Saving...
+                <Loader2 className="w-4 h-4 animate-spin" /> Đang lưu...
               </>
             ) : (
               <>
-                <Save className="w-4 h-4" /> Save changes
+                <Save className="w-4 h-4" /> Lưu thay đổi
               </>
             )}
           </button>

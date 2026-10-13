@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Upload } from "lucide-react";
 import { useAuth } from "@/modules/auth/shared/hooks/useAuth";
 import { usePageTitle } from "@/shared/hooks/usePageTitle";
 import { useDocumentsPage } from "@/modules/docs/hooks/useDocumentsPage";
@@ -19,18 +20,28 @@ export default function DocumentsLibraryPage() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-[#111111] dark:text-[#E8E8E7]">
-              LIBRARY OF DOCUMENTS
+              THƯ VIỆN TÀI LIỆU
             </h1>
             <p className="mt-1 text-sm text-[#787774] dark:text-[#9B9A97]">
-              Management your documents, create online documents or upload files to keep all your important information in one place.
+              Quản lý tài liệu của bạn, tạo tài liệu trực tuyến hoặc tải lên các tệp để giữ tất cả thông tin quan trọng của bạn ở một nơi.
             </p>
           </div>
-          <Link
-            href="/documents/create"
-            className="inline-flex cursor-pointer items-center gap-2 rounded-[6px] bg-[#2563EB] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
-          >
-            Create new document
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => page.setIsUploadOpen(true)}
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[6px] border border-[#EAEAEA] bg-white px-4 py-2.5 text-sm font-semibold text-[#111111] transition-colors hover:bg-[#F7F6F3] dark:border-white/[0.1] dark:bg-[#2A2A2A] dark:text-[#E8E8E7] dark:hover:bg-[#333333]"
+            >
+              <Upload className="h-4 w-4" />
+              Tải lên tài liệu
+            </button>
+            <Link
+              href="/documents/create"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[6px] bg-[#2563EB] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB]"
+            >
+              Tạo tài liệu mới
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -65,6 +76,8 @@ export default function DocumentsLibraryPage() {
         setRenameName={page.setRenameName}
         linkingDoc={page.linkingDoc}
         setLinkingDoc={page.setLinkingDoc}
+        isUploadOpen={page.isUploadOpen}
+        setIsUploadOpen={page.setIsUploadOpen}
         deleting={page.deleting}
         renaming={page.renaming}
         onDelete={page.handleDelete}

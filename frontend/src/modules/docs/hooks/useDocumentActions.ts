@@ -20,10 +20,10 @@ export function useDocumentActions(refetch: () => void) {
       setDeleting(true);
       try {
         await documentService.delete(doc._id);
-        toast.success("Document deleted");
+        toast.success("Đã xóa tài liệu");
         refetch();
       } catch {
-        toast.error("Delete document failed");
+        toast.error("Không thể xóa tài liệu");
       } finally {
         setDeleting(false);
       }
@@ -35,7 +35,7 @@ export function useDocumentActions(refetch: () => void) {
     async (doc: DocumentItem, newName: string): Promise<boolean> => {
       const nextName = newName.trim();
       if (!nextName) {
-        toast.error("Document name is required");
+        toast.error("Tên tài liệu là bắt buộc");
         return false;
       }
       if (nextName === doc.name) return true;
@@ -43,11 +43,11 @@ export function useDocumentActions(refetch: () => void) {
       setRenaming(true);
       try {
         await documentService.rename(doc._id, nextName);
-        toast.success("Document renamed");
+        toast.success("Đã đổi tên tài liệu");
         refetch();
         return true;
       } catch (error) {
-        toast.error(getErrorMessage(error, "Rename document failed"));
+        toast.error(getErrorMessage(error, "Không thể đổi tên tài liệu"));
         return false;
       } finally {
         setRenaming(false);

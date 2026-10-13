@@ -62,7 +62,7 @@ export function useWorkspaceArchive({
 
   const handleArchiveIssue = async (issue: Issue) => {
     if (!workspaceId || !issue.id) {
-      toast.error("Task ID not found");
+      toast.error("Không tìm thấy ID nhiệm vụ");
       return;
     }
     try {
@@ -71,16 +71,16 @@ export function useWorkspaceArchive({
       setSelectedIssue(null);
       resetArchiveList();
       queryClient.invalidateQueries({ queryKey: ["tasks", workspaceId] });
-      toast.success("Work item archived");
+      toast.success("Đã lưu trữ nhiệm vụ");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not archive work item");
+      toast.error(error?.response?.data?.message || "Không thể lưu trữ nhiệm vụ");
     }
   };
 
   const handleRestoreIssue = async (issue: Issue) => {
     if (!workspaceId || !issue.id) {
-      toast.error("Task ID not found");
+      toast.error("Không tìm thấy ID nhiệm vụ");
       return;
     }
     try {
@@ -103,16 +103,16 @@ export function useWorkspaceArchive({
       setArchivedItems(nextArchive.items);
       setArchiveTotal(nextArchive.total);
       queryClient.invalidateQueries({ queryKey: ["tasks", workspaceId] });
-      toast.success("Work item restored");
+      toast.success("Đã khôi phục nhiệm vụ");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not restore work item");
+      toast.error(error?.response?.data?.message || "Không thể khôi phục nhiệm vụ");
     }
   };
 
   const handleDeleteIssue = async (issue: Issue) => {
     if (!workspaceId || !issue.id) {
-      toast.error("Task ID not found");
+      toast.error("Không tìm thấy ID nhiệm vụ");
       return;
     }
     try {
@@ -122,10 +122,10 @@ export function useWorkspaceArchive({
       setSelectedIssue((current) => (current?.id === issue.id ? null : current));
       resetArchiveList();
       queryClient.invalidateQueries({ queryKey: ["tasks", workspaceId] });
-      toast.success("Work item deleted");
+      toast.success("Đã xóa nhiệm vụ");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Could not delete work item");
+      toast.error(error?.response?.data?.message || "Không thể xóa nhiệm vụ");
     }
   };
 

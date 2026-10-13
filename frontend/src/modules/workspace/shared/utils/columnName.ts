@@ -1,8 +1,8 @@
 import { BoardColumn } from "../types/board.type";
 
 export const COLUMN_NAME_MESSAGES = {
-  INVALID: "Column name must not be empty.",
-  DUPLICATE: "A column with this name already exists.",
+  INVALID: "Tên cột không được để trống.",
+  DUPLICATE: "Cột với tên này đã tồn tại.",
 } as const;
 
 export const normalizeColumnDisplayName = (name: string): string => name.normalize("NFKC").trim().replace(/\s+/g, " ");

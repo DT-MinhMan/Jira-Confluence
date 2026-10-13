@@ -54,11 +54,11 @@ export default function CreateOnlineDocumentPage() {
       documentService.createOnline(name, content),
     onSuccess: () => {
       setIsDirty(false);
-      toast.success("Document created successfully");
+      toast.success("Đã tạo tài liệu thành công");
       router.push("/documents");
     },
     onError: (error) => {
-      toast.error(getErrorMessage(error, "Failed to create document"));
+      toast.error(getErrorMessage(error, "Không thể tạo tài liệu"));
     },
   });
 

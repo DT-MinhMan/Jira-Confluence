@@ -138,7 +138,7 @@ export default function RoleChanger({
         </span>
         {isLoading && (
           <span className="text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">
-            Updating
+            Đang cập nhật
           </span>
         )}
       </div>

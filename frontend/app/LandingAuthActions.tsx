@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Bell,
@@ -10,7 +9,6 @@ import {
   LayoutDashboard,
   Loader2,
   LogOut,
-  Mail,
   Repeat,
   Settings,
   Shield,
@@ -131,8 +129,8 @@ export function NavAuthActions() {
                 aria-label="Chuyển tài khoản"
                 aria-expanded={showSwitcher}
                 className={`relative grid h-7 w-7 shrink-0 place-items-center rounded-md transition ${showSwitcher
-                    ? "bg-[#5F2CFF]/20 text-[#DFF6FF]"
-                    : "text-[#DFF6FF] hover:bg-[#5F2CFF]/15"
+                  ? "bg-[#5F2CFF]/20 text-[#DFF6FF]"
+                  : "text-[#DFF6FF] hover:bg-[#5F2CFF]/15"
                   }`}
               >
                 {showSwitcher ? <X className="h-3.5 w-3.5" /> : <Repeat className="h-4 w-4" />}
@@ -231,7 +229,7 @@ export function NavAuthActions() {
         href="/register"
         className="inline-flex items-center gap-2 rounded-lg bg-[#5F2CFF] px-4 py-2 text-sm font-bold text-white shadow-lg shadow-[#5F2CFF]/25 transition hover:bg-[#4A1FD4] hover:shadow-[#5F2CFF]/40 active:scale-95"
       >
-        Bắt đầu ngay <ArrowRight className="h-4 w-4" />
+        Đăng ký ngay <ArrowRight className="h-4 w-4" />
       </Link>
     </div>
   );
@@ -278,98 +276,6 @@ export function HeroAuthActions() {
   );
 }
 
-/**
- * Easy-Template inspired Hero Sign-up Form:
- * Clean unified pill/rounded input container with email + CTA button,
- * plus seamless behavior for authenticated users and micro trust badges.
- */
-export function HeroEasySignUpForm() {
-  const { isAuthenticated, isLoading } = useAuth();
-  const router = useRouter();
-  const [email, setEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isAuthenticated) {
-      router.push("/dashboard");
-      return;
-    }
-    if (email.trim()) {
-      router.push(`/register?email=${encodeURIComponent(email.trim())}`);
-    } else {
-      router.push("/register");
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex h-14 w-full max-w-md items-center justify-center rounded-2xl border border-white/10 bg-[#111C30]/80 backdrop-blur-md">
-        <Loader2 className="h-5 w-5 animate-spin text-[#5F2CFF]" />
-        <span className="ml-2.5 text-sm text-slate-300">Đang kiểm tra tài khoản...</span>
-      </div>
-    );
-  }
-
-  if (isAuthenticated) {
-    return (
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full max-w-lg">
-        <Link
-          href="/dashboard"
-          className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-[#5F2CFF] px-7 py-4 text-base font-bold text-white shadow-xl shadow-[#5F2CFF]/35 transition-all duration-200 hover:bg-[#4E21D9] hover:shadow-[#5F2CFF]/50 hover:-translate-y-0.5 active:translate-y-0"
-        >
-          <LayoutDashboard className="h-5 w-5" />
-          Vào Bảng điều khiển làm việc
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-        <a
-          href="#workspace-demo"
-          className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/[0.04] px-6 py-4 text-sm font-semibold text-slate-200 backdrop-blur-md transition-all duration-200 hover:border-[#5F2CFF]/50 hover:bg-white/[0.08] hover:text-[#DFF6FF]"
-        >
-          Xem trước bảng Kanban
-        </a>
-      </div>
-    );
-  }
-
-  return (
-    <div className="w-full max-w-lg">
-      <form
-        onSubmit={handleSubmit}
-        className="group relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-2xl border border-white/15 bg-[#111C30]/90 p-2 shadow-2xl shadow-black/60 backdrop-blur-xl transition-all duration-200 focus-within:border-[#5F2CFF]/70 focus-within:ring-2 focus-within:ring-[#5F2CFF]/30"
-      >
-        <div className="relative flex flex-1 items-center pl-3">
-          <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-[#5F2CFF] transition-colors" />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Nhập email công việc của bạn..."
-            className="w-full bg-transparent px-3 py-2.5 text-sm font-medium text-white placeholder-slate-400 outline-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#5F2CFF] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#5F2CFF]/30 transition-all duration-200 hover:bg-[#4E21D9] hover:shadow-[#5F2CFF]/50 hover:scale-[1.02] active:scale-95 whitespace-nowrap"
-        >
-          <span>Bắt đầu ngay</span>
-          <ArrowRight className="h-4 w-4" />
-        </button>
-      </form>
-
-      {/* Trust micro badges */}
-      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-400">
-        <span className="flex items-center gap-1.5">
-          <span className="text-emerald-400 font-bold">✓</span> Miễn phí dùng thử
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="text-emerald-400 font-bold">✓</span> Không cần thẻ tín dụng
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="text-emerald-400 font-bold">✓</span> Thiết lập trong 2 phút
-        </span>
-      </div>
-    </div>
-  );
-}
 
 

@@ -93,7 +93,7 @@ export const useTaskAttachments = ({
   const uploadFiles = useCallback(
     (files: File[]) => {
       if (isArchived) {
-        toast.error("Archived tasks cannot receive new attachments.");
+        toast.error("Nhiệm vụ đã lưu trữ không thể nhận tệp đính kèm mới.");
         return;
       }
 
@@ -200,11 +200,11 @@ export const useTaskAttachments = ({
   const deleteAttachment = useCallback(
     async (attachment: TaskAttachment) => {
       if (isArchived) {
-        toast.error("Archived task attachments cannot be deleted.");
+        toast.error("Không thể xóa tệp đính kèm của nhiệm vụ đã lưu trữ.");
         return;
       }
       if (!canDeleteAttachment(attachment)) {
-        toast.error("Only the uploader can delete this attachment.");
+        toast.error("Chỉ người tải lên mới có thể xóa tệp đính kèm này.");
         return;
       }
 
@@ -216,9 +216,9 @@ export const useTaskAttachments = ({
           accessToken,
         });
         await queryClient.invalidateQueries({ queryKey });
-        toast.success("Attachment deleted.");
+        toast.success("Đã xóa tệp đính kèm.");
       } catch (caught) {
-        toast.error(attachmentService.getErrorMessage(caught, "Could not delete attachment."));
+        toast.error(attachmentService.getErrorMessage(caught, "Không thể xóa tệp đính kèm."));
       }
     },
     [
@@ -243,7 +243,7 @@ export const useTaskAttachments = ({
           accessToken,
         });
       } catch (caught) {
-        toast.error(attachmentService.getErrorMessage(caught, "Could not download attachment."));
+        toast.error(attachmentService.getErrorMessage(caught, "Không thể tải xuống tệp đính kèm."));
       }
     },
     [accessToken, taskId, workspaceId],

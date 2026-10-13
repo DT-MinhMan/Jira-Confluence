@@ -42,7 +42,7 @@ export const documentService = {
     const formData = new FormData();
     formData.append('file', file);
     if (payload?.name) formData.append('name', payload.name);
-    (payload?.workspaceIds ?? []).forEach((id) => formData.append('workspaceIds[]', id));
+    (payload?.workspaceIds ?? []).forEach((id) => formData.append('workspaceIds', id));
     const res = await api.post(apiRoutes.DOCUMENTS.UPLOAD, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

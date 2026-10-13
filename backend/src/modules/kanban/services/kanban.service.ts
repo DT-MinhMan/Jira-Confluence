@@ -98,7 +98,7 @@ export class KanbanService {
     workspaceId: string,
   ): Promise<BoardDocument> {
     if (!Types.ObjectId.isValid(workspaceId)) {
-      throw new BadRequestException('Invalid workspace ID format');
+      throw new BadRequestException('Định dạng ID không gian làm việc không hợp lệ');
     }
 
     const cacheKey = this.getBoardCacheKey(workspaceId);
@@ -136,7 +136,7 @@ export class KanbanService {
     workspaceId: string,
   ): Promise<BoardDocument[]> {
     if (!Types.ObjectId.isValid(workspaceId)) {
-      throw new BadRequestException('Invalid workspace ID format');
+      throw new BadRequestException('Định dạng ID không gian làm việc không hợp lệ');
     }
 
     return this.boardModel
@@ -146,12 +146,12 @@ export class KanbanService {
 
   public async findById(id: string): Promise<BoardDocument> {
     if (!Types.ObjectId.isValid(id)) {
-      throw new BadRequestException('Invalid board ID format');
+      throw new BadRequestException('Định dạng ID bảng không hợp lệ');
     }
 
     const board = await this.boardModel.findById(id).exec();
     if (!board) {
-      throw new NotFoundException(`Board with id ${id} not found`);
+      throw new NotFoundException(`Không tìm thấy bảng với id ${id}`);
     }
     return board;
   }
@@ -237,7 +237,7 @@ export class KanbanService {
 
     if (!column) {
       throw new NotFoundException(
-        `Column "${columnId}" not found in board ${boardId}`,
+        `Không tìm thấy cột "${columnId}" trong bảng ${boardId}`,
       );
     }
 
@@ -290,7 +290,7 @@ export class KanbanService {
 
     if (!column) {
       throw new NotFoundException(
-        `Column "${columnId}" not found in board ${boardId}`,
+        `Không tìm thấy cột "${columnId}" trong bảng ${boardId}`,
       );
     }
 
@@ -324,7 +324,7 @@ export class KanbanService {
 
     if (columnIndex === -1) {
       throw new NotFoundException(
-        `Column "${columnId}" not found in board ${boardId}`,
+        `Không tìm thấy cột "${columnId}" trong bảng ${boardId}`,
       );
     }
 
@@ -334,7 +334,7 @@ export class KanbanService {
       );
       if (!targetExists) {
         throw new BadRequestException(
-          `Target column "${targetColumnId}" not found in board ${boardId}`,
+          `Không tìm thấy cột đích "${targetColumnId}" trong bảng ${boardId}`,
         );
       }
     }
@@ -351,7 +351,7 @@ export class KanbanService {
 
     if (archivedTaskCount > 0) {
       throw new BadRequestException(
-        `Cannot delete this column because it still contains ${archivedTaskCount} archived task(s). Please permanently delete those tasks first.`,
+        `Không thể xóa cột này vì vẫn còn ${archivedTaskCount} nhiệm vụ đã lưu trữ. Vui lòng xóa vĩnh viễn các nhiệm vụ đó trước.`,
       );
     }
 
@@ -364,7 +364,7 @@ export class KanbanService {
 
     if (taskCount > 0 && !targetColumnId) {
       throw new BadRequestException(
-        `Column "${columnId}" has ${taskCount} task(s). Provide targetColumnId to migrate them before deleting.`,
+        `Cột "${columnId}" đang có ${taskCount} nhiệm vụ. Vui lòng chọn cột đích để chuyển nhiệm vụ trước khi xóa.`,
       );
     }
 
@@ -440,7 +440,7 @@ export class KanbanService {
 
     if (currentIndex === -1) {
       throw new NotFoundException(
-        `Column "${columnId}" not found in board ${boardId}`,
+        `Không tìm thấy cột "${columnId}" trong bảng ${boardId}`,
       );
     }
 
@@ -456,14 +456,14 @@ export class KanbanService {
         const afterIndex = columns.findIndex(c => c.id === dto.afterColumnId);
         if (afterIndex === -1) {
           throw new NotFoundException(
-            `After column "${dto.afterColumnId}" not found in board ${boardId}`,
+            `Không tìm thấy cột phía trước "${dto.afterColumnId}" trong bảng ${boardId}`,
           );
         }
         insertIndex = afterIndex + 1;
       }
     } else {
       throw new BadRequestException(
-        'Either targetIndex or afterColumnId must be provided',
+        'Cần cung cấp targetIndex hoặc afterColumnId',
       );
     }
 
@@ -527,7 +527,7 @@ export class KanbanService {
 
     if (!updated) {
       throw new ConflictException(
-        'Board was changed by another request. Refresh and retry.',
+        'Bảng đã bị thay đổi bởi yêu cầu khác. Vui lòng tải lại trang và thử lại.',
       );
     }
 

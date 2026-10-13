@@ -74,13 +74,13 @@ export const useColumnHandlers = ({
       }
       setNewColumnName(name);
       setShowCreateColumn(true);
-      toast.error(getColumnErrorMessage(err, "Could not create column."));
+      toast.error(getColumnErrorMessage(err, "Không thể tạo cột."));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: boardQueryKey });
     },
     onSuccess: () => {
-      toast.success("Column added");
+      toast.success("Đã thêm cột thành công");
     },
   });
 
@@ -104,13 +104,13 @@ export const useColumnHandlers = ({
       if (context?.previousBoard) {
         queryClient.setQueryData(boardQueryKey, context.previousBoard);
       }
-      toast.error(getColumnErrorMessage(err, "Could not rename column."));
+      toast.error(getColumnErrorMessage(err, "Không thể đổi tên cột."));
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: boardQueryKey });
     },
     onSuccess: () => {
-      toast.success("Column renamed");
+      toast.success("Đã đổi tên cột thành công");
     },
   });
 
@@ -136,13 +136,13 @@ export const useColumnHandlers = ({
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const serverMessage = (err as any)?.response?.data?.message;
-      toast.error(serverMessage || "Failed to delete column");
+      toast.error(serverMessage || "Không thể xóa cột.");
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: boardQueryKey });
     },
     onSuccess: () => {
-      toast.success("Column deleted");
+      toast.success("Đã xóa cột thành công");
     },
   });
 
@@ -158,7 +158,7 @@ export const useColumnHandlers = ({
       if (context?.previousBoard) {
         queryClient.setQueryData(boardQueryKey, context.previousBoard);
       }
-      toast.error("Error moving column: " + err.message);
+      toast.error("Lỗi khi di chuyển cột: " + err.message);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: boardQueryKey });

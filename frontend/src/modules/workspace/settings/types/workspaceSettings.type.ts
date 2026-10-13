@@ -30,10 +30,10 @@ export interface WorkspaceMember {
 }
 
 export const ROLE_LABELS: Record<string, string> = {
-  workspace_admin: "Administrator",
-  space_admin: "Administrator",
-  member: "Member",
-  viewer: "Viewer",
+  workspace_admin: "Quản trị viên",
+  space_admin: "Quản trị viên",
+  member: "Thành viên",
+  viewer: "Người xem",
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

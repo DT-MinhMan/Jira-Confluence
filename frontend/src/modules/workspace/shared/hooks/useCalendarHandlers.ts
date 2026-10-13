@@ -76,7 +76,7 @@ function getViolationForIssueDate(
 }
 
 function showBlockedMessage(message: string) {
-  toast.error(`${message} Cannot move any further.`);
+  toast.error(`${message} Không thể di chuyển thêm.`);
 }
 
 export function handleEventReceive({

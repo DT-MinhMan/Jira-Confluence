@@ -211,10 +211,10 @@ export function useWorkspaceDocs(workspaceId: string) {
           },
         });
 
-        toast.success("Document saved");
+        toast.success("Đã lưu tài liệu");
         return savedDocument;
       } catch (error) {
-        toast.error(getErrorMessage(error, "Could not save page"));
+        toast.error(getErrorMessage(error, "Không thể lưu tài liệu"));
         return null;
       }
     },
@@ -244,7 +244,7 @@ export function useWorkspaceDocs(workspaceId: string) {
         await deletePageMutation.mutateAsync(id);
       } catch (error) {
         queryClient.setQueryData(queryKeys.docs.list(workspaceId), previousDocuments);
-        toast.error(getErrorMessage(error, "Could not delete page"));
+        toast.error(getErrorMessage(error, "Không thể xóa tài liệu"));
       }
     },
     [deletePageMutation, docsQuery.data, documents, queryClient, removeDraftDocument, selectDocument, selectedDocumentId, workspaceId],
@@ -275,7 +275,7 @@ export function useWorkspaceDocs(workspaceId: string) {
         await renamePageMutation.mutateAsync({ id, title: trimmedTitle });
       } catch (error) {
         upsertServerDocument(currentDocument);
-        toast.error(getErrorMessage(error, "Could not rename page"));
+        toast.error(getErrorMessage(error, "Không thể đổi tên tài liệu"));
       }
     },
     [documents, renamePageMutation, updateDraftDocument, upsertServerDocument],
