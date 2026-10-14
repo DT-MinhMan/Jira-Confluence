@@ -117,10 +117,19 @@ export class WorkspaceRealtimeListener {
 
   @OnEvent(DOMAIN_EVENT_TYPES.WORKSPACE_MEMBER_REMOVED, { async: true })
   handleWorkspaceMemberRemoved(event: WorkspaceRealtimeDomainEvent): void {
-    this.publishWorkspaceMemberEvent(
+    this.publishWorkspaceEvent(
       REALTIME_EVENT_TYPES.WORKSPACE_MEMBER_REMOVED,
       event,
     );
+
+    const userId = (event.data as WorkspaceMemberRemovedEventData).userId;
+    if (userId) {
+      this.publishToRoom(
+        REALTIME_EVENT_TYPES.WORKSPACE_MEMBER_REMOVED,
+        event,
+        RoomBuilder.user(userId),
+      );
+    }
   }
 
   @OnEvent(DOMAIN_EVENT_TYPES.WORKSPACE_MEMBER_ROLE_UPDATED, { async: true })
@@ -159,19 +168,6 @@ export class WorkspaceRealtimeListener {
     );
   }
 
-  private publishWorkspaceMemberEvent(
-    type: RealtimeEventType,
-    event: WorkspaceRealtimeDomainEvent,
-  ): void {
-    const userId = (event.data as WorkspaceMemberRemovedEventData).userId;
-
-    if (!userId) {
-      this.publishWorkspaceEvent(type, event);
-      return;
-    }
-
-    this.publishToRoom(type, event, RoomBuilder.user(userId));
-  }
 
   private publishToRoom(
     type: RealtimeEventType,

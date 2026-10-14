@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 import { realtimeSocketClient } from '@/lib/socket/socket.client';
 import { WORKSPACE_EVENTS } from '@/lib/socket/socket.events';
@@ -134,6 +135,14 @@ export function useWorkspaceRealtime({
         queryKey: queryKeys.workspaces.members(workspaceId),
       });
 
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.invites(workspaceId),
+      });
+
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.list(),
+      });
+
       if (!isCurrentUserTarget(envelope, currentUserId)) return;
 
       clearRedirectTimer();
@@ -151,7 +160,13 @@ export function useWorkspaceRealtime({
         queryKey: queryKeys.workspaces.members(workspaceId),
       });
 
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.list(),
+      });
+
       if (!isCurrentUserTarget(envelope, currentUserId)) return;
+
+      toast.error('Bạn đã bị xóa khỏi không gian làm việc này.');
 
       updateWorkspacesCache((current) => removeWorkspace(current, workspaceId) as Workspace[]);
 

@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import api from "@/lib/axiosIns";
 import { apiRoutes } from "@/config/apiRoutes";
+import { queryKeys } from "@/shared/constants/queryKeys";
 import { inviteService, PendingInvite } from "@/modules/workspace/shared/services/inviteService";
 import {
   WorkspaceMember,
@@ -34,48 +36,41 @@ export function useWorkspaceMembers(
   canManage: boolean,
   isActiveTab: boolean,
 ): UseWorkspaceMembersReturn {
-  const [members, setMembers] = useState<WorkspaceMember[]>([]);
-  const [loadingMembers, setLoadingMembers] = useState(true);
-  const [invites, setInvites] = useState<PendingInvite[]>([]);
-  const [loadingInvites, setLoadingInvites] = useState(false);
+  const queryClient = useQueryClient();
   const [cancellingId, setCancellingId] = useState<string | null>(null);
   const [removingMemberId, setRemovingMemberId] = useState<string | null>(null);
   const [updatingMemberId, setUpdatingMemberId] = useState<string | null>(null);
   const [memberSubTab, setMemberSubTab] = useState<"list" | "invites">("list");
   const [showInviteModal, setShowInviteModal] = useState(false);
 
-  useEffect(() => {
-    if (!workspaceId) return;
+  const {
+    data: members = [],
+    isLoading: loadingMembers,
+  } = useQuery<WorkspaceMember[]>({
+    queryKey: queryKeys.workspaces.members(workspaceId),
+    queryFn: async () => {
+      const res = await api.get(apiRoutes.WORKSPACES.MEMBERS(workspaceId));
+      return res.data?.data ?? res.data ?? [];
+    },
+    enabled: !!workspaceId,
+    staleTime: 30_000,
+  });
 
-    setLoadingMembers(true);
-    api
-      .get(apiRoutes.WORKSPACES.MEMBERS(workspaceId))
-      .then((res) => setMembers(res.data?.data ?? res.data ?? []))
-      .catch(() => setMembers([]))
-      .finally(() => setLoadingMembers(false));
-  }, [workspaceId]);
-
-  useEffect(() => {
-    if (!isActiveTab || !workspaceId) return;
-    if (!canManage) {
-      setInvites([]);
-      setLoadingInvites(false);
-      return;
-    }
-
-    setLoadingInvites(true);
-    inviteService
-      .listInvites(workspaceId)
-      .then(setInvites)
-      .catch(() => setInvites([]))
-      .finally(() => setLoadingInvites(false));
-  }, [isActiveTab, canManage, workspaceId]);
+  const {
+    data: invites = [],
+    isLoading: loadingInvites,
+    refetch: refetchInvites,
+  } = useQuery<PendingInvite[]>({
+    queryKey: queryKeys.workspaces.invites(workspaceId),
+    queryFn: () => inviteService.listInvites(workspaceId),
+    enabled: !!workspaceId && canManage && isActiveTab,
+    staleTime: 30_000,
+  });
 
   const refreshInvites = async () => {
     if (!workspaceId) return;
     try {
-      const updated = await inviteService.listInvites(workspaceId);
-      setInvites(updated);
+      await refetchInvites();
     } catch {
       // silently ignore refresh failures
     }
@@ -85,7 +80,10 @@ export function useWorkspaceMembers(
     setCancellingId(inviteId);
     try {
       await inviteService.cancelInvite(workspaceId, inviteId);
-      setInvites((prev) => prev.filter((invite) => invite._id !== inviteId));
+      queryClient.setQueryData<PendingInvite[]>(
+        queryKeys.workspaces.invites(workspaceId),
+        (prev = []) => prev.filter((invite) => invite._id !== inviteId),
+      );
       toast.success("Đã hủy lời mời.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -104,8 +102,10 @@ export function useWorkspaceMembers(
       if (!workspaceId) throw new Error("Missing workspace id");
 
       await api.put(apiRoutes.WORKSPACES.UPDATE_MEMBER(workspaceId, userId), { role });
-      setMembers((prev) =>
-        prev.map((item) => (item.userId?._id === userId ? { ...item, role } : item)),
+      queryClient.setQueryData<WorkspaceMember[]>(
+        queryKeys.workspaces.members(workspaceId),
+        (prev = []) =>
+          prev.map((item) => (item.userId?._id === userId ? { ...item, role } : item)),
       );
       toast.success("Đã cập nhật quyền thành viên.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,7 +125,11 @@ export function useWorkspaceMembers(
       if (!workspaceId) throw new Error("Missing workspace id");
 
       await api.delete(apiRoutes.WORKSPACES.REMOVE_MEMBER(workspaceId, userId));
-      setMembers((prev) => prev.filter((item) => item.userId?._id !== userId));
+      queryClient.setQueryData<WorkspaceMember[]>(
+        queryKeys.workspaces.members(workspaceId),
+        (prev = []) => prev.filter((item) => item.userId?._id !== userId),
+      );
+      void queryClient.invalidateQueries({ queryKey: queryKeys.workspaces.list() });
       toast.success("Đã xóa thành viên khỏi không gian làm việc.");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -153,3 +157,4 @@ export function useWorkspaceMembers(
     handleRemoveMember,
   };
 }
+

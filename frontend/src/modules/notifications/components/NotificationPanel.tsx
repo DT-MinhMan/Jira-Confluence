@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent as R
 import { useRouter } from "next/navigation";
 import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
-import { ArrowRight, Bell, Check, FileText, Loader2, MoreHorizontal, X } from "lucide-react";
+import { ArrowRight, Bell, Check, CheckCheck, FileText, Loader2, X } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/shared/constants/queryKeys";
 import {
@@ -25,6 +25,7 @@ interface NotificationPanelProps {
 }
 
 type NotificationCategory = "DIRECT" | "WATCHING";
+type NotificationTab = "ALL" | "UNREAD" | "DIRECT";
 type InviteActionStatus = "accepted" | "declined" | "expired" | "unavailable";
 
 const INVITE_NOTIFICATION_STATE_KEY = "sdlc.inviteNotificationState";
@@ -262,12 +263,9 @@ export default function NotificationPanel({
 }: NotificationPanelProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [activeTab, setActiveTab] = useState<NotificationCategory>("DIRECT");
-  const [showUnreadOnly, setShowUnreadOnly] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [activeTab, setActiveTab] = useState<NotificationTab>("ALL");
   const [inviteActionId, setInviteActionId] = useState<string | null>(null);
 
-  const menuRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   const { data: listData, isLoading, error: queryError } = useQuery({
@@ -354,9 +352,6 @@ export default function NotificationPanel({
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       const target = event.target as Node;
-      if (menuRef.current && !menuRef.current.contains(target)) {
-        setShowMenu(false);
-      }
       if (panelRef.current && !panelRef.current.contains(target)) {
         onClose();
       }
@@ -556,7 +551,6 @@ export default function NotificationPanel({
 
   const markAllAsRead = () => {
     markAllAsReadMutation.mutate();
-    setShowMenu(false);
   };
 
   const handleAcceptInvite = async (
@@ -587,11 +581,30 @@ export default function NotificationPanel({
 
   const filteredNotifications = useMemo(() => {
     return notifications.filter((notification) => {
-      if (notification.category !== activeTab) return false;
-      if (showUnreadOnly && notification.isRead) return false;
+      if (activeTab === "UNREAD") return !notification.isRead;
+      if (activeTab === "DIRECT") return notification.category === "DIRECT";
       return true;
     });
-  }, [activeTab, notifications, showUnreadOnly]);
+  }, [activeTab, notifications]);
+
+  const emptyMessage = useMemo(() => {
+    if (activeTab === "UNREAD") {
+      return {
+        title: "Bạn đã xem hết thông báo!",
+        desc: "Không có thông báo chưa đọc nào.",
+      };
+    }
+    if (activeTab === "DIRECT") {
+      return {
+        title: "Không có thông báo trực tiếp",
+        desc: "Các thông báo gán việc hoặc nhắc đến bạn sẽ xuất hiện ở đây.",
+      };
+    }
+    return {
+      title: "Chưa có thông báo nào",
+      desc: "Tất cả các thông báo mới sẽ xuất hiện ở đây.",
+    };
+  }, [activeTab]);
 
   const groupedNotifications = useMemo(() => {
     return filteredNotifications.reduce<Record<string, NotificationViewModel[]>>((groups, notification) => {
@@ -610,61 +623,74 @@ export default function NotificationPanel({
       className="absolute right-0 top-12 w-[min(calc(100vw-32px),420px)] bg-white dark:bg-[#202020] rounded-[10px] border border-[#EAEAEA] dark:border-white/[0.06] z-50 flex flex-col max-h-[85vh]"
       style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
     >
-      <div className="px-4 pt-4 border-b border-[#EAEAEA] dark:border-white/[0.06] flex flex-col gap-3">
+      <div className="px-4 pt-3.5 border-b border-[#EAEAEA] dark:border-white/[0.06] flex flex-col gap-2.5">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Thông báo</h2>
           <div className="flex items-center gap-2">
-            <span className="text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">Chưa đọc</span>
-            <button
-              onClick={() => setShowUnreadOnly((value) => !value)}
-              className={`h-5 w-9 rounded-full relative transition-colors ${showUnreadOnly ? "bg-[#2563EB] dark:bg-[#3B82F6]" : "bg-[#EAEAEA] dark:bg-white/10"}`}
-              aria-pressed={showUnreadOnly}
-            >
-              <span className={`h-4 w-4 bg-white rounded-full absolute top-0.5 transition-transform ${showUnreadOnly ? "translate-x-4 left-0.5" : "left-0.5"}`} />
-            </button>
-            <div className="relative" ref={menuRef}>
+            <h2 className="text-[0.9375rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Thông báo</h2>
+            {unreadCount > 0 && (
+              <span className="px-1.5 py-0.5 text-[0.6875rem] font-bold rounded-full bg-[#2563EB]/10 text-[#2563EB] dark:bg-[#3B82F6]/15 dark:text-[#3B82F6]">
+                {unreadCount > 99 ? "99+" : unreadCount} mới
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1">
+            {unreadCount > 0 && (
               <button
-                onClick={() => setShowMenu((value) => !value)}
-                className="p-1.5 hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] transition-colors"
+                type="button"
+                onClick={markAllAsRead}
+                disabled={markAllAsReadMutation.isPending}
+                title="Đánh dấu tất cả là đã đọc"
+                className="px-2 py-1 text-[0.75rem] font-medium text-[#2563EB] dark:text-[#3B82F6] hover:bg-[#2563EB]/10 rounded-[6px] transition-colors flex items-center gap-1.5 disabled:opacity-50"
               >
-                <MoreHorizontal className="w-4 h-4" />
+                <CheckCheck className="w-3.5 h-3.5" />
+                <span>Đã đọc tất cả</span>
               </button>
-              {showMenu && (
-                <div
-                  className="absolute right-0 top-full mt-1 w-48 bg-white dark:bg-[#202020] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[8px] py-1 z-50"
-                  style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)" }}
-                >
-                  <button
-                    onClick={markAllAsRead}
-                    className="w-full text-left px-3 py-2 text-[0.8125rem] text-[#111111] dark:text-[#E8E8E7] hover:bg-[#F7F6F3] dark:hover:bg-white/5 flex items-center gap-2 transition-colors"
-                  >
-                    <Check className="w-3.5 h-3.5 text-[#ABABAB]" />
-                    Đánh dấu tất cả là đã đọc
-                  </button>
-                </div>
-              )}
-            </div>
+            )}
             <button
               onClick={onClose}
               className="p-1.5 hover:bg-[#F7F6F3] dark:hover:bg-white/5 rounded-[6px] text-[#ABABAB] dark:text-[#6B6B6B] transition-colors"
+              title="Đóng"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <div className="flex gap-5">
+        <div className="flex gap-4">
           <button
-            onClick={() => setActiveTab("DIRECT")}
-            className={`pb-3 text-[0.8125rem] font-semibold border-b-2 transition-colors ${activeTab === "DIRECT" ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]" : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"}`}
+            onClick={() => setActiveTab("ALL")}
+            className={`pb-2 text-[0.8125rem] font-semibold border-b-2 transition-colors ${
+              activeTab === "ALL"
+                ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]"
+                : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
+            }`}
           >
-            Trực tiếp
+            Tất cả
           </button>
           <button
-            onClick={() => setActiveTab("WATCHING")}
-            className={`pb-3 text-[0.8125rem] font-semibold border-b-2 transition-colors ${activeTab === "WATCHING" ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]" : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"}`}
+            onClick={() => setActiveTab("UNREAD")}
+            className={`pb-2 text-[0.8125rem] font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
+              activeTab === "UNREAD"
+                ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]"
+                : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
+            }`}
           >
-            Đang theo dõi
+            <span>Chưa đọc</span>
+            {unreadCount > 0 && (
+              <span className="px-1.5 py-0.2 text-[0.625rem] font-bold rounded-full bg-[#2563EB] text-white dark:bg-[#3B82F6]">
+                {unreadCount > 99 ? "99+" : unreadCount}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab("DIRECT")}
+            className={`pb-2 text-[0.8125rem] font-semibold border-b-2 transition-colors ${
+              activeTab === "DIRECT"
+                ? "border-[#2563EB] text-[#2563EB] dark:text-[#3B82F6] dark:border-[#3B82F6]"
+                : "border-transparent text-[#787774] dark:text-[#9B9A97] hover:text-[#111111] dark:hover:text-[#E8E8E7]"
+            }`}
+          >
+            Trực tiếp
           </button>
         </div>
       </div>
@@ -684,21 +710,21 @@ export default function NotificationPanel({
           </div>
         ) : filteredNotifications.length === 0 ? (
           <div className="p-12 text-center flex flex-col items-center">
-            <div className="w-14 h-14 bg-[#F7F6F3] dark:bg-[#252525] rounded-full flex items-center justify-center mb-3">
-              <Bell className="w-7 h-7 text-[#ABABAB] dark:text-[#6B6B6B]" />
+            <div className="w-12 h-12 bg-[#F7F6F3] dark:bg-[#252525] rounded-full flex items-center justify-center mb-3">
+              <Bell className="w-6 h-6 text-[#ABABAB] dark:text-[#6B6B6B]" />
             </div>
-            <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">Bạn đã xem hết thông báo!</p>
-            <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">Không có thông báo nào ở đây.</p>
+            <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">{emptyMessage.title}</p>
+            <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">{emptyMessage.desc}</p>
           </div>
         ) : (
-          <div className="p-3 space-y-5">
+          <div className="p-2.5 space-y-4">
             {groupOrder.map((group) => {
               const items = groupedNotifications[group];
               if (!items?.length) return null;
 
               return (
                 <div key={group}>
-                  <h3 className="text-[0.6875rem] font-bold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider mb-2 px-1">{group}</h3>
+                  <h3 className="text-[0.6875rem] font-bold text-[#ABABAB] dark:text-[#6B6B6B] uppercase tracking-wider mb-1.5 px-1">{group}</h3>
                   <div className="space-y-0.5">
                     {items.map((notification) => {
                       const inviteStatus = notification.inviteData?.status?.toLowerCase();
@@ -714,14 +740,25 @@ export default function NotificationPanel({
                           tabIndex={0}
                           onClick={() => handleNotificationClick(notification)}
                           onKeyDown={(event) => handleNotificationKeyDown(event, notification)}
-                          className={`w-full text-left relative p-3 rounded-[8px] transition-all group hover:bg-[#F9F9F8] dark:hover:bg-[#252525] border border-transparent hover:border-[#EAEAEA] dark:hover:border-white/8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2563EB]/40 ${!notification.isRead ? "bg-[#EFF6FF]/30 dark:bg-[rgba(37,99,235,0.06)]" : ""}`}
+                          className={`w-full text-left relative p-2.5 rounded-[8px] transition-all group hover:bg-[#F9F9F8] dark:hover:bg-[#252525] border border-transparent hover:border-[#EAEAEA] dark:hover:border-white/8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#2563EB]/40 ${!notification.isRead ? "bg-[#EFF6FF]/30 dark:bg-[rgba(37,99,235,0.06)]" : ""}`}
                         >
                           {!notification.isRead && (
-                            <span className="absolute top-3.5 right-3 w-2 h-2 bg-[#2563EB] dark:bg-[#3B82F6] rounded-full" />
+                            <button
+                              type="button"
+                              title="Đánh dấu đã đọc"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                markAsReadMutation.mutate(notification.id);
+                              }}
+                              className="absolute top-2.5 right-2 w-6 h-6 flex items-center justify-center rounded-md hover:bg-[#2563EB]/10 text-[#2563EB] dark:text-[#3B82F6] transition-colors"
+                            >
+                              <span className="block group-hover:hidden w-2 h-2 bg-[#2563EB] dark:bg-[#3B82F6] rounded-full" />
+                              <Check className="hidden group-hover:block w-3.5 h-3.5" />
+                            </button>
                           )}
 
-                          <div className="flex items-start gap-3 pr-5">
-                            <div className="w-7 h-7 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] text-white flex items-center justify-center text-[0.6875rem] font-bold flex-shrink-0 overflow-hidden">
+                          <div className="flex items-start gap-2.5 pr-6">
+                            <div className="w-7 h-7 rounded-full bg-[#2563EB] dark:bg-[#3B82F6] text-white flex items-center justify-center text-[0.6875rem] font-bold flex-shrink-0 overflow-hidden mt-0.5">
                               {notification.actor.avatar?.startsWith("http") ? (
                                 <img src={notification.actor.avatar} alt="" className="w-full h-full object-cover" />
                               ) : (
@@ -734,8 +771,8 @@ export default function NotificationPanel({
                               </p>
 
                               {notification.type === "STANDARD" && notification.target && (
-                                <div className="mt-1.5 flex items-center gap-1.5 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[4px] p-1.5 w-fit max-w-full hover:border-[#2563EB]/40 transition-colors">
-                                  <FileText className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#3B82F6] flex-shrink-0" />
+                                <div className="mt-1 flex items-center gap-1.5 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[4px] px-2 py-0.5 w-fit max-w-full hover:border-[#2563EB]/40 transition-colors">
+                                  <FileText className="w-3 h-3 text-[#2563EB] dark:text-[#3B82F6] flex-shrink-0" />
                                   <span className="text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97] truncate">
                                     {notification.target.key ? `${notification.target.key}: ` : ""}{notification.target.title}
                                   </span>
@@ -743,17 +780,17 @@ export default function NotificationPanel({
                               )}
 
                               {notification.messageSnippet && (
-                                <div className="mt-1.5 px-2.5 py-1.5 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[6px] text-[0.75rem] text-[#787774] dark:text-[#9B9A97] italic max-w-full truncate">
+                                <div className="mt-1 px-2 py-1 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[4px] text-[0.75rem] text-[#787774] dark:text-[#9B9A97] italic max-w-full truncate">
                                   {notification.messageSnippet}
                                 </div>
                               )}
 
                               {notification.statusTransition && (
-                                <div className="mt-1.5 flex w-fit items-center gap-2 text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">
+                                <div className="mt-1 flex w-fit items-center gap-1.5 text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">
                                   <span className="rounded-[4px] border border-[#EAEAEA] bg-[#F9F9F8] px-1.5 py-0.5 dark:border-white/[0.06] dark:bg-[#252525]">
                                     {notification.statusTransition.from}
                                   </span>
-                                  <ArrowRight className="h-3.5 w-3.5 text-[#ABABAB] dark:text-[#6B6B6B]" />
+                                  <ArrowRight className="h-3 w-3 text-[#ABABAB] dark:text-[#6B6B6B]" />
                                   <span className="rounded-[4px] border border-[#EAEAEA] bg-[#F9F9F8] px-1.5 py-0.5 dark:border-white/[0.06] dark:bg-[#252525]">
                                     {notification.statusTransition.to}
                                   </span>
@@ -761,44 +798,63 @@ export default function NotificationPanel({
                               )}
 
                               {notification.type === "INVITE" && notification.inviteData && (
-                                <div className="mt-2 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[6px] p-3">
-                                  <p className="text-[0.8125rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">{notification.inviteData.workspaceName}</p>
-                                  {notification.inviteData.role && (
-                                    <p className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97] mt-1">Vai trò: {notification.inviteData.role}</p>
-                                  )}
-                                  {isPendingInvite && notification.inviteData.message && (
-                                    <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-1">{notification.inviteData.message}</p>
-                                  )}
-                                  {isPendingInvite ? (
-                                    <div className="mt-3 flex items-center gap-2" onClick={(event) => event.stopPropagation()}>
+                                isPendingInvite ? (
+                                  <div className="mt-2 bg-[#F9F9F8] dark:bg-[#252525] border border-[#EAEAEA] dark:border-white/[0.06] rounded-[6px] p-2.5">
+                                    <div className="flex items-center justify-between">
+                                      <p className="text-[0.75rem] font-semibold text-[#111111] dark:text-[#E8E8E7]">{notification.inviteData.workspaceName}</p>
+                                      {notification.inviteData.role && (
+                                        <span className="text-[0.6875rem] text-[#787774] dark:text-[#9B9A97]">Vai trò: {notification.inviteData.role}</span>
+                                      )}
+                                    </div>
+                                    {notification.inviteData.message && (
+                                      <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-1">{notification.inviteData.message}</p>
+                                    )}
+                                    <div className="mt-2.5 flex items-center gap-2" onClick={(event) => event.stopPropagation()}>
                                       <button
                                         type="button"
                                         onClick={(event) => handleAcceptInvite(event, notification)}
                                         disabled={isInviteBusy || !notification.inviteData.inviteId}
-                                        className="inline-flex items-center justify-center rounded-[6px] bg-[#2563EB] px-3 py-1.5 text-[0.75rem] font-semibold text-white transition-colors hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-60"
+                                        className="inline-flex items-center justify-center rounded-[5px] bg-[#2563EB] px-2.5 py-1 text-[0.6875rem] font-semibold text-white transition-colors hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-60"
                                       >
-                                        {isAccepting ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
+                                        {isAccepting ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : null}
                                         Chấp nhận
                                       </button>
                                       <button
                                         type="button"
                                         onClick={(event) => handleDeclineInvite(event, notification)}
                                         disabled={isInviteBusy || !notification.inviteData.inviteId}
-                                        className="inline-flex items-center justify-center rounded-[6px] border border-[#EAEAEA] px-3 py-1.5 text-[0.75rem] font-semibold text-[#787774] transition-colors hover:bg-white dark:border-white/[0.08] dark:text-[#C9C9C7] dark:hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-60"
+                                        className="inline-flex items-center justify-center rounded-[5px] border border-[#EAEAEA] px-2.5 py-1 text-[0.6875rem] font-semibold text-[#787774] transition-colors hover:bg-white dark:border-white/[0.08] dark:text-[#C9C9C7] dark:hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-60"
                                       >
-                                        {isDeclining ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
+                                        {isDeclining ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : null}
                                         Từ chối
                                       </button>
                                     </div>
-                                  ) : (
-                                    <p className="mt-2 text-[0.6875rem] font-medium text-[#787774] dark:text-[#9B9A97]">
-                                      {notification.inviteData.statusMessage || (inviteStatus === "accepted" ? "Lời mời đã được chấp nhận." : inviteStatus === "declined" ? "Lời mời đã bị từ chối." : "Lời mời đã được xử lý.")}
-                                    </p>
-                                  )}
-                                </div>
+                                  </div>
+                                ) : (
+                                  <div className="mt-1 flex items-center gap-1.5 text-[0.6875rem]">
+                                    <span className="font-medium text-[#787774] dark:text-[#9B9A97]">
+                                      {notification.inviteData.workspaceName}:
+                                    </span>
+                                    <span className={`font-medium ${
+                                      inviteStatus === "accepted"
+                                        ? "text-emerald-600 dark:text-emerald-400"
+                                        : inviteStatus === "declined"
+                                          ? "text-[#ABABAB] dark:text-[#6B6B6B]"
+                                          : "text-[#787774] dark:text-[#9B9A97]"
+                                    }`}>
+                                      {notification.inviteData.statusMessage || (
+                                        inviteStatus === "accepted"
+                                          ? "Đã chấp nhận lời mời."
+                                          : inviteStatus === "declined"
+                                            ? "Đã từ chối lời mời."
+                                            : "Lời mời đã được xử lý."
+                                      )}
+                                    </span>
+                                  </div>
+                                )
                               )}
 
-                              <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-1.5">{formatTime(notification.createdAt)}</p>
+                              <p className="text-[0.6875rem] text-[#ABABAB] dark:text-[#6B6B6B] mt-1">{formatTime(notification.createdAt)}</p>
                             </div>
                           </div>
                         </div>

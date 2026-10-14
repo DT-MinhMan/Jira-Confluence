@@ -1,4 +1,7 @@
-import { WorkspaceMemberJoinedEvent } from '../../../shared/events/domain-events/workspace';
+import {
+  WorkspaceMemberJoinedEvent,
+  WorkspaceMemberRemovedEvent,
+} from '../../../shared/events/domain-events/workspace';
 import { REALTIME_EVENT_TYPES, RoomBuilder } from '../contracts';
 import { RealtimePublisher } from '../publishers/realtime.publisher';
 import { WorkspaceRealtimeListener } from './workspace-realtime.listener';
@@ -48,4 +51,39 @@ describe('WorkspaceRealtimeListener', () => {
       }),
     );
   });
+
+  it('publishes a removed member event to both workspace and member rooms', () => {
+    const event = new WorkspaceMemberRemovedEvent({
+      eventId: 'event-2',
+      workspaceId: 'workspace-1',
+      actorId: 'actor-1',
+      userId: 'member-1',
+      previousRole: 'member',
+    });
+
+    listener.handleWorkspaceMemberRemoved(event);
+
+    expect(realtimePublisher.emit).toHaveBeenCalledTimes(2);
+    expect(realtimePublisher.emit).toHaveBeenNthCalledWith(
+      1,
+      RoomBuilder.workspace('workspace-1'),
+      expect.objectContaining({
+        eventId: 'event-2',
+        type: REALTIME_EVENT_TYPES.WORKSPACE_MEMBER_REMOVED,
+        workspaceId: 'workspace-1',
+        entityId: 'member-1',
+      }),
+    );
+    expect(realtimePublisher.emit).toHaveBeenNthCalledWith(
+      2,
+      RoomBuilder.user('member-1'),
+      expect.objectContaining({
+        eventId: 'event-2',
+        type: REALTIME_EVENT_TYPES.WORKSPACE_MEMBER_REMOVED,
+        workspaceId: 'workspace-1',
+        entityId: 'member-1',
+      }),
+    );
+  });
 });
+

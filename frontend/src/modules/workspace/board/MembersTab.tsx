@@ -108,11 +108,14 @@ export default function MembersTab({
     try {
       await api.put(apiRoutes.WORKSPACES.UPDATE_MEMBER(workspaceId, userId), { role });
       queryClient.setQueryData<WorkspaceMember[]>(
-        ["members", workspaceId],
+        queryKeys.workspaces.members(workspaceId),
         (prev) => (prev ?? []).map((m) =>
           m.userId?._id === userId ? { ...m, role } : m,
         ),
       );
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.members(workspaceId),
+      });
       toast.success("Đã cập nhật quyền thành viên.");
     } catch (error) {
       toast.error(
@@ -131,9 +134,15 @@ export default function MembersTab({
     try {
       await api.delete(apiRoutes.WORKSPACES.REMOVE_MEMBER(workspaceId, userId));
       queryClient.setQueryData<WorkspaceMember[]>(
-        ["members", workspaceId],
+        queryKeys.workspaces.members(workspaceId),
         (prev) => (prev ?? []).filter((m) => m.userId?._id !== userId),
       );
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.members(workspaceId),
+      });
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.list(),
+      });
       toast.success("Đã xóa thành viên khỏi không gian làm việc.");
     } catch (error) {
       toast.error(
@@ -149,9 +158,12 @@ export default function MembersTab({
     try {
       await inviteService.cancelInvite(workspaceId, inviteId);
       queryClient.setQueryData<PendingInvite[]>(
-        ["invites", workspaceId],
+        queryKeys.workspaces.invites(workspaceId),
         (prev) => (prev ?? []).filter((i) => i._id !== inviteId),
       );
+      void queryClient.invalidateQueries({
+        queryKey: queryKeys.workspaces.invites(workspaceId),
+      });
       toast.success("Đã hủy lời mời.");
     } catch (error) {
       toast.error(

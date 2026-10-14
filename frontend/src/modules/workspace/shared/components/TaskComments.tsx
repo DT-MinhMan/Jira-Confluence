@@ -215,11 +215,11 @@ export default function TaskComments({ workspaceId, taskId, isArchived, isDelete
         authorId: currentUserId ?? "",
         author: user
           ? {
-              id: user.id,
-              fullName: user.fullName,
-              email: user.email,
-              avatar: user.avatar,
-            }
+            id: user.id,
+            fullName: user.fullName,
+            email: user.email,
+            avatar: user.avatar,
+          }
           : null,
         targetType: "task",
         targetId: taskId,
@@ -624,7 +624,7 @@ export default function TaskComments({ workspaceId, taskId, isArchived, isDelete
                       handleSubmit();
                     }
                   }}
-                  placeholder="Add a comment... (@ to mention)"
+                  placeholder="Thêm bình luận... (@ nhắc tên)"
                   className="tc-m w-full bg-transparent text-[#111111] dark:text-[#E8E8E7] text-[0.8125rem]"
                   a11ySuggestionsListLabel="Suggested mentions"
                 >

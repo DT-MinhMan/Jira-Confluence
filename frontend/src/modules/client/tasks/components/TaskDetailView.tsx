@@ -168,7 +168,7 @@ export default function TaskDetailView({
                 <textarea
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Add a comment..."
+                  placeholder="Thêm bình luận..."
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 resize-none text-sm"
                   rows={3}
                 />
@@ -247,9 +247,8 @@ export default function TaskDetailView({
                     Due Date
                   </label>
                   <span
-                    className={`text-sm ${
-                      new Date(task.dueDate) < new Date() ? "text-red-600" : "text-gray-800 dark:text-gray-200"
-                    }`}
+                    className={`text-sm ${new Date(task.dueDate) < new Date() ? "text-red-600" : "text-gray-800 dark:text-gray-200"
+                      }`}
                   >
                     {new Date(task.dueDate).toLocaleDateString("en-US")}
                   </span>

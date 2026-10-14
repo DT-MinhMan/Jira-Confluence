@@ -52,9 +52,13 @@ describe('TaskCommentService', () => {
     id: string,
     fullName: string,
     role = 'member',
-  ): { userId: { _id: Types.ObjectId; fullName: string }; role: string } {
+    email?: string,
+  ): {
+    userId: { _id: Types.ObjectId; fullName: string; email?: string };
+    role: string;
+  } {
     return {
-      userId: { _id: new Types.ObjectId(id), fullName },
+      userId: { _id: new Types.ObjectId(id), fullName, email },
       role,
     };
   }
@@ -270,6 +274,49 @@ describe('TaskCommentService', () => {
         expect.objectContaining({
           content: `Hello @${memberFullName}`,
           mentions: [new Types.ObjectId(memberId)],
+        }),
+      );
+    });
+
+    it('accepts mentioning workspace members via rich text markup [@display](id)', async () => {
+      mockSuccess();
+      mockGetMembers(
+        memberEntry(userId, 'Current User'),
+        memberEntry(memberId, '', 'member', 'skaizen@gmail.com'),
+      );
+
+      const result = await service.createForTask(
+        workspaceId,
+        taskId,
+        { content: `Check this [@skaizen@gmail.com](${memberId}) please` },
+        userId,
+      );
+
+      expect(result).toEqual(mapped);
+      expect(commentModel).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: `Check this [@skaizen@gmail.com](${memberId}) please`,
+          mentions: [new Types.ObjectId(memberId)],
+        }),
+      );
+    });
+
+    it('does not treat regular email addresses as mentions', async () => {
+      mockSuccess();
+      mockGetMembers(memberEntry(userId, 'Current User'));
+
+      const result = await service.createForTask(
+        workspaceId,
+        taskId,
+        { content: 'Please send updates to contact@gmail.com directly' },
+        userId,
+      );
+
+      expect(result).toEqual(mapped);
+      expect(commentModel).toHaveBeenCalledWith(
+        expect.objectContaining({
+          content: 'Please send updates to contact@gmail.com directly',
+          mentions: [],
         }),
       );
     });
