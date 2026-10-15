@@ -62,7 +62,7 @@ jobs:
 
       - name: Unit tests
         working-directory: backend
-        run: pnpm run test -- --passWithNoTests --forceExit
+        run: pnpm run test --passWithNoTests --forceExit
 
       - name: Build
         working-directory: backend
