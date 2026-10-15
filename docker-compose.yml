@@ -1,0 +1,79 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: taskflow-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - taskflow-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: taskflow-backend:latest
+    container_name: taskflow-backend
+    restart: always
+    ports:
+      - "5512:5512"
+    environment:
+      - PORT=5512
+      - NODE_ENV=production
+      - DB_CONNECTION_STRING=mongodb://mongo:27017/taskflow
+      - JWT_SECRET=super_secure_portfolio_jwt_secret_key_123456
+      - JWT_EXPIRES_IN=7d
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - mongo
+    volumes:
+      - backend_uploads:/app/uploads
+    networks:
+      - taskflow-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:5512
+    image: taskflow-frontend:latest
+    container_name: taskflow-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - NEXT_PUBLIC_API_URL=http://localhost:5512
+    depends_on:
+      - backend
+    networks:
+      - taskflow-network
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:5512
+        - VITE_FRONTEND_URL=http://localhost:3000
+    image: taskflow-admin:latest
+    container_name: taskflow-admin
+    restart: always
+    ports:
+      - "1786:1786"
+    depends_on:
+      - backend
+    networks:
+      - taskflow-network
+
+volumes:
+  mongo_data:
+  backend_uploads:
+
+networks:
+  taskflow-network:
+    driver: bridge

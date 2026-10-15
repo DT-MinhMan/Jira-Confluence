@@ -138,8 +138,7 @@ export class AuthSessionController {
       setAuthCookies(res, this.configService, result.tokens);
 
       const existingAccess = req.cookies?.[COOKIE_NAMES.ACCESS] as
-        | string
-        | undefined;
+        string | undefined;
       const trackingResult =
         await this.loginSessionTrackingService.trackLoginSession({
           loggedInUser: {

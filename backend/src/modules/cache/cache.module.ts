@@ -18,4 +18,3 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   exports: [NestCacheModule],
 })
 export class CacheModule {}
-

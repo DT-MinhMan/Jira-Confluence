@@ -71,7 +71,9 @@ export function clearAuthCookies(
   configService: ConfigService,
 ): void {
   const isProduction = configService.get<string>('NODE_ENV') === 'production';
-  const rawSameSite = configService.get<string>('COOKIE_SAME_SITE')?.toLowerCase();
+  const rawSameSite = configService
+    .get<string>('COOKIE_SAME_SITE')
+    ?.toLowerCase();
   const sameSite: 'strict' | 'lax' | 'none' =
     rawSameSite === 'none' || rawSameSite === 'lax' || rawSameSite === 'strict'
       ? rawSameSite

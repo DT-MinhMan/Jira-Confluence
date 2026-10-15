@@ -92,7 +92,9 @@ export class WorkspaceMemberService {
     }
 
     if (workspace.ownerId.toString() === userId) {
-      throw new ForbiddenException('Không thể xóa chủ sở hữu không gian làm việc');
+      throw new ForbiddenException(
+        'Không thể xóa chủ sở hữu không gian làm việc',
+      );
     }
 
     this.ensureNotLastAdmin(workspace, userId);

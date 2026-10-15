@@ -98,7 +98,9 @@ export class KanbanService {
     workspaceId: string,
   ): Promise<BoardDocument> {
     if (!Types.ObjectId.isValid(workspaceId)) {
-      throw new BadRequestException('Định dạng ID không gian làm việc không hợp lệ');
+      throw new BadRequestException(
+        'Định dạng ID không gian làm việc không hợp lệ',
+      );
     }
 
     const cacheKey = this.getBoardCacheKey(workspaceId);
@@ -136,7 +138,9 @@ export class KanbanService {
     workspaceId: string,
   ): Promise<BoardDocument[]> {
     if (!Types.ObjectId.isValid(workspaceId)) {
-      throw new BadRequestException('Định dạng ID không gian làm việc không hợp lệ');
+      throw new BadRequestException(
+        'Định dạng ID không gian làm việc không hợp lệ',
+      );
     }
 
     return this.boardModel

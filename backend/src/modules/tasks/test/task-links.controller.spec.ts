@@ -51,9 +51,15 @@ describe('TaskLinksController', () => {
       { id: 'page-1', title: 'Doc', slug: 'doc', updatedAt: new Date() },
     ]);
 
-    const result = await controller.linkPage('ws-1', 'task-1', { pageId: 'page-1' });
+    const result = await controller.linkPage('ws-1', 'task-1', {
+      pageId: 'page-1',
+    });
 
-    expect(mockTaskLinksService.linkPage).toHaveBeenCalledWith('ws-1', 'task-1', 'page-1');
+    expect(mockTaskLinksService.linkPage).toHaveBeenCalledWith(
+      'ws-1',
+      'task-1',
+      'page-1',
+    );
     expect(result).toHaveLength(1);
   });
 
@@ -62,18 +68,31 @@ describe('TaskLinksController', () => {
 
     const result = await controller.unlinkPage('ws-1', 'task-1', 'page-1');
 
-    expect(mockTaskLinksService.unlinkPage).toHaveBeenCalledWith('ws-1', 'task-1', 'page-1');
+    expect(mockTaskLinksService.unlinkPage).toHaveBeenCalledWith(
+      'ws-1',
+      'task-1',
+      'page-1',
+    );
     expect(result).toEqual([]);
   });
 
   it('should get linked tasks for page', async () => {
     mockTaskLinksService.getLinkedTasksForPage.mockResolvedValue([
-      { id: 't-1', key: 'AL-1', title: 'Task', status: 'done', priority: 'High', type: 'Task' },
+      {
+        id: 't-1',
+        key: 'AL-1',
+        title: 'Task',
+        status: 'done',
+        priority: 'High',
+        type: 'Task',
+      },
     ]);
 
     const result = await controller.getLinkedTasksForPage('page-1');
 
-    expect(mockTaskLinksService.getLinkedTasksForPage).toHaveBeenCalledWith('page-1');
+    expect(mockTaskLinksService.getLinkedTasksForPage).toHaveBeenCalledWith(
+      'page-1',
+    );
     expect(result).toHaveLength(1);
     expect(result[0].key).toBe('AL-1');
   });

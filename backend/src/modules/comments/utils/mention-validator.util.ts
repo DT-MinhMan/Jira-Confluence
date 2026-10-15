@@ -29,7 +29,10 @@ export function extractMentionedNames(content: string): string[] {
 
   const names: string[] = [];
   let match: RegExpExecArray | null;
-  const regex = new RegExp(PLAIN_MENTION_REGEX.source, PLAIN_MENTION_REGEX.flags);
+  const regex = new RegExp(
+    PLAIN_MENTION_REGEX.source,
+    PLAIN_MENTION_REGEX.flags,
+  );
   while ((match = regex.exec(strippedContent)) !== null) {
     const name = match[1].trim();
     if (name.length > 0) {
@@ -107,10 +110,7 @@ export async function resolveAndValidateMentions(
       nameToUserId.set(fullName, userId);
     }
 
-    const email = (userDoc.email || '')
-      .toString()
-      .toLowerCase()
-      .trim();
+    const email = (userDoc.email || '').toString().toLowerCase().trim();
     if (email) {
       nameToUserId.set(email, userId);
       const emailPrefix = email.split('@')[0];

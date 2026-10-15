@@ -56,7 +56,6 @@ export class ImagesService {
 
     let folder = 'general';
     let resolvedWorkspaceId: string | undefined = dto.workspaceId;
-    let channelType: string | undefined = undefined;
 
     if (isAvatar) {
       folder = 'avatars';

@@ -69,7 +69,9 @@ export class ErrorFactory {
   // ─── Tasks ──────────────────────────────────────────────────────────────
   static taskNotFound(id?: string): ErrorPayload {
     return {
-      message: id ? `Không tìm thấy nhiệm vụ với ID "${id}"` : 'Không tìm thấy nhiệm vụ',
+      message: id
+        ? `Không tìm thấy nhiệm vụ với ID "${id}"`
+        : 'Không tìm thấy nhiệm vụ',
       code: TASK_ERROR_CODES.TASK_NOT_FOUND,
     };
   }
@@ -91,7 +93,9 @@ export class ErrorFactory {
   // ─── Scrum / Sprint ─────────────────────────────────────────────────────
   static sprintNotFound(id?: string): ErrorPayload {
     return {
-      message: id ? `Không tìm thấy sprint với ID "${id}"` : 'Không tìm thấy sprint',
+      message: id
+        ? `Không tìm thấy sprint với ID "${id}"`
+        : 'Không tìm thấy sprint',
       code: SPRINT_ERROR_CODES.SPRINT_NOT_FOUND,
     };
   }
@@ -247,7 +251,9 @@ export class ErrorFactory {
   // ─── User ───────────────────────────────────────────────────────────────
   static userNotFound(id?: string): ErrorPayload {
     return {
-      message: id ? `Không tìm thấy người dùng với ID "${id}"` : 'Không tìm thấy người dùng',
+      message: id
+        ? `Không tìm thấy người dùng với ID "${id}"`
+        : 'Không tìm thấy người dùng',
       code: USER_ERROR_CODES.USER_NOT_FOUND,
     };
   }

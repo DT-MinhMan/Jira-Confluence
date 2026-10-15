@@ -146,7 +146,9 @@ function parseNonNegativeInteger(value: unknown, fallback: number): number {
         },
       },
       defaults: {
-        from: process.env.MAIL_FROM || `"TASK-FLOW" <${process.env.MAIL_USER ?? ''}>`,
+        from:
+          process.env.MAIL_FROM ||
+          `"TASK-FLOW" <${process.env.MAIL_USER ?? ''}>`,
       },
       template: {
         dir: join(

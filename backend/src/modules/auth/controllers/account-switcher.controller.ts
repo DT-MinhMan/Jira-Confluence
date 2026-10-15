@@ -88,8 +88,7 @@ export class AccountSwitcherController {
       undefined;
     const userAgent = req.headers['user-agent'] ?? undefined;
     const ownerRefreshToken = req.cookies?.[COOKIE_NAMES.REFRESH] as
-      | string
-      | undefined;
+      string | undefined;
 
     try {
       const result = await this.accountSwitcher.switchToAccount(

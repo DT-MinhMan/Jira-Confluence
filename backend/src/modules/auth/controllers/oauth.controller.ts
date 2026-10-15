@@ -110,8 +110,7 @@ export class OAuthController {
 
       // Hook: remember this Google account under any active session owner (populates switcher dropdown).
       const existingAccess = req.cookies?.[COOKIE_NAMES.ACCESS] as
-        | string
-        | undefined;
+        string | undefined;
       const ownerUserId =
         this.tokenService.peekUserIdFromAccessToken(existingAccess);
       if (ownerUserId && ownerUserId !== user._id.toString()) {

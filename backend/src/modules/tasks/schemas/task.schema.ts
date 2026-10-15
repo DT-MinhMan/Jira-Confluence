@@ -84,7 +84,11 @@ export class Task {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true, index: true })
   reporterId!: Types.ObjectId;
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Page' }], default: [], index: true })
+  @Prop({
+    type: [{ type: Types.ObjectId, ref: 'Page' }],
+    default: [],
+    index: true,
+  })
   linkedPageIds!: Types.ObjectId[];
 
   @Prop({ type: Number, min: 0, max: 100 })

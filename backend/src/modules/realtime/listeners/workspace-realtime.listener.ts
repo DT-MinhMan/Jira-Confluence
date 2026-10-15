@@ -168,7 +168,6 @@ export class WorkspaceRealtimeListener {
     );
   }
 
-
   private publishToRoom(
     type: RealtimeEventType,
     event: WorkspaceRealtimeDomainEvent,

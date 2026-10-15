@@ -79,7 +79,10 @@ export class TaskDetailDto {
   @ApiPropertyOptional({ type: [TaskLabelSummaryDto] })
   labels?: TaskLabelSummaryDto[];
 
-  @ApiPropertyOptional({ type: [String], description: 'Linked Confluence page IDs' })
+  @ApiPropertyOptional({
+    type: [String],
+    description: 'Linked Confluence page IDs',
+  })
   linkedPageIds?: string[];
 
   @ApiPropertyOptional({ type: TaskUserSummaryDto })

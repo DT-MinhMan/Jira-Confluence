@@ -85,8 +85,9 @@ describe('workspace sample avatars', () => {
       }),
     );
     expect(
-      WORKSPACE_SAMPLE_AVATARS.every(avatar =>
-        avatar.url.startsWith('/icons/') && avatar.url.endsWith('.png'),
+      WORKSPACE_SAMPLE_AVATARS.every(
+        avatar =>
+          avatar.url.startsWith('/icons/') && avatar.url.endsWith('.png'),
       ),
     ).toBe(true);
   });

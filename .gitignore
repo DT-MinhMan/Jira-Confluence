@@ -84,6 +84,7 @@ superpowers/
 !**/README.md
 !**/readme.md
 !**/README.MD
+!docs/CI_CD.md
 
 # Testing & Coverage
 coverage/

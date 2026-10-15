@@ -35,9 +35,8 @@ export const isWorkspaceSampleAvatar = (
   avatar?: string | null,
 ): avatar is string => Boolean(avatar && workspaceSampleAvatarUrls.has(avatar));
 
-export const isLegacyCloudinaryAvatar = (
-  avatar?: string | null,
-): boolean => Boolean(avatar && avatar.includes('cloudinary.com'));
+export const isLegacyCloudinaryAvatar = (avatar?: string | null): boolean =>
+  Boolean(avatar && avatar.includes('cloudinary.com'));
 
 export const DEFAULT_WORKSPACE_AVATAR = WORKSPACE_SAMPLE_AVATARS[0].url;
 
