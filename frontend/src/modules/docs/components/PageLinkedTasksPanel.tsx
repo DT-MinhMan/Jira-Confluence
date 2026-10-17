@@ -97,7 +97,14 @@ export default function PageLinkedTasksPanel({
   }
 
   if (tasks.length === 0) {
-    return null;
+    return (
+      <section className="py-2">
+        <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
+          <CheckSquare className="w-3.5 h-3.5" />
+          <span>Chưa có nhiệm vụ nào liên kết với tài liệu này</span>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -116,7 +123,7 @@ export default function PageLinkedTasksPanel({
         {tasks.map((task) => (
           <Link
             key={task.id}
-            href={`/workspaces/${workspaceKey}/board`}
+            href={workspaceKey ? `/workspaces/${workspaceKey}/board/key/${task.key}` : "#"}
             className="flex items-start justify-between gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-indigo-500/50 hover:shadow-sm transition-all group"
           >
             <div className="min-w-0 flex-1">

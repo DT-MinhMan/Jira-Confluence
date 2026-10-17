@@ -33,6 +33,8 @@ import CommentsSidebar from "./CommentsSidebar";
 import VersionHistorySidebar from "./VersionHistorySidebar";
 import SuggestionsSidebar from "./SuggestionsSidebar";
 import { useAuthStore } from "@/modules/auth/shared/stores/authStore";
+import PageLinkedTasksPanel from "../components/PageLinkedTasksPanel";
+import { useParams } from "next/navigation";
 
 import { extractApiError } from "@/shared/utils/apiError";
 
@@ -41,6 +43,8 @@ export type EditorMode = "read" | "edit";
 const normalizeTitle = (value: string) => value.trim().toLocaleLowerCase();
 
 export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
+  const params = useParams();
+  const workspaceKey = (Array.isArray(params?.key) ? params.key[0] : (params?.key as string)) || "";
   const { selectedDocumentId } = useDocsStore();
   const { documents, updateDocument, saveDocument } = useWorkspaceDocs(workspaceId);
   const document = documents.find((d) => d.id === selectedDocumentId);
@@ -592,6 +596,15 @@ export default function TiptapEditor({ workspaceId }: { workspaceId: string }) {
                   <CollaborativeEditor editor={editEditor} />
                 )}
               </div>
+
+              {persistedPageId && (
+                <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 print:hidden">
+                  <PageLinkedTasksPanel
+                    pageId={persistedPageId}
+                    workspaceKey={workspaceKey}
+                  />
+                </div>
+              )}
             </PageCanvas>
           }
         />
